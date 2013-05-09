@@ -11,10 +11,11 @@
 		A331D8EF173B6AF600A46C9F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A331D8ED173B6AF600A46C9F /* InfoPlist.strings */; };
 		A331D8F1173B6AF600A46C9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A331D8F0173B6AF600A46C9F /* main.m */; };
 		A331D8F5173B6AF600A46C9F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A331D8F3173B6AF600A46C9F /* Credits.rtf */; };
-		A331D8F8173B6AF600A46C9F /* SpaceJunkAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.m */; };
+		A331D8F8173B6AF600A46C9F /* SpaceJunkAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.mm */; };
 		A331D8FB173B6AF600A46C9F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A331D8F9173B6AF600A46C9F /* MainMenu.xib */; };
 		A331D903173B6B3000A46C9F /* libv8_base.x64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D901173B6B3000A46C9F /* libv8_base.x64.a */; };
 		A331D904173B6B3000A46C9F /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D902173B6B3000A46C9F /* libv8_snapshot.a */; };
+		A331D908173B6C3800A46C9F /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A331D906173B6C3800A46C9F /* engine.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,10 +30,18 @@
 		A331D8F2173B6AF600A46C9F /* SpaceJunk-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpaceJunk-Prefix.pch"; sourceTree = "<group>"; };
 		A331D8F4173B6AF600A46C9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		A331D8F6173B6AF600A46C9F /* SpaceJunkAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpaceJunkAppDelegate.h; sourceTree = "<group>"; };
-		A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpaceJunkAppDelegate.m; sourceTree = "<group>"; };
+		A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkAppDelegate.mm; sourceTree = "<group>"; };
 		A331D8FA173B6AF600A46C9F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A331D901173B6B3000A46C9F /* libv8_base.x64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_base.x64.a; path = "../../v8-build/native/libv8_base.x64.a"; sourceTree = "<group>"; };
 		A331D902173B6B3000A46C9F /* libv8_snapshot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_snapshot.a; path = "../../v8-build/native/libv8_snapshot.a"; sourceTree = "<group>"; };
+		A331D906173B6C3800A46C9F /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
+		A331D907173B6C3800A46C9F /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
+		A331D90B173B6CBA00A46C9F /* v8-debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "v8-debug.h"; sourceTree = "<group>"; };
+		A331D90C173B6CBA00A46C9F /* v8-preparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "v8-preparser.h"; sourceTree = "<group>"; };
+		A331D90D173B6CBA00A46C9F /* v8-profiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "v8-profiler.h"; sourceTree = "<group>"; };
+		A331D90E173B6CBA00A46C9F /* v8-testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "v8-testing.h"; sourceTree = "<group>"; };
+		A331D90F173B6CBA00A46C9F /* v8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v8.h; sourceTree = "<group>"; };
+		A331D910173B6CBA00A46C9F /* v8stdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v8stdint.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +97,10 @@
 		A331D8EA173B6AF600A46C9F /* SpaceJunk */ = {
 			isa = PBXGroup;
 			children = (
+				A331D90A173B6CBA00A46C9F /* include */,
+				A331D905173B6C3800A46C9F /* src */,
 				A331D8F6173B6AF600A46C9F /* SpaceJunkAppDelegate.h */,
-				A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.m */,
+				A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.mm */,
 				A331D8F9173B6AF600A46C9F /* MainMenu.xib */,
 				A331D8EB173B6AF600A46C9F /* Supporting Files */,
 			);
@@ -108,6 +119,30 @@
 				A331D8F3173B6AF600A46C9F /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A331D905173B6C3800A46C9F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A331D906173B6C3800A46C9F /* engine.cpp */,
+				A331D907173B6C3800A46C9F /* engine.h */,
+			);
+			name = src;
+			path = ../../src;
+			sourceTree = "<group>";
+		};
+		A331D90A173B6CBA00A46C9F /* include */ = {
+			isa = PBXGroup;
+			children = (
+				A331D90B173B6CBA00A46C9F /* v8-debug.h */,
+				A331D90C173B6CBA00A46C9F /* v8-preparser.h */,
+				A331D90D173B6CBA00A46C9F /* v8-profiler.h */,
+				A331D90E173B6CBA00A46C9F /* v8-testing.h */,
+				A331D90F173B6CBA00A46C9F /* v8.h */,
+				A331D910173B6CBA00A46C9F /* v8stdint.h */,
+			);
+			name = include;
+			path = ../../v8/include;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,7 +211,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A331D8F1173B6AF600A46C9F /* main.m in Sources */,
-				A331D8F8173B6AF600A46C9F /* SpaceJunkAppDelegate.m in Sources */,
+				A331D8F8173B6AF600A46C9F /* SpaceJunkAppDelegate.mm in Sources */,
+				A331D908173B6C3800A46C9F /* engine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

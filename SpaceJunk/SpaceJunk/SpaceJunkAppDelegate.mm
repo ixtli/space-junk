@@ -8,11 +8,15 @@
 
 #import "SpaceJunkAppDelegate.h"
 
+#include "engine.h"
+
 @implementation SpaceJunkAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	// Insert code here to initialize your application
+	
+	Engine::getInstance()->initialize();
 }
 
 @end
