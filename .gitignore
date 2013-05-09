@@ -1,0 +1,10 @@
+.DS_Store
+.DS_store
+*.png
+*.o
+*.a
+*.pyc
+*.jpg
+*.jpeg
+Space\ Junk/Space\ Junk.xcodeproj/project.xcworkspace/*
+Space\ Junk/Space\ Junk.xcodeproj/xcuserdata/*
