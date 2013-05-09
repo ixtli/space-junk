@@ -6,5 +6,4 @@
 *.pyc
 *.jpg
 *.jpeg
-Space\ Junk/Space\ Junk.xcodeproj/project.xcworkspace/*
-Space\ Junk/Space\ Junk.xcodeproj/xcuserdata/*
+/v8-build
