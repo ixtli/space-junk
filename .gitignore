@@ -7,3 +7,5 @@
 *.jpg
 *.jpeg
 /v8-build
+/SpaceJunk/SpaceJunk.xcodeproj/project.xcworkspace/
+/SpaceJunk/SpaceJunk.xcodeproj/xcuserdata/
