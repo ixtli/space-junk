@@ -6,10 +6,6 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-
-#import <OpenGL/gl.h>
-
-#import <Cocoa/Cocoa.h>
 #import <QuartzCore/CVDisplayLink.h>
 
 @interface SpaceJunkGLView : NSOpenGLView {

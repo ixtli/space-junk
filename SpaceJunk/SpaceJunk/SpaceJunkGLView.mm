@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#import "SpaceJunkGLRenderer.h"
 #import "SpaceJunkGLView.h"
+
+#include "renderer.h"
 
 @interface SpaceJunkGLView (PrivateMethods)
 - (void) initGL;
@@ -17,8 +18,6 @@
 @implementation SpaceJunkGLView
 
 @synthesize resized;
-
-SpaceJunkGLRenderer* m_renderer;
 
 #pragma mark -
 #pragma mark CVDisplayLink methods
@@ -94,8 +93,11 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 																 (__bridge void *)(self));
 	
 	// Set the display link for the current renderer
-	CGLContextObj cglContext = [[self openGLContext] CGLContextObj];
-	CGLPixelFormatObj cglPixelFormat = [[self pixelFormat] CGLPixelFormatObj];
+	CGLContextObj cglContext = (CGLContextObj)[[self openGLContext]
+																						 CGLContextObj];
+	
+	CGLPixelFormatObj cglPixelFormat = (CGLPixelFormatObj)[[self pixelFormat]
+																												 CGLPixelFormatObj];
 	CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(displayLink,
 																										cglContext,
 																										cglPixelFormat);
@@ -114,8 +116,7 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	
 	// Init our renderer. Use zero for the default FBO
 	// N.B.: Not appropriate for iOS
-	
-	m_renderer = [[SpaceJunkGLRenderer alloc] initWithFBOName:0];
+	Renderer::getInstance()->initialize(0);
 	
 }
 
@@ -138,13 +139,13 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	if (resized)
 	{
 		NSRect rect = [self bounds];
-		[m_renderer resizeWithWidth:rect.size.width andHeight:rect.size.height];
+		Renderer::getInstance()->resize(UISize(rect.size.width, rect.size.height));
 		resized = false;
 	}
 	
-	[m_renderer render];
+	Renderer::getInstance()->render();
 	
-	CGLFlushDrawable([[self openGLContext] CGLContextObj]);
+	CGLFlushDrawable((CGLContextObj)[[self openGLContext] CGLContextObj]);
 }
 
 - (void) dealloc
