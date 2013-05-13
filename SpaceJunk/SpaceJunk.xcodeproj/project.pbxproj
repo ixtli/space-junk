@@ -16,6 +16,10 @@
 		A331D903173B6B3000A46C9F /* libv8_base.x64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D901173B6B3000A46C9F /* libv8_base.x64.a */; };
 		A331D904173B6B3000A46C9F /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D902173B6B3000A46C9F /* libv8_snapshot.a */; };
 		A331D908173B6C3800A46C9F /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A331D906173B6C3800A46C9F /* engine.cpp */; };
+		A331D9121740A14300A46C9F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D9111740A14300A46C9F /* OpenGL.framework */; };
+		A331D9141740A14C00A46C9F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D9131740A14C00A46C9F /* QuartzCore.framework */; };
+		A331D9171740A1F300A46C9F /* SpaceJunkGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = A331D9161740A1F300A46C9F /* SpaceJunkGLView.m */; };
+		A331D91A1740A88700A46C9F /* SpaceJunkGLRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = A331D9191740A88700A46C9F /* SpaceJunkGLRenderer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,12 @@
 		A331D90E173B6CBA00A46C9F /* v8-testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "v8-testing.h"; sourceTree = "<group>"; };
 		A331D90F173B6CBA00A46C9F /* v8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v8.h; sourceTree = "<group>"; };
 		A331D910173B6CBA00A46C9F /* v8stdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v8stdint.h; sourceTree = "<group>"; };
+		A331D9111740A14300A46C9F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		A331D9131740A14C00A46C9F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A331D9151740A1F300A46C9F /* SpaceJunkGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpaceJunkGLView.h; sourceTree = "<group>"; };
+		A331D9161740A1F300A46C9F /* SpaceJunkGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpaceJunkGLView.m; sourceTree = "<group>"; };
+		A331D9181740A88700A46C9F /* SpaceJunkGLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpaceJunkGLRenderer.h; sourceTree = "<group>"; };
+		A331D9191740A88700A46C9F /* SpaceJunkGLRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpaceJunkGLRenderer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A331D9141740A14C00A46C9F /* QuartzCore.framework in Frameworks */,
+				A331D9121740A14300A46C9F /* OpenGL.framework in Frameworks */,
 				A331D903173B6B3000A46C9F /* libv8_base.x64.a in Frameworks */,
 				A331D904173B6B3000A46C9F /* libv8_snapshot.a in Frameworks */,
 				A331D8E5173B6AF600A46C9F /* Cocoa.framework in Frameworks */,
@@ -78,6 +90,8 @@
 		A331D8E3173B6AF600A46C9F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A331D9131740A14C00A46C9F /* QuartzCore.framework */,
+				A331D9111740A14300A46C9F /* OpenGL.framework */,
 				A331D8E4173B6AF600A46C9F /* Cocoa.framework */,
 				A331D8E6173B6AF600A46C9F /* Other Frameworks */,
 			);
@@ -101,6 +115,10 @@
 				A331D905173B6C3800A46C9F /* src */,
 				A331D8F6173B6AF600A46C9F /* SpaceJunkAppDelegate.h */,
 				A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.mm */,
+				A331D9151740A1F300A46C9F /* SpaceJunkGLView.h */,
+				A331D9181740A88700A46C9F /* SpaceJunkGLRenderer.h */,
+				A331D9191740A88700A46C9F /* SpaceJunkGLRenderer.m */,
+				A331D9161740A1F300A46C9F /* SpaceJunkGLView.m */,
 				A331D8F9173B6AF600A46C9F /* MainMenu.xib */,
 				A331D8EB173B6AF600A46C9F /* Supporting Files */,
 			);
@@ -213,6 +231,8 @@
 				A331D8F1173B6AF600A46C9F /* main.m in Sources */,
 				A331D8F8173B6AF600A46C9F /* SpaceJunkAppDelegate.mm in Sources */,
 				A331D908173B6C3800A46C9F /* engine.cpp in Sources */,
+				A331D9171740A1F300A46C9F /* SpaceJunkGLView.m in Sources */,
+				A331D91A1740A88700A46C9F /* SpaceJunkGLRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
