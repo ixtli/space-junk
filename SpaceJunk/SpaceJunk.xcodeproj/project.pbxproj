@@ -116,9 +116,9 @@
 				A331D8F6173B6AF600A46C9F /* SpaceJunkAppDelegate.h */,
 				A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.mm */,
 				A331D9151740A1F300A46C9F /* SpaceJunkGLView.h */,
+				A331D9161740A1F300A46C9F /* SpaceJunkGLView.m */,
 				A331D9181740A88700A46C9F /* SpaceJunkGLRenderer.h */,
 				A331D9191740A88700A46C9F /* SpaceJunkGLRenderer.m */,
-				A331D9161740A1F300A46C9F /* SpaceJunkGLView.m */,
 				A331D8F9173B6AF600A46C9F /* MainMenu.xib */,
 				A331D8EB173B6AF600A46C9F /* Supporting Files */,
 			);
