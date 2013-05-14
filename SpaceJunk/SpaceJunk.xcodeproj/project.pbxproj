@@ -21,6 +21,7 @@
 		A331D9171740A1F300A46C9F /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A331D9161740A1F300A46C9F /* SpaceJunkGLView.mm */; };
 		A3A1E1E61740B7D90070049D /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A1E1E41740B7D90070049D /* renderer.cpp */; };
 		A3A1E1E91740BA5D0070049D /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A1E1E71740BA5D0070049D /* geometry.cpp */; };
+		A3DED96F1741DEAE00AA92F7 /* buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3DED96D1741DEAE00AA92F7 /* buffer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,8 @@
 		A3A1E1E71740BA5D0070049D /* geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geometry.cpp; sourceTree = "<group>"; };
 		A3A1E1E81740BA5D0070049D /* geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geometry.h; sourceTree = "<group>"; };
 		A3A1E1EA1740BAE80070049D /* glutil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glutil.h; sourceTree = "<group>"; };
+		A3DED96D1741DEAE00AA92F7 /* buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer.cpp; sourceTree = "<group>"; };
+		A3DED96E1741DEAE00AA92F7 /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 				A3A1E1E71740BA5D0070049D /* geometry.cpp */,
 				A3A1E1E81740BA5D0070049D /* geometry.h */,
 				A3A1E1EA1740BAE80070049D /* glutil.h */,
+				A3DED96D1741DEAE00AA92F7 /* buffer.cpp */,
+				A3DED96E1741DEAE00AA92F7 /* buffer.h */,
 			);
 			name = src;
 			path = ../../src;
@@ -241,6 +246,7 @@
 				A331D9171740A1F300A46C9F /* SpaceJunkGLView.mm in Sources */,
 				A3A1E1E61740B7D90070049D /* renderer.cpp in Sources */,
 				A3A1E1E91740BA5D0070049D /* geometry.cpp in Sources */,
+				A3DED96F1741DEAE00AA92F7 /* buffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
