@@ -18,7 +18,7 @@ public:
 	inline static Renderer* getInstance() { return &_instance; };
 	
 	bool initialize(GLuint defaultFBO);
-	void resize(const UISize& newBounds);
+	void resize(const Size2D& newBounds);
 	void render();
 	
 private:
@@ -26,7 +26,7 @@ private:
 	Renderer();
 	~Renderer();
 	
-	UISize bounds;
+	Size2D bounds;
 	GLuint defaultFBOName;
 	
 	void resetGL();

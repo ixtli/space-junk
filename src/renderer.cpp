@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include <stdio.h>
-
 #include "renderer.h"
 
 Renderer Renderer::_instance;
@@ -32,7 +30,7 @@ bool Renderer::initialize(GLuint defaultFBO)
 	return true;
 }
 
-void Renderer::resize(const UISize& newBounds)
+void Renderer::resize(const Size2D& newBounds)
 {
 	bounds.width = newBounds.width;
 	bounds.height = newBounds.height;

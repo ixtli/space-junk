@@ -1,9 +1,12 @@
 //
-// Prefix header for all source files of the 'SpaceJunk' target in the 'SpaceJunk' project
+// Prefix header for all source files of the 'SpaceJunk' target
 //
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
 #endif
+
+// Require POSIX compliance, or at least an attempt at it
+#include <stdio.h>
 
 #import <OpenGL/gl.h>
