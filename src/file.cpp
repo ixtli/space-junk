@@ -62,8 +62,8 @@ bool File::init(const char* name, const char* ext)
 	_length = (size_t)fileLen;
 	rewind(current);
 	
-	// Allocate and check contents
-	_contents = new char[_length];
+	// Allocate and check contents ( +1 is for \0 )
+	_contents = new char[_length + 1];
 	if (!_contents)
 	{
 		fclose(current);

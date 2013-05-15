@@ -15,6 +15,17 @@ class Shader
 {
 public:
 	
+	static const GLuint VERT_POS_LOC = 0;       // position is always first
+	static const GLuint VERT_TEX_LOC = 1;
+	static const GLuint VERT_COL_LOC = 1;
+	
+	static const GLuint POINT_PART_RAD_LOC = 1;
+	static const GLuint POINT_PART_COL_LOC = 2;
+	static const GLuint POINT_PART_TEX_LOC = 3;
+	
+	static const GLuint TEX_PART_COL_LOC = 1;
+	static const GLuint TEX_PART_TEX_LOC = 2;
+	
 	Shader();
 	~Shader();
 	
@@ -33,6 +44,9 @@ public:
 private:
 	
 	bool compileShader(const char* src, GLenum type, GLuint &s);
+	bool link(GLuint frag, GLuint vert);
+	
+	void applyVertexFormat();
 	
 	static GLuint _currentProgram;
 	

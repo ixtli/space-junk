@@ -15,6 +15,8 @@
 #define FILENM (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
 // with help from 21st Century C by O'Reilly
+#ifdef DEBUG
+
 #define log(fmt, ...)																								\
 	Logger::getInstance()->write(Logger::LOG_INFO, LOGMETA fmt "\n",	\
 	__FUNCTION__,	FILENM, __LINE__, ##__VA_ARGS__)
@@ -22,6 +24,10 @@
 #define warn(fmt, ...)																							\
 	Logger::getInstance()->write(Logger::LOG_WARN, LOGMETA fmt "\n",	\
 	__FUNCTION__,	FILENM, __LINE__, ##__VA_ARGS__)
+
+#else
+#define log(fmt, ...) {}
+#endif
 
 #define error(fmt, ...)																							\
 	Logger::getInstance()->write(Logger::LOG_ERROR, LOGMETA fmt "\n",	\
