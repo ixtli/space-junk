@@ -31,6 +31,9 @@ public:
 	
 	bool init(const char* vsh, const char* fsh, VertexFormat f);
 	
+	GLint getAttrLocation(const char* const attrName) const;
+	GLint getUniformLocation(const char* const uniName) const;
+	
 	// This is called in the render function
 	inline void use() const
 	{

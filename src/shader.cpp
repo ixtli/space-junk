@@ -135,3 +135,13 @@ void Shader::applyVertexFormat()
 			break;
 	}
 }
+
+GLint Shader::getAttrLocation(const char *const attrName) const
+{
+	return glGetAttribLocation(_id, attrName);
+}
+
+GLint Shader::getUniformLocation(const char *const uniName) const
+{
+	return glGetUniformLocation(_id, uniName);
+}
