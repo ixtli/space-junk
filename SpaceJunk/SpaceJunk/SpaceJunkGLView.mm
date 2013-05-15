@@ -8,6 +8,7 @@
 
 #import "SpaceJunkGLView.h"
 
+#include "engine.h"
 #include "renderer.h"
 
 @interface SpaceJunkGLView (PrivateMethods)
@@ -113,6 +114,9 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	// Causes buffer swaps to sync with vertical refresh
 	GLint swapInt = 1;
 	[[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
+	
+	// Init the engine
+	Engine::getInstance()->initialize();
 	
 	// Init our renderer. Use zero for the default FBO
 	// N.B.: Not appropriate for iOS

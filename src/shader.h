@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__shader__
 #define __SpaceJunk__shader__
 
+#include "glutil.h"
+
 class Shader
 {
 public:
@@ -16,11 +18,26 @@ public:
 	Shader();
 	~Shader();
 	
-	bool init();
-	void use();
+	bool init(const char* vsh, const char* fsh, VertexFormat f);
+	
+	// This is called in the render function
+	inline void use() const
+	{
+		if (_currentProgram != _id)
+		{
+			glUseProgram(_id);
+			_currentProgram = _id;
+		}
+	}
 	
 private:
 	
+	bool compileShader(const char* src, GLenum type, GLuint &s);
+	
+	static GLuint _currentProgram;
+	
+	VertexFormat _format;
+	GLuint _id;
 	
 };
 

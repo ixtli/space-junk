@@ -7,6 +7,6 @@
 #endif
 
 // Require POSIX compliance, or at least an attempt at it
-#include <stdio.h>
+#include <string.h>
 
 #import <OpenGL/gl.h>

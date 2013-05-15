@@ -10,6 +10,10 @@
 
 #include "environment.h"
 #include "file.h"
+
+#include "shader.h"
+#include "renderer.h"
+
 #include "engine.h"
 
 using namespace v8;
@@ -45,9 +49,13 @@ bool Engine::initialize()
 	String::AsciiValue ascii(result);
 	printf("%s\n", *ascii);
 	
-	File f;
-	f.init("solidQuad", "fsh");
-	printf("%s\n", f.loaded() ? f.contents() : "error!");
+	File fsh;
+	fsh.init("solidQuad", "fsh");
+	File vsh;
+	vsh.init("solidQuad", "vsh");
+	
+	Shader s;
+	s.init(vsh.contents(), fsh.contents(), POS3F_COL4B);
 	
 	return true;
 }

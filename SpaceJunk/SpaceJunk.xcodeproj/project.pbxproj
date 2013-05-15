@@ -11,7 +11,7 @@
 		A331D8EF173B6AF600A46C9F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A331D8ED173B6AF600A46C9F /* InfoPlist.strings */; };
 		A331D8F1173B6AF600A46C9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A331D8F0173B6AF600A46C9F /* main.m */; };
 		A331D8F5173B6AF600A46C9F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A331D8F3173B6AF600A46C9F /* Credits.rtf */; };
-		A331D8F8173B6AF600A46C9F /* SpaceJunkAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.mm */; };
+		A331D8F8173B6AF600A46C9F /* SpaceJunkAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.m */; };
 		A331D8FB173B6AF600A46C9F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A331D8F9173B6AF600A46C9F /* MainMenu.xib */; };
 		A331D903173B6B3000A46C9F /* libv8_base.x64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D901173B6B3000A46C9F /* libv8_base.x64.a */; };
 		A331D904173B6B3000A46C9F /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D902173B6B3000A46C9F /* libv8_snapshot.a */; };
@@ -27,6 +27,7 @@
 		A3DED97B1741F07900AA92F7 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9771741EFE700AA92F7 /* solidQuad.vsh */; };
 		A3DED97C1741F07900AA92F7 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9791741EFF500AA92F7 /* solidQuad.fsh */; };
 		A3DED97F1741F15700AA92F7 /* environment.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3DED97D1741F15700AA92F7 /* environment.mm */; };
+		A3DED9821743394700AA92F7 /* log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3DED9801743394700AA92F7 /* log.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +42,7 @@
 		A331D8F2173B6AF600A46C9F /* SpaceJunk-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpaceJunk-Prefix.pch"; sourceTree = "<group>"; };
 		A331D8F4173B6AF600A46C9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		A331D8F6173B6AF600A46C9F /* SpaceJunkAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpaceJunkAppDelegate.h; sourceTree = "<group>"; };
-		A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkAppDelegate.mm; sourceTree = "<group>"; };
+		A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpaceJunkAppDelegate.m; sourceTree = "<group>"; };
 		A331D8FA173B6AF600A46C9F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A331D901173B6B3000A46C9F /* libv8_base.x64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_base.x64.a; path = "../../v8-build/native/libv8_base.x64.a"; sourceTree = "<group>"; };
 		A331D902173B6B3000A46C9F /* libv8_snapshot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_snapshot.a; path = "../../v8-build/native/libv8_snapshot.a"; sourceTree = "<group>"; };
@@ -68,10 +69,12 @@
 		A3DED9711741E10C00AA92F7 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
 		A3DED9731741E47E00AA92F7 /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		A3DED9741741E47F00AA92F7 /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
-		A3DED9771741EFE700AA92F7 /* solidQuad.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.vsh; path = ../../shader/solidQuad.vsh; sourceTree = "<group>"; };
+		A3DED9771741EFE700AA92F7 /* solidQuad.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.vsh; path = ../../shader/solidQuad.vsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		A3DED9791741EFF500AA92F7 /* solidQuad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.fsh; path = ../../shader/solidQuad.fsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		A3DED97D1741F15700AA92F7 /* environment.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = environment.mm; path = ../../src/environment.mm; sourceTree = "<group>"; };
 		A3DED97E1741F15700AA92F7 /* environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = environment.h; sourceTree = "<group>"; };
+		A3DED9801743394700AA92F7 /* log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = log.cpp; sourceTree = "<group>"; };
+		A3DED9811743394700AA92F7 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +138,7 @@
 				A331D90A173B6CBA00A46C9F /* include */,
 				A331D905173B6C3800A46C9F /* src */,
 				A331D8F6173B6AF600A46C9F /* SpaceJunkAppDelegate.h */,
-				A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.mm */,
+				A331D8F7173B6AF600A46C9F /* SpaceJunkAppDelegate.m */,
 				A331D9151740A1F300A46C9F /* SpaceJunkGLView.h */,
 				A331D9161740A1F300A46C9F /* SpaceJunkGLView.mm */,
 				A3DED97D1741F15700AA92F7 /* environment.mm */,
@@ -176,6 +179,8 @@
 				A3DED9731741E47E00AA92F7 /* file.cpp */,
 				A3DED9741741E47F00AA92F7 /* file.h */,
 				A3DED97E1741F15700AA92F7 /* environment.h */,
+				A3DED9801743394700AA92F7 /* log.cpp */,
+				A3DED9811743394700AA92F7 /* log.h */,
 			);
 			name = src;
 			path = ../../src;
@@ -272,7 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A331D8F1173B6AF600A46C9F /* main.m in Sources */,
-				A331D8F8173B6AF600A46C9F /* SpaceJunkAppDelegate.mm in Sources */,
+				A331D8F8173B6AF600A46C9F /* SpaceJunkAppDelegate.m in Sources */,
 				A331D908173B6C3800A46C9F /* engine.cpp in Sources */,
 				A331D9171740A1F300A46C9F /* SpaceJunkGLView.mm in Sources */,
 				A3A1E1E61740B7D90070049D /* renderer.cpp in Sources */,
@@ -281,6 +286,7 @@
 				A3DED9721741E10C00AA92F7 /* shader.cpp in Sources */,
 				A3DED9751741E47F00AA92F7 /* file.cpp in Sources */,
 				A3DED97F1741F15700AA92F7 /* environment.mm in Sources */,
+				A3DED9821743394700AA92F7 /* log.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

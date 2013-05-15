@@ -19,9 +19,9 @@ public:
 	bool init(const char* name, const char* ext);
 	
 	// Accessors
-	inline const char* contents() { return _contents; };
-	inline size_t lenght() { return _length; };
-	inline bool loaded() { return _loaded; };
+	inline const char* contents() const { return _contents; };
+	inline size_t lenght() const { return _length; };
+	inline bool loaded() const { return _loaded; };
 	
 private:
 	
