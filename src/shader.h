@@ -51,7 +51,7 @@ private:
 	static GLuint _currentProgram;
 	
 	VertexFormat _format;
-	GLuint _id;
+	GLuint _id, _vert, _frag;
 	
 };
 

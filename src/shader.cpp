@@ -11,12 +11,14 @@
 
 GLuint Shader::_currentProgram = 0;
 
-Shader::Shader()
+Shader::Shader() : _id(0), _vert(0), _frag(0)
 {}
 
 Shader::~Shader()
 {
-	
+	if (_id) glDeleteProgram(_id);
+	if (_vert) glDeleteShader(_vert);
+	if (_frag) glDeleteShader(_frag);
 }
 
 bool Shader::init(const char *vsh, const char *fsh, VertexFormat f)
@@ -24,15 +26,13 @@ bool Shader::init(const char *vsh, const char *fsh, VertexFormat f)
 	_format = f;
 	_id = glCreateProgram();
 	
-	GLuint vert, frag;
-	
-	if (!compileShader(vsh, GL_VERTEX_SHADER, vert))
+	if (!compileShader(vsh, GL_VERTEX_SHADER, _vert))
 		return false;
 	
-	if (!compileShader(fsh, GL_FRAGMENT_SHADER, frag))
+	if (!compileShader(fsh, GL_FRAGMENT_SHADER, _frag))
 		return false;
 	
-	if (!link(frag, vert))
+	if (!link(_frag, _vert))
 		return false;
 	
 	return true;
