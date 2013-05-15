@@ -21,8 +21,8 @@ Renderer::~Renderer()
 
 bool Renderer::initialize(GLuint defaultFBO)
 {
-	log("%s %s\n", glGetString(GL_RENDERER), glGetString(GL_VERSION));
-	log("GLSL v%s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	log("%s %s", glGetString(GL_RENDERER), glGetString(GL_VERSION));
+	log("GLSL v%s", glGetString(GL_SHADING_LANGUAGE_VERSION));
 	
 	// Save the default VBO
 	defaultFBOName = defaultFBO;

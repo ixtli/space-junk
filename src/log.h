@@ -9,18 +9,23 @@
 #ifndef __SpaceJunk__log__
 #define __SpaceJunk__log__
 
+#define LOGMETA "[%s(%s:%u)] "
+
+// stackoverflow.com/questions/8487986/file-macro-shows-full-path
+#define FILENM (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+
 // with help from 21st Century C by O'Reilly
-#define log(fmt, ...)																						\
-	Logger::getInstance()->write(Logger::LOG_INFO,								\
-	__FUNCTION__,	__FILE__, __LINE__, fmt, ##__VA_ARGS__)
+#define log(fmt, ...)																								\
+	Logger::getInstance()->write(Logger::LOG_INFO, LOGMETA fmt "\n",	\
+	__FUNCTION__,	FILENM, __LINE__, ##__VA_ARGS__)
 
-#define warn(fmt, ...)																					\
-	Logger::getInstance()->write(Logger::LOG_WARN,								\
-	__FUNCTION__,	__FILE__, __LINE__, fmt, ##__VA_ARGS__)
+#define warn(fmt, ...)																							\
+	Logger::getInstance()->write(Logger::LOG_WARN, LOGMETA fmt "\n",	\
+	__FUNCTION__,	FILENM, __LINE__, ##__VA_ARGS__)
 
-#define error(fmt, ...)																					\
-	Logger::getInstance()->write(Logger::LOG_ERROR,								\
-	__FUNCTION__,	__FILE__, __LINE__, fmt, ##__VA_ARGS__)
+#define error(fmt, ...)																							\
+	Logger::getInstance()->write(Logger::LOG_ERROR, LOGMETA fmt "\n",	\
+	__FUNCTION__,	FILENM, __LINE__, ##__VA_ARGS__)
 
 class Logger
 {
@@ -35,13 +40,8 @@ public:
 	
 	inline static Logger* getInstance() { return &_instance; };
 	
-	__attribute__((__format__ (__printf__, 6, 7)))
-	void write(LogLevels level,
-						 const char* function,
-						 const char* file,
-						 unsigned int line,
-						 const char* format,
-						 ...);
+	__attribute__ ((__format__ (__printf__, 3, 4)))
+	void write(LogLevels level, const char* format, ...);
 	
 private:
 	

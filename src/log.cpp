@@ -15,7 +15,7 @@ Logger Logger::_instance;
 
 Logger::Logger()
 {
-	log("Opening log.");
+	log("Opening log. %f", 0.5f);
 }
 
 Logger::~Logger()
@@ -23,21 +23,11 @@ Logger::~Logger()
 	log("Closing log.");
 }
 
-void Logger::write(LogLevels level,
-								const char * function,
-								const char * file,
-								unsigned int line,
-								const char * format,
-								...)
+void Logger::write(LogLevels level, const char* format, ...)
 {
-	// stackoverflow.com/questions/8487986/file-macro-shows-full-path
-	const char* last = strrchr(file, '/') ? strrchr(file, '/') + 1 : file;
-	
 	// 21st century c
-	printf("%s (%s:%u) ", function, last, line);
 	va_list ap;
 	va_start(ap, format);
-	vprintf(format, ap);
+	vfprintf(level == LOG_ERROR ? stderr : stdout, format, ap);
 	va_end(ap);
-	printf("\n");
 }

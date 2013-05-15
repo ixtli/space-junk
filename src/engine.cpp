@@ -11,6 +11,7 @@
 #include "environment.h"
 #include "file.h"
 
+#include "log.h"
 #include "shader.h"
 #include "renderer.h"
 
@@ -47,7 +48,7 @@ bool Engine::initialize()
 	Handle<Value> result = script->Run();
 	context.Dispose(isolate);
 	String::AsciiValue ascii(result);
-	printf("%s\n", *ascii);
+	log("%s", *ascii);
 	
 	File fsh;
 	fsh.init("solidQuad", "fsh");
