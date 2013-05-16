@@ -31,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A314ED7E1744A243004C3B61 /* version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		A331D8E1173B6AF600A46C9F /* SpaceJunk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceJunk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A331D8E4173B6AF600A46C9F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A331D8E7173B6AF600A46C9F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -181,6 +182,7 @@
 				A3DED97E1741F15700AA92F7 /* environment.h */,
 				A3DED9801743394700AA92F7 /* log.cpp */,
 				A3DED9811743394700AA92F7 /* log.h */,
+				A314ED7E1744A243004C3B61 /* version.h */,
 			);
 			name = src;
 			path = ../../src;

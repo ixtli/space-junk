@@ -17,7 +17,7 @@ public:
 	
 	inline static Renderer* getInstance() { return &_instance; };
 	
-	bool initialize(GLuint defaultFBO);
+	bool init(GLuint defaultFBO);
 	void resize(const Size2D& newBounds);
 	void render();
 	

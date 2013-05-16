@@ -9,11 +9,9 @@
 #include "v8.h"
 
 #include "environment.h"
-#include "file.h"
-
-#include "log.h"
 #include "shader.h"
 #include "renderer.h"
+#include "version.h"
 
 #include "engine.h"
 
@@ -34,8 +32,10 @@ Engine::~Engine()
 	
 }
 
-bool Engine::initialize()
+bool Engine::init()
 {
+	log("%s v%u.%u", V_DISPLAY_NAME, V_MAJOR, V_MINOR);
+	
 	// Init the environment wrapper
 	Environment::getInstance()->init();
 	
@@ -50,13 +50,8 @@ bool Engine::initialize()
 	String::AsciiValue ascii(result);
 	log("%s", *ascii);
 	
-	File fsh;
-	fsh.init("solidQuad", "fsh");
-	File vsh;
-	vsh.init("solidQuad", "vsh");
-	
 	Shader s;
-	s.init(vsh.contents(), fsh.contents(), POS3F_COL4B);
+	s.init("solidQuad", POS3F_COL4B);
 	
 	return true;
 }

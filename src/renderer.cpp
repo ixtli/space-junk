@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "log.h"
 #include "renderer.h"
 
 Renderer Renderer::_instance;
@@ -19,10 +18,11 @@ Renderer::~Renderer()
 	
 }
 
-bool Renderer::initialize(GLuint defaultFBO)
+bool Renderer::init(GLuint defaultFBO)
 {
-	log("%s %s", glGetString(GL_RENDERER), glGetString(GL_VERSION));
-	log("GLSL v%s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	log("Hardware Renderer: %s", glGetString(GL_RENDERER));
+	log("OpenGL Version: %s", glGetString(GL_VERSION));
+	log("GLSL Version: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
 	
 	// Save the default VBO
 	defaultFBOName = defaultFBO;
@@ -44,7 +44,7 @@ void Renderer::resetGL()
 {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void Renderer::render()

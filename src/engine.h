@@ -15,7 +15,7 @@ public:
 	
 	static Engine* getInstance();
 	
-	bool initialize();
+	bool init();
 	
 private:
 	

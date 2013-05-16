@@ -6,7 +6,8 @@
 	#import <Cocoa/Cocoa.h>
 #endif
 
-// Require POSIX compliance, or at least an attempt at it
-#include <string.h>
+// This includes <string.h>, which makes XCode underestand things like NULL
+// and other niceties we've all gotten so used to for some reason.
+#include "log.h"
 
 #import <OpenGL/gl.h>

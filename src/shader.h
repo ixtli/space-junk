@@ -29,7 +29,7 @@ public:
 	Shader();
 	~Shader();
 	
-	bool init(const char* vsh, const char* fsh, VertexFormat f);
+	bool init(const char* const name, VertexFormat f);
 	
 	GLint getAttrLocation(const char* const attrName) const;
 	GLint getUniformLocation(const char* const uniName) const;

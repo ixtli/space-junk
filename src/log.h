@@ -9,53 +9,41 @@
 #ifndef __SpaceJunk__log__
 #define __SpaceJunk__log__
 
+#include <string.h>
+
+#define ERRORMETA "ERROR: "
+#define WARNMETA "WARNING: "
 #define LOGMETA "[%s(%s:%u)] "
 
 // stackoverflow.com/questions/8487986/file-macro-shows-full-path
-#define FILENM (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define FILENAME (strrchr(__FILE__,'/') ? strrchr(__FILE__,'/') + 1 : __FILE__)
 
 // with help from 21st Century C by O'Reilly
 #ifdef DEBUG
 
-#define log(fmt, ...)																								\
-	Logger::getInstance()->write(Logger::LOG_INFO, LOGMETA fmt "\n",	\
-	__FUNCTION__,	FILENM, __LINE__, ##__VA_ARGS__)
+#define log(fmt, ...)																													\
+	logToLog(LOGMETA fmt "\n",																									\
+	__FUNCTION__,	FILENAME, __LINE__, ##__VA_ARGS__)
 
-#define warn(fmt, ...)																							\
-	Logger::getInstance()->write(Logger::LOG_WARN, LOGMETA fmt "\n",	\
-	__FUNCTION__,	FILENM, __LINE__, ##__VA_ARGS__)
+__attribute__ ((__format__ (__printf__, 1, 2)))
+void logToLog(const char* format, ...);
 
 #else
 #define log(fmt, ...) {}
 #endif
 
-#define error(fmt, ...)																							\
-	Logger::getInstance()->write(Logger::LOG_ERROR, LOGMETA fmt "\n",	\
-	__FUNCTION__,	FILENM, __LINE__, ##__VA_ARGS__)
+#define warn(fmt, ...)																												\
+	warnToLog(WARNMETA LOGMETA fmt "\n",																				\
+	__FUNCTION__,	FILENAME, __LINE__, ##__VA_ARGS__)
 
-class Logger
-{
-public:
-	
-	typedef enum
-	{
-		LOG_ERROR,
-		LOG_WARN,
-		LOG_INFO
-	} LogLevels;
-	
-	inline static Logger* getInstance() { return &_instance; };
-	
-	__attribute__ ((__format__ (__printf__, 3, 4)))
-	void write(LogLevels level, const char* format, ...);
-	
-private:
-	
-	Logger();
-	~Logger();
-	
-	static Logger _instance;
-	
-};
+__attribute__ ((__format__ (__printf__, 1, 2)))
+void warnToLog(const char* format, ...);
+
+#define error(fmt, ...)																												\
+	errorToLog(ERRORMETA LOGMETA fmt "\n",																			\
+	__FUNCTION__,	FILENAME, __LINE__, ##__VA_ARGS__)
+
+__attribute__ ((__format__ (__printf__, 1, 2)))
+void errorToLog(const char* format, ...);
 
 #endif /* defined(__SpaceJunk__log__) */

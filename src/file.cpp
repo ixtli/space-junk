@@ -62,13 +62,16 @@ bool File::init(const char* name, const char* ext)
 	_length = (size_t)fileLen;
 	rewind(current);
 	
-	// Allocate and check contents ( +1 is for \0 )
+	// Allocate and check contents ( +1 is for '\0', added later )
 	_contents = new char[_length + 1];
 	if (!_contents)
 	{
 		fclose(current);
 		return false;
 	}
+	
+	// For safety!
+	_contents[_length] = '\0';
 	
 	// attempt read then immediately close the file
 	size_t len = fread(_contents, 1, _length, current);

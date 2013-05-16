@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include <sys/utsname.h>
+
 #include "environment.h"
 
 Environment Environment::_instance;
@@ -20,6 +22,17 @@ Environment::~Environment()
 
 bool Environment::init()
 {
+	utsname name;
+	
+	if (uname(&name))
+	{
+		log("Error calling the uname() functino.");
+		return false;
+	}
+	
+	log("%s v%s %s @%s", name.sysname, name.release, name.machine, name.nodename);
+	log("%s", name.version);
+	
 	return true;
 }
 
@@ -40,3 +53,4 @@ char* Environment::newPathForFile(const char *name, const char *type)
 	strcpy(ret, [p cStringUsingEncoding:NSASCIIStringEncoding]);
 	return ret;
 }
+

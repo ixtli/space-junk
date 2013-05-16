@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "log.h"
+#include "file.h"
 #include "shader.h"
 
 GLuint Shader::_currentProgram = 0;
@@ -21,15 +21,21 @@ Shader::~Shader()
 	if (_frag) glDeleteShader(_frag);
 }
 
-bool Shader::init(const char *vsh, const char *fsh, VertexFormat f)
+bool Shader::init(const char* const name, VertexFormat f)
 {
+	File vsh, fsh;
+	
 	_format = f;
 	_id = glCreateProgram();
 	
-	if (!compileShader(vsh, GL_VERTEX_SHADER, _vert))
+	// Load the vertex shader and compile it
+	vsh.init(name, "vsh");
+	if (!compileShader(vsh.contents(), GL_VERTEX_SHADER, _vert))
 		return false;
 	
-	if (!compileShader(fsh, GL_FRAGMENT_SHADER, _frag))
+	// Load the frag shader and compile it
+	fsh.init(name, "fsh");
+	if (!compileShader(fsh.contents(), GL_FRAGMENT_SHADER, _frag))
 		return false;
 	
 	if (!link(_frag, _vert))
