@@ -78,4 +78,15 @@ typedef enum
 	NUM_FORMATS,
 } VertexFormat;
 
+typedef struct
+{
+	GLfloat x, y, z;
+	GLubyte r, g, b, a;
+} ColorVertex;
+
+typedef struct
+{
+	GLfloat x, y, z, s, t;
+} TextureVertex;
+
 #endif

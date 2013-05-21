@@ -25,6 +25,7 @@
 	logToLog(LOGMETA fmt "\n",																									\
 	__FUNCTION__,	FILENAME, __LINE__, ##__VA_ARGS__)
 
+
 __attribute__ ((__format__ (__printf__, 1, 2)))
 void logToLog(const char* format, ...);
 
