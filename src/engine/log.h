@@ -6,6 +6,10 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef __SpaceJunk__log__
 #define __SpaceJunk__log__
 
@@ -24,7 +28,6 @@
 #define log(fmt, ...)																													\
 	logToLog(LOGMETA fmt "\n",																									\
 	__FUNCTION__,	FILENAME, __LINE__, ##__VA_ARGS__)
-
 
 __attribute__ ((__format__ (__printf__, 1, 2)))
 void logToLog(const char* format, ...);
@@ -48,3 +51,8 @@ __attribute__ ((__format__ (__printf__, 1, 2)))
 void errorToLog(const char* format, ...);
 
 #endif /* defined(__SpaceJunk__log__) */
+
+#ifdef __cplusplus
+}
+#endif
+
