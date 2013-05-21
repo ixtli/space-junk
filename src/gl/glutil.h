@@ -69,6 +69,8 @@ static inline const char * GetGLErrorString(GLenum error)
 
 #endif
 
+
+
 typedef enum
 {
 	POS3F_TEX2F,
@@ -77,16 +79,5 @@ typedef enum
 	TEXTURED_PARTICLE,
 	NUM_FORMATS,
 } VertexFormat;
-
-typedef struct
-{
-	GLfloat x, y, z;
-	GLubyte r, g, b, a;
-} ColorVertex;
-
-typedef struct
-{
-	GLfloat x, y, z, s, t;
-} TextureVertex;
 
 #endif

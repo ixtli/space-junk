@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include "triangleBuffer.h"
+
 #include "renderer.h"
 
 Renderer Renderer::_instance;
@@ -20,9 +22,16 @@ Renderer::~Renderer()
 
 bool Renderer::init(GLuint defaultFBO)
 {
+	// Emit some basic data about the environment
 	log("Hardware Renderer: %s", glGetString(GL_RENDERER));
 	log("OpenGL Version: %s", glGetString(GL_VERSION));
 	log("GLSL Version: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	
+	// Warn if verts aren't going to be well-packed
+//	if (sizeof(VertexBuffer::TextureVertex) % 4)
+//	{
+//		warn("TextureVertex wont align on 4-byte boundries!");
+//	}
 	
 	// Save the default VBO
 	defaultFBOName = defaultFBO;

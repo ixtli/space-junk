@@ -9,14 +9,14 @@
 #ifndef __SpaceJunk__geometry__
 #define __SpaceJunk__geometry__
 
-struct Point2D
+struct Point2Di
 {
-	Point2D() : top(0), left(0) {};
-	Point2D(GLuint _top, GLuint _left) : top(_top), left(_left) {};
-	Point2D(const Point2D& p) : top(p.top), left(p.left) {};
+	Point2Di() : y(0), x(0) {};
+	Point2Di(GLuint _y, GLuint _x) : y(_y), x(_x) {};
+	Point2Di(const Point2Di& p) : y(p.y), x(p.x) {};
 	
-	GLuint top;
-	GLuint left;
+	GLuint y;
+	GLuint x;
 };
 
 struct Size2D
@@ -29,17 +29,39 @@ struct Size2D
 	GLuint height;
 };
 
-struct Rect2D
+struct Rect2Di
 {
-	Rect2D() : Size2D(), position() {};
-	Rect2D(GLuint _width, GLuint _height) : Size2D(_width, _height), position() {};
-	Rect2D(GLuint _top, GLuint _left, GLuint _width, GLuint _height) :
-		Size2D(_width, _height), position(_top, _left) {};
-	Rect2D(const Size2D& s, const Point2D& p) : Size2D(s), position(p) {};
-	Rect2D(const Rect2D& r) : Size2D(r.Size2D), position(r.position) {};
+	Rect2Di() : Size2D(), position() {};
+	Rect2Di(GLuint _width, GLuint _height) : Size2D(_width, _height), position() {};
+	Rect2Di(GLuint _y, GLuint _x, GLuint _width, GLuint _height) :
+		Size2D(_width, _height), position(_y, _x) {};
+	Rect2Di(const Size2D& s, const Point2Di& p) : Size2D(s), position(p) {};
+	Rect2Di(const Rect2Di& r) : Size2D(r.Size2D), position(r.position) {};
 	
 	Size2D Size2D;
-	Point2D position;
+	Point2Di position;
+};
+
+struct Point2Df
+{
+	Point2Df() : y(0), x(0) {};
+	Point2Df(GLfloat _y, GLfloat _x) : y(_y), x(_x) {};
+	Point2Df(const Point2Di& p) : y(p.y), x(p.x) {};
+	
+	union { GLfloat x; GLfloat s; };
+	union { GLfloat y; GLfloat t; };
+};
+
+struct Point3Df
+{
+	Point3Df() : y(0.0f), x(0.0f), z(0.0f) {};
+	Point3Df(GLfloat _y, GLfloat _x, GLfloat _z) : y(_y), x(_x), z(_z) {};
+	Point3Df(GLfloat _y, GLfloat _x) : y(_y), x(_x), z(0.0f) {};
+	Point3Df(const Point3Df& p) : y(p.y), x(p.x), z(p.z) {};
+	
+	GLfloat y;
+	GLfloat x;
+	GLfloat z;
 };
 
 #endif /* defined(__SpaceJunk__geometry__) */

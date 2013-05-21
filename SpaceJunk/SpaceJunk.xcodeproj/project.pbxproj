@@ -14,7 +14,7 @@
 		A314ED9A1744AACB004C3B61 /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A314ED8E1744AACB004C3B61 /* geometry.cpp */; };
 		A314ED9B1744AACB004C3B61 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A314ED911744AACB004C3B61 /* renderer.cpp */; };
 		A314ED9C1744AACB004C3B61 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A314ED931744AACB004C3B61 /* shader.cpp */; };
-		A314ED9F174AFC05004C3B61 /* vertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A314ED9D174AFC05004C3B61 /* vertexBuffer.cpp */; };
+		A314EDA9174B4468004C3B61 /* triangleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A314EDA7174B4467004C3B61 /* triangleBuffer.cpp */; };
 		A331D8E5173B6AF600A46C9F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D8E4173B6AF600A46C9F /* Cocoa.framework */; };
 		A331D8EF173B6AF600A46C9F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A331D8ED173B6AF600A46C9F /* InfoPlist.strings */; };
 		A331D8F1173B6AF600A46C9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A331D8F0173B6AF600A46C9F /* main.m */; };
@@ -47,8 +47,9 @@
 		A314ED921744AACB004C3B61 /* renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderer.h; sourceTree = "<group>"; };
 		A314ED931744AACB004C3B61 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		A314ED941744AACB004C3B61 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
-		A314ED9D174AFC05004C3B61 /* vertexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexBuffer.cpp; sourceTree = "<group>"; };
-		A314ED9E174AFC05004C3B61 /* vertexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vertexBuffer.h; sourceTree = "<group>"; };
+		A314EDA3174B2713004C3B61 /* vertexFormats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vertexFormats.h; sourceTree = "<group>"; };
+		A314EDA7174B4467004C3B61 /* triangleBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangleBuffer.cpp; sourceTree = "<group>"; };
+		A314EDA8174B4468004C3B61 /* triangleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangleBuffer.h; sourceTree = "<group>"; };
 		A331D8E1173B6AF600A46C9F /* SpaceJunk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceJunk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A331D8E4173B6AF600A46C9F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A331D8E7173B6AF600A46C9F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -138,8 +139,9 @@
 				A314ED921744AACB004C3B61 /* renderer.h */,
 				A314ED931744AACB004C3B61 /* shader.cpp */,
 				A314ED941744AACB004C3B61 /* shader.h */,
-				A314ED9D174AFC05004C3B61 /* vertexBuffer.cpp */,
-				A314ED9E174AFC05004C3B61 /* vertexBuffer.h */,
+				A314EDA3174B2713004C3B61 /* vertexFormats.h */,
+				A314EDA7174B4467004C3B61 /* triangleBuffer.cpp */,
+				A314EDA8174B4468004C3B61 /* triangleBuffer.h */,
 			);
 			path = gl;
 			sourceTree = "<group>";
@@ -312,7 +314,7 @@
 				A314ED9A1744AACB004C3B61 /* geometry.cpp in Sources */,
 				A314ED9B1744AACB004C3B61 /* renderer.cpp in Sources */,
 				A314ED9C1744AACB004C3B61 /* shader.cpp in Sources */,
-				A314ED9F174AFC05004C3B61 /* vertexBuffer.cpp in Sources */,
+				A314EDA9174B4468004C3B61 /* triangleBuffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
