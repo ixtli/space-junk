@@ -59,7 +59,7 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 	
 	// Calculate total vertex size from count and vertex attrs
 	for (GLuint i = 0; i < config.attrCount; i++)
-		_vertexSize += config.attributes[i]->stride;
+		_vertexSize += config.attributes[i]->byteCount;
 	
 	// Create the VAO
 	glGenVertexArrays(1, &_vaoID);
@@ -89,8 +89,6 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 	{
 		glEnableVertexAttribArray(i);
 		
-		GetGLError();
-		
 		glVertexAttribPointer(i,
 													config.attributes[i]->size,
 													config.attributes[i]->type,
@@ -98,15 +96,12 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 													_vertexSize,
 													(const void*)offset);
 		
-		GetGLError();
-		
-		offset += config.attributes[i]->stride;
+		offset += config.attributes[i]->byteCount;
 	}
 	
-	Renderer::clearBindings();
+	GetGLError();
 	
-	log("Created VAO %i (vert: %i, index: %i)",
-			_vaoID, _vertexBufferID, _indexBufferID);
+	Renderer::clearBindings();
 	
 	return true;
 }

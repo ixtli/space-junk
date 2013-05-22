@@ -35,7 +35,7 @@ typedef struct
 	GLint size;								// how many vars in the attr
 	GLenum type;							// type of vars in the attr
 	GLboolean normalize;			// normilze these data?
-	GLsizei stride;						// the size of the vertex attribute (in bytes)
+	GLsizei byteCount;				// the size of the vertex attribute (in bytes)
 	const char* const name;		// shader variable name
 } VertexAttribute;
 
@@ -57,7 +57,7 @@ const static VertexAttribute vertexAttributeDefinitions[NUM_VERTEX_ATTRIBUTES] =
 		.type = GL_FLOAT,
 		.normalize = GL_FALSE,
 		.name = "v_pos",
-		.stride = sizeof(Point3Df)
+		.byteCount = sizeof(Point3Df)
 	},
 	
 	// TEXTURED_ATTRIB
@@ -66,7 +66,7 @@ const static VertexAttribute vertexAttributeDefinitions[NUM_VERTEX_ATTRIBUTES] =
 		.type = GL_FLOAT,
 		.normalize = GL_FALSE,
 		.name = "v_texCoord",
-		.stride = sizeof(Point2Df)
+		.byteCount = sizeof(Point2Df)
 	},
 	
 	// COLORED_ATTRIB
@@ -75,7 +75,7 @@ const static VertexAttribute vertexAttributeDefinitions[NUM_VERTEX_ATTRIBUTES] =
 		.type = GL_UNSIGNED_BYTE,
 		.normalize = GL_TRUE,
 		.name = "v_color",
-		.stride = sizeof(Color4u)
+		.byteCount = sizeof(Color4u)
 	}
 };
 
