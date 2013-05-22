@@ -9,7 +9,6 @@
 #include "v8.h"
 
 #include "environment.h"
-#include "shader.h"
 #include "renderer.h"
 #include "version.h"
 
@@ -49,9 +48,6 @@ bool Engine::init()
 	context.Dispose(isolate);
 	String::AsciiValue ascii(result);
 	log("%s", *ascii);
-	
-	Shader s;
-	s.init("solidQuad", POS3F_COL4B);
 	
 	return true;
 }

@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include "glutil.h"
+
 #include "file.h"
 #include "shader.h"
 
@@ -21,11 +23,12 @@ Shader::~Shader()
 	if (_frag) glDeleteShader(_frag);
 }
 
-bool Shader::init(const char* const name, VertexFormat f)
+bool Shader::init(const char* const name,
+									const VertexAttribute** attrs,
+									GLuint cnt)
 {
 	File vsh, fsh;
 	
-	_format = f;
 	_id = glCreateProgram();
 	
 	// Load the vertex shader and compile it
@@ -40,6 +43,8 @@ bool Shader::init(const char* const name, VertexFormat f)
 	
 	if (!link(_frag, _vert))
 		return false;
+	
+	log("Successfully created shader %s at ID %i", name, _id);
 	
 	return true;
 }
@@ -77,16 +82,15 @@ bool Shader::compileShader(const char *src, GLenum type, GLuint &s)
 		return false;
 	}
 	
+	// Attach, since it's good
+	glAttachShader(_id, s);
+	GetGLError();
+	
 	return true;
 }
 
 bool Shader::link(GLuint frag, GLuint vert)
 {
-	
-	glAttachShader(_id, frag);
-	glAttachShader(_id, vert);
-	
-	applyVertexFormat();
 	
 	glLinkProgram(_id);
 	
@@ -112,34 +116,15 @@ bool Shader::link(GLuint frag, GLuint vert)
 	return true;
 }
 
-void Shader::applyVertexFormat()
+bool Shader::applyVertexFormat(const VertexAttribute **attrs, GLuint count)
 {
-	glBindAttribLocation(_id, VERT_POS_LOC, "v_pos");
-	
-	switch (_format)
+	for (GLuint i = 0; i < count; i++)
 	{
-		case POS3F_COL4B:
-			glBindAttribLocation(_id, VERT_TEX_LOC, "v_color");
-			break;
-			
-		case POS3F_TEX2F:
-			glBindAttribLocation(_id, VERT_COL_LOC, "v_texCoord");
-			break;
-			
-		case PARTICLE:
-			glBindAttribLocation(_id, POINT_PART_RAD_LOC, "v_radius");
-			glBindAttribLocation(_id, POINT_PART_COL_LOC, "v_color");
-			break;
-			
-		case TEXTURED_PARTICLE:
-			glBindAttribLocation(_id, TEX_PART_COL_LOC, "v_color");
-			glBindAttribLocation(_id, TEX_PART_TEX_LOC, "v_tex");
-			break;
-			
-		default:
-			warn("Unknown vertex format %u", _format);
-			break;
+		glBindAttribLocation(_id, i, attrs[i]->name);
+		GetGLError();
 	}
+	
+	return true;
 }
 
 GLint Shader::getAttrLocation(const char *const attrName) const

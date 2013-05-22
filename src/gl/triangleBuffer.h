@@ -18,14 +18,41 @@ public:
 	TriangleBuffer();
 	~TriangleBuffer();
 	
-	bool init(bool dynamic, GLuint attrCount, const VertexAttribute** attrs);
+	typedef struct
+	{
+		bool dynamic;
+		
+		GLuint vertexCount;
+		const GLvoid* verticies;
+		GLuint indexCount;
+		const GLushort* indicies;
+		unsigned attrCount;
+		const VertexAttribute** attributes;
+		
+	} TriBufferConfig;
+	
+	bool init(const TriBufferConfig &config);
+	
+	inline GLuint vao() const
+	{
+		return _vaoID;
+	}
 	
 private:
 	
-	GLuint _attrCount;
-	const VertexAttribute** _vertexAttrs;
+	// Helper functions that you must clean up after
+	void arrayBufferData(const GLvoid* data);
+	void elementBufferData(const GLushort* data);
+	
+	GLsizei _vertexSize;
+	GLuint _indexCount;
 	GLuint _vertexCount;
 	bool _dynamic;
+	
+	// GL Handles
+	GLuint _vaoID;
+	GLuint _vertexBufferID;
+	GLuint _indexBufferID;
 	
 };
 

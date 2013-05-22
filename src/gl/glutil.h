@@ -9,6 +9,11 @@
 #ifndef SpaceJunk_glutil_h
 #define SpaceJunk_glutil_h
 
+#pragma mark Matrix types
+typedef float matrix4f[16];
+typedef float matrix3f[9];
+typedef float matrix2f[4];
+
 #ifdef DEBUG
 
 #define GetGLError()                                        \
@@ -69,15 +74,7 @@ static inline const char * GetGLErrorString(GLenum error)
 
 #endif
 
-
-
-typedef enum
-{
-	POS3F_TEX2F,
-	POS3F_COL4B,
-	PARTICLE,
-	TEXTURED_PARTICLE,
-	NUM_FORMATS,
-} VertexFormat;
+void loadOrtho(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
+               GLfloat near, GLfloat far, matrix4f mOut);
 
 #endif

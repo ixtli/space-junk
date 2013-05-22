@@ -11,12 +11,11 @@
 
 struct Point2Di
 {
-	Point2Di() : y(0), x(0) {};
-	Point2Di(GLuint _y, GLuint _x) : y(_y), x(_x) {};
+	Point2Di() : x(0), y(0) {};
+	Point2Di(GLuint _x, GLuint _y) : y(_y), x(_x) {};
 	Point2Di(const Point2Di& p) : y(p.y), x(p.x) {};
 	
-	GLuint y;
-	GLuint x;
+	GLuint x, y;
 };
 
 struct Size2D
@@ -44,8 +43,8 @@ struct Rect2Di
 
 struct Point2Df
 {
-	Point2Df() : y(0), x(0) {};
-	Point2Df(GLfloat _y, GLfloat _x) : y(_y), x(_x) {};
+	Point2Df() : x(0), y(0) {};
+	Point2Df(GLfloat _x, GLfloat _y) : y(_y), x(_x) {};
 	Point2Df(const Point2Di& p) : y(p.y), x(p.x) {};
 	
 	union { GLfloat x; GLfloat s; };
@@ -55,13 +54,11 @@ struct Point2Df
 struct Point3Df
 {
 	Point3Df() : y(0.0f), x(0.0f), z(0.0f) {};
-	Point3Df(GLfloat _y, GLfloat _x, GLfloat _z) : y(_y), x(_x), z(_z) {};
-	Point3Df(GLfloat _y, GLfloat _x) : y(_y), x(_x), z(0.0f) {};
+	Point3Df(GLfloat _x, GLfloat _y, GLfloat _z) : y(_y), x(_x), z(_z) {};
+	Point3Df(GLfloat _x, GLfloat _y) : y(_y), x(_x), z(0.0f) {};
 	Point3Df(const Point3Df& p) : y(p.y), x(p.x), z(p.z) {};
 	
-	GLfloat y;
-	GLfloat x;
-	GLfloat z;
+	GLfloat x, y, z;
 };
 
 #endif /* defined(__SpaceJunk__geometry__) */

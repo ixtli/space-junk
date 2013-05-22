@@ -9,7 +9,12 @@
 #ifndef __SpaceJunk__renderer__
 #define __SpaceJunk__renderer__
 
+#include "glutil.h"
+
 #include "geometry.h"
+
+class Shader;
+class TriangleBuffer;
 
 class Renderer
 {
@@ -21,17 +26,42 @@ public:
 	void resize(const Size2D& newBounds);
 	void render();
 	
+#pragma mark -
+#pragma mark OpenGL Context state manipulation functions
+	
+	static inline void bindVAO(GLuint vao)
+	{
+		if (vao == _currentVAO) return;
+		
+		glBindVertexArray(vao);
+		_currentVAO = vao;
+	}
+	
+	static inline void clearBindings()
+	{
+		bindVAO(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+	
 private:
 	
 	Renderer();
 	~Renderer();
 	
-	Size2D bounds;
-	GLuint defaultFBOName;
+	Size2D _bounds;
+	matrix4f _projectionMatrix;
+	GLuint _defaultFBOName;
+	
+	TriangleBuffer* _buffer;
+	Shader* _solidQuad;
 	
 	void resetGL();
 	
 	static Renderer _instance;
+	
+	// Currently bound GL handles, to avoid too many calls to the GFX card
+	static GLuint _currentVAO;
 	
 };
 

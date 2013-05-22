@@ -9,7 +9,7 @@
 #ifndef __SpaceJunk__shader__
 #define __SpaceJunk__shader__
 
-#include "glutil.h"
+#include "vertexFormats.h"
 
 class Shader
 {
@@ -29,7 +29,7 @@ public:
 	Shader();
 	~Shader();
 	
-	bool init(const char* const name, VertexFormat f);
+	bool init(const char* const name, const VertexAttribute** attrs, GLuint cnt);
 	
 	GLint getAttrLocation(const char* const attrName) const;
 	GLint getUniformLocation(const char* const uniName) const;
@@ -48,14 +48,11 @@ private:
 	
 	bool compileShader(const char* src, GLenum type, GLuint &s);
 	bool link(GLuint frag, GLuint vert);
-	
-	void applyVertexFormat();
-	
+	bool applyVertexFormat(const VertexAttribute** attrs, GLuint count);
+						
 	static GLuint _currentProgram;
-	
-	VertexFormat _format;
+
 	GLuint _id, _vert, _frag;
-	
 };
 
 #endif /* defined(__SpaceJunk__shader__) */

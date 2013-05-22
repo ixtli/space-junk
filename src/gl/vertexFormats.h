@@ -11,10 +11,12 @@
 
 #include "geometry.h"
 
-typedef struct
+struct Color4u
 {
+	Color4u(GLubyte _r, GLubyte _g, GLubyte _b, GLubyte _a) :
+		r(_r), g(_g), b(_b), a(_a) {};
 	GLubyte r, g, b, a;
-} Color4u;
+};
 
 typedef struct
 {
@@ -33,6 +35,7 @@ typedef struct
 	GLint size;								// how many vars in the attr
 	GLenum type;							// type of vars in the attr
 	GLboolean normalize;			// normilze these data?
+	GLsizei stride;						// the size of the vertex attribute (in bytes)
 	const char* const name;		// shader variable name
 } VertexAttribute;
 
@@ -53,7 +56,8 @@ const static VertexAttribute vertexAttributeDefinitions[NUM_VERTEX_ATTRIBUTES] =
 		.size = 3,	// x, y, z
 		.type = GL_FLOAT,
 		.normalize = GL_FALSE,
-		.name = "v_pos"
+		.name = "v_pos",
+		.stride = sizeof(Point3Df)
 	},
 	
 	// TEXTURED_ATTRIB
@@ -61,7 +65,8 @@ const static VertexAttribute vertexAttributeDefinitions[NUM_VERTEX_ATTRIBUTES] =
 		.size = 2,	// s, t
 		.type = GL_FLOAT,
 		.normalize = GL_FALSE,
-		.name = "v_texCoord"
+		.name = "v_texCoord",
+		.stride = sizeof(Point2Df)
 	},
 	
 	// COLORED_ATTRIB
@@ -69,7 +74,8 @@ const static VertexAttribute vertexAttributeDefinitions[NUM_VERTEX_ATTRIBUTES] =
 		.size = 4,	// r, g, b, a (no padding required)
 		.type = GL_UNSIGNED_BYTE,
 		.normalize = GL_TRUE,
-		.name = "v_color"
+		.name = "v_color",
+		.stride = sizeof(Color4u)
 	}
 };
 
