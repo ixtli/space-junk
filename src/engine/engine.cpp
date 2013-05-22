@@ -8,6 +8,7 @@
 
 #include "v8.h"
 
+#include "uiManager.h"
 #include "environment.h"
 #include "renderer.h"
 #include "version.h"
@@ -48,6 +49,8 @@ bool Engine::init()
 	context.Dispose(isolate);
 	String::AsciiValue ascii(result);
 	log("%s", *ascii);
+	
+	UIManager::getInstance()->init();
 	
 	return true;
 }

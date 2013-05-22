@@ -9,7 +9,7 @@
 #include "glutil.h"
 
 void loadOrtho(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
-               GLfloat near, GLfloat far, matrix4f mOut)
+               GLfloat near, GLfloat far, GLfloat mOut[16])
 {
 	GLfloat r_l = right - left;
 	GLfloat t_b = top - bottom;

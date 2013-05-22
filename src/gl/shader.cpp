@@ -44,8 +44,6 @@ bool Shader::init(const char* const name,
 	if (!link(_frag, _vert))
 		return false;
 	
-	log("Successfully created shader %s at ID %i", name, _id);
-	
 	return true;
 }
 

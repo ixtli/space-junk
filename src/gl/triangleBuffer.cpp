@@ -8,8 +8,6 @@
 
 #include "glutil.h"
 
-#include "renderer.h"
-
 #include "triangleBuffer.h"
 
 TriangleBuffer::TriangleBuffer() :

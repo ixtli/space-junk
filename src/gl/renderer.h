@@ -9,8 +9,6 @@
 #ifndef __SpaceJunk__renderer__
 #define __SpaceJunk__renderer__
 
-#include "glutil.h"
-
 #include "geometry.h"
 
 class Shader;
@@ -19,6 +17,9 @@ class TriangleBuffer;
 class Renderer
 {
 public:
+	
+	static const GLfloat projectionNear;
+	static const GLfloat projectionFar;
 	
 	inline static Renderer* getInstance() { return &_instance; };
 	

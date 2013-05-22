@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__triangleBuffer__
 #define __SpaceJunk__triangleBuffer__
 
+#include "renderer.h"
+
 #include "vertexFormats.h"
 
 class TriangleBuffer
@@ -36,6 +38,12 @@ public:
 	inline GLuint vao() const
 	{
 		return _vaoID;
+	}
+	
+	inline void draw() const
+	{
+		Renderer::bindVAO(_vaoID);
+		glDrawElements(GL_TRIANGLE_STRIP,(GLsizei)_indexCount,GL_UNSIGNED_SHORT,0);
 	}
 	
 private:

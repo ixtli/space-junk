@@ -9,6 +9,11 @@
 #ifndef __SpaceJunk__geometry__
 #define __SpaceJunk__geometry__
 
+#pragma mark Matrix types
+typedef float matrix4f[16];
+typedef float matrix3f[9];
+typedef float matrix2f[4];
+
 struct Point2Di
 {
 	Point2Di() : x(0), y(0) {};

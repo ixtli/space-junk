@@ -6,13 +6,18 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include "glutil.h"
+
 #include "shader.h"
 #include "triangleBuffer.h"
 
 #include "renderer.h"
 
+// Static member initialization
 Renderer Renderer::_instance;
 GLuint Renderer::_currentVAO = 0;
+const GLfloat Renderer::projectionNear = -1.0f;
+const GLfloat Renderer::projectionFar = 1.0f;
 
 Renderer::Renderer() : _bounds(), _defaultFBOName(0)
 { }
@@ -29,10 +34,6 @@ bool Renderer::init(GLuint defaultFBO)
 	log("Hardware Renderer: %s", glGetString(GL_RENDERER));
 	log("OpenGL Version: %s", glGetString(GL_VERSION));
 	log("GLSL Version: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
-	
-	GLint max_vertex_attrs = 0;
-	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &max_vertex_attrs);
-	log("GL_MAX_VERTEX_ATTRIBS: %i", max_vertex_attrs);
 	
 	// Save the default VBO
 	_defaultFBOName = defaultFBO;
@@ -102,7 +103,8 @@ void Renderer::resize(const Size2D& newBounds)
 	glViewport(0, 0, (GLsizei)_bounds.width, (GLsizei)_bounds.height);
 	
 	// Load a new ortho matrix
-	loadOrtho(0.0f, _bounds.width, _bounds.height, 0.0f, -1.0f, 1.0f, _projectionMatrix);
+	loadOrtho(0.0f, _bounds.width, _bounds.height, 0.0f, projectionNear,
+						projectionFar, _projectionMatrix);
 	
 	_solidQuad->use();
 	GLint loc = _solidQuad->getUniformLocation("modelViewProjectionMatrix");
@@ -113,11 +115,16 @@ void Renderer::resize(const Size2D& newBounds)
 
 void Renderer::resetGL()
 {
+	// Enable things we want
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
+	
+	// Disable things we don't need
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_DITHER);
 	glDisable(GL_STENCIL_TEST);
+	
+	// Set global state
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
@@ -127,8 +134,7 @@ void Renderer::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	_solidQuad->use();
-	bindVAO(_buffer->vao());
-	glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, 0);
+	_buffer->draw();
 	
 	GetGLError();
 }
