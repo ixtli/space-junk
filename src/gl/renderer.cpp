@@ -8,7 +8,7 @@
 
 #include "glutil.h"
 
-#include "shader.h"
+#include "shaderManager.h"
 #include "triangleBuffer.h"
 
 #include "renderer.h"
@@ -25,7 +25,6 @@ Renderer::Renderer() : _bounds(), _defaultFBOName(0)
 Renderer::~Renderer()
 {
 	delete _buffer;
-	delete _solidQuad;
 }
 
 bool Renderer::init(GLuint defaultFBO)
@@ -40,13 +39,14 @@ bool Renderer::init(GLuint defaultFBO)
 	
 	resetGL();
 	
+	// Initialize Shaders
+	if (!ShaderManager::getInstance()->init())
+		return false;
+	
 	// Construct some temp data
-	
-	static GLushort indicies[] = {0, 1, 2, 3};
-	
-	GLfloat size = 100.0f;
-	
-	static ColorVertex verts[] = {
+	static const GLfloat size = 100.0f;
+	static const GLushort indicies[] = {0, 1, 2, 3};
+	static const ColorVertex verts[] = {
 		{
 			// Bottom left
 			.location = Point3Df(0, size, 0),
@@ -69,24 +69,16 @@ bool Renderer::init(GLuint defaultFBO)
 		},
 	};
 	
-	const VertexAttribute* attrs[] = {
-		&vertexAttributeDefinitions[POSITION_ATTRIB],
-		&vertexAttributeDefinitions[COLORED_ATTRIB]
-	};
-	
-	const TriangleBuffer::TriBufferConfig conf = {
+	// Initialize a new trianglebuffer
+	static const TriangleBuffer::TriBufferConfig conf = {
 		.dynamic = false,
 		.vertexCount = 4,
 		.indexCount = 4,
 		.attrCount = 2,
 		.indicies = indicies,
 		.verticies = verts,
-		.attributes = attrs
+		.attributes = VertFormat::solidQuadList
 	};
-	
-	// Construct shaders
-	_solidQuad = new Shader();
-	if (!_solidQuad->init("solidQuad", attrs, conf.attrCount)) return false;
 	
 	// Construct buffer
 	_buffer = new TriangleBuffer();
@@ -100,17 +92,15 @@ void Renderer::resize(const Size2D& newBounds)
 	_bounds.width = newBounds.width;
 	_bounds.height = newBounds.height;
 	
+	// Reset the viewport based on the new bounds
 	glViewport(0, 0, (GLsizei)_bounds.width, (GLsizei)_bounds.height);
 	
-	// Load a new ortho matrix
+	// Load a new ortho matrix for the model view projection
 	loadOrtho(0.0f, _bounds.width, _bounds.height, 0.0f, projectionNear,
 						projectionFar, _projectionMatrix);
 	
-	_solidQuad->use();
-	GLint loc = _solidQuad->getUniformLocation("modelViewProjectionMatrix");
-	glUniformMatrix4fv(loc, 1, GL_FALSE, _projectionMatrix);
-	
-	GetGLError();
+	// Update all shaders with the new MVP
+	ShaderManager::getInstance()->setMVPMatrix(_projectionMatrix);
 }
 
 void Renderer::resetGL()
@@ -133,7 +123,7 @@ void Renderer::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	_solidQuad->use();
+	ShaderManager::use(ShaderManager::SOLID_QUAD_SHADER);
 	_buffer->draw();
 	
 	GetGLError();

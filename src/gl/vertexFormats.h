@@ -79,4 +79,14 @@ const static VertexAttribute vertexAttributeDefinitions[NUM_VERTEX_ATTRIBUTES] =
 	}
 };
 
+namespace VertFormat {
+	
+  const VertexAttribute* const solidQuadList[] =
+	{
+		&vertexAttributeDefinitions[POSITION_ATTRIB],
+		&vertexAttributeDefinitions[COLORED_ATTRIB]
+	};
+	
+}
+
 #endif

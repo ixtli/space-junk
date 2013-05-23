@@ -23,23 +23,23 @@ Shader::~Shader()
 	if (_frag) glDeleteShader(_frag);
 }
 
-bool Shader::init(const char* const name,
-									const VertexAttribute** attrs,
-									GLuint cnt)
+bool Shader::init(const ShaderMetadata &metadata)
 {
 	File vsh, fsh;
 	
 	_id = glCreateProgram();
 	
 	// Load the vertex shader and compile it
-	vsh.init(name, "vsh");
+	vsh.init(metadata.name, "vsh");
 	if (!compileShader(vsh.contents(), GL_VERTEX_SHADER, _vert))
 		return false;
 	
 	// Load the frag shader and compile it
-	fsh.init(name, "fsh");
+	fsh.init(metadata.name, "fsh");
 	if (!compileShader(fsh.contents(), GL_FRAGMENT_SHADER, _frag))
 		return false;
+	
+	applyVertexFormat(metadata);
 	
 	if (!link(_frag, _vert))
 		return false;
@@ -114,11 +114,11 @@ bool Shader::link(GLuint frag, GLuint vert)
 	return true;
 }
 
-bool Shader::applyVertexFormat(const VertexAttribute **attrs, GLuint count)
+bool Shader::applyVertexFormat(const ShaderMetadata& metadata)
 {
-	for (GLuint i = 0; i < count; i++)
+	for (GLuint i = 0; i < metadata.attrCount; i++)
 	{
-		glBindAttribLocation(_id, i, attrs[i]->name);
+		glBindAttribLocation(_id, i, metadata.attrs[i]->name);
 		GetGLError();
 	}
 	

@@ -11,7 +11,6 @@
 
 #include "geometry.h"
 
-class Shader;
 class TriangleBuffer;
 
 class Renderer
@@ -55,7 +54,6 @@ private:
 	GLuint _defaultFBOName;
 	
 	TriangleBuffer* _buffer;
-	Shader* _solidQuad;
 	
 	void resetGL();
 	

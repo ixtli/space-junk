@@ -31,6 +31,7 @@
 		A331D9171740A1F300A46C9F /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A331D9161740A1F300A46C9F /* SpaceJunkGLView.mm */; };
 		A3DED97B1741F07900AA92F7 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9771741EFE700AA92F7 /* solidQuad.vsh */; };
 		A3DED97C1741F07900AA92F7 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9791741EFF500AA92F7 /* solidQuad.fsh */; };
+		A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC67174DCD820092C416 /* shaderManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,8 @@
 		A331D9161740A1F300A46C9F /* SpaceJunkGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkGLView.mm; sourceTree = "<group>"; };
 		A3DED9771741EFE700AA92F7 /* solidQuad.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.vsh; path = ../../shader/solidQuad.vsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		A3DED9791741EFF500AA92F7 /* solidQuad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.fsh; path = ../../shader/solidQuad.fsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
+		A3E8BC67174DCD820092C416 /* shaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderManager.cpp; sourceTree = "<group>"; };
+		A3E8BC68174DCD820092C416 /* shaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +155,8 @@
 				A314EDA7174B4467004C3B61 /* triangleBuffer.cpp */,
 				A314EDA8174B4468004C3B61 /* triangleBuffer.h */,
 				A314EDAF174C6132004C3B61 /* glutil.cpp */,
+				A3E8BC67174DCD820092C416 /* shaderManager.cpp */,
+				A3E8BC68174DCD820092C416 /* shaderManager.h */,
 			);
 			path = gl;
 			sourceTree = "<group>";
@@ -339,6 +344,7 @@
 				A314EDB0174C6133004C3B61 /* glutil.cpp in Sources */,
 				A314EDB4174C787B004C3B61 /* uiManager.cpp in Sources */,
 				A314EDB7174C79D4004C3B61 /* uiLayer.cpp in Sources */,
+				A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

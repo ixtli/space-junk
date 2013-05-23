@@ -29,7 +29,7 @@ public:
 		GLuint indexCount;
 		const GLushort* indicies;
 		unsigned attrCount;
-		const VertexAttribute** attributes;
+		const VertexAttribute* const* attributes;
 		
 	} TriBufferConfig;
 	
