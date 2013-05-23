@@ -89,7 +89,6 @@ bool Shader::compileShader(const char *src, GLenum type, GLuint &s)
 
 bool Shader::link(GLuint frag, GLuint vert)
 {
-	
 	glLinkProgram(_id);
 	
 	// Dump program compilation log
