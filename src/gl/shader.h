@@ -30,15 +30,8 @@ public:
 	GLint getAttrLocation(const char* const attrName) const;
 	GLint getUniformLocation(const char* const uniName) const;
 	
-	// This is called in the render function
-	inline void use() const
-	{
-		if (_currentProgram != _id)
-		{
-			glUseProgram(_id);
-			_currentProgram = _id;
-		}
-	}
+	// Getter for rendering
+	inline GLuint id() const { return _id; };
 	
 private:
 	

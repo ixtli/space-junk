@@ -26,7 +26,9 @@ public:
 	
 	inline static void use(ShaderTypes type)
 	{
-		_instance._shaders[type].use();
+		if (_currentProgramID == type) return;
+		glUseProgram(_instance._shaders[type].id());
+		_currentProgramID = type;
 	};
 	
 	void setMVPMatrix(const matrix4f& mvp);
@@ -42,6 +44,7 @@ private:
 	~ShaderManager();
 	
 	static ShaderManager _instance;
+	static ShaderTypes _currentProgramID;
 	
 };
 

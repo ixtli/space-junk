@@ -18,6 +18,7 @@ const Shader::ShaderMetadata ShaderManager::_shaderMetadata[] =
 	}
 };
 
+ShaderManager::ShaderTypes ShaderManager::_currentProgramID = NUM_SHADER_TYPES;
 ShaderManager ShaderManager::_instance;
 
 ShaderManager::ShaderManager()
@@ -32,7 +33,7 @@ bool ShaderManager::init()
 {
 	log("Initializing %u shaders.", NUM_SHADER_TYPES);
 	
-	for (unsigned i = 0; i < NUM_SHADER_TYPES; i++)
+	for (ShaderTypes i = (ShaderTypes)0; i < NUM_SHADER_TYPES; i++)
 	{
 		if (!_shaders[i].init(_shaderMetadata[i]))
 			return false;
@@ -45,7 +46,7 @@ void ShaderManager::setMVPMatrix(const matrix4f &mvp)
 {
 	GLint loc = 0;
 	
-	for (ShaderTypes i = SOLID_QUAD_SHADER; i < NUM_SHADER_TYPES; i++)
+	for (ShaderTypes i = (ShaderTypes)0; i < NUM_SHADER_TYPES; i++)
 	{
 		use(i);
 		loc = _shaders[i].getUniformLocation("modelViewProjectionMatrix");
