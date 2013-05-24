@@ -8,10 +8,12 @@
 
 #include "quadLayer.h"
 
-QuadLayer::QuadLayer() :
+QuadLayer::QuadLayer(bool dynamic) :
 
+_dynamic(dynamic),
 _maxQuads(0),
 _shaderFormat(NUM_SHADER_TYPES)
+
 
 {}
 
@@ -20,7 +22,7 @@ QuadLayer::~QuadLayer()
 	
 }
 
-bool QuadLayer::init(GLuint maxQuads, ShaderFormat shaderFormat)
+bool QuadLayer::init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts)
 {
 	if (!maxQuads)
 	{
@@ -29,47 +31,52 @@ bool QuadLayer::init(GLuint maxQuads, ShaderFormat shaderFormat)
 	}
 	
 	_maxQuads = maxQuads;
-	_shaderFormat = shaderFormat;
+	_shaderFormat = shader;
+	
+	GLuint indexCount = _maxQuads * 6 - 2;
 	
 	// Construct some temp data
-	static const GLfloat size = 100.0f;
-	static const GLushort indicies[] = {0, 1, 2, 3};
-	static const ColorVertex verts[] = {
-		{
-			// Bottom left
-			.location = Point3Df(0, size, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-		{
-			// Bottom right
-			.location = Point3Df(size, size, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-		{
-			// Top left
-			.location = Point3Df(0, 0, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-		{
-			// Top right
-			.location = Point3Df(size, 0, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-	};
+	GLushort* indicies = new GLushort[indexCount];
+	
+	generateElementIndicies(indicies);
 	
 	// Initialize a new trianglebuffer
-	static const TriangleBuffer::TriBufferConfig conf = {
-		.dynamic = false,
-		.vertexCount = 4,
-		.indexCount = 4,
-		.attrCount = 2,
+	const TriangleBuffer::TriBufferConfig conf = {
+		.dynamic = _dynamic,
+		.vertexCount = _maxQuads * 4,
+		.indexCount = _maxQuads * 6 - 2,
 		.indicies = indicies,
 		.verticies = verts,
-		.attributes = VertexFormats::solidQuadList
+		.attrCount = ShaderFormats::definitions[shader].attrCount,
+		.attributes = ShaderFormats::definitions[shader].attrs
 	};
 	
 	// Construct buffer
 	if (!_buffer.init(conf)) return false;
 	
 	return true;
+}
+
+/*
+ Expects an array the size of _maxQuads * 6 - 2
+ */
+void QuadLayer::generateElementIndicies(GLushort *indicies)
+{
+	GLuint val = 0, index = 0;
+	for (GLuint i = 0; i < _maxQuads; i++)
+	{
+		indicies[index] = val;
+		indicies[index + 1] = val + 1;
+		indicies[index + 2] = val + 2;
+		indicies[index + 3] = val + 3;
+		
+		if (i + 1 < _maxQuads)
+		{
+			indicies[index + 4] = val + 3;
+			indicies[index + 5] = val + 4;
+		}
+		
+		val += 4;
+		index += 6;
+	}
 }

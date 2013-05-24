@@ -44,8 +44,33 @@ bool Renderer::init(GLuint defaultFBO)
 	if (!ShaderManager::getInstance()->init())
 		return false;
 	
+	// Static data
+	static const GLfloat size = 100.0f;
+	static const ColorVertex verts[] = {
+		{
+			// Bottom left
+			.location = Point3Df(0, size, 0),
+			.color = Color4u(100, 0, 0, 255)
+		},
+		{
+			// Bottom right
+			.location = Point3Df(size, size, 0),
+			.color = Color4u(100, 0, 0, 255)
+		},
+		{
+			// Top left
+			.location = Point3Df(0, 0, 0),
+			.color = Color4u(100, 0, 0, 255)
+		},
+		{
+			// Top right
+			.location = Point3Df(size, 0, 0),
+			.color = Color4u(100, 0, 0, 255)
+		},
+	};
+	
 	_layer = new QuadLayer();
-	_layer->init(10, SOLID_QUAD_SHADER);
+	_layer->init(10, SOLID_QUAD_SHADER, verts);
 	
 	return true;
 }

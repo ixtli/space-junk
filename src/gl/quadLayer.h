@@ -10,6 +10,8 @@
 #define __SpaceJunk__quadLayer__
 
 #include "glutil.h"
+
+#include "geometry.h"
 #include "shaderManager.h"
 #include "triangleBuffer.h"
 
@@ -17,11 +19,12 @@ class QuadLayer
 {
 public:
 	
-	QuadLayer();
+	QuadLayer(bool dynamic = true);
 	~QuadLayer();
 	
-	bool init(GLuint maxQuads, ShaderFormat shaderFormat);
+	bool init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts);
 	
+	// Inline render functions
 	inline void draw() const
 	{
 		ShaderManager::use(_shaderFormat);
@@ -31,6 +34,9 @@ public:
 	
 private:
 	
+	void generateElementIndicies(GLushort* indicies);
+	
+	bool _dynamic;
 	GLuint _maxQuads;
 	
 	ShaderFormat _shaderFormat;
