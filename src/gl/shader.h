@@ -9,18 +9,11 @@
 #ifndef __SpaceJunk__shader__
 #define __SpaceJunk__shader__
 
-#include "vertexFormats.h"
+#include "shaderFormats.h"
 
 class Shader
 {
 public:
-	
-	typedef struct
-	{
-		const char* const name;
-		const unsigned attrCount;
-		const VertexAttribute* const* attrs;
-	} ShaderMetadata;
 	
 	Shader();
 	~Shader();

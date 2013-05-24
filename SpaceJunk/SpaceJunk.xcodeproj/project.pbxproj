@@ -88,6 +88,7 @@
 		A3E8BC68174DCD820092C416 /* shaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderManager.h; sourceTree = "<group>"; };
 		A3E8BC70174F24810092C416 /* triangleLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangleLayer.cpp; sourceTree = "<group>"; };
 		A3E8BC71174F24810092C416 /* triangleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangleLayer.h; sourceTree = "<group>"; };
+		A3E8BC73174F261D0092C416 /* shaderFormats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shaderFormats.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +160,7 @@
 				A3E8BC68174DCD820092C416 /* shaderManager.h */,
 				A3E8BC70174F24810092C416 /* triangleLayer.cpp */,
 				A3E8BC71174F24810092C416 /* triangleLayer.h */,
+				A3E8BC73174F261D0092C416 /* shaderFormats.h */,
 			);
 			path = gl;
 			sourceTree = "<group>";

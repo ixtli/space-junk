@@ -79,7 +79,7 @@ const static VertexAttribute vertexAttributeDefinitions[NUM_VERTEX_ATTRIBUTES] =
 	}
 };
 
-namespace VertFormat {
+namespace VertexFormats {
 	
   const VertexAttribute* const solidQuadList[] =
 	{

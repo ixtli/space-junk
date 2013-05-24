@@ -30,7 +30,6 @@ public:
 private:
 	
 	
-	
 	TriangleBuffer _buffer;
 	
 };

@@ -16,15 +16,9 @@ class ShaderManager
 {
 public:
 	
-	typedef enum
-	{
-		SOLID_QUAD_SHADER,
-		NUM_SHADER_TYPES
-	} ShaderTypes;
-	
 	inline static ShaderManager* getInstance() { return &_instance; };
 	
-	inline static void use(ShaderTypes type)
+	inline static void use(ShaderFormat type)
 	{
 		if (_currentProgramID == type) return;
 		glUseProgram(_instance._shaders[type].id());
@@ -36,7 +30,7 @@ public:
 	
 private:
 	
-	static const Shader::ShaderMetadata _shaderMetadata[NUM_SHADER_TYPES];
+	static const ShaderMetadata _shaderMetadata[NUM_SHADER_TYPES];
 	
 	Shader _shaders[NUM_SHADER_TYPES];
 	
@@ -44,7 +38,7 @@ private:
 	~ShaderManager();
 	
 	static ShaderManager _instance;
-	static ShaderTypes _currentProgramID;
+	static ShaderFormat _currentProgramID;
 	
 };
 

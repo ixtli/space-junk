@@ -77,7 +77,7 @@ bool Renderer::init(GLuint defaultFBO)
 		.attrCount = 2,
 		.indicies = indicies,
 		.verticies = verts,
-		.attributes = VertFormat::solidQuadList
+		.attributes = VertexFormats::solidQuadList
 	};
 	
 	// Construct buffer
@@ -123,7 +123,7 @@ void Renderer::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	ShaderManager::use(ShaderManager::SOLID_QUAD_SHADER);
+	ShaderManager::use(SOLID_QUAD_SHADER);
 	_buffer->draw();
 	
 	GetGLError();
