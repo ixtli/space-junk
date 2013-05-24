@@ -17,9 +17,6 @@ class TriangleBuffer
 {
 public:
 	
-	TriangleBuffer();
-	~TriangleBuffer();
-	
 	typedef struct
 	{
 		bool dynamic;
@@ -33,17 +30,23 @@ public:
 		
 	} TriBufferConfig;
 	
+	TriangleBuffer();
+	~TriangleBuffer();
+	
 	bool init(const TriBufferConfig &config);
 	
-	inline GLuint vao() const
-	{
-		return _vaoID;
-	}
+	// Getters
+	inline GLuint vao() const { return _vaoID; }
 	
+	// Setters
+	inline void count(GLuint c) { _drawCount = (GLsizei)c; };
+	inline void start(GLuint s) { _start = (GLvoid*)(s * sizeof(GLushort)); };
+	
+	// Inline render functions
 	inline void draw() const
 	{
 		Renderer::bindVAO(_vaoID);
-		glDrawElements(GL_TRIANGLE_STRIP,(GLsizei)_indexCount,GL_UNSIGNED_SHORT,0);
+		glDrawElements(GL_TRIANGLE_STRIP, _drawCount, GL_UNSIGNED_SHORT, _start);
 	}
 	
 private:
@@ -51,6 +54,12 @@ private:
 	// Helper functions that you must clean up after
 	void arrayBufferData(const GLvoid* data);
 	void elementBufferData(const GLushort* data);
+	
+	// The position in the buffer to start drawing from
+	GLvoid* _start;
+	
+	// The amount of indicies from the above to draw
+	GLsizei _drawCount;
 	
 	GLsizei _vertexSize;
 	GLuint _indexCount;

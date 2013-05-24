@@ -9,7 +9,8 @@
 #include "glutil.h"
 
 #include "shaderManager.h"
-#include "triangleBuffer.h"
+
+#include "quadLayer.h"
 
 #include "renderer.h"
 
@@ -24,7 +25,7 @@ Renderer::Renderer() : _bounds(), _defaultFBOName(0)
 
 Renderer::~Renderer()
 {
-	delete _buffer;
+	delete _layer;
 }
 
 bool Renderer::init(GLuint defaultFBO)
@@ -43,46 +44,8 @@ bool Renderer::init(GLuint defaultFBO)
 	if (!ShaderManager::getInstance()->init())
 		return false;
 	
-	// Construct some temp data
-	static const GLfloat size = 100.0f;
-	static const GLushort indicies[] = {0, 1, 2, 3};
-	static const ColorVertex verts[] = {
-		{
-			// Bottom left
-			.location = Point3Df(0, size, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-		{
-			// Bottom right
-			.location = Point3Df(size, size, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-		{
-			// Top left
-			.location = Point3Df(0, 0, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-		{
-			// Top right
-			.location = Point3Df(size, 0, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-	};
-	
-	// Initialize a new trianglebuffer
-	static const TriangleBuffer::TriBufferConfig conf = {
-		.dynamic = false,
-		.vertexCount = 4,
-		.indexCount = 4,
-		.attrCount = 2,
-		.indicies = indicies,
-		.verticies = verts,
-		.attributes = VertexFormats::solidQuadList
-	};
-	
-	// Construct buffer
-	_buffer = new TriangleBuffer();
-	if (!_buffer->init(conf)) return false;
+	_layer = new QuadLayer();
+	_layer->init(10, SOLID_QUAD_SHADER);
 	
 	return true;
 }
@@ -123,8 +86,7 @@ void Renderer::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	ShaderManager::use(SOLID_QUAD_SHADER);
-	_buffer->draw();
+	_layer->draw();
 	
 	GetGLError();
 }

@@ -18,7 +18,8 @@ _vaoID(0),
 _vertexBufferID(0),
 _indexBufferID(0),
 _vertexSize(0),
-_indexCount(0)
+_indexCount(0),
+_start(0)
 
 { }
 
@@ -54,6 +55,9 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 	_indexCount = config.indexCount;
 	_vertexCount = config.vertexCount;
 	_dynamic = config.dynamic;
+	
+	// Default to drawing the entire array
+	_drawCount = (GLsizei)_indexCount;
 	
 	// Calculate total vertex size from count and vertex attrs
 	for (GLuint i = 0; i < config.attrCount; i++)

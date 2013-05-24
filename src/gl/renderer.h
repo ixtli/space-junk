@@ -11,7 +11,7 @@
 
 #include "geometry.h"
 
-class TriangleBuffer;
+class QuadLayer;
 
 class Renderer
 {
@@ -53,7 +53,7 @@ private:
 	matrix4f _projectionMatrix;
 	GLuint _defaultFBOName;
 	
-	TriangleBuffer* _buffer;
+	QuadLayer* _layer;
 	
 	void resetGL();
 	

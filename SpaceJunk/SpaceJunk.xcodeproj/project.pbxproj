@@ -31,7 +31,7 @@
 		A3DED97B1741F07900AA92F7 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9771741EFE700AA92F7 /* solidQuad.vsh */; };
 		A3DED97C1741F07900AA92F7 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9791741EFF500AA92F7 /* solidQuad.fsh */; };
 		A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC67174DCD820092C416 /* shaderManager.cpp */; };
-		A3E8BC72174F24810092C416 /* triangleLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC70174F24810092C416 /* triangleLayer.cpp */; };
+		A3E8BC76174F2A7C0092C416 /* quadLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC74174F2A7C0092C416 /* quadLayer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,9 +86,9 @@
 		A3DED9791741EFF500AA92F7 /* solidQuad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.fsh; path = ../../shader/solidQuad.fsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		A3E8BC67174DCD820092C416 /* shaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderManager.cpp; sourceTree = "<group>"; };
 		A3E8BC68174DCD820092C416 /* shaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderManager.h; sourceTree = "<group>"; };
-		A3E8BC70174F24810092C416 /* triangleLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangleLayer.cpp; sourceTree = "<group>"; };
-		A3E8BC71174F24810092C416 /* triangleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangleLayer.h; sourceTree = "<group>"; };
 		A3E8BC73174F261D0092C416 /* shaderFormats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shaderFormats.h; sourceTree = "<group>"; };
+		A3E8BC74174F2A7C0092C416 /* quadLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = quadLayer.cpp; sourceTree = "<group>"; };
+		A3E8BC75174F2A7C0092C416 /* quadLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quadLayer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,9 +158,9 @@
 				A314EDAF174C6132004C3B61 /* glutil.cpp */,
 				A3E8BC67174DCD820092C416 /* shaderManager.cpp */,
 				A3E8BC68174DCD820092C416 /* shaderManager.h */,
-				A3E8BC70174F24810092C416 /* triangleLayer.cpp */,
-				A3E8BC71174F24810092C416 /* triangleLayer.h */,
 				A3E8BC73174F261D0092C416 /* shaderFormats.h */,
+				A3E8BC74174F2A7C0092C416 /* quadLayer.cpp */,
+				A3E8BC75174F2A7C0092C416 /* quadLayer.h */,
 			);
 			path = gl;
 			sourceTree = "<group>";
@@ -346,7 +346,7 @@
 				A314EDB0174C6133004C3B61 /* glutil.cpp in Sources */,
 				A314EDB4174C787B004C3B61 /* uiManager.cpp in Sources */,
 				A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */,
-				A3E8BC72174F24810092C416 /* triangleLayer.cpp in Sources */,
+				A3E8BC76174F2A7C0092C416 /* quadLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
