@@ -18,7 +18,6 @@
 		A314EDAE174B4BA9004C3B61 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D9111740A14300A46C9F /* OpenGL.framework */; };
 		A314EDB0174C6133004C3B61 /* glutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A314EDAF174C6132004C3B61 /* glutil.cpp */; };
 		A314EDB4174C787B004C3B61 /* uiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A314EDB2174C787B004C3B61 /* uiManager.cpp */; };
-		A314EDB7174C79D4004C3B61 /* uiLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A314EDB5174C79D4004C3B61 /* uiLayer.cpp */; };
 		A331D8E5173B6AF600A46C9F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D8E4173B6AF600A46C9F /* Cocoa.framework */; };
 		A331D8EF173B6AF600A46C9F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A331D8ED173B6AF600A46C9F /* InfoPlist.strings */; };
 		A331D8F1173B6AF600A46C9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A331D8F0173B6AF600A46C9F /* main.m */; };
@@ -32,6 +31,7 @@
 		A3DED97B1741F07900AA92F7 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9771741EFE700AA92F7 /* solidQuad.vsh */; };
 		A3DED97C1741F07900AA92F7 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9791741EFF500AA92F7 /* solidQuad.fsh */; };
 		A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC67174DCD820092C416 /* shaderManager.cpp */; };
+		A3E8BC72174F24810092C416 /* triangleLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC70174F24810092C416 /* triangleLayer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,8 +57,6 @@
 		A314EDAF174C6132004C3B61 /* glutil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glutil.cpp; sourceTree = "<group>"; };
 		A314EDB2174C787B004C3B61 /* uiManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uiManager.cpp; path = ui/uiManager.cpp; sourceTree = "<group>"; };
 		A314EDB3174C787B004C3B61 /* uiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uiManager.h; path = ui/uiManager.h; sourceTree = "<group>"; };
-		A314EDB5174C79D4004C3B61 /* uiLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uiLayer.cpp; path = ui/uiLayer.cpp; sourceTree = "<group>"; };
-		A314EDB6174C79D4004C3B61 /* uiLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uiLayer.h; path = ui/uiLayer.h; sourceTree = "<group>"; };
 		A331D8E1173B6AF600A46C9F /* SpaceJunk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceJunk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A331D8E4173B6AF600A46C9F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A331D8E7173B6AF600A46C9F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -88,6 +86,8 @@
 		A3DED9791741EFF500AA92F7 /* solidQuad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.fsh; path = ../../shader/solidQuad.fsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		A3E8BC67174DCD820092C416 /* shaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderManager.cpp; sourceTree = "<group>"; };
 		A3E8BC68174DCD820092C416 /* shaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderManager.h; sourceTree = "<group>"; };
+		A3E8BC70174F24810092C416 /* triangleLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangleLayer.cpp; sourceTree = "<group>"; };
+		A3E8BC71174F24810092C416 /* triangleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangleLayer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +157,8 @@
 				A314EDAF174C6132004C3B61 /* glutil.cpp */,
 				A3E8BC67174DCD820092C416 /* shaderManager.cpp */,
 				A3E8BC68174DCD820092C416 /* shaderManager.h */,
+				A3E8BC70174F24810092C416 /* triangleLayer.cpp */,
+				A3E8BC71174F24810092C416 /* triangleLayer.h */,
 			);
 			path = gl;
 			sourceTree = "<group>";
@@ -166,8 +168,6 @@
 			children = (
 				A314EDB2174C787B004C3B61 /* uiManager.cpp */,
 				A314EDB3174C787B004C3B61 /* uiManager.h */,
-				A314EDB5174C79D4004C3B61 /* uiLayer.cpp */,
-				A314EDB6174C79D4004C3B61 /* uiLayer.h */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -343,8 +343,8 @@
 				A314EDA9174B4468004C3B61 /* triangleBuffer.cpp in Sources */,
 				A314EDB0174C6133004C3B61 /* glutil.cpp in Sources */,
 				A314EDB4174C787B004C3B61 /* uiManager.cpp in Sources */,
-				A314EDB7174C79D4004C3B61 /* uiLayer.cpp in Sources */,
 				A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */,
+				A3E8BC72174F24810092C416 /* triangleLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

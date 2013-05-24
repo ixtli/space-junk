@@ -25,9 +25,11 @@ Shader::~Shader()
 
 bool Shader::init(const ShaderMetadata &metadata)
 {
-	File vsh, fsh;
-	
 	_id = glCreateProgram();
+	
+	if (!_id) return false;
+	
+	File vsh, fsh;
 	
 	// Load the vertex shader and compile it
 	vsh.init(metadata.name, "vsh");
@@ -118,8 +120,9 @@ bool Shader::applyVertexFormat(const ShaderMetadata& metadata)
 	for (GLuint i = 0; i < metadata.attrCount; i++)
 	{
 		glBindAttribLocation(_id, i, metadata.attrs[i]->name);
-		GetGLError();
 	}
+	
+	GetGLError();
 	
 	return true;
 }
