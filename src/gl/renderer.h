@@ -11,7 +11,8 @@
 
 #include "geometry.h"
 
-class QuadLayer;
+struct ColorRect;
+class ColorRectLayer;
 
 class Renderer
 {
@@ -23,7 +24,7 @@ public:
 	inline static Renderer* getInstance() { return &_instance; };
 	
 	bool init(GLuint defaultFBO);
-	void resize(const Size2D& newBounds);
+	void resize(const Size2Di& newBounds);
 	void render();
 	
 #pragma mark -
@@ -49,11 +50,12 @@ private:
 	Renderer();
 	~Renderer();
 	
-	Size2D _bounds;
+	Size2Di _bounds;
 	matrix4f _projectionMatrix;
 	GLuint _defaultFBOName;
 	
-	QuadLayer* _layer;
+    ColorRect* r;
+	ColorRectLayer* _layer;
 	
 	void resetGL();
 	

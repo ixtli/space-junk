@@ -28,6 +28,7 @@
 		A331D904173B6B3000A46C9F /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D902173B6B3000A46C9F /* libv8_snapshot.a */; };
 		A331D9141740A14C00A46C9F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D9131740A14C00A46C9F /* QuartzCore.framework */; };
 		A331D9171740A1F300A46C9F /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A331D9161740A1F300A46C9F /* SpaceJunkGLView.mm */; };
+		A38FAB1217505647001776F2 /* colorRectLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A38FAB1017505647001776F2 /* colorRectLayer.cpp */; };
 		A3DED97B1741F07900AA92F7 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9771741EFE700AA92F7 /* solidQuad.vsh */; };
 		A3DED97C1741F07900AA92F7 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9791741EFF500AA92F7 /* solidQuad.fsh */; };
 		A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC67174DCD820092C416 /* shaderManager.cpp */; };
@@ -82,6 +83,8 @@
 		A331D9131740A14C00A46C9F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A331D9151740A1F300A46C9F /* SpaceJunkGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpaceJunkGLView.h; sourceTree = "<group>"; };
 		A331D9161740A1F300A46C9F /* SpaceJunkGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkGLView.mm; sourceTree = "<group>"; };
+		A38FAB1017505647001776F2 /* colorRectLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colorRectLayer.cpp; sourceTree = "<group>"; };
+		A38FAB1117505647001776F2 /* colorRectLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorRectLayer.h; sourceTree = "<group>"; };
 		A3DED9771741EFE700AA92F7 /* solidQuad.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.vsh; path = ../../shader/solidQuad.vsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		A3DED9791741EFF500AA92F7 /* solidQuad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.fsh; path = ../../shader/solidQuad.fsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		A3E8BC67174DCD820092C416 /* shaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderManager.cpp; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 				A3E8BC73174F261D0092C416 /* shaderFormats.h */,
 				A3E8BC74174F2A7C0092C416 /* quadLayer.cpp */,
 				A3E8BC75174F2A7C0092C416 /* quadLayer.h */,
+				A38FAB1017505647001776F2 /* colorRectLayer.cpp */,
+				A38FAB1117505647001776F2 /* colorRectLayer.h */,
 			);
 			path = gl;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 				A314EDB4174C787B004C3B61 /* uiManager.cpp in Sources */,
 				A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */,
 				A3E8BC76174F2A7C0092C416 /* quadLayer.cpp in Sources */,
+				A38FAB1217505647001776F2 /* colorRectLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

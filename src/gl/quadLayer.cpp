@@ -12,8 +12,8 @@ QuadLayer::QuadLayer(bool dynamic) :
 
 _dynamic(dynamic),
 _maxQuads(0),
+_usedQuads(0),
 _shaderFormat(NUM_SHADER_TYPES)
-
 
 {}
 
@@ -31,6 +31,7 @@ bool QuadLayer::init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts)
 	}
 	
 	_maxQuads = maxQuads;
+    _usedQuads = maxQuads;
 	_shaderFormat = shader;
 	
 	GLuint indexCount = _maxQuads * 6 - 2;
@@ -44,7 +45,7 @@ bool QuadLayer::init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts)
 	const TriangleBuffer::TriBufferConfig conf = {
 		.dynamic = _dynamic,
 		.vertexCount = _maxQuads * 4,
-		.indexCount = _maxQuads * 6 - 2,
+		.indexCount = indexCount,
 		.indicies = indicies,
 		.verticies = verts,
 		.attrCount = ShaderFormats::definitions[shader].attrCount,
@@ -52,9 +53,12 @@ bool QuadLayer::init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts)
 	};
 	
 	// Construct buffer
-	if (!_buffer.init(conf)) return false;
+    bool result = _buffer.init(conf);
 	
-	return true;
+    // Clean up
+    delete indicies;
+    
+	return result;
 }
 
 /*
@@ -79,4 +83,12 @@ void QuadLayer::generateElementIndicies(GLushort *indicies)
 		val += 4;
 		index += 6;
 	}
+}
+
+void QuadLayer::usedQuads(GLuint used)
+{
+    if (_usedQuads >= _maxQuads) return;
+    
+    _usedQuads = used;
+    _buffer.count(_usedQuads * 4);
 }

@@ -10,7 +10,7 @@
 
 #include "shaderManager.h"
 
-#include "quadLayer.h"
+#include "colorRectLayer.h"
 
 #include "renderer.h"
 
@@ -25,6 +25,7 @@ Renderer::Renderer() : _bounds(), _defaultFBOName(0)
 
 Renderer::~Renderer()
 {
+    delete r;
 	delete _layer;
 }
 
@@ -44,38 +45,27 @@ bool Renderer::init(GLuint defaultFBO)
 	if (!ShaderManager::getInstance()->init())
 		return false;
 	
-	// Static data
-	static const GLfloat size = 100.0f;
-	static const ColorVertex verts[] = {
-		{
-			// Bottom left
-			.location = Point3Df(0, size, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-		{
-			// Bottom right
-			.location = Point3Df(size, size, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-		{
-			// Top left
-			.location = Point3Df(0, 0, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-		{
-			// Top right
-			.location = Point3Df(size, 0, 0),
-			.color = Color4u(100, 0, 0, 255)
-		},
-	};
-	
-	_layer = new QuadLayer();
-	_layer->init(10, SOLID_QUAD_SHADER, verts);
-	
+    // TODO: Remove temp data
+    r = new ColorRect();
+    r->depthOffset = 0;
+    r->rect.bounds.width = 27;
+    r->rect.bounds.height = 38;
+    r->rect.position.x = 10;
+    r->rect.position.y = 32;
+    r->color.r = 180;
+    r->color.g = 90;
+    r->color.b = 5;
+    r->color.a = 200;
+    
+    _layer = new ColorRectLayer();
+    _layer->init(0, 1);
+    _layer->addRect(r);
+    _layer->commit();
+    
 	return true;
 }
 
-void Renderer::resize(const Size2D& newBounds)
+void Renderer::resize(const Size2Di& newBounds)
 {
 	_bounds.width = newBounds.width;
 	_bounds.height = newBounds.height;

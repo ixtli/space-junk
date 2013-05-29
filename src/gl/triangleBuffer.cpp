@@ -92,11 +92,11 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 		glEnableVertexAttribArray(i);
 		
 		glVertexAttribPointer(i,
-													config.attributes[i]->size,
-													config.attributes[i]->type,
-													config.attributes[i]->normalize,
-													_vertexSize,
-													(const void*)offset);
+                              config.attributes[i]->size,
+                              config.attributes[i]->type,
+                              config.attributes[i]->normalize,
+                              _vertexSize,
+                              (const void*)offset);
 		
 		offset += config.attributes[i]->byteCount;
 	}
@@ -106,6 +106,15 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 	Renderer::clearBindings();
 	
 	return true;
+}
+
+bool TriangleBuffer::update(const GLvoid *verticies)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
+    glBufferSubData(GL_ARRAY_BUFFER, 0,
+                    ((GLsizeiptr)_vertexSize * _vertexCount), verticies);
+    GetGLError();
+    return true;
 }
 
 void TriangleBuffer::arrayBufferData(const GLvoid *data)
