@@ -24,17 +24,10 @@ struct ShaderMetadata
 	const VertexAttribute* const* attrs;
 };
 
-namespace ShaderFormats {
-	
-  const ShaderMetadata definitions[NUM_SHADER_TYPES] =
-	{
-		{
-			.name = "solidQuad",
-			.attrCount = 2,
-			.attrs = VertexFormats::solidQuadList
-		}
-	};
-	
-}
+class ShaderFormats
+{
+public:
+  static const ShaderMetadata definitions[NUM_SHADER_TYPES];
+};
 
 #endif

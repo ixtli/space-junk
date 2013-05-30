@@ -25,7 +25,8 @@ Renderer::Renderer() : _bounds(), _defaultFBOName(0)
 
 Renderer::~Renderer()
 {
-    delete r;
+	delete r;
+	
 	delete _layer;
 }
 

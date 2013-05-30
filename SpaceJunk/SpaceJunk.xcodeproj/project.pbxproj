@@ -33,6 +33,8 @@
 		A3DED97C1741F07900AA92F7 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9791741EFF500AA92F7 /* solidQuad.fsh */; };
 		A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC67174DCD820092C416 /* shaderManager.cpp */; };
 		A3E8BC76174F2A7C0092C416 /* quadLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC74174F2A7C0092C416 /* quadLayer.cpp */; };
+		A3E8BC781756F1210092C416 /* shaderFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC771756F1210092C416 /* shaderFormats.cpp */; };
+		A3E8BC7A1756F1990092C416 /* vertexFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC791756F1990092C416 /* vertexFormats.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +94,8 @@
 		A3E8BC73174F261D0092C416 /* shaderFormats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shaderFormats.h; sourceTree = "<group>"; };
 		A3E8BC74174F2A7C0092C416 /* quadLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = quadLayer.cpp; sourceTree = "<group>"; };
 		A3E8BC75174F2A7C0092C416 /* quadLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quadLayer.h; sourceTree = "<group>"; };
+		A3E8BC771756F1210092C416 /* shaderFormats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderFormats.cpp; sourceTree = "<group>"; };
+		A3E8BC791756F1990092C416 /* vertexFormats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexFormats.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,12 +160,14 @@
 				A314ED931744AACB004C3B61 /* shader.cpp */,
 				A314ED941744AACB004C3B61 /* shader.h */,
 				A314EDA3174B2713004C3B61 /* vertexFormats.h */,
+				A3E8BC791756F1990092C416 /* vertexFormats.cpp */,
 				A314EDA7174B4467004C3B61 /* triangleBuffer.cpp */,
 				A314EDA8174B4468004C3B61 /* triangleBuffer.h */,
 				A314EDAF174C6132004C3B61 /* glutil.cpp */,
 				A3E8BC67174DCD820092C416 /* shaderManager.cpp */,
 				A3E8BC68174DCD820092C416 /* shaderManager.h */,
 				A3E8BC73174F261D0092C416 /* shaderFormats.h */,
+				A3E8BC771756F1210092C416 /* shaderFormats.cpp */,
 				A3E8BC74174F2A7C0092C416 /* quadLayer.cpp */,
 				A3E8BC75174F2A7C0092C416 /* quadLayer.h */,
 				A38FAB1017505647001776F2 /* colorRectLayer.cpp */,
@@ -353,6 +359,8 @@
 				A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */,
 				A3E8BC76174F2A7C0092C416 /* quadLayer.cpp in Sources */,
 				A38FAB1217505647001776F2 /* colorRectLayer.cpp in Sources */,
+				A3E8BC781756F1210092C416 /* shaderFormats.cpp in Sources */,
+				A3E8BC7A1756F1990092C416 /* vertexFormats.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

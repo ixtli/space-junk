@@ -53,44 +53,13 @@ typedef enum
 	NUM_VERTEX_ATTRIBUTES
 } VertexAttributes;
 
-const static VertexAttribute vertexAttributeDefinitions[NUM_VERTEX_ATTRIBUTES] =
+class VertexFormats
 {
-	// POSITION_ATTRIB
-	{
-		.size = 3,	// x, y, z
-		.type = GL_FLOAT,
-		.normalize = GL_FALSE,
-		.name = "v_pos",
-		.byteCount = sizeof(Point3Df)
-	},
+public:
 	
-	// TEXTURED_ATTRIB
-	{
-		.size = 2,	// s, t
-		.type = GL_FLOAT,
-		.normalize = GL_FALSE,
-		.name = "v_texCoord",
-		.byteCount = sizeof(Point2Df)
-	},
+	static const VertexAttribute attributes[NUM_VERTEX_ATTRIBUTES];
+	static const VertexAttribute* const solidQuadList[];
 	
-	// COLORED_ATTRIB
-	{
-		.size = 4,	// r, g, b, a (no padding required)
-		.type = GL_UNSIGNED_BYTE,
-		.normalize = GL_TRUE,
-		.name = "v_color",
-		.byteCount = sizeof(Color4u)
-	}
 };
-
-namespace VertexFormats {
-	
-  const VertexAttribute* const solidQuadList[] =
-	{
-		&vertexAttributeDefinitions[POSITION_ATTRIB],
-		&vertexAttributeDefinitions[COLORED_ATTRIB]
-	};
-	
-}
 
 #endif
