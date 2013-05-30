@@ -54,7 +54,7 @@ private:
 	matrix4f _projectionMatrix;
 	GLuint _defaultFBOName;
 	
-    ColorRect* r;
+	ColorRect* r;
 	ColorRectLayer* _layer;
 	
 	void resetGL();

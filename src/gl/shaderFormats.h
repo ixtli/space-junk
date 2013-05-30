@@ -27,7 +27,7 @@ struct ShaderMetadata
 class ShaderFormats
 {
 public:
-  static const ShaderMetadata definitions[NUM_SHADER_TYPES];
+	static const ShaderMetadata definitions[NUM_SHADER_TYPES];
 };
 
 #endif

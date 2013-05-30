@@ -31,7 +31,7 @@ bool QuadLayer::init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts)
 	}
 	
 	_maxQuads = maxQuads;
-    _usedQuads = maxQuads;
+	_usedQuads = maxQuads;
 	_shaderFormat = shader;
 	
 	GLuint indexCount = _maxQuads * 6 - 2;
@@ -53,11 +53,11 @@ bool QuadLayer::init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts)
 	};
 	
 	// Construct buffer
-    bool result = _buffer.init(conf);
+	bool result = _buffer.init(conf);
 	
-    // Clean up
-    delete indicies;
-    
+	// Clean up
+	delete indicies;
+
 	return result;
 }
 
@@ -87,8 +87,8 @@ void QuadLayer::generateElementIndicies(GLushort *indicies)
 
 void QuadLayer::usedQuads(GLuint used)
 {
-    if (_usedQuads >= _maxQuads) return;
-    
-    _usedQuads = used;
-    _buffer.count(_usedQuads * 4);
+	if (_usedQuads >= _maxQuads) return;
+	
+	_usedQuads = used;
+	_buffer.count(_usedQuads * 4);
 }

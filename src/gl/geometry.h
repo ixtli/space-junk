@@ -27,10 +27,10 @@ struct Point3Di
 {
 	Point3Di() : x(0), y(0), z(0) {};
 	
-    Point3Di(GLuint _x, GLuint _y) : y(_y), x(_x), z(0) {};
+	Point3Di(GLuint _x, GLuint _y) : y(_y), x(_x), z(0) {};
 	Point3Di(const Point2Di& p) : y(p.y), x(p.x) {};
-    
-    Point3Di(GLuint _x, GLuint _y, GLuint _z) : y(_y), x(_x), z(_z) {};
+	
+	Point3Di(GLuint _x, GLuint _y, GLuint _z) : y(_y), x(_x), z(_z) {};
 	Point3Di(const Point3Di& p) : y(p.y), x(p.x), z(p.z) {};
 	
 	GLuint x, y, z;
@@ -40,7 +40,7 @@ struct Size2Di
 {
 	Size2Di() : width(0), height(0) {};
 	Size2Di(GLuint _width, GLuint _height) : width(_width), height(_height) {};
- 	Size2Di(const Size2Di& s) : width(s.width), height(s.height) {};
+	Size2Di(const Size2Di& s) : width(s.width), height(s.height) {};
 	
 	GLuint width;
 	GLuint height;
@@ -55,7 +55,7 @@ struct Rect2Di
 	Rect2Di(const Size2Di& s, const Point2Di& p) : bounds(s), position(p) {};
 	Rect2Di(const Rect2Di& r) : bounds(r.bounds), position(r.position) {};
 	Rect2Di(const Size2Di& s) : bounds(s) {};
-    
+	
 	Size2Di bounds;
 	Point2Di position;
 };

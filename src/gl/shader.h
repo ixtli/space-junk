@@ -31,9 +31,9 @@ private:
 	bool compileShader(const char* src, GLenum type, GLuint &s);
 	bool link(GLuint frag, GLuint vert);
 	bool applyVertexFormat(const ShaderMetadata& metadata);
-						
+	
 	static GLuint _currentProgram;
-
+	
 	GLuint _id, _vert, _frag;
 };
 

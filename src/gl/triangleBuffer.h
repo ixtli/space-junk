@@ -49,7 +49,7 @@ public:
 		Renderer::bindVAO(_vaoID);
 		glDrawElements(GL_TRIANGLE_STRIP, _drawCount, GL_UNSIGNED_SHORT, _start);
 	}
-    
+	
 private:
 	
 	// Helper functions that you must clean up after

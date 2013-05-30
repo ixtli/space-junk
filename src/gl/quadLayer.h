@@ -31,18 +31,18 @@ public:
 		_buffer.draw();
 		GetGLError();
 	};
-    
-    // Inline getters and setters
-    void usedQuads(GLuint used);
-    inline bool update(const GLvoid* verts) { return _buffer.update(verts); };
-    inline GLuint usedQuads() const { return _usedQuads; };
+	
+	// Inline getters and setters
+	void usedQuads(GLuint used);
+	inline bool update(const GLvoid* verts) { return _buffer.update(verts); };
+	inline GLuint usedQuads() const { return _usedQuads; };
 	
 private:
 	
 	void generateElementIndicies(GLushort* indicies);
 	
 	bool _dynamic;
-    GLuint _usedQuads;
+	GLuint _usedQuads;
 	GLuint _maxQuads;
 	
 	ShaderFormat _shaderFormat;
