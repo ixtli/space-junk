@@ -35,6 +35,7 @@
 		A3E8BC76174F2A7C0092C416 /* quadLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC74174F2A7C0092C416 /* quadLayer.cpp */; };
 		A3E8BC781756F1210092C416 /* shaderFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC771756F1210092C416 /* shaderFormats.cpp */; };
 		A3E8BC7A1756F1990092C416 /* vertexFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC791756F1990092C416 /* vertexFormats.cpp */; };
+		A3EC236C17582A1B00512D98 /* uiLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3EC236A17582A1B00512D98 /* uiLayer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,9 @@
 		A3E8BC75174F2A7C0092C416 /* quadLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quadLayer.h; sourceTree = "<group>"; };
 		A3E8BC771756F1210092C416 /* shaderFormats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderFormats.cpp; sourceTree = "<group>"; };
 		A3E8BC791756F1990092C416 /* vertexFormats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexFormats.cpp; sourceTree = "<group>"; };
+		A3EC23691758297400512D98 /* easingFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = easingFunctions.h; sourceTree = "<group>"; };
+		A3EC236A17582A1B00512D98 /* uiLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uiLayer.cpp; path = ui/uiLayer.cpp; sourceTree = "<group>"; };
+		A3EC236B17582A1B00512D98 /* uiLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uiLayer.h; path = ui/uiLayer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,7 @@
 				A314ED871744AACB004C3B61 /* log.c */,
 				A314ED881744AACB004C3B61 /* log.h */,
 				A314ED891744AACB004C3B61 /* version.h */,
+				A3EC23691758297400512D98 /* easingFunctions.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -181,6 +186,8 @@
 			children = (
 				A314EDB2174C787B004C3B61 /* uiManager.cpp */,
 				A314EDB3174C787B004C3B61 /* uiManager.h */,
+				A3EC236A17582A1B00512D98 /* uiLayer.cpp */,
+				A3EC236B17582A1B00512D98 /* uiLayer.h */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -361,6 +368,7 @@
 				A38FAB1217505647001776F2 /* colorRectLayer.cpp in Sources */,
 				A3E8BC781756F1210092C416 /* shaderFormats.cpp in Sources */,
 				A3E8BC7A1756F1990092C416 /* vertexFormats.cpp in Sources */,
+				A3EC236C17582A1B00512D98 /* uiLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,3 +15,7 @@
 
 #import <OpenGL/gl3.h>
 #import <OpenGL/gl3ext.h>
+
+// The game should use the unix timestamp to diff
+#include <time.h>
+

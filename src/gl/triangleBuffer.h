@@ -34,8 +34,25 @@ public:
 	~TriangleBuffer();
 	
 	bool init(const TriBufferConfig &config);
-	bool update(const GLvoid* verticies);
-    
+	bool updateVerts(const GLvoid* verticies);
+	bool updateIndicies(const GLushort* indicies);
+	
+	// Size manipulation functions
+	// Data expected to be difference between old count and new, and is appended
+	// to the end of the buffer after it is copied
+	bool growVertsReplace(GLuint newVertCount, const GLvoid* verticies);
+	bool growIndiciesReplace(GLuint newIndexCount, const GLushort* indicies);
+	
+	// Data expected to be the size of the new count, the old buffer is REMOVED
+	// and the new data is used instead
+	bool growVertsExtend(GLuint newVertCount, const GLvoid* verticies);
+	bool growIndiciesExtend(GLuint newIndexCount, const GLushort* indicies);
+	
+	// Data is optional: if provided it replaces the old data, otherwise the old
+	// data is truncated and copied to the new buffer location
+	bool shrinkVerts(GLuint newVertCount, const GLvoid* verticies);
+	bool shrinkIndicies(GLuint newIndexCount, const GLushort* indicies);
+  
 	// Getters
 	inline GLuint vao() const { return _vaoID; }
 	

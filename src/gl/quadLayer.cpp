@@ -56,7 +56,7 @@ bool QuadLayer::init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts)
 	bool result = _buffer.init(conf);
 	
 	// Clean up
-	delete indicies;
+	delete [] indicies;
 
 	return result;
 }
@@ -91,4 +91,15 @@ void QuadLayer::usedQuads(GLuint used)
 	
 	_usedQuads = used;
 	_buffer.count(_usedQuads * 4);
+}
+
+bool QuadLayer::resizeLayer(GLuint newMaxQuads)
+{
+	_maxQuads = newMaxQuads;
+	
+	GLuint indexCount = _maxQuads * 6 - 2;
+	
+	// TODO: resize
+	
+	return true;
 }

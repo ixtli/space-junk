@@ -23,6 +23,7 @@ public:
 	~QuadLayer();
 	
 	bool init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts);
+	bool resizeLayer(GLuint newMaxQuads);
 	
 	// Inline render functions
 	inline void draw() const
@@ -34,7 +35,7 @@ public:
 	
 	// Inline getters and setters
 	void usedQuads(GLuint used);
-	inline bool update(const GLvoid* verts) { return _buffer.update(verts); };
+	inline bool update(const GLvoid* verts) {return _buffer.updateVerts(verts);};
 	inline GLuint usedQuads() const { return _usedQuads; };
 	
 private:

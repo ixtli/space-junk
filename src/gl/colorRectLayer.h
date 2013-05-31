@@ -44,7 +44,7 @@ public:
 	
 	// "CRUD" functions
 	bool addRect(ColorRect* r); // bwa: O(1)
-	bool removeRect(const ColorRect& r); // w: O(n), n == _usedRects - r->index
+	bool removeRect(const ColorRect& r); // w: O(n), n == (_usedRects - 1)
 	void updateRect(const ColorRect& r);
 	
 	void commit();

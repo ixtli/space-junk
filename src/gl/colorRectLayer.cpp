@@ -112,13 +112,13 @@ void ColorRectLayer::updateRect(const ColorRect &r)
 	}
 	
 	updateVertsForIndex(r.index);
-	_dirty = true;
 }
 
 inline void ColorRectLayer::updateVertsForIndex(GLuint index)
 {
 	GLuint v = index * 4;
 	
+	// Bottom left
 	_verts[v].location.x = _list[index]->rect.position.x;
 	_verts[v].location.y = _list[index]->rect.position.y +
 		_list[index]->rect.bounds.height;
@@ -149,6 +149,8 @@ inline void ColorRectLayer::updateVertsForIndex(GLuint index)
 	
 	_verts[v].location.z = _depth + _list[index]->depthOffset;
 	_verts[v++].color = _list[index]->color;
+	
+	listChanged();
 }
 
 void ColorRectLayer::commit()

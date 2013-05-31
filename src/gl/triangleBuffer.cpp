@@ -33,6 +33,7 @@ TriangleBuffer::~TriangleBuffer()
 	glDeleteBuffers(1, &_vertexBufferID);
 	glDeleteBuffers(1, &_indexBufferID);
 	glDeleteVertexArrays(1, &_vaoID);
+	GetGLError();
 	
 	Renderer::clearBindings();
 }
@@ -92,11 +93,11 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 		glEnableVertexAttribArray(i);
 		
 		glVertexAttribPointer(i,
-			config.attributes[i]->size,
-			config.attributes[i]->type,
-			config.attributes[i]->normalize,
-			_vertexSize,
-			(const void*)offset);
+													config.attributes[i]->size,
+													config.attributes[i]->type,
+													config.attributes[i]->normalize,
+													_vertexSize,
+													(const void*) offset);
 		
 		offset += config.attributes[i]->byteCount;
 	}
@@ -108,7 +109,7 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 	return true;
 }
 
-bool TriangleBuffer::update(const GLvoid *verticies)
+bool TriangleBuffer::updateVerts(const GLvoid *verticies)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, ((GLsizeiptr)_vertexSize * _vertexCount),
@@ -117,11 +118,20 @@ bool TriangleBuffer::update(const GLvoid *verticies)
 	return true;
 }
 
+bool TriangleBuffer::updateIndicies(const GLushort *indicies)
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vertexBufferID);
+	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0,
+									(GLsizei)(sizeof(GLushort) * _indexCount), indicies);
+	GetGLError();
+	return true;
+}
+
 void TriangleBuffer::arrayBufferData(const GLvoid *data)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, ((GLsizeiptr)_vertexSize * _vertexCount),
-		data, _dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
+							 data, _dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
 	GetGLError();
 }
 
@@ -129,7 +139,7 @@ void TriangleBuffer::elementBufferData(const GLushort *data)
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBufferID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		(GLsizei)(sizeof(GLushort) * _indexCount), data, GL_DYNAMIC_DRAW);
+							 (GLsizei)(sizeof(GLushort) * _indexCount), data, GL_DYNAMIC_DRAW);
 	GetGLError();
 }
 
