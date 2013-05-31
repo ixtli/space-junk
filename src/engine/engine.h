@@ -13,9 +13,10 @@ class Engine
 {
 public:
 	
-	static Engine* getInstance();
+	inline static Engine* getInstance() { return &_instance; };
 	
 	bool init();
+	void update();
 	
 private:
 	

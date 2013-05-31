@@ -10,7 +10,7 @@
 
 #include "shaderManager.h"
 
-#include "colorRectLayer.h"
+#include "uiManager.h"
 
 #include "renderer.h"
 
@@ -25,9 +25,7 @@ Renderer::Renderer() : _bounds(), _defaultFBOName(0)
 
 Renderer::~Renderer()
 {
-	delete r;
 	
-	delete _layer;
 }
 
 bool Renderer::init(GLuint defaultFBO)
@@ -45,23 +43,6 @@ bool Renderer::init(GLuint defaultFBO)
 	// Initialize Shaders
 	if (!ShaderManager::getInstance()->init())
 		return false;
-	
-	// TODO: Remove temp data
-	r = new ColorRect();
-	r->depthOffset = 0;
-	r->rect.bounds.width = 27;
-	r->rect.bounds.height = 38;
-	r->rect.position.x = 10;
-	r->rect.position.y = 32;
-	r->color.r = 180;
-	r->color.g = 90;
-	r->color.b = 5;
-	r->color.a = 200;
-
-	_layer = new ColorRectLayer();
-	_layer->init(0, 1);
-	_layer->addRect(r);
-	_layer->commit();
 	
 	return true;
 }
@@ -102,7 +83,7 @@ void Renderer::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	_layer->draw();
+	UIManager::draw();
 	
 	GetGLError();
 }

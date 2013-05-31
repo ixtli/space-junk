@@ -97,7 +97,7 @@ bool QuadLayer::resizeLayer(GLuint newMaxQuads)
 {
 	_maxQuads = newMaxQuads;
 	
-	GLuint indexCount = _maxQuads * 6 - 2;
+//	GLuint indexCount = _maxQuads * 6 - 2;
 	
 	// TODO: resize
 	

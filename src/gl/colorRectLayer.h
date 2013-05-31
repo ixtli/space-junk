@@ -9,7 +9,7 @@
 #ifndef __SpaceJunk__colorRectLayer__
 #define __SpaceJunk__colorRectLayer__
 
-#include "quadLayer.h"
+#include "rectLayer.h"
 
 struct ColorRect
 {
@@ -31,11 +31,9 @@ struct ColorRect
 	GLuint index;
 };
 
-class ColorRectLayer
+class ColorRectLayer : public RectLayer
 {
 public:
-	
-	static const GLuint MAX_RECTS = 0xFFF0;
 	
 	ColorRectLayer(bool dynamic = true);
 	~ColorRectLayer();
@@ -49,12 +47,6 @@ public:
 	
 	void commit();
 	
-	// Inline render functions
-	inline void draw() const { _quadLayer.draw(); };
-	
-	// Inline getters and setters
-	inline GLuint used() const { return _usedRects; };
-	
 private:
 	
 	inline void updateVertsForIndex(GLuint index);
@@ -62,16 +54,11 @@ private:
 	
 	bool initLayer();
 	
-	GLfloat _depth;
-	GLuint _maxRects;
-	GLuint _usedRects;
-	
 	ColorRect** _list;
 	ColorVertex* _verts;
 	
 	bool _dirty;
 	bool _initialized;
-	QuadLayer _quadLayer;
 	
 };
 

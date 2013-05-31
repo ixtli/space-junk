@@ -18,11 +18,21 @@ public:
 	static UIManager* getInstance() { return &_instance; };
 	
 	bool init();
+	bool addLayer(UILayer* layer);
+	
+	static void draw();
+	static void update(time_t time);
 	
 private:
 	
 	UIManager();
 	~UIManager();
+	
+	bool growLayerList();
+	
+	UILayer** _layers;
+	size_t _maxLayers;
+	size_t _layerCount;
 	
 	static UIManager _instance;
 	

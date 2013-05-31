@@ -9,18 +9,32 @@
 #ifndef __SpaceJunk__uiLayer__
 #define __SpaceJunk__uiLayer__
 
+#include "uiElement.h"
+#include "rectLayer.h"
+
 class UILayer
 {
 public:
 	
-	UILayer();
+	UILayer(const RectLayer* layer);
 	~UILayer();
 	
-	bool init(unsigned elementCount);
+	inline void draw() const { _layer->draw(); };
+	
+	inline void update()
+	{
+		for (size_t i = 0; i < _elementCount; i++)
+			_elementList[i]->update();
+	}
+	
+protected:
+	
+	UIElement** _elementList;
+	size_t _elementCount;
 	
 private:
 	
-	unsigned _elementCount;
+	const RectLayer* _layer;
 	
 };
 

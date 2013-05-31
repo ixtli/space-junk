@@ -11,9 +11,6 @@
 
 #include "geometry.h"
 
-struct ColorRect;
-class ColorRectLayer;
-
 class Renderer
 {
 public:
@@ -53,9 +50,6 @@ private:
 	Size2Di _bounds;
 	matrix4f _projectionMatrix;
 	GLuint _defaultFBOName;
-	
-	ColorRect* r;
-	ColorRectLayer* _layer;
 	
 	void resetGL();
 	

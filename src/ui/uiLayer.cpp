@@ -8,21 +8,17 @@
 
 #include "uiLayer.h"
 
-UILayer::UILayer() :
+UILayer::UILayer(const RectLayer* layer) :
 
-_elementCount(0)
+_layer(layer),
+_elementCount(0),
+_elementList(NULL)
 
 {}
 
 UILayer::~UILayer()
 {
-	
+	if (_elementList) delete [] _elementList;
 }
 
-bool UILayer::init(unsigned int elementCount)
-{
-	_elementCount = elementCount;
-	
-	return true;
-}
 

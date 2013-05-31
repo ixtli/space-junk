@@ -19,11 +19,6 @@ using namespace v8;
 
 Engine Engine::_instance;
 
-Engine* Engine::getInstance()
-{
-	return &_instance;
-}
-
 Engine::Engine()
 { }
 
@@ -53,4 +48,11 @@ bool Engine::init()
 	UIManager::getInstance()->init();
 	
 	return true;
+}
+
+void Engine::update()
+{
+	time_t t = time(0);
+	
+	UIManager::getInstance()->update(t);
 }

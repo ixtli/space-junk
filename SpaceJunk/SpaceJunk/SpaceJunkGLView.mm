@@ -115,12 +115,12 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	GLint swapInt = 1;
 	[[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
 	
-	// Init the engine
-	Engine::getInstance()->init();
-	
 	// Init our renderer. Use zero for the default FBO
 	// N.B.: Not appropriate for iOS
 	Renderer::getInstance()->init(0);
+	
+	// Init the engine
+	Engine::getInstance()->init();
 	
 }
 
@@ -147,6 +147,8 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
             resize(Size2Di(rect.size.width, rect.size.height));
 		resized = false;
 	}
+	
+	Engine::getInstance()->update();
 	
 	Renderer::getInstance()->render();
 	

@@ -10,10 +10,7 @@
 
 ColorRectLayer::ColorRectLayer(bool dynamic) :
 
-_quadLayer(dynamic),
-_maxRects(0),
-_usedRects(0),
-_depth(0.0f),
+RectLayer(dynamic),
 _list(NULL),
 _verts(NULL),
 _initialized(false),
@@ -30,20 +27,8 @@ ColorRectLayer::~ColorRectLayer()
 
 bool ColorRectLayer::init(GLfloat depth, GLuint rectCount)
 {
-	if (!rectCount)
-	{
-		error("Must initialize layer with at least one rect.");
+	if (!RectLayer::init(depth, rectCount))
 		return false;
-	}
-	
-	if (rectCount >= MAX_RECTS)
-	{
-		error("A single layer can't have more than %u rects.", MAX_RECTS);
-		return false;
-	}
-	
-	_depth = depth;
-	_maxRects = rectCount;
 	
 	_list = new ColorRect* [rectCount];
 	
