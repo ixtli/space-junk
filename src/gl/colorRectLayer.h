@@ -45,7 +45,7 @@ public:
 	bool removeRect(const ColorRect& r); // w: O(n), n == (_usedRects - 1)
 	void updateRect(const ColorRect& r);
 	
-	void commit();
+	virtual void commit();
 	
 private:
 	

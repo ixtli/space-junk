@@ -28,6 +28,8 @@ public:
 	// Inline getters and setters
 	inline GLuint used() const { return _usedRects; };
 	
+	virtual void commit() = 0;
+	
 protected:
 	
 	GLfloat _depth;

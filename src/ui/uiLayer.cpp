@@ -8,7 +8,7 @@
 
 #include "uiLayer.h"
 
-UILayer::UILayer(const RectLayer* layer) :
+UILayer::UILayer(RectLayer* layer) :
 
 _layer(layer),
 _elementCount(0),

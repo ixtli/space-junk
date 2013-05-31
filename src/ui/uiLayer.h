@@ -16,7 +16,7 @@ class UILayer
 {
 public:
 	
-	UILayer(const RectLayer* layer);
+	UILayer(RectLayer* layer);
 	~UILayer();
 	
 	inline void draw() const { _layer->draw(); };
@@ -25,6 +25,8 @@ public:
 	{
 		for (size_t i = 0; i < _elementCount; i++)
 			_elementList[i]->update();
+		
+		_layer->commit();
 	}
 	
 protected:
@@ -34,7 +36,7 @@ protected:
 	
 private:
 	
-	const RectLayer* _layer;
+	RectLayer* _layer;
 	
 };
 
