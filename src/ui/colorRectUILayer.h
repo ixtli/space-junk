@@ -11,6 +11,7 @@
 
 #include "colorRectLayer.h"
 #include "uiLayer.h"
+#include "uiColorRectElement.h"
 
 class ColorRectUILayer : public UILayer
 {
@@ -21,10 +22,14 @@ public:
 	
 	bool init();
 	
+	void addElement(UIElement* e);
+	void removeElement(UIElement* e);
+	
 private:
 	
 	ColorRectLayer _layer;
-	ColorRect _r;
+	
+	ColorRectUIElement _r;
 	
 };
 

@@ -29,6 +29,8 @@
 		A331D9141740A14C00A46C9F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A331D9131740A14C00A46C9F /* QuartzCore.framework */; };
 		A331D9171740A1F300A46C9F /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A331D9161740A1F300A46C9F /* SpaceJunkGLView.mm */; };
 		A38FAB1217505647001776F2 /* colorRectLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A38FAB1017505647001776F2 /* colorRectLayer.cpp */; };
+		A3BA32A0175C447400E1F30E /* uiColorRectElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3BA329E175C447400E1F30E /* uiColorRectElement.cpp */; };
+		A3BA32A3175C44EF00E1F30E /* color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3BA32A1175C44EF00E1F30E /* color.cpp */; };
 		A3DED97B1741F07900AA92F7 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9771741EFE700AA92F7 /* solidQuad.vsh */; };
 		A3DED97C1741F07900AA92F7 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3DED9791741EFF500AA92F7 /* solidQuad.fsh */; };
 		A3E8BC69174DCD820092C416 /* shaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E8BC67174DCD820092C416 /* shaderManager.cpp */; };
@@ -91,6 +93,10 @@
 		A331D9161740A1F300A46C9F /* SpaceJunkGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkGLView.mm; sourceTree = "<group>"; };
 		A38FAB1017505647001776F2 /* colorRectLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colorRectLayer.cpp; sourceTree = "<group>"; };
 		A38FAB1117505647001776F2 /* colorRectLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorRectLayer.h; sourceTree = "<group>"; };
+		A3BA329E175C447400E1F30E /* uiColorRectElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uiColorRectElement.cpp; path = ui/uiColorRectElement.cpp; sourceTree = "<group>"; };
+		A3BA329F175C447400E1F30E /* uiColorRectElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uiColorRectElement.h; path = ui/uiColorRectElement.h; sourceTree = "<group>"; };
+		A3BA32A1175C44EF00E1F30E /* color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cpp; sourceTree = "<group>"; };
+		A3BA32A2175C44EF00E1F30E /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
 		A3DED9771741EFE700AA92F7 /* solidQuad.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.vsh; path = ../../shader/solidQuad.vsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		A3DED9791741EFF500AA92F7 /* solidQuad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = solidQuad.fsh; path = ../../shader/solidQuad.fsh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		A3E8BC67174DCD820092C416 /* shaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderManager.cpp; sourceTree = "<group>"; };
@@ -188,6 +194,8 @@
 				A38FAB1117505647001776F2 /* colorRectLayer.h */,
 				A3EC236D1758461200512D98 /* rectLayer.cpp */,
 				A3EC236E1758461200512D98 /* rectLayer.h */,
+				A3BA32A1175C44EF00E1F30E /* color.cpp */,
+				A3BA32A2175C44EF00E1F30E /* color.h */,
 			);
 			path = gl;
 			sourceTree = "<group>";
@@ -203,6 +211,8 @@
 				A3EC23711758688300512D98 /* colorRectUILayer.h */,
 				A3EC237317586DE200512D98 /* uiElement.cpp */,
 				A3EC237417586DE200512D98 /* uiElement.h */,
+				A3BA329E175C447400E1F30E /* uiColorRectElement.cpp */,
+				A3BA329F175C447400E1F30E /* uiColorRectElement.h */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -387,6 +397,8 @@
 				A3EC236F1758461200512D98 /* rectLayer.cpp in Sources */,
 				A3EC23721758688300512D98 /* colorRectUILayer.cpp in Sources */,
 				A3EC237517586DE200512D98 /* uiElement.cpp in Sources */,
+				A3BA32A0175C447400E1F30E /* uiColorRectElement.cpp in Sources */,
+				A3BA32A3175C44EF00E1F30E /* color.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

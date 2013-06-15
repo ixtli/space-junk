@@ -10,17 +10,7 @@
 #define SpaceJunk_vertexFormats_h
 
 #include "geometry.h"
-
-struct Color4u
-{
-	Color4u() : r(0), g(0), b(0), a(255) {};
-	Color4u(const Color4u& c) : r(c.r), g(c.g), b(c.b), a(c.a) {};
-	
-	Color4u(GLubyte _r, GLubyte _g, GLubyte _b, GLubyte _a) :
-		r(_r), g(_g), b(_b), a(_a) {};
-	
-	GLubyte r, g, b, a;
-};
+#include "color.h"
 
 typedef struct
 {

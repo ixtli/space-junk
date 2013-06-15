@@ -7,3 +7,29 @@
 //
 
 #include "uiElement.h"
+
+UIElement::UIElement() :
+
+_rect(),
+_depth(0)
+
+{}
+
+UIElement::UIElement(const Rect2Di& rect) :
+
+_rect(rect),
+_depth(0)
+
+{}
+
+UIElement::UIElement(const Rect2Di& rect, GLfloat depth) :
+
+_rect(rect),
+_depth(depth)
+
+{}
+
+UIElement::~UIElement()
+{
+    
+}

@@ -29,10 +29,18 @@ public:
 		_layer->commit();
 	}
 	
+	inline void depth(GLfloat d) { _depth = d; };
+	inline GLfloat depth() const { return _depth; };
+	
+	bool addElement(UIElement* e);
+	bool removeElement(UIElement* e);
+	
 protected:
 	
 	UIElement** _elementList;
 	size_t _elementCount;
+	
+	GLfloat _depth;
 	
 private:
 	

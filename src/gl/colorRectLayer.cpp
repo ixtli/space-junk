@@ -104,36 +104,36 @@ inline void ColorRectLayer::updateVertsForIndex(GLuint index)
 	GLuint v = index * 4;
 	
 	// Bottom left
-	_verts[v].location.x = _list[index]->rect.position.x;
-	_verts[v].location.y = _list[index]->rect.position.y +
-		_list[index]->rect.bounds.height;
+	_verts[v].location.x = _list[index]->rect->position.x;
+	_verts[v].location.y = _list[index]->rect->position.y +
+		_list[index]->rect->bounds.height;
 	
 	_verts[v].location.z = _depth + _list[index]->depthOffset;
-	_verts[v++].color = _list[index]->color;
+	_verts[v++].color = *_list[index]->color;
 	
 	// Bottom Right
-	_verts[v].location.x = _list[index]->rect.position.x +
-		_list[index]->rect.bounds.width;
-	_verts[v].location.y = _list[index]->rect.position.y +
-		_list[index]->rect.bounds.height;
+	_verts[v].location.x = _list[index]->rect->position.x +
+		_list[index]->rect->bounds.width;
+	_verts[v].location.y = _list[index]->rect->position.y +
+		_list[index]->rect->bounds.height;
 	
 	_verts[v].location.z = _depth + _list[index]->depthOffset;
-	_verts[v++].color = _list[index]->color;
+	_verts[v++].color = *_list[index]->color;
 
 	// Top Left
-	_verts[v].location.x = _list[index]->rect.position.x;
-	_verts[v].location.y = _list[index]->rect.position.y;
+	_verts[v].location.x = _list[index]->rect->position.x;
+	_verts[v].location.y = _list[index]->rect->position.y;
 	
 	_verts[v].location.z = _depth + _list[index]->depthOffset;
-	_verts[v++].color = _list[index]->color;
+	_verts[v++].color = *_list[index]->color;
 	
 	// Top Right
-	_verts[v].location.x = _list[index]->rect.position.x +
-		_list[index]->rect.bounds.width;
-	_verts[v].location.y = _list[index]->rect.position.y;
+	_verts[v].location.x = _list[index]->rect->position.x +
+		_list[index]->rect->bounds.width;
+	_verts[v].location.y = _list[index]->rect->position.y;
 	
 	_verts[v].location.z = _depth + _list[index]->depthOffset;
-	_verts[v++].color = _list[index]->color;
+	_verts[v++].color = *_list[index]->color;
 	
 	listChanged();
 }

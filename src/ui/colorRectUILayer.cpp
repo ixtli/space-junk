@@ -10,7 +10,8 @@
 
 ColorRectUILayer::ColorRectUILayer() :
 
-UILayer(&_layer)
+UILayer(&_layer),
+_r()
 
 {}
 
@@ -22,18 +23,13 @@ ColorRectUILayer::~ColorRectUILayer()
 bool ColorRectUILayer::init()
 {
 	// TODO: Remove temp data
-	_r.depthOffset = 0;
-	_r.rect.bounds.width = 27;
-	_r.rect.bounds.height = 38;
-	_r.rect.position.x = 10;
-	_r.rect.position.y = 32;
-	_r.color.r = 180;
-	_r.color.g = 90;
-	_r.color.b = 5;
-	_r.color.a = 200;
-	
+	_r.width(27);
+	_r.height(38);
+	_r.left(10);
+	_r.top(32);
+	_r.rgba(180, 90, 5, 200);
 	_layer.init(0, 1);
-	_layer.addRect(&_r);
+	_layer.addRect(_r.layerRect());
 	_layer.commit();
 	
 	return true;
