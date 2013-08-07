@@ -8,9 +8,9 @@
 	#import <Cocoa/Cocoa.h>
 #endif
 
-#include "log.h"
-
 #import <OpenGL/gl3.h>
 #import <OpenGL/gl3ext.h>
 
 #include <time.h>
+
+#include "log.h"

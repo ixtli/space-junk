@@ -47,6 +47,12 @@ char* Environment::newPathForFile(const char *name, const char *type)
 	
 	NSString* p = [[NSBundle mainBundle] pathForResource:n ofType:t];
 	
+	if (!p)
+	{
+		error("Could not find file %s of type %s.", name, type);
+		return NULL;
+	}
+	
 	// Copy to a buffer and return it
 	char* ret = new char[[p length]];
 	if (!ret) return NULL;
