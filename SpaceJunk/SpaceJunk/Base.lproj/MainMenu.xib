@@ -650,17 +650,11 @@
         <window title="SpaceJunk" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
+            <rect key="contentRect" x="335" y="390" width="547" height="408"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
-            <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+            <view key="contentView" id="372" customClass="SpaceJunkGLView">
+                <rect key="frame" x="0.0" y="0.0" width="547" height="408"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <openGLView focusRingType="none" fixedFrame="YES" colorSize="5bit_RGB_8bit_Alpha" depthSize="32bit" useAuxiliaryDepthBufferStencil="NO" useDoubleBufferingEnabled="YES" allowOffline="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WRD-9N-8sN" customClass="SpaceJunkGLView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    </openGLView>
-                </subviews>
             </view>
         </window>
         <customObject id="494" customClass="SpaceJunkAppDelegate">
