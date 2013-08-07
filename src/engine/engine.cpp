@@ -13,6 +13,8 @@
 #include "renderer.h"
 #include "version.h"
 
+#include "hud.h"
+
 #include "engine.h"
 
 using namespace v8;
@@ -46,6 +48,9 @@ bool Engine::init()
 	log("%s", *ascii);
 	
 	UIManager::getInstance()->init();
+	
+	HUD* h = new HUD();
+	h->init();
 	
 	return true;
 }

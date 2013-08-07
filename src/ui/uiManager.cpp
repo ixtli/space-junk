@@ -31,12 +31,6 @@ bool UIManager::init()
 {
 	log("Initializing.");
 	
-	
-	ColorRectUILayer* layer = new ColorRectUILayer();
-	layer->init();
-	
-	UIManager::getInstance()->addLayer(layer);
-	
 	return true;
 }
 
@@ -64,6 +58,31 @@ bool UIManager::addLayer(UILayer *layer)
 	_layerCount++;
 	
 	return true;
+}
+
+bool UIManager::removeLayer(const UILayer *layer)
+{
+	if (!layer) return false;
+	
+	bool found = false;
+	
+	for (size_t i = 0; i < _layerCount; i++)
+	{
+		if (found)
+		{
+			_layers[i - 1] = _layers[i];
+		} else if (layer == _layers[i]) {
+			found = true;
+		}
+	}
+	
+	if (found)
+	{
+		_layerCount--;
+		_layers[_layerCount] = NULL;
+	}
+	
+	return found;
 }
 
 bool UIManager::growLayerList()

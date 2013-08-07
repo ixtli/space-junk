@@ -19,6 +19,7 @@ public:
 	
 	bool init();
 	bool addLayer(UILayer* layer);
+	bool removeLayer(const UILayer* layer);
 	
 	static void draw();
 	static void update(time_t time);
