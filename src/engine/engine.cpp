@@ -38,12 +38,13 @@ bool Engine::init()
 	
 	Isolate* isolate = Isolate::GetCurrent();
 	HandleScope handle_scope(isolate);
-	Persistent<Context> context = Context::New();
+	Handle<Context> context = Context::New(isolate);
+	Persistent<Context> persistent_context(isolate, context);
 	Context::Scope context_scope(context);
 	Handle<String> source = String::New("'Hello' + ', World!'");
 	Handle<Script> script = Script::Compile(source);
 	Handle<Value> result = script->Run();
-	context.Dispose(isolate);
+	persistent_context.Dispose();
 	String::AsciiValue ascii(result);
 	log("%s", *ascii);
 	

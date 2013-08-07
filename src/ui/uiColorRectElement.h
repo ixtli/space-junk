@@ -24,12 +24,12 @@ public:
 	
 	const Color4u* color() const { return &_color; };
 	
-	inline void red(GLushort r) { _color.r = r; };
-	inline void green(GLushort g) { _color.g = g; };
-	inline void blue(GLushort b) { _color.b = b; };
-	inline void alpha(GLushort a) { _color.a = a; };
+	inline void red(GLubyte r) { _color.r = r; };
+	inline void green(GLubyte g) { _color.g = g; };
+	inline void blue(GLubyte b) { _color.b = b; };
+	inline void alpha(GLubyte a) { _color.a = a; };
 	
-	void rgba(GLushort r, GLushort g, GLushort b, GLushort a);
+	void rgba(GLubyte r, GLubyte g, GLubyte b, GLubyte a);
 	
 	virtual void update() {};
 	

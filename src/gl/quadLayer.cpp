@@ -66,7 +66,7 @@ bool QuadLayer::init(GLuint maxQuads, ShaderFormat shader, const GLvoid* verts)
  */
 void QuadLayer::generateElementIndicies(GLushort *indicies)
 {
-	GLuint val = 0, index = 0;
+	GLshort val = 0, index = 0;
 	for (GLuint i = 0; i < _maxQuads; i++)
 	{
 		indicies[index] = val;

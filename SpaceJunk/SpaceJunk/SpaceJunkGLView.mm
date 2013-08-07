@@ -143,8 +143,8 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	if (resized)
 	{
 		NSRect rect = [self bounds];
-		Renderer::getInstance()->
-            resize(Size2Di(rect.size.width, rect.size.height));
+		Renderer::getInstance()->resize(
+				Size2Di((GLuint)rect.size.width, (GLuint)rect.size.height));
 		resized = false;
 	}
 	

@@ -2,7 +2,7 @@
 //  SpaceJunkAppDelegate.m
 //  SpaceJunk
 //
-//  Created by ixtli on 5/9/13.
+//  Created by ixtli on 8/7/13.
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 

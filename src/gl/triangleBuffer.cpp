@@ -87,7 +87,9 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 	elementBufferData(config.indicies);
 	
 	// Enable and set vertex attribute arrays
-	GLsizei offset = 0;
+	// (N.B.: this needs to be the same size as a pointer to avoid conversion
+	// errors to GLvoid*)
+	size_t offset = 0;
 	for (GLuint i = 0; i < config.attrCount; i++)
 	{
 		glEnableVertexAttribArray(i);
@@ -97,7 +99,7 @@ bool TriangleBuffer::init(const TriBufferConfig &config)
 													config.attributes[i]->type,
 													config.attributes[i]->normalize,
 													_vertexSize,
-													(const void*) offset);
+													(const GLvoid*) offset);
 		
 		offset += config.attributes[i]->byteCount;
 	}

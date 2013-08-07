@@ -39,7 +39,7 @@ ColorRectUIElement::~ColorRectUIElement()
 	
 }
 
-void ColorRectUIElement::rgba(GLushort r, GLushort g, GLushort b, GLushort a)
+void ColorRectUIElement::rgba(GLubyte r, GLubyte g, GLubyte b, GLubyte a)
 {
 	_color.r = r;
 	_color.g = g;

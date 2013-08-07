@@ -1,21 +1,16 @@
 //
-// Prefix header for all source files of the 'SpaceJunk' target
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
 //
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
 #endif
 
-// This includes <string.h>, which makes XCode underestand things like NULL
-// and other niceties we've all gotten so used to for some reason.
 #include "log.h"
-
-// This appears to be a weird idiosyncracy of 10.8.x core3_2 profile
-#define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED 1
 
 #import <OpenGL/gl3.h>
 #import <OpenGL/gl3ext.h>
 
-// The game should use the unix timestamp to diff
 #include <time.h>
-
