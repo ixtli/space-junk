@@ -16,7 +16,7 @@ const VertexAttribute VertexFormats::attributes[NUM_VERTEX_ATTRIBUTES] =
 		.type = GL_FLOAT,
 		.normalize = GL_FALSE,
 		.name = "v_pos",
-		.byteCount = sizeof(Point3f)
+		.byteCount = sizeof(Point3F)
 	},
 	
 	// TEXTURED_ATTRIB
@@ -25,7 +25,7 @@ const VertexAttribute VertexFormats::attributes[NUM_VERTEX_ATTRIBUTES] =
 		.type = GL_FLOAT,
 		.normalize = GL_FALSE,
 		.name = "v_texCoord",
-		.byteCount = sizeof(Point2f)
+		.byteCount = sizeof(Point2F)
 	},
 	
 	// COLORED_ATTRIB

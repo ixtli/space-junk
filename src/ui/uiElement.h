@@ -32,8 +32,8 @@ public:
 	
 	// Getters
 	inline const RectI* rect() const { return &_rect; };
-	inline const Size2i* size() const { return &_rect.bounds; };
-	inline const Point2i* position() const { return &_rect.position; };
+	inline const Size2I* size() const { return &_rect.bounds; };
+	inline const Point2I* position() const { return &_rect.position; };
 	inline const GLfloat depth() const { return _depth; };
 	
 protected:

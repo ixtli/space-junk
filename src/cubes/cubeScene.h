@@ -18,7 +18,7 @@ public:
 	
 	inline static CubeScene* instance() { return &_instance; };
 	
-	bool init(const Point3i &size);
+	bool init(const Size3U &size);
 	
 private:
 	
@@ -27,10 +27,9 @@ private:
 	
 	static CubeScene _instance;
 	
-	Point3i _size;
+	Size3U _size;
 	CubeBuffer _buffer;
 	Cube* _cubes;
-	
 	
 };
 

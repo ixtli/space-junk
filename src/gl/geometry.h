@@ -24,12 +24,19 @@ public:
 	Point2(const T& _x, const T& _y) : x(_x), y(_y) {};
 	Point2(const Point2<T> &p) : x(p.x), y(p.y) {};
 	
+	inline void set(Point2<T> &p)
+	{
+		x = p.x;
+		y = p.y;
+	};
+	
 	T x, y;
 };
 
-typedef Point2<GLfloat> Point2f;
-typedef Point2<GLuint> Point2i;
-typedef Point2<size_t> Point2l;
+typedef Point2<GLfloat> Point2F;
+typedef Point2<GLint> Point2I;
+typedef Point2<GLuint> Point2U;
+typedef Point2<size_t> Point2L;
 
 template <class T>
 class Point3
@@ -39,27 +46,71 @@ public:
 	Point3(const T &_x, const T &_y, const T &_z) : x(_x), y(_y), z(_z) {};
 	Point3(const Point3<T> &p) : x(p.x), y(p.y), z(p.z) {};
 	
+	inline void set(Point3<T> &p)
+	{
+		x = p.x;
+		y = p.y;
+		z = p.z;
+	};
+	
 	T x, y, z;
 };
 
-typedef Point3<GLfloat> Point3f;
-typedef Point3<GLuint> Point3i;
-typedef Point3<size_t> Point3l;
+typedef Point3<GLfloat> Point3F;
+typedef Point3<GLint> Point3I;
+typedef Point3<GLuint> Point3U;
+typedef Point3<size_t> Point3L;
 
 template <class T>
 class Size2
 {
 public:
 	Size2() {};
-	Size2(const T& _w, const T& _h) : width(_w), height(_h) {};
+	Size2(const T& w, const T& h) : width(w), height(h) {};
 	Size2(const Size2<T> &p) : width(p.width), height(p.height) {};
+	
+	inline void set(const Size2<T> &s)
+	{
+		width = s.width;
+		height = s.height;
+	};
 	
 	T width, height;
 };
 
-typedef Size2<GLfloat> Size2f;
-typedef Size2<GLuint> Size2i;
-typedef Size2<size_t> Size2l;
+typedef Size2<GLfloat> Size2F;
+typedef Size2<GLint> Size2I;
+typedef Size2<GLuint> Size2U;
+typedef Size2<size_t> Size2L;
+
+template <class T>
+class Size3
+{
+public:
+	Size3() {};
+	Size3(const T& w, const T& h, const T& d) : width(w), height(h), depth(d) {};
+	Size3(const Size3<T> &p) : width(p.width), height(p.height), depth(p.depth) {};
+	Size3(const Size2<T> &p) : width(p.width), height(p.height), depth() {};
+	
+	inline void set(const Size3<T> &s)
+	{
+		width = s.width;
+		height = s.height;
+		depth = s.depth;
+	};
+	
+	inline T volume() const
+	{
+		return width * height * depth;
+	};
+	
+	T width, height, depth;
+};
+
+typedef Size3<GLfloat> Size3F;
+typedef Size3<GLint> Size3I;
+typedef Size3<GLuint> Size3U;
+typedef Size3<size_t> Size3L;
 
 template <class T>
 class Rectangle
@@ -76,7 +127,8 @@ public:
 	Point2<T> position;
 };
 
-typedef Rectangle<GLuint> RectI;
+typedef Rectangle<GLint> RectI;
+typedef Rectangle<GLuint> RectU;
 typedef Rectangle<GLfloat> RectF;
 typedef Rectangle<size_t> RectL;
 

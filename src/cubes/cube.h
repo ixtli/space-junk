@@ -21,7 +21,7 @@ public:
 	bool init();
 	
 	// Getters
-	inline const Point3f* location() const { return &_origin; };
+	inline const Point3F* location() const { return &_origin; };
 	inline const GLfloat x() const { return _origin.x; };
 	inline const GLfloat y() const { return _origin.y; };
 	inline const GLfloat z() const { return _origin.z; };
@@ -33,7 +33,7 @@ public:
 	
 private:
 	
-	Point3f _origin;
+	Point3F _origin;
 	
 };
 

@@ -21,7 +21,7 @@ public:
 	inline static Renderer* getInstance() { return &_instance; };
 	
 	bool init(GLuint defaultFBO);
-	void resize(const Size2i& newBounds);
+	void resize(const Size2I& newBounds);
 	void render();
 	
 #pragma mark -
@@ -47,7 +47,7 @@ private:
 	Renderer();
 	~Renderer();
 	
-	Size2i _bounds;
+	Size2I _bounds;
 	matrix4f _projectionMatrix;
 	GLuint _defaultFBOName;
 	

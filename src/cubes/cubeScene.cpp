@@ -23,13 +23,10 @@ CubeScene::~CubeScene()
 	
 }
 
-bool CubeScene::init(const Point3i &size)
+bool CubeScene::init(const Size3U &size)
 {
-	_size.x = size.x;
-	_size.y = size.y;
-	_size.z = size.z;
-	
-	size_t total = _size.x * size.y * size.z;
+	_size.set(size);
+	size_t total = _size.volume();
 	
 	_cubes = new Cube[total];
 	
