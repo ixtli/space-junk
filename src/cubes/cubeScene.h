@@ -9,13 +9,16 @@
 #ifndef __SpaceJunk__cubeScene__
 #define __SpaceJunk__cubeScene__
 
+#include "cubeBuffer.h"
+#include "cube.h"
+
 class CubeScene
 {
 public:
 	
 	inline static CubeScene* instance() { return &_instance; };
 	
-	bool init();
+	bool init(const Point3i &size);
 	
 private:
 	
@@ -23,6 +26,11 @@ private:
 	~CubeScene();
 	
 	static CubeScene _instance;
+	
+	Point3i _size;
+	CubeBuffer _buffer;
+	Cube* _cubes;
+	
 	
 };
 

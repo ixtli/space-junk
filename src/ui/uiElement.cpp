@@ -15,14 +15,14 @@ _depth(0)
 
 {}
 
-UIElement::UIElement(const Rect2Di& rect) :
+UIElement::UIElement(const RectI& rect) :
 
 _rect(rect),
 _depth(0)
 
 {}
 
-UIElement::UIElement(const Rect2Di& rect, GLfloat depth) :
+UIElement::UIElement(const RectI& rect, GLfloat depth) :
 
 _rect(rect),
 _depth(depth)

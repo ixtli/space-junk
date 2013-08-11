@@ -16,8 +16,8 @@ class UIElement
 public:
 	
 	UIElement();
-	UIElement(const Rect2Di& rect);
-	UIElement(const Rect2Di& rect, GLfloat depth);
+	UIElement(const RectI& rect);
+	UIElement(const RectI& rect, GLfloat depth);
 	
 	~UIElement();
 	
@@ -31,14 +31,14 @@ public:
 	inline void depth(GLfloat d) { _depth = d; };
 	
 	// Getters
-	inline const Rect2Di* rect() const { return &_rect; };
-	inline const Size2Di* size() const { return &_rect.bounds; };
-	inline const Point2Di* position() const { return &_rect.position; };
+	inline const RectI* rect() const { return &_rect; };
+	inline const Size2i* size() const { return &_rect.bounds; };
+	inline const Point2i* position() const { return &_rect.position; };
 	inline const GLfloat depth() const { return _depth; };
 	
 protected:
 	
-	Rect2Di _rect;
+	RectI _rect;
 	GLfloat _depth;
 	
 };

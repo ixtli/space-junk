@@ -10,74 +10,74 @@
 #define __SpaceJunk__geometry__
 
 #pragma mark Matrix types
+#pragma mark -
+
 typedef float matrix4f[16];
 typedef float matrix3f[9];
 typedef float matrix2f[4];
 
-struct Point2Di
+template <class T>
+class Point2
 {
-	Point2Di() : x(0), y(0) {};
-	Point2Di(GLuint _x, GLuint _y) : y(_y), x(_x) {};
-	Point2Di(const Point2Di& p) : y(p.y), x(p.x) {};
+public:
+	Point2() {};
+	Point2(const T& _x, const T& _y) : x(_x), y(_y) {};
+	Point2(const Point2<T> &p) : x(p.x), y(p.y) {};
 	
-	GLuint x, y;
+	T x, y;
 };
 
-struct Point3Di
+typedef Point2<GLfloat> Point2f;
+typedef Point2<GLuint> Point2i;
+typedef Point2<size_t> Point2l;
+
+template <class T>
+class Point3
 {
-	Point3Di() : x(0), y(0), z(0) {};
+public:
+	Point3() {};
+	Point3(const T &_x, const T &_y, const T &_z) : x(_x), y(_y), z(_z) {};
+	Point3(const Point3<T> &p) : x(p.x), y(p.y), z(p.z) {};
 	
-	Point3Di(GLuint _x, GLuint _y) : y(_y), x(_x), z(0) {};
-	Point3Di(const Point2Di& p) : y(p.y), x(p.x) {};
-	
-	Point3Di(GLuint _x, GLuint _y, GLuint _z) : y(_y), x(_x), z(_z) {};
-	Point3Di(const Point3Di& p) : y(p.y), x(p.x), z(p.z) {};
-	
-	GLuint x, y, z;
+	T x, y, z;
 };
 
-struct Size2Di
+typedef Point3<GLfloat> Point3f;
+typedef Point3<GLuint> Point3i;
+typedef Point3<size_t> Point3l;
+
+template <class T>
+class Size2
 {
-	Size2Di() : width(0), height(0) {};
-	Size2Di(GLuint _width, GLuint _height) : width(_width), height(_height) {};
-	Size2Di(const Size2Di& s) : width(s.width), height(s.height) {};
+public:
+	Size2() {};
+	Size2(const T& _w, const T& _h) : width(_w), height(_h) {};
+	Size2(const Size2<T> &p) : width(p.width), height(p.height) {};
 	
-	GLuint width;
-	GLuint height;
+	T width, height;
 };
 
-struct Rect2Di
+typedef Size2<GLfloat> Size2f;
+typedef Size2<GLuint> Size2i;
+typedef Size2<size_t> Size2l;
+
+template <class T>
+class Rectangle
 {
-	Rect2Di() : bounds(), position() {};
-	Rect2Di(GLuint _width, GLuint _height) : bounds(_width, _height), position() {};
-	Rect2Di(GLuint _y, GLuint _x, GLuint _width, GLuint _height) :
-		bounds(_width, _height), position(_y, _x) {};
-	Rect2Di(const Size2Di& s, const Point2Di& p) : bounds(s), position(p) {};
-	Rect2Di(const Rect2Di& r) : bounds(r.bounds), position(r.position) {};
-	Rect2Di(const Size2Di& s) : bounds(s) {};
+public:
+	Rectangle() {};
+	Rectangle(T width, T height) : bounds(width, height), position() {};
+	Rectangle(T x, T y, T width, T height) : bounds(width, height), position(x, y) {};
+	Rectangle(const Size2<T> &s, const Point2<T> &p) : bounds(s), position(p) {};
+	Rectangle(const Size2<T> &s) : bounds(s), position() {};
+	Rectangle(const Point2<T> &p) : bounds(), position(p) {};
 	
-	Size2Di bounds;
-	Point2Di position;
+	Size2<T> bounds;
+	Point2<T> position;
 };
 
-struct Point2Df
-{
-	Point2Df() : x(0), y(0) {};
-	Point2Df(GLfloat _x, GLfloat _y) : y(_y), x(_x) {};
-	Point2Df(const Point2Di& p) : y(p.y), x(p.x) {};
-	
-	union { GLfloat x; GLfloat s; };
-	union { GLfloat y; GLfloat t; };
-};
-
-struct Point3Df
-{
-	Point3Df() : y(0.0f), x(0.0f), z(0.0f) {};
-	Point3Df(GLfloat _x, GLfloat _y, GLfloat _z) : y(_y), x(_x), z(_z) {};
-	Point3Df(GLfloat _x, GLfloat _y) : y(_y), x(_x), z(0.0f) {};
-	Point3Df(const Point3Df& p) : y(p.y), x(p.x), z(p.z) {};
-	
-	GLfloat x, y, z;
-};
+typedef Rectangle<GLuint> RectI;
+typedef Rectangle<GLfloat> RectF;
+typedef Rectangle<size_t> RectL;
 
 #endif /* defined(__SpaceJunk__geometry__) */

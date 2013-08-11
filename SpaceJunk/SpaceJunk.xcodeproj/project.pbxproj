@@ -24,6 +24,8 @@
 		A317B52017B2237000416550 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51E17B2235E00416550 /* solidQuad.fsh */; };
 		A317B52117B2237000416550 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51F17B2235E00416550 /* solidQuad.vsh */; };
 		A317B52D17B8288B00416550 /* cubeScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52B17B8286F00416550 /* cubeScene.cpp */; };
+		A317B53017B82B9A00416550 /* cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52E17B82B9A00416550 /* cube.cpp */; };
+		A317B53317B82D2800416550 /* cubeBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B53117B82D2800416550 /* cubeBuffer.cpp */; };
 		A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */; };
 		A3A86D8D17B2128900426EEC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86D8C17B2128900426EEC /* OpenGL.framework */; };
 		A3A86D9317B2139C00426EEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86D9217B2139C00426EEC /* QuartzCore.framework */; };
@@ -86,6 +88,10 @@
 		A317B51F17B2235E00416550 /* solidQuad.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solidQuad.vsh; sourceTree = "<group>"; };
 		A317B52B17B8286F00416550 /* cubeScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cubeScene.cpp; path = ../../src/cubes/cubeScene.cpp; sourceTree = "<group>"; };
 		A317B52C17B8286F00416550 /* cubeScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cubeScene.h; path = ../../src/cubes/cubeScene.h; sourceTree = "<group>"; };
+		A317B52E17B82B9A00416550 /* cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cube.cpp; path = ../../src/cubes/cube.cpp; sourceTree = "<group>"; };
+		A317B52F17B82B9A00416550 /* cube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cube.h; path = ../../src/cubes/cube.h; sourceTree = "<group>"; };
+		A317B53117B82D2800416550 /* cubeBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cubeBuffer.cpp; path = ../../src/cubes/cubeBuffer.cpp; sourceTree = "<group>"; };
+		A317B53217B82D2800416550 /* cubeBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cubeBuffer.h; path = ../../src/cubes/cubeBuffer.h; sourceTree = "<group>"; };
 		A3A86D4B17B210C300426EEC /* SpaceJunkGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpaceJunkGLView.h; sourceTree = "<group>"; };
 		A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkGLView.mm; sourceTree = "<group>"; };
 		A3A86D5B17B2127700426EEC /* easingFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = easingFunctions.h; sourceTree = "<group>"; };
@@ -277,6 +283,10 @@
 			children = (
 				A317B52B17B8286F00416550 /* cubeScene.cpp */,
 				A317B52C17B8286F00416550 /* cubeScene.h */,
+				A317B52E17B82B9A00416550 /* cube.cpp */,
+				A317B53117B82D2800416550 /* cubeBuffer.cpp */,
+				A317B53217B82D2800416550 /* cubeBuffer.h */,
+				A317B52F17B82B9A00416550 /* cube.h */,
 			);
 			name = cubes;
 			sourceTree = "<group>";
@@ -462,6 +472,7 @@
 			files = (
 				A317B52D17B8288B00416550 /* cubeScene.cpp in Sources */,
 				A317B51C17B222EF00416550 /* log.c in Sources */,
+				A317B53017B82B9A00416550 /* cube.cpp in Sources */,
 				A317B51817B21A6000416550 /* environment.mm in Sources */,
 				A3A86D9417B2144F00426EEC /* engine.cpp in Sources */,
 				A3A86D9517B2144F00426EEC /* file.cpp in Sources */,
@@ -475,6 +486,7 @@
 				A3A86D9D17B2144F00426EEC /* renderer.cpp in Sources */,
 				A3A86D9E17B2144F00426EEC /* shader.cpp in Sources */,
 				A3A86D9F17B2144F00426EEC /* shaderFormats.cpp in Sources */,
+				A317B53317B82D2800416550 /* cubeBuffer.cpp in Sources */,
 				A3A86DA017B2144F00426EEC /* shaderManager.cpp in Sources */,
 				A3A86DA117B2144F00426EEC /* triangleBuffer.cpp in Sources */,
 				A3A86DA217B2144F00426EEC /* vertexFormats.cpp in Sources */,

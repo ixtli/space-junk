@@ -14,13 +14,13 @@
 
 typedef struct
 {
-	Point3Df location;
-	Point2Df texCoord;
+	Point3f location;
+	Point2f texCoord;
 } TextureVertex;
 
 typedef struct
 {
-	Point3Df location;
+	Point3f location;
 	Color4u color;
 } ColorVertex;
 

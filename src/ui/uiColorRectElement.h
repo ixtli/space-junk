@@ -18,8 +18,8 @@ class ColorRectUIElement : public UIElement
 public:
 	
 	ColorRectUIElement();
-	ColorRectUIElement(const Rect2Di& rect, GLfloat depth);
-	ColorRectUIElement(const Rect2Di& rect, const Color4u& color, GLfloat depth);
+	ColorRectUIElement(const RectI& rect, GLfloat depth);
+	ColorRectUIElement(const RectI& rect, const Color4u& color, GLfloat depth);
 	~ColorRectUIElement();
 	
 	const Color4u* color() const { return &_color; };

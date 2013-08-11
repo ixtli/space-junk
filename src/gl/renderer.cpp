@@ -47,7 +47,7 @@ bool Renderer::init(GLuint defaultFBO)
 	return true;
 }
 
-void Renderer::resize(const Size2Di& newBounds)
+void Renderer::resize(const Size2i& newBounds)
 {
 	_bounds.width = newBounds.width;
 	_bounds.height = newBounds.height;

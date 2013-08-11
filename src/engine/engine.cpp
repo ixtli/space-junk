@@ -58,7 +58,8 @@ bool Engine::init()
 	h->init();
 	
 	// Initialize the scene
-	CubeScene::instance()->init();
+	Point3i mapSize(5, 5, 5);
+	CubeScene::instance()->init(mapSize);
 	
 	return true;
 }

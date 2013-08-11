@@ -16,7 +16,7 @@ _layerRect(&_rect, &_color, _depth)
 
 {}
 
-ColorRectUIElement::ColorRectUIElement(const Rect2Di& rect, GLfloat depth) :
+ColorRectUIElement::ColorRectUIElement(const RectI& rect, GLfloat depth) :
 
 UIElement(rect),
 _color(),
@@ -24,7 +24,7 @@ _layerRect(&_rect, &_color, _depth)
 
 {}
 
-ColorRectUIElement::ColorRectUIElement(const Rect2Di& rect,
+ColorRectUIElement::ColorRectUIElement(const RectI& rect,
 																			 const Color4u& c,
 																			 GLfloat depth) :
 

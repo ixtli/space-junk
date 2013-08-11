@@ -13,10 +13,10 @@
 
 struct ColorRect
 {
-	ColorRect(const Rect2Di* r, const Color4u* c, GLfloat d) :
+	ColorRect(const RectI* r, const Color4u* c, GLfloat d) :
 		rect(r), color(c), depthOffset(d), index(0) {}
 	
-	const Rect2Di* rect;
+	const RectI* rect;
 	const Color4u* color;
 	
 	GLfloat depthOffset;
