@@ -27,7 +27,7 @@ bool ColorRectUILayer::init()
 	_r.height(38);
 	_r.left(10);
 	_r.top(32);
-	_r.rgba(180, 90, 5, 200);
+	_r.rgba(180, 90, 5, 128);
 	_layer.init(0, 1);
 	_layer.addRect(_r.layerRect());
 	_layer.commit();
