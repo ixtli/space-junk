@@ -14,6 +14,7 @@
 #include "version.h"
 
 #include "hud.h"
+#include "cubescene.h"
 
 #include "engine.h"
 
@@ -21,12 +22,15 @@ using namespace v8;
 
 Engine Engine::_instance;
 
-Engine::Engine()
+Engine::Engine() :
+
+_hud(NULL)
+
 { }
 
 Engine::~Engine()
 {
-	
+	if (_hud) delete _hud;
 }
 
 bool Engine::init()
@@ -52,6 +56,9 @@ bool Engine::init()
 	
 	HUD* h = new HUD();
 	h->init();
+	
+	// Initialize the scene
+	CubeScene::instance()->init();
 	
 	return true;
 }

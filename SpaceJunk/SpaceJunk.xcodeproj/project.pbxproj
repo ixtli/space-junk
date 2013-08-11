@@ -23,6 +23,7 @@
 		A317B51C17B222EF00416550 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D6217B2127700426EEC /* log.c */; };
 		A317B52017B2237000416550 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51E17B2235E00416550 /* solidQuad.fsh */; };
 		A317B52117B2237000416550 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51F17B2235E00416550 /* solidQuad.vsh */; };
+		A317B52D17B8288B00416550 /* cubeScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52B17B8286F00416550 /* cubeScene.cpp */; };
 		A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */; };
 		A3A86D8D17B2128900426EEC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86D8C17B2128900426EEC /* OpenGL.framework */; };
 		A3A86D9317B2139C00426EEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86D9217B2139C00426EEC /* QuartzCore.framework */; };
@@ -83,6 +84,8 @@
 		A317B51917B21AF400416550 /* libv8_base.x64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_base.x64.a; path = "../v8-build/native/libv8_base.x64.a"; sourceTree = "<group>"; };
 		A317B51E17B2235E00416550 /* solidQuad.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solidQuad.fsh; sourceTree = "<group>"; };
 		A317B51F17B2235E00416550 /* solidQuad.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solidQuad.vsh; sourceTree = "<group>"; };
+		A317B52B17B8286F00416550 /* cubeScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cubeScene.cpp; path = ../../src/cubes/cubeScene.cpp; sourceTree = "<group>"; };
+		A317B52C17B8286F00416550 /* cubeScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cubeScene.h; path = ../../src/cubes/cubeScene.h; sourceTree = "<group>"; };
 		A3A86D4B17B210C300426EEC /* SpaceJunkGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpaceJunkGLView.h; sourceTree = "<group>"; };
 		A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkGLView.mm; sourceTree = "<group>"; };
 		A3A86D5B17B2127700426EEC /* easingFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = easingFunctions.h; sourceTree = "<group>"; };
@@ -211,6 +214,7 @@
 		A315CD7817B2041B00DEA6D2 /* SpaceJunk */ = {
 			isa = PBXGroup;
 			children = (
+				A317B52717B8280C00416550 /* cubes */,
 				A317B51D17B2235E00416550 /* shader */,
 				A3A86DAC17B2152F00426EEC /* v8.h */,
 				A3A86D5A17B2127700426EEC /* engine */,
@@ -266,6 +270,15 @@
 			);
 			name = shader;
 			path = ../../shader;
+			sourceTree = "<group>";
+		};
+		A317B52717B8280C00416550 /* cubes */ = {
+			isa = PBXGroup;
+			children = (
+				A317B52B17B8286F00416550 /* cubeScene.cpp */,
+				A317B52C17B8286F00416550 /* cubeScene.h */,
+			);
+			name = cubes;
 			sourceTree = "<group>";
 		};
 		A3A86D5A17B2127700426EEC /* engine */ = {
@@ -447,6 +460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A317B52D17B8288B00416550 /* cubeScene.cpp in Sources */,
 				A317B51C17B222EF00416550 /* log.c in Sources */,
 				A317B51817B21A6000416550 /* environment.mm in Sources */,
 				A3A86D9417B2144F00426EEC /* engine.cpp in Sources */,

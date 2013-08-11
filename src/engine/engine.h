@@ -9,6 +9,8 @@
 #ifndef __Space_Junk__engine__
 #define __Space_Junk__engine__
 
+class HUD;
+
 class Engine
 {
 public:
@@ -24,6 +26,8 @@ private:
 	~Engine();
 	
 	static Engine _instance;
+	
+	HUD* _hud;
 	
 };
 
