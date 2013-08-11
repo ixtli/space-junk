@@ -9,7 +9,9 @@
 #ifndef __SpaceJunk__cubeScene__
 #define __SpaceJunk__cubeScene__
 
-#include "cubeBuffer.h"
+#include "glutil.h"
+#include "shaderManager.h"
+#include "triangleBuffer.h"
 #include "cube.h"
 
 class CubeScene
@@ -20,15 +22,33 @@ public:
 	
 	bool init(const Size3U &size);
 	
+	// Inline render functions
+	inline void draw() const
+	{
+		ShaderManager::use(_shaderFormat);
+		_buffer.draw();
+		GetGLError();
+	};
+	
 private:
 	
+	// Static or hidden
 	CubeScene();
 	~CubeScene();
-	
 	static CubeScene _instance;
 	
+	// Helpers
+	void generateElementIndicies(GLushort *indicies);
+	
+	// Convenience const values
+	static const GLuint SIDE_COUNT = 6;
+	static const GLuint VERTS_PER_CUBE = 24;
+	static const GLuint INDICIES_PER_CUBE = 36;
+	
+	// Member fields
+	ShaderFormat _shaderFormat;
 	Size3U _size;
-	CubeBuffer _buffer;
+	TriangleBuffer _buffer;
 	Cube* _cubes;
 	
 };

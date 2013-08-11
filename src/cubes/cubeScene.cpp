@@ -20,22 +20,38 @@ _cubes(NULL)
 
 CubeScene::~CubeScene()
 {
-	
+	if (_cubes) delete [] _cubes;
 }
 
 bool CubeScene::init(const Size3U &size)
 {
 	_size.set(size);
-	size_t total = _size.volume();
+	GLuint total = _size.volume();
+	GLuint indexCount = INDICIES_PER_CUBE * total;
+	GLuint vertexCount = VERTS_PER_CUBE * total;
 	
+	// Allocate and check
 	_cubes = new Cube[total];
-	
 	if (!_cubes)
 	{
-		error("Couldn't allocate memeory for cubes.");
+		error("Couldn't allocate memory for cubes.");
 		return false;
 	}
 	
+	GLushort* indicies = new GLushort[indexCount];
+	if (!indicies)
+	{
+		error("Couldn't allocate memory for indicies.");
+		return false;
+	}
+	
+	GLfloat* verts = new GLfloat[vertexCount];
+	if (!verts)
+	{
+		error("Couldn't allocate memory for verts");
+	}
+	
+	// Initialize
 	for (GLuint i = 0; i < total; i++)
 	{
 		if (!_cubes[i].init())
@@ -45,9 +61,24 @@ bool CubeScene::init(const Size3U &size)
 		}
 	}
 	
-	_buffer.init(_cubes, total);
+	// Initialize a new trianglebuffer
+	const TriangleBuffer::TriBufferConfig conf = {
+		.dynamic = false,
+		.vertexCount = vertexCount,
+		.indexCount = indexCount,
+		.indicies = indicies,
+		.verticies = verts,
+		.attrCount = ShaderFormats::definitions[SOLID_QUAD_SHADER].attrCount,
+		.attributes = ShaderFormats::definitions[SOLID_QUAD_SHADER].attrs
+	};
 	
-	return true;
+	bool result = _buffer.init(conf);
+	
+	// Clean up
+	delete [] indicies;
+	delete [] verts;
+	
+	return result;
 }
 
 
