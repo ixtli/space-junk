@@ -1,16 +1,16 @@
 //
-//  cubescene.cpp
+//  CubeManager.cpp
 //  SpaceJunk
 //
 //  Created by ixtli on 8/11/13.
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "cubeScene.h"
+#include "CubeManager.h"
 
-CubeScene CubeScene::_instance;
+CubeManager CubeManager::_instance;
 
-CubeScene::CubeScene() :
+CubeManager::CubeManager() :
 
 _size(),
 _buffer(),
@@ -18,13 +18,14 @@ _cubes(NULL)
 
 {}
 
-CubeScene::~CubeScene()
+CubeManager::~CubeManager()
 {
 	if (_cubes) delete [] _cubes;
 }
 
-bool CubeScene::init(const Size3U &size)
+bool CubeManager::init(const Size3U &size, ShaderFormat format)
 {
+	_shaderFormat = format;
 	_size.set(size);
 	GLuint total = _size.volume();
 	GLuint indexCount = INDICIES_PER_CUBE * total;
@@ -68,8 +69,8 @@ bool CubeScene::init(const Size3U &size)
 		.indexCount = indexCount,
 		.indicies = indicies,
 		.verticies = verts,
-		.attrCount = ShaderFormats::definitions[SOLID_QUAD_SHADER].attrCount,
-		.attributes = ShaderFormats::definitions[SOLID_QUAD_SHADER].attrs
+		.attrCount = ShaderFormats::definitions[_shaderFormat].attrCount,
+		.attributes = ShaderFormats::definitions[_shaderFormat].attrs
 	};
 	
 	bool result = _buffer.init(conf);

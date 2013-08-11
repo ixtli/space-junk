@@ -14,7 +14,7 @@
 #include "version.h"
 
 #include "hud.h"
-#include "cubescene.h"
+#include "cubeManager.h"
 
 #include "engine.h"
 
@@ -58,8 +58,8 @@ bool Engine::init()
 	h->init();
 	
 	// Initialize the scene
-	Size3U mapSize(5, 5, 5);
-	CubeScene::instance()->init(mapSize);
+	const Size3U mapSize(5, 5, 5);
+	CubeManager::instance()->init(mapSize, SOLID_QUAD_SHADER);
 	
 	return true;
 }

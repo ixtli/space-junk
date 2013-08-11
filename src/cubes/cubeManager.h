@@ -14,13 +14,13 @@
 #include "triangleBuffer.h"
 #include "cube.h"
 
-class CubeScene
+class CubeManager
 {
 public:
 	
-	inline static CubeScene* instance() { return &_instance; };
+	inline static CubeManager* instance() { return &_instance; };
 	
-	bool init(const Size3U &size);
+	bool init(const Size3U &size, ShaderFormat format);
 	
 	// Inline render functions
 	inline void draw() const
@@ -33,9 +33,9 @@ public:
 private:
 	
 	// Static or hidden
-	CubeScene();
-	~CubeScene();
-	static CubeScene _instance;
+	CubeManager();
+	~CubeManager();
+	static CubeManager _instance;
 	
 	// Helpers
 	void generateElementIndicies(GLushort *indicies);
