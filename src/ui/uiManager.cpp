@@ -29,7 +29,7 @@ UIManager::~UIManager()
 
 bool UIManager::init()
 {
-	log("Initializing.");
+	info("Initializing.");
 	
 	return true;
 }

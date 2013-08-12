@@ -12,6 +12,13 @@
 #pragma mark Matrix types
 #pragma mark -
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wshadow"
+#include "glm.hpp"
+#include "matrix_transform.hpp"
+#include "type_ptr.hpp"
+#pragma cland diagnostic pop
+
 typedef enum
 {
 	ORTHOGRAPHIC_PROJECTION,

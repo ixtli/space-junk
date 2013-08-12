@@ -26,12 +26,12 @@ bool Environment::init()
 	
 	if (uname(&name))
 	{
-		log("Error calling the uname() functino.");
+		warn("Error calling the uname() functino.");
 		return false;
 	}
 	
-	log("%s v%s %s @%s", name.sysname, name.release, name.machine, name.nodename);
-	log("%s", name.version);
+	info("%s v%s %s @%s", name.sysname, name.release, name.machine, name.nodename);
+	info("%s", name.version);
 	
 	return true;
 }

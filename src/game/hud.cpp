@@ -19,8 +19,6 @@ _colorLayer(NULL)
 
 HUD::~HUD()
 {
-	log("Destroying HUD.");
-	
 	if (_colorLayer)
 	{
 		UIManager::getInstance()->removeLayer(_colorLayer);
@@ -30,8 +28,6 @@ HUD::~HUD()
 
 bool HUD::init()
 {
-	log("Initializing HUD.");
-	
 	_colorLayer = new ColorRectUILayer();
 	_colorLayer->init();
 	UIManager::getInstance()->addLayer(_colorLayer);

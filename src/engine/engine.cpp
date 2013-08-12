@@ -35,7 +35,7 @@ Engine::~Engine()
 
 bool Engine::init()
 {
-	log("%s v%u.%u", V_DISPLAY_NAME, V_MAJOR, V_MINOR);
+	info("%s v%u.%u", V_DISPLAY_NAME, V_MAJOR, V_MINOR);
 	
 	// Init the environment wrapper
 	Environment::getInstance()->init();
@@ -50,7 +50,7 @@ bool Engine::init()
 	Handle<Value> result = script->Run();
 	persistent_context.Dispose();
 	String::AsciiValue ascii(result);
-	log("%s", *ascii);
+	info("%s", *ascii);
 	
 	UIManager::getInstance()->init();
 	

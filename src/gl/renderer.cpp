@@ -7,6 +7,7 @@
 //
 
 #include "glutil.h"
+#include "geometry.h"
 
 #include "shaderManager.h"
 
@@ -32,9 +33,9 @@ Renderer::~Renderer()
 bool Renderer::init(GLuint defaultFBO)
 {
 	// Emit some basic data about the environment
-	log("Hardware Renderer: %s", glGetString(GL_RENDERER));
-	log("OpenGL Version: %s", glGetString(GL_VERSION));
-	log("GLSL Version: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	info("Hardware Renderer: %s", glGetString(GL_RENDERER));
+	info("OpenGL Version: %s", glGetString(GL_VERSION));
+	info("GLSL Version: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
 	
 	// Save the default VBO
 	_defaultFBOName = defaultFBO;
@@ -62,11 +63,15 @@ void Renderer::resize(const Size2I& newBounds)
 		switch (i)
 		{
 			case ORTHOGRAPHIC_PROJECTION:
-				loadOrtho(0.0f, _bounds.width, _bounds.height, 0.0f, projectionNear,projectionFar, _projectionMatrices[i]);
+				
+				_projectionMatrices[i] = glm::ortho(0.0f, (GLfloat)_bounds.width, (GLfloat)_bounds.height, 0.0f, projectionNear, projectionFar);
 				break;
 				
 			case ISOMETRIC_PROJECTION:
-				loadOrtho(0.0f, _bounds.width, _bounds.height, 0.0f, projectionNear,projectionFar, _projectionMatrices[i]);
+				_projectionMatrices[i] = glm::mat4(1.0f);
+				_projectionMatrices[i] *= glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f),
+																							glm::vec3(0.0f, 0.0f, -1.0f),
+																							glm::vec3(0.0f, 1.0f, 0.0f));
 				break;
 				
 			default:

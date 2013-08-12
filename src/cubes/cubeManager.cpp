@@ -35,7 +35,7 @@ bool CubeManager::init(const Size3U &size, ShaderFormat format)
 	GLuint indexCount = INDICIES_PER_CUBE * total;
 	GLuint vertexCount = VERTS_PER_CUBE * total;
 	
-	log("Initializing %i cubes.", total);
+	info("Initializing %i cubes.", total);
 	
 	// Allocate and check
 	_cubes = new Cube[total];

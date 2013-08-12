@@ -75,7 +75,7 @@ bool Shader::compileShader(const char *src, GLenum type, GLuint &s)
 		{
 			log = new GLchar[logLen];
 			glGetShaderInfoLog(s, logLen, &length, log);
-			log("Shader Compile Log: \n\n%s", log);
+			info("Shader Compile Log: \n\n%s", log);
 			delete [] log;
 		}
 		
@@ -100,7 +100,7 @@ bool Shader::link(GLuint frag, GLuint vert)
 	{
 		char* log = new char[logLength];
 		glGetProgramInfoLog(_id, logLength, &logLength, log);
-		log("Shader Link Log: \n\n%s", log);
+		info("Shader Link Log: \n\n%s", log);
 		delete [] log;
 	}
 	

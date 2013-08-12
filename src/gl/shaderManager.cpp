@@ -7,6 +7,7 @@
 //
 
 #include "glutil.h"
+#include "geometry.h"
 #include "shaderManager.h"
 
 ShaderFormat ShaderManager::_currentProgramID = NUM_SHADER_TYPES;
@@ -22,7 +23,7 @@ ShaderManager::~ShaderManager()
 
 bool ShaderManager::init()
 {
-	log("Initializing %u shaders.", NUM_SHADER_TYPES);
+	info("Initializing %u shaders.", NUM_SHADER_TYPES);
 	
 	for (ShaderFormat i = (ShaderFormat)0; i < NUM_SHADER_TYPES; i++)
 	{
@@ -33,7 +34,7 @@ bool ShaderManager::init()
 	return true;
 }
 
-void ShaderManager::setMVPMatrix(const matrix4f mvp[NUM_PROJECTION_STYLES])
+void ShaderManager::setMVPMatrix(const glm::mat4 mvp[NUM_PROJECTION_STYLES])
 {
 	GLint loc = 0;
 	
@@ -43,7 +44,7 @@ void ShaderManager::setMVPMatrix(const matrix4f mvp[NUM_PROJECTION_STYLES])
 		loc = _shaders[i].getUniformLocation("modelViewProjectionMatrix");
 		
 		glUniformMatrix4fv(loc, 1, GL_FALSE,
-											 mvp[ShaderFormats::definitions[i].projection]);
+											 glm::value_ptr(mvp[ShaderFormats::definitions[i].projection]));
 	}
 	
 	GetGLError();
