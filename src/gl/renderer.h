@@ -48,7 +48,7 @@ private:
 	~Renderer();
 	
 	Size2I _bounds;
-	matrix4f _projectionMatrix;
+	matrix4f _projectionMatrices[NUM_PROJECTION_STYLES];
 	GLuint _defaultFBOName;
 	
 	void resetGL();

@@ -57,11 +57,25 @@ void Renderer::resize(const Size2I& newBounds)
 	glViewport(0, 0, (GLsizei)_bounds.width, (GLsizei)_bounds.height);
 	
 	// Load a new ortho matrix for the model view projection
-	loadOrtho(0.0f, _bounds.width, _bounds.height, 0.0f, projectionNear,
-						projectionFar, _projectionMatrix);
+	for (size_t i = 0; i < NUM_PROJECTION_STYLES; i++)
+	{
+		switch (i)
+		{
+			case ORTHOGRAPHIC_PROJECTION:
+				loadOrtho(0.0f, _bounds.width, _bounds.height, 0.0f, projectionNear,projectionFar, _projectionMatrices[i]);
+				break;
+				
+			case ISOMETRIC_PROJECTION:
+				loadOrtho(0.0f, _bounds.width, _bounds.height, 0.0f, projectionNear,projectionFar, _projectionMatrices[i]);
+				break;
+				
+			default:
+				break;
+		}
+	}
 	
 	// Update all shaders with the new MVP
-	ShaderManager::getInstance()->setMVPMatrix(_projectionMatrix);
+	ShaderManager::getInstance()->setMVPMatrix(_projectionMatrices);
 }
 
 void Renderer::resetGL()

@@ -12,6 +12,13 @@
 #pragma mark Matrix types
 #pragma mark -
 
+typedef enum
+{
+	ORTHOGRAPHIC_PROJECTION,
+	ISOMETRIC_PROJECTION,
+	NUM_PROJECTION_STYLES
+} ProjectionStyle;
+
 typedef float matrix4f[16];
 typedef float matrix3f[9];
 typedef float matrix2f[4];

@@ -72,4 +72,6 @@ static inline const char * GetGLErrorString(GLenum error)
 void loadOrtho(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
                GLfloat near, GLfloat far, GLfloat mOut[16]);
 
+void loadIso();
+
 #endif

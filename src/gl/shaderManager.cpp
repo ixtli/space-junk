@@ -33,7 +33,7 @@ bool ShaderManager::init()
 	return true;
 }
 
-void ShaderManager::setMVPMatrix(const matrix4f &mvp)
+void ShaderManager::setMVPMatrix(const matrix4f mvp[NUM_PROJECTION_STYLES])
 {
 	GLint loc = 0;
 	
@@ -41,7 +41,9 @@ void ShaderManager::setMVPMatrix(const matrix4f &mvp)
 	{
 		use(i);
 		loc = _shaders[i].getUniformLocation("modelViewProjectionMatrix");
-		glUniformMatrix4fv(loc, 1, GL_FALSE, mvp);
+		
+		glUniformMatrix4fv(loc, 1, GL_FALSE,
+											 mvp[ShaderFormats::definitions[i].projection]);
 	}
 	
 	GetGLError();

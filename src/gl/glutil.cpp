@@ -38,3 +38,8 @@ void loadOrtho(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
 	mOut[14] = tz;
 	mOut[15] = 1.0f;
 }
+
+void loadIso()
+{
+	
+};

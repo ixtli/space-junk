@@ -25,7 +25,7 @@ public:
 		_currentProgramID = type;
 	};
 	
-	void setMVPMatrix(const matrix4f& mvp);
+	void setMVPMatrix(const matrix4f mvp[NUM_PROJECTION_STYLES]);
 	bool init();
 	
 private:

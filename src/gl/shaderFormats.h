@@ -18,13 +18,6 @@ typedef enum
 	NUM_SHADER_TYPES
 } ShaderFormat;
 
-typedef enum
-{
-	ORTHOGRAPHIC_PROJECTION,
-	ISOMETRIC_PROJECTION,
-	NUM_PROJECTION_STYLES
-} ProjectionStyle;
-
 struct ShaderMetadata
 {
 	const char* const name;
