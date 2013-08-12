@@ -19,10 +19,6 @@ typedef enum
 	NUM_PROJECTION_STYLES
 } ProjectionStyle;
 
-typedef float matrix4f[16];
-typedef float matrix3f[9];
-typedef float matrix2f[4];
-
 template <class T>
 class Point2
 {
