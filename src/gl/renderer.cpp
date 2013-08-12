@@ -69,8 +69,8 @@ void Renderer::resize(const Size2I& newBounds)
 				
 			case ISOMETRIC_PROJECTION:
 				_projectionMatrices[i] = glm::mat4(1.0f);
-				_projectionMatrices[i] *= glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f),
-																							glm::vec3(0.0f, 0.0f, -1.0f),
+				_projectionMatrices[i] *= glm::lookAt(glm::vec3(100.0f, 200.0f, projectionNear),
+																							glm::vec3(100.0f, 200.0f, 0.5f),
 																							glm::vec3(0.0f, 1.0f, 0.0f));
 				break;
 				

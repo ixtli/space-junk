@@ -227,7 +227,6 @@
 			children = (
 				A317B52717B8280C00416550 /* cubes */,
 				A317B51D17B2235E00416550 /* shader */,
-				A3A86DAC17B2152F00426EEC /* v8.h */,
 				A3A86D5A17B2127700426EEC /* engine */,
 				A3A86D6517B2127700426EEC /* game */,
 				A3A86D6817B2127700426EEC /* gl */,
@@ -237,6 +236,7 @@
 				A315CD8417B2041B00DEA6D2 /* SpaceJunkAppDelegate.h */,
 				A315CD8517B2041B00DEA6D2 /* SpaceJunkAppDelegate.m */,
 				A315CD8717B2041B00DEA6D2 /* MainMenu.xib */,
+				A3A86DAC17B2152F00426EEC /* v8.h */,
 				A315CD8A17B2041B00DEA6D2 /* Images.xcassets */,
 				A315CD7917B2041B00DEA6D2 /* Supporting Files */,
 			);

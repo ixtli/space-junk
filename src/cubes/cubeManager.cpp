@@ -17,7 +17,8 @@ CubeManager::CubeManager() :
 _size(),
 _buffer(),
 _cubes(NULL),
-_verts(NULL)
+_verts(NULL),
+_indicies(NULL)
 
 {}
 
@@ -25,6 +26,7 @@ CubeManager::~CubeManager()
 {
 	if (_cubes) delete [] _cubes;
 	if (_verts) delete [] _verts;
+	if (_indicies) delete [] _indicies;
 }
 
 bool CubeManager::init(const Size3U &size, ShaderFormat format)
@@ -45,8 +47,8 @@ bool CubeManager::init(const Size3U &size, ShaderFormat format)
 		return false;
 	}
 	
-	GLushort* indicies = new GLushort[indexCount];
-	if (!indicies)
+	_indicies = new GLushort[indexCount];
+	if (!_indicies)
 	{
 		error("Couldn't allocate memory for indicies.");
 		return false;
@@ -68,7 +70,7 @@ bool CubeManager::init(const Size3U &size, ShaderFormat format)
 		}
 	}
 	
-	generateElementIndicies(indicies);
+	generateElementIndicies(_indicies);
 	
 	generateVertsFromCubes(_verts);
 	
@@ -77,16 +79,13 @@ bool CubeManager::init(const Size3U &size, ShaderFormat format)
 		.dynamic = false,
 		.vertexCount = vertexCount,
 		.indexCount = indexCount,
-		.indicies = indicies,
+		.indicies = _indicies,
 		.verticies = _verts,
 		.attrCount = ShaderFormats::definitions[_shaderFormat].attrCount,
 		.attributes = ShaderFormats::definitions[_shaderFormat].attrs
 	};
 	
 	bool result = _buffer.init(conf);
-	
-	// Clean up
-	delete [] indicies;
 	
 	return result;
 }
@@ -101,8 +100,8 @@ void CubeManager::draw()
 
 void CubeManager::generateElementIndicies(GLushort* indicies)
 {
-	GLuint indexCount = INDICIES_PER_CUBE * _size.volume();
-	for (GLushort i = 0; i < indexCount; i++)
+	GLuint total = _size.volume();
+	for (GLushort i = 0; i < total; i += INDICIES_PER_CUBE)
 	{
 		// front
 		indicies[i + 0] = i + 0;
@@ -159,16 +158,16 @@ void CubeManager::generateVertsFromCubes(ColorVertex* verts)
 	static const Point3F pts[VERTS_PER_CUBE] =
 	{
 		// Front
-		Point3F(50.0, 50.0,  0.5),
-		Point3F(95.0, 50.0,  0.5),
-		Point3F(95.0, 95.0,  0.5),
-		Point3F(50.0, 95.0,  0.5),
+		Point3F(150.0f, 150.0f,  0.5),
+		Point3F(200.0f, 150.0f,  0.5),
+		Point3F(200.0f, 200.0f,  0.5),
+		Point3F(150.0f, 200.0f,  0.5),
 		
 		// Back
-		Point3F(50.0, 50.0, -0.5),
-		Point3F(95.0, 50.0, -0.5),
-		Point3F(95.0, 95.0, -0.5),
-		Point3F(50.0, 95.0, -0.5)
+		Point3F(150.0f, 150.0f, -0.5),
+		Point3F(200.0f, 150.0f, -0.5),
+		Point3F(200.0f, 200.0f, -0.5),
+		Point3F(150.0f, 200.0f, -0.5)
 	};
 	
 	static const Color4u colors[VERTS_PER_CUBE] =

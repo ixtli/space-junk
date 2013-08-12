@@ -44,6 +44,7 @@ private:
 	TriangleBuffer _buffer;
 	Cube* _cubes;
 	
+	GLushort* _indicies;
 	ColorVertex* _verts;
 	
 };

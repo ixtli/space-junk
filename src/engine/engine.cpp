@@ -59,7 +59,7 @@ bool Engine::init()
 	
 	// Initialize the scene
 	const Size3U mapSize(1, 1, 1);
-	CubeManager::instance()->init(mapSize, SOLID_QUAD_SHADER);
+	CubeManager::instance()->init(mapSize, SOLID_CUBE_SHADER);
 	
 	return true;
 }
