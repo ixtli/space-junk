@@ -158,16 +158,26 @@ void CubeManager::generateVertsFromCubes(ColorVertex* verts)
 	static const Point3F pts[VERTS_PER_CUBE] =
 	{
 		// Front
-		Point3F(150.0f, 150.0f,  0.5),
-		Point3F(200.0f, 150.0f,  0.5),
-		Point3F(200.0f, 200.0f,  0.5),
-		Point3F(150.0f, 200.0f,  0.5),
+//		Point3F(150.0f, 150.0f,  0.5),
+//		Point3F(200.0f, 150.0f,  0.5),
+//		Point3F(200.0f, 200.0f,  0.5),
+//		Point3F(150.0f, 200.0f,  0.5),
+//		
+//		// Back
+//		Point3F(150.0f, 150.0f, -0.5),
+//		Point3F(200.0f, 150.0f, -0.5),
+//		Point3F(200.0f, 200.0f, -0.5),
+//		Point3F(150.0f, 200.0f, -0.5)
+		Point3F(-1.0f, -1.0f,  1.0f),
+		Point3F( 1.0f, -1.0f,  1.0f),
+		Point3F( 1.0f,  1.0f,  1.0f),
+		Point3F(-1.0f,  1.0f,  1.0f),
 		
 		// Back
-		Point3F(150.0f, 150.0f, -0.5),
-		Point3F(200.0f, 150.0f, -0.5),
-		Point3F(200.0f, 200.0f, -0.5),
-		Point3F(150.0f, 200.0f, -0.5)
+		Point3F(-1.0f, -1.0f, -1.0f),
+		Point3F( 1.0f, -1.0f, -1.0f),
+		Point3F( 1.0f,  1.0f, -1.0f),
+		Point3F(-1.0f,  1.0f, -1.0f)
 	};
 	
 	static const Color4u colors[VERTS_PER_CUBE] =

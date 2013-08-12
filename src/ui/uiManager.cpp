@@ -24,7 +24,11 @@ _maxLayers(0)
 
 UIManager::~UIManager()
 {
-	if (_layers) delete [] _layers;
+	if (_layers)
+	{
+		delete [] _layers;
+		_layers = NULL;
+	}
 }
 
 bool UIManager::init()
