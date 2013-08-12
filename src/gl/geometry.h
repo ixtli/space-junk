@@ -24,7 +24,7 @@ public:
 	Point2(const T& _x, const T& _y) : x(_x), y(_y) {};
 	Point2(const Point2<T> &p) : x(p.x), y(p.y) {};
 	
-	inline void set(Point2<T> &p)
+	inline void set(const Point2<T> &p)
 	{
 		x = p.x;
 		y = p.y;
@@ -46,7 +46,7 @@ public:
 	Point3(const T &_x, const T &_y, const T &_z) : x(_x), y(_y), z(_z) {};
 	Point3(const Point3<T> &p) : x(p.x), y(p.y), z(p.z) {};
 	
-	inline void set(Point3<T> &p)
+	inline void set(const Point3<T> &p)
 	{
 		x = p.x;
 		y = p.y;

@@ -14,14 +14,23 @@
 typedef enum
 {
 	SOLID_QUAD_SHADER,
+	SOLID_CUBE_SHADER,
 	NUM_SHADER_TYPES
 } ShaderFormat;
+
+typedef enum
+{
+	ORTHOGRAPHIC_PROJECTION,
+	ISOMETRIC_PROJECTION,
+	NUM_PROJECTION_STYLES
+} ProjectionStyle;
 
 struct ShaderMetadata
 {
 	const char* const name;
 	const unsigned attrCount;
 	const VertexAttribute* const* attrs;
+	const ProjectionStyle projection;
 };
 
 class ShaderFormats

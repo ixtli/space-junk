@@ -17,6 +17,14 @@ struct Color4u
 	Color4u(GLubyte _r, GLubyte _g, GLubyte _b, GLubyte _a) :
 	r(_r), g(_g), b(_b), a(_a) {};
 	
+	inline void set(const Color4u& c)
+	{
+		r = c.r;
+		g = c.g;
+		b = c.b;
+		a = c.a;
+	};
+	
 	GLubyte r, g, b, a;
 };
 

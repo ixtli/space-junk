@@ -13,7 +13,8 @@ QuadLayer::QuadLayer(bool dynamic) :
 _dynamic(dynamic),
 _maxQuads(0),
 _usedQuads(0),
-_shaderFormat(NUM_SHADER_TYPES)
+_shaderFormat(NUM_SHADER_TYPES),
+_buffer()
 
 {}
 

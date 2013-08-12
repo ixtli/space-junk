@@ -13,6 +13,13 @@ const ShaderMetadata ShaderFormats::definitions[NUM_SHADER_TYPES] =
 	{
 		.name = "solidQuad",
 		.attrCount = 2,
-		.attrs = VertexFormats::solidQuadList
+		.attrs = VertexFormats::solidQuadList,
+		.projection = ORTHOGRAPHIC_PROJECTION
+	},
+	{
+		.name = "solidCube",
+		.attrCount = 2,
+		.attrs = VertexFormats::solidQuadList,
+		.projection = ISOMETRIC_PROJECTION
 	}
 };

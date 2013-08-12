@@ -9,8 +9,7 @@
 #ifndef __SpaceJunk__cubeScene__
 #define __SpaceJunk__cubeScene__
 
-#include "glutil.h"
-#include "shaderManager.h"
+#include "shaderFormats.h"
 #include "triangleBuffer.h"
 #include "cube.h"
 
@@ -21,14 +20,7 @@ public:
 	inline static CubeManager* instance() { return &_instance; };
 	
 	bool init(const Size3U &size, ShaderFormat format);
-	
-	// Inline render functions
-	inline void draw() const
-	{
-		ShaderManager::use(_shaderFormat);
-		_buffer.draw();
-		GetGLError();
-	};
+	static void draw();
 	
 private:
 	
@@ -37,19 +29,22 @@ private:
 	~CubeManager();
 	static CubeManager _instance;
 	
-	// Helpers
-	void generateElementIndicies(GLushort *indicies);
-	
 	// Convenience const values
 	static const GLuint SIDE_COUNT = 6;
-	static const GLuint VERTS_PER_CUBE = 24;
+	static const GLuint VERTS_PER_CUBE = 8;
 	static const GLuint INDICIES_PER_CUBE = 36;
+	
+	// Helpers
+	void generateElementIndicies(GLushort* indicies);
+	void generateVertsFromCubes(ColorVertex* verts);
 	
 	// Member fields
 	ShaderFormat _shaderFormat;
 	Size3U _size;
 	TriangleBuffer _buffer;
 	Cube* _cubes;
+	
+	ColorVertex* _verts;
 	
 };
 

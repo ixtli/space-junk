@@ -21,19 +21,25 @@ public:
 	bool init();
 	
 	// Getters
-	inline const Point3F* location() const { return &_origin; };
-	inline const GLfloat x() const { return _origin.x; };
-	inline const GLfloat y() const { return _origin.y; };
-	inline const GLfloat z() const { return _origin.z; };
+	inline const Point3F* location() { return &_location; };
+	inline const Size3F* size() { return &_size; };
+	inline const GLfloat x() const { return _location.x; };
+	inline const GLfloat y() const { return _location.y; };
+	inline const GLfloat z() const { return _location.z; };
+	inline const GLfloat width() const { return _size.width; };
+	inline const GLfloat height() const { return _size.height; };
 	
 	// Setters
-	inline void x(GLfloat v) { _origin.x = v; };
-	inline void y(GLfloat v) { _origin.y = v; };
-	inline void z(GLfloat v) { _origin.z = v; };
+	inline void x(GLfloat v) { _location.x = v; };
+	inline void y(GLfloat v) { _location.y = v; };
+	inline void z(GLfloat v) { _location.z = v; };
+	inline void width(GLfloat v) { _size.width = v; };
+	inline void height(GLfloat v) { _size.height = v; };
 	
 private:
 	
-	Point3F _origin;
+	Point3F _location;
+	Size3F _size;
 	
 };
 

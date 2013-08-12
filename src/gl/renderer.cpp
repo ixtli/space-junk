@@ -11,6 +11,7 @@
 #include "shaderManager.h"
 
 #include "uiManager.h"
+#include "cubeManager.h"
 
 #include "renderer.h"
 
@@ -83,6 +84,7 @@ void Renderer::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	CubeManager::draw();
 	UIManager::draw();
 	
 	GetGLError();

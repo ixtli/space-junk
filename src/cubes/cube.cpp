@@ -10,7 +10,8 @@
 
 Cube::Cube() :
 
-_origin()
+_location(),
+_size()
 
 {}
 
