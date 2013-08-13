@@ -6,6 +6,13 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+// Uncomment to debug indicies
+// #define PRINT_INDICIES
+
+#ifdef PRINT_INDICIES
+#include <stdio.h>
+#endif
+
 #include "glutil.h"
 #include "shaderManager.h"
 #include "CubeManager.h"
@@ -34,7 +41,7 @@ bool CubeManager::init(const Size3U &size, ShaderFormat format)
 	_shaderFormat = format;
 	_size.set(size);
 	GLuint total = _size.volume();
-	GLuint indexCount = INDICIES_PER_CUBE * total;
+	GLuint indexCount = INDICIES_PER_CUBE * total - 2;
 	GLuint vertexCount = VERTS_PER_CUBE * total;
 	
 	info("Initializing %i cubes.", total);
@@ -68,6 +75,8 @@ bool CubeManager::init(const Size3U &size, ShaderFormat format)
 			error("Error initializing cube %u.", i);
 			return false;
 		}
+		
+		_cubes[i].y(i);
 	}
 	
 	generateElementIndicies(_indicies);
@@ -101,56 +110,118 @@ void CubeManager::draw()
 void CubeManager::generateElementIndicies(GLushort* indicies)
 {
 	GLuint total = _size.volume();
-	for (GLushort i = 0; i < total; i += INDICIES_PER_CUBE)
+	GLuint index = 0;
+	GLushort val = 0;
+	
+#ifdef PRINT_INDICIES
+	GLuint j = 0;
+#endif
+	
+	for (GLushort i = 0; i < total; i++)
 	{
 		// front
-		indicies[i + 0] = i + 0;
-		indicies[i + 1] = i + 1;
-		indicies[i + 2] = i + 2;
-		indicies[i + 3] = i + 2;
-		indicies[i + 4] = i + 3;
-		indicies[i + 5] = i + 0;
+		indicies[index + 0] = val + 0;
+		indicies[index + 1] = val + 1;
+		indicies[index + 2] = val + 2;
+		indicies[index + 3] = val + 2;
+		indicies[index + 4] = val + 3;
+		indicies[index + 5] = val + 0;
+		
+#ifdef PRINT_INDICIES
+		printf("%i, %i, %i, \n", indicies[j + 0], indicies[j + 1], indicies[j + 2]);
+		printf("%i, %i, %i\n\n", indicies[j + 3], indicies[j + 4], indicies[j + 5]);
+		j+=6;
+#endif
 		
 		// top
-		indicies[i + 6] = i + 3;
-		indicies[i + 7] = i + 2;
-		indicies[i + 8] = i + 6;
-		indicies[i + 9] = i + 6;
-		indicies[i + 10] = i + 7;
-		indicies[i + 11] = i + 3;
+		indicies[index + 6] = val + 3;
+		indicies[index + 7] = val + 2;
+		indicies[index + 8] = val + 6;
+		indicies[index + 9] = val + 6;
+		indicies[index + 10] = val + 7;
+		indicies[index + 11] = val + 3;
+		
+#ifdef PRINT_INDICIES
+		printf("%i, %i, %i, \n", indicies[j + 0], indicies[j + 1], indicies[j + 2]);
+		printf("%i, %i, %i\n\n", indicies[j + 3], indicies[j + 4], indicies[j + 5]);
+		j+=6;
+#endif
 		
 		// back
-		indicies[i + 12] = i + 7;
-		indicies[i + 13] = i + 6;
-		indicies[i + 14] = i + 5;
-		indicies[i + 15] = i + 5;
-		indicies[i + 16] = i + 4;
-		indicies[i + 17] = i + 7;
+		indicies[index + 12] = val + 7;
+		indicies[index + 13] = val + 6;
+		indicies[index + 14] = val + 5;
+		indicies[index + 15] = val + 5;
+		indicies[index + 16] = val + 4;
+		indicies[index + 17] = val + 7;
+		
+#ifdef PRINT_INDICIES
+		printf("%i, %i, %i, \n", indicies[j + 0], indicies[j + 1], indicies[j + 2]);
+		printf("%i, %i, %i\n\n", indicies[j + 3], indicies[j + 4], indicies[j + 5]);
+		j+=6;
+#endif
 		
 		// bottom
-		indicies[i + 18] = i + 4;
-		indicies[i + 19] = i + 5;
-		indicies[i + 20] = i + 1;
-		indicies[i + 21] = i + 1;
-		indicies[i + 22] = i + 0;
-		indicies[i + 23] = i + 4;
+		indicies[index + 18] = val + 4;
+		indicies[index + 19] = val + 5;
+		indicies[index + 20] = val + 1;
+		indicies[index + 21] = val + 1;
+		indicies[index + 22] = val + 0;
+		indicies[index + 23] = val + 4;
+		
+#ifdef PRINT_INDICIES
+		printf("%i, %i, %i, \n", indicies[j + 0], indicies[j + 1], indicies[j + 2]);
+		printf("%i, %i, %i\n\n", indicies[j + 3], indicies[j + 4], indicies[j + 5]);
+		j+=6;
+#endif
 		
 		// left
-		indicies[i + 24] = i + 4;
-		indicies[i + 25] = i + 0;
-		indicies[i + 26] = i + 3;
-		indicies[i + 27] = i + 3;
-		indicies[i + 28] = i + 7;
-		indicies[i + 29] = i + 4;
+		indicies[index + 24] = val + 4;
+		indicies[index + 25] = val + 0;
+		indicies[index + 26] = val + 3;
+		indicies[index + 27] = val + 3;
+		indicies[index + 28] = val + 7;
+		indicies[index + 29] = val + 4;
+		
+#ifdef PRINT_INDICIES
+		printf("%i, %i, %i, \n", indicies[j + 0], indicies[j + 1], indicies[j + 2]);
+		printf("%i, %i, %i\n\n", indicies[j + 3], indicies[j + 4], indicies[j + 5]);
+		j+=6;
+#endif
 		
 		// right
-		indicies[i + 30] = i + 1;
-		indicies[i + 31] = i + 5;
-		indicies[i + 32] = i + 6;
-		indicies[i + 33] = i + 6;
-		indicies[i + 34] = i + 2;
-		indicies[i + 35] = i + 1;
+		indicies[index + 30] = val + 1;
+		indicies[index + 31] = val + 5;
+		indicies[index + 32] = val + 6;
+		indicies[index + 33] = val + 6;
+		indicies[index + 34] = val + 2;
+		indicies[index + 35] = val + 1;
+		
+#ifdef PRINT_INDICIES
+		printf("%i, %i, %i, \n", indicies[j + 0], indicies[j + 1], indicies[j + 2]);
+		printf("%i, %i, %i\n\n", indicies[j + 3], indicies[j + 4], indicies[j + 5]);
+		j+=6;
+#endif
+		
+		// We're not the last
+		if (i + 1 < total)
+		{
+			indicies[index + 36] = val + 1;
+			indicies[index + 37] = val + 8;
+			
+#ifdef PRINT_INDICIES
+			printf("-- %i, %i --\n\n", indicies[index + 36], indicies[index + 37]);
+			j+=2;
+#endif
+		}
+		
+		index += INDICIES_PER_CUBE;
+		val += VERTS_PER_CUBE;
 	}
+	
+#ifdef PRINT_INDICIES
+	printf("END!\n");
+#endif
 }
 
 void CubeManager::generateVertsFromCubes(ColorVertex* verts)
@@ -158,26 +229,16 @@ void CubeManager::generateVertsFromCubes(ColorVertex* verts)
 	static const Point3F pts[VERTS_PER_CUBE] =
 	{
 		// Front
-//		Point3F(150.0f, 150.0f,  0.5),
-//		Point3F(200.0f, 150.0f,  0.5),
-//		Point3F(200.0f, 200.0f,  0.5),
-//		Point3F(150.0f, 200.0f,  0.5),
-//		
-//		// Back
-//		Point3F(150.0f, 150.0f, -0.5),
-//		Point3F(200.0f, 150.0f, -0.5),
-//		Point3F(200.0f, 200.0f, -0.5),
-//		Point3F(150.0f, 200.0f, -0.5)
-		Point3F(-1.0f, -1.0f,  1.0f),
-		Point3F( 1.0f, -1.0f,  1.0f),
+		Point3F( 0.0f,  0.0f,  1.0f),
+		Point3F( 1.0f,  0.0f,  1.0f),
 		Point3F( 1.0f,  1.0f,  1.0f),
-		Point3F(-1.0f,  1.0f,  1.0f),
+		Point3F( 0.0f,  1.0f,  1.0f),
 		
 		// Back
-		Point3F(-1.0f, -1.0f, -1.0f),
-		Point3F( 1.0f, -1.0f, -1.0f),
-		Point3F( 1.0f,  1.0f, -1.0f),
-		Point3F(-1.0f,  1.0f, -1.0f)
+		Point3F( 0.0f,  0.0f,  0.0f),
+		Point3F( 1.0f,  0.0f,  0.0f),
+		Point3F( 1.0f,  1.0f,  0.0f),
+		Point3F( 0.0f,  1.0f,  0.0f)
 	};
 	
 	static const Color4u colors[VERTS_PER_CUBE] =
@@ -194,12 +255,12 @@ void CubeManager::generateVertsFromCubes(ColorVertex* verts)
 	
 	GLuint total = _size.volume();
 	GLuint idx = 0;
-	
 	for (GLuint i = 0; i < total; i++)
 	{
 		for (GLuint j = 0; j < VERTS_PER_CUBE; j++, idx++)
 		{
-			verts[idx].location.set(pts[j]);
+			verts[idx].location.set(_cubes[i].location());
+			verts[idx].location.add(pts[j]);
 			verts[idx].color.set(colors[j]);
 		}
 	}

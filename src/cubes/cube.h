@@ -21,8 +21,8 @@ public:
 	bool init();
 	
 	// Getters
-	inline const Point3F* location() { return &_location; };
-	inline const Size3F* size() { return &_size; };
+	inline const Point3F& location() { return _location; };
+	inline const Size3F& size() { return _size; };
 	inline const GLfloat x() const { return _location.x; };
 	inline const GLfloat y() const { return _location.y; };
 	inline const GLfloat z() const { return _location.z; };

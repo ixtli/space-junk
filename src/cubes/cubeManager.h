@@ -32,7 +32,7 @@ private:
 	// Convenience const values
 	static const GLuint SIDE_COUNT = 6;
 	static const GLuint VERTS_PER_CUBE = 8;
-	static const GLuint INDICIES_PER_CUBE = 36;
+	static const GLuint INDICIES_PER_CUBE = 38;
 	
 	// Helpers
 	void generateElementIndicies(GLushort* indicies);

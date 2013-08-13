@@ -40,6 +40,12 @@ public:
 		y = p.y;
 	};
 	
+	inline void add(const Point2<T> &p)
+	{
+		x += p.x;
+		y += p.y;
+	};
+	
 	T x, y;
 };
 
@@ -61,6 +67,13 @@ public:
 		x = p.x;
 		y = p.y;
 		z = p.z;
+	};
+	
+	inline void add(const Point3<T> &p)
+	{
+		x += p.x;
+		y += p.y;
+		z += p.z;
 	};
 	
 	T x, y, z;
