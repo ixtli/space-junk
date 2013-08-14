@@ -57,11 +57,9 @@ void Renderer::resize(const Size2I& newBounds)
 	// Reset the viewport based on the new bounds
 	glViewport(0, 0, (GLsizei)_bounds.width, (GLsizei)_bounds.height);
 	
-	// GLM doesn't like it if you give glm::perspective a zero for aspect ratio
-	GLfloat aspect = (_bounds.width / _bounds.height);
-	if (aspect == 0.0f) aspect = 1.0f;
+	glm::mat4 proj, view, model, rotation;
 	
-	glm::mat4 proj, view, model, rotate;
+	GLfloat aspect = 1.0f * _bounds.width / _bounds.height;
 	
 	// Load a new ortho matrix for the model view projection
 	for (size_t i = 0; i < NUM_PROJECTION_STYLES; i++)
@@ -74,18 +72,17 @@ void Renderer::resize(const Size2I& newBounds)
 				break;
 				
 			case ISOMETRIC_PROJECTION:
-				model = glm::translate(glm::mat4(1.0f),
-															 glm::vec3(0.0, 1.0, -.4));
+				model = glm::mat4(1.0f);
 				
-				view = glm::lookAt(glm::vec3(0.0f, 2.5f, 3.0f),
-													 glm::vec3(0.0f, 0.0f, -4.0f),
+				view = glm::lookAt(glm::vec3(0.0f, 0.0f, 10.0f),
+													 glm::vec3(0.0f, 0.0f, 0.0f),
 													 glm::vec3(0.0f, 1.0f, 0.0f));
 				
-				proj = glm::perspective(45.0f, aspect, 0.1f, 10.0f);
+				proj = glm::perspective(45.0f, aspect, 0.1f, 50.0f);
 				
-				rotate = glm::rotate(glm::mat4(1.0f), 45.0f, glm::vec3(0.0, 1.0, 0.0));
+				rotation = glm::rotate(glm::mat4(1.0f), 15.0f, glm::vec3(1.0, 1.0, 0.0));
 				
-				_projectionMatrices[i] = proj * view * model * rotate;
+				_projectionMatrices[i] = proj * view * model * rotation;
 				break;
 				
 			default:

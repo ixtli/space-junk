@@ -46,14 +46,13 @@ private:
 	
 	Renderer();
 	~Renderer();
+	static Renderer _instance;
 	
 	Size2I _bounds;
 	glm::mat4 _projectionMatrices[NUM_PROJECTION_STYLES];
 	GLuint _defaultFBOName;
 	
 	void resetGL();
-	
-	static Renderer _instance;
 	
 	// Currently bound GL handles, to avoid too many calls to the GFX card
 	static GLuint _currentVAO;

@@ -36,10 +36,12 @@ CubeManager::~CubeManager()
 	if (_indicies) delete [] _indicies;
 }
 
-bool CubeManager::init(const Size3U &size, ShaderFormat format)
+bool CubeManager::init()
 {
-	_shaderFormat = format;
-	_size.set(size);
+	const Size3U mapSize(2, 3, 2);
+	
+	_shaderFormat = SOLID_CUBE_SHADER;
+	_size.set(mapSize);
 	GLuint total = _size.volume();
 	GLuint indexCount = INDICIES_PER_CUBE * total - 2;
 	GLuint vertexCount = VERTS_PER_CUBE * total;
@@ -68,15 +70,26 @@ bool CubeManager::init(const Size3U &size, ShaderFormat format)
 	}
 	
 	// Initialize
-	for (GLuint i = 0; i < total; i++)
+	GLuint i = 0;
+	for (GLuint x = 0; x < _size.width; x++)
 	{
-		if (!_cubes[i].init())
+		for (GLuint y = 0; y < _size.height; y++)
 		{
-			error("Error initializing cube %u.", i);
-			return false;
+			for (GLuint z = 0; z < _size.depth; z++)
+			{
+				if (!_cubes[i].init())
+				{
+					error("Error initializing cube %u.", i);
+					return false;
+				}
+				
+				_cubes[i].x(x + (.05f * i));
+				_cubes[i].y(y + (.05f * i));
+				_cubes[i].z(z + (.05f * i));
+				
+				i++;
+			}
 		}
-		
-		_cubes[i].y(i);
 	}
 	
 	generateElementIndicies(_indicies);
@@ -226,6 +239,8 @@ void CubeManager::generateElementIndicies(GLushort* indicies)
 
 void CubeManager::generateVertsFromCubes(ColorVertex* verts)
 {
+	
+	// Unit cube
 	static const Point3F pts[VERTS_PER_CUBE] =
 	{
 		// Front

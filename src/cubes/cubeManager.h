@@ -19,7 +19,7 @@ public:
 	
 	inline static CubeManager* instance() { return &_instance; };
 	
-	bool init(const Size3U &size, ShaderFormat format);
+	bool init();
 	static void draw();
 	
 private:
