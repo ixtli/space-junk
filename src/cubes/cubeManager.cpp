@@ -258,14 +258,14 @@ void CubeManager::generateVertsFromCubes(ColorVertex* verts)
 	
 	static const Color4u colors[VERTS_PER_CUBE] =
 	{
-		Color4u(255, 0, 0, 255),
-		Color4u(0, 255, 0, 255),
-		Color4u(0, 255, 255, 255),
-		Color4u(255, 0, 0, 255),
-		Color4u(0, 0, 255, 255),
-		Color4u(255, 0, 0, 255),
-		Color4u(255, 255, 0, 255),
-		Color4u(255, 0, 255, 255)
+		Color4u(100, 200, 100, 175),
+		Color4u(100, 200, 100, 175),
+		Color4u(100, 200, 100, 175),
+		Color4u(100, 200, 100, 175),
+		Color4u(255, 255, 255, 175),
+		Color4u(255, 255, 255, 175),
+		Color4u(255, 255, 255, 175),
+		Color4u(255, 255, 255, 175)
 	};
 	
 	GLuint total = _size.volume();
