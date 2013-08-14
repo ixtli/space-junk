@@ -107,6 +107,14 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	CVDisplayLinkStart(displayLink);
 }
 
+- (void) windowWillClose:(NSNotification*)notification
+{
+	// Stop the display link when the window is closing because default
+	// OpenGL render buffers will be destroyed.  If display link continues to
+	// fire without renderbuffers, OpenGL draw calls will set errors.
+	CVDisplayLinkStop(displayLink);
+}
+
 - (void) initGL
 {
 	[[self openGLContext] makeCurrentContext];
