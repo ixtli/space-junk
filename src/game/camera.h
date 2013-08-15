@@ -19,13 +19,23 @@ public:
 	~Camera();
 	
 	bool init();
-	void update(const Size2I &bounds);
+	void updateScreenBounds(const Size2I &bounds);
+	void perspectiveAngle(GLfloat angle);
+	void rotationAngle(GLfloat angle);
 	
 	inline const glm::mat4& getMatrix() const { return _matrix; };
 	
+	// Getters
+	inline GLfloat rotationAngle() const { return _angle; };
+	inline GLfloat perspectiveAngle() const { return _perspective; };
+	
 private:
 	
-	glm::mat4 _matrix;
+	void updateMatrix();
+	
+	GLfloat _angle, _perspective, _aspect;
+	
+	glm::mat4 _view, _projection, _rotation, _matrix;
 	
 };
 

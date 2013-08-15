@@ -9,7 +9,11 @@
 #include "renderer.h"
 #include "camera.h"
 
-Camera::Camera()
+Camera::Camera() :
+
+_matrix(1.0f),
+_perspective(45.0f),
+_angle(15.0f)
 
 {}
 
@@ -20,26 +24,43 @@ Camera::~Camera()
 
 bool Camera::init()
 {
+	_view = glm::lookAt(glm::vec3(2.0f, 5.0f, 10.0f),
+											glm::vec3(0.0f, 0.0f, 0.0f),
+											glm::vec3(0.0f, 1.0f, 0.0f));
+	
 	return true;
 }
 
-void Camera::update(const Size2I &bounds)
+void Camera::updateScreenBounds(const Size2I &bounds)
 {
-	GLfloat aspect = 1.0f * bounds.width / bounds.height;
+	GLfloat newAspect = 1.0f * bounds.width / bounds.height;
 	
-	glm::mat4 model, proj, view, rotation;
+	if (_aspect == newAspect) return;
 	
-	model = glm::mat4(1.0f);
-	
-	view = glm::lookAt(glm::vec3(0.0f, 0.0f, 10.0f),
-										 glm::vec3(0.0f, 0.0f, 0.0f),
-										 glm::vec3(0.0f, 1.0f, 0.0f));
-	
-	proj = glm::perspective(45.0f, aspect, 0.1f, 50.0f);
-	
-	rotation = glm::rotate(glm::mat4(1.0f), 15.0f, glm::vec3(1.0, 1.0, 0.0));
-	
-	_matrix = proj * view * model * rotation;
+	_aspect = newAspect;
+	_projection = glm::perspective(_perspective, _aspect, 0.1f, 50.0f);
+	updateMatrix();
 }
 
+void Camera::rotationAngle(GLfloat angle)
+{
+	if (_angle == angle) return;
+	
+	_angle = angle;
+	_rotation = glm::rotate(glm::mat4(1.0f), _angle, glm::vec3(1.0, 1.0, 0.0));
+	updateMatrix();
+}
 
+void Camera::perspectiveAngle(GLfloat angle)
+{
+	if (_perspective == angle) return;
+	
+	_perspective = angle;
+	_projection = glm::perspective(_perspective, _aspect, 0.1f, 50.0f);
+	updateMatrix();
+}
+
+void Camera::updateMatrix()
+{
+	_matrix = _projection * _view * _rotation;
+}

@@ -116,7 +116,7 @@ bool CubeManager::init()
 
 void CubeManager::viewDidResize(const Size2I &bounds)
 {
-	_camera.update(bounds);
+	_camera.updateScreenBounds(bounds);
 	ShaderManager::getInstance()->setMVP(_camera.getMatrix(), _shaderFormat);
 	GetGLError();
 }
@@ -129,9 +129,11 @@ void CubeManager::draw()
 }
 
 // Engine update function
-void CubeManager::update(time_t dt)
+void CubeManager::update(clock_t dt)
 {
-	
+	GLfloat newAngle = _camera.rotationAngle() + ((GLfloat)dt / 1000.0f);
+	_camera.rotationAngle(newAngle);
+	ShaderManager::getInstance()->setMVP(_camera.getMatrix(), _shaderFormat);
 }
 
 void CubeManager::generateElementIndicies(GLushort* indicies)

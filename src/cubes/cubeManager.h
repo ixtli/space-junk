@@ -22,7 +22,7 @@ public:
 	inline static CubeManager* getInstance() { return &_instance; };
 	
 	bool init();
-	void update(time_t dt);
+	void update(clock_t dt);
 	void viewDidResize(const Size2I &bounds);
 	
 	static void draw();

@@ -45,7 +45,7 @@ void UIManager::draw()
 		_instance._layers[i]->draw();
 }
 
-void UIManager::update(time_t time)
+void UIManager::update(clock_t time)
 {
 	for (size_t i = 0; i < _instance._layerCount; i++)
 		_instance._layers[i]->update();

@@ -24,7 +24,8 @@ Engine Engine::_instance;
 
 Engine::Engine() :
 
-_hud(NULL)
+_hud(NULL),
+_previousUpdate(0)
 
 { }
 
@@ -60,13 +61,20 @@ bool Engine::init()
 	// Initialize the scene
 	CubeManager::getInstance()->init();
 	
+	_previousUpdate = clock();
+	
 	return true;
 }
 
 void Engine::update()
 {
-	time_t t = time(0);
+	clock_t t = clock();
+	clock_t delta = 0;
 	
-	UIManager::getInstance()->update(t);
-	CubeManager::getInstance()->update(t);
+	delta = t - _previousUpdate;
+	
+	UIManager::getInstance()->update(delta);
+	CubeManager::getInstance()->update(delta);
+	
+	_previousUpdate = t;
 }

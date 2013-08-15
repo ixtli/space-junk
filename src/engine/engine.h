@@ -29,6 +29,7 @@ private:
 	
 	HUD* _hud;
 	
+	clock_t _previousUpdate;
 };
 
 #endif /* defined(__Space_Junk__engine__) */

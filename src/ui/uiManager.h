@@ -25,7 +25,7 @@ public:
 	bool removeLayer(const UILayer* layer);
 	
 	static void draw();
-	static void update(time_t time);
+	static void update(clock_t time);
 	
 private:
 	
