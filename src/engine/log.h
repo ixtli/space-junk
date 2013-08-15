@@ -25,7 +25,7 @@ extern "C" {
 // with help from 21st Century C by O'Reilly
 #ifdef DEBUG
 
-#define info(fmt, ...)																													\
+#define info(fmt, ...)																												\
 	logToLog(LOGMETA fmt "\n",																									\
 	__FUNCTION__,	FILENAME, __LINE__, ##__VA_ARGS__)
 

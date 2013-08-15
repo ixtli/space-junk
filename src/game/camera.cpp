@@ -6,14 +6,16 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+
+#include "easing.h"
 #include "renderer.h"
 #include "camera.h"
 
 Camera::Camera() :
 
 _matrix(1.0f),
-_perspective(45.0f),
-_angle(15.0f)
+_rotation(1.0f),
+_perspective(45.0f)
 
 {}
 
@@ -42,12 +44,9 @@ void Camera::updateScreenBounds(const Size2I &bounds)
 	updateMatrix();
 }
 
-void Camera::rotationAngle(GLfloat angle)
+void Camera::rotate(GLfloat angle)
 {
-	if (_angle == angle) return;
-	
-	_angle = angle;
-	_rotation = glm::rotate(glm::mat4(1.0f), _angle, glm::vec3(1.0, 1.0, 0.0));
+	_rotation = glm::rotate(_rotation, angle, glm::vec3(1.0, 1.0, 0.0));
 	updateMatrix();
 }
 

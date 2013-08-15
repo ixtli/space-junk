@@ -131,8 +131,7 @@ void CubeManager::draw()
 // Engine update function
 void CubeManager::update(clock_t dt)
 {
-	GLfloat newAngle = _camera.rotationAngle() + ((GLfloat)dt / 1000.0f);
-	_camera.rotationAngle(newAngle);
+	_camera.rotate(dt / 1000.0f);
 	ShaderManager::getInstance()->setMVP(_camera.getMatrix(), _shaderFormat);
 }
 
