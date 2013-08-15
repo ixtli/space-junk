@@ -25,6 +25,10 @@ public:
 	void render();
 	
 #pragma mark -
+#pragma mark Getters
+	const Size2I& bounds() const { return _bounds; };
+	
+#pragma mark -
 #pragma mark OpenGL Context state manipulation functions
 	
 	static inline void bindVAO(GLuint vao)
@@ -49,7 +53,6 @@ private:
 	static Renderer _instance;
 	
 	Size2I _bounds;
-	glm::mat4 _projectionMatrices[NUM_PROJECTION_STYLES];
 	GLuint _defaultFBOName;
 	
 	void resetGL();

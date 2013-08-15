@@ -8,9 +8,7 @@
 
 #include "glutil.h"
 #include "geometry.h"
-
 #include "shaderManager.h"
-
 #include "uiManager.h"
 #include "cubeManager.h"
 
@@ -51,47 +49,26 @@ bool Renderer::init(GLuint defaultFBO)
 
 void Renderer::resize(const Size2I& newBounds)
 {
-	_bounds.width = newBounds.width;
-	_bounds.height = newBounds.height;
+	// Save new bounds
+	_bounds.set(newBounds);
 	
 	// Reset the viewport based on the new bounds
 	glViewport(0, 0, (GLsizei)_bounds.width, (GLsizei)_bounds.height);
+		
+	// Load a new ortho matrix
+	glm::mat4 ortho = glm::ortho(0.0f,
+															 (GLfloat)_bounds.width,
+															 (GLfloat)_bounds.height,
+															 0.0f,
+															 projectionNear,
+															 projectionFar);
 	
-	glm::mat4 proj, view, model, rotation;
+	// Apply that matrix to all ortho shaders
+	ShaderManager::getInstance()->applyProjectionMVP(ortho, ORTHOGRAPHIC_PROJECTION);
 	
-	GLfloat aspect = 1.0f * _bounds.width / _bounds.height;
-	
-	// Load a new ortho matrix for the model view projection
-	for (size_t i = 0; i < NUM_PROJECTION_STYLES; i++)
-	{
-		switch (i)
-		{
-			case ORTHOGRAPHIC_PROJECTION:
-				
-				_projectionMatrices[i] = glm::ortho(0.0f, (GLfloat)_bounds.width, (GLfloat)_bounds.height, 0.0f, projectionNear, projectionFar);
-				break;
-				
-			case ISOMETRIC_PROJECTION:
-				model = glm::mat4(1.0f);
-				
-				view = glm::lookAt(glm::vec3(0.0f, 0.0f, 10.0f),
-													 glm::vec3(0.0f, 0.0f, 0.0f),
-													 glm::vec3(0.0f, 1.0f, 0.0f));
-				
-				proj = glm::perspective(45.0f, aspect, 0.1f, 50.0f);
-				
-				rotation = glm::rotate(glm::mat4(1.0f), 15.0f, glm::vec3(1.0, 1.0, 0.0));
-				
-				_projectionMatrices[i] = proj * view * model * rotation;
-				break;
-				
-			default:
-				break;
-		}
-	}
-	
-	// Update all shaders with the new MVP
-	ShaderManager::getInstance()->setMVPMatrix(_projectionMatrices);
+	// Update managers with the resize event
+	UIManager::getInstance()->viewDidResize(_bounds);
+	CubeManager::getInstance()->viewDidResize(_bounds);
 }
 
 void Renderer::resetGL()

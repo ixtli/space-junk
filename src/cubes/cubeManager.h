@@ -9,7 +9,9 @@
 #ifndef __SpaceJunk__cubeScene__
 #define __SpaceJunk__cubeScene__
 
-#include "shaderFormats.h"
+#include "glutil.h"
+#include "camera.h"
+#include "shaderManager.h"
 #include "triangleBuffer.h"
 #include "cube.h"
 
@@ -17,9 +19,12 @@ class CubeManager
 {
 public:
 	
-	inline static CubeManager* instance() { return &_instance; };
+	inline static CubeManager* getInstance() { return &_instance; };
 	
 	bool init();
+	void update(time_t dt);
+	void viewDidResize(const Size2I &bounds);
+	
 	static void draw();
 	
 private:
@@ -46,6 +51,7 @@ private:
 	
 	GLushort* _indicies;
 	ColorVertex* _verts;
+	Camera _camera;
 	
 };
 

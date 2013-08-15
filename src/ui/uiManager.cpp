@@ -28,6 +28,7 @@ UIManager::~UIManager()
 	{
 		delete [] _layers;
 		_layers = NULL;
+		_layerCount = 0;
 	}
 }
 
@@ -48,6 +49,11 @@ void UIManager::update(time_t time)
 {
 	for (size_t i = 0; i < _instance._layerCount; i++)
 		_instance._layers[i]->update();
+}
+
+void UIManager::viewDidResize(const Size2I &bounds)
+{
+	
 }
 
 bool UIManager::addLayer(UILayer *layer)

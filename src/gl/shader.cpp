@@ -13,7 +13,9 @@
 
 GLuint Shader::_currentProgram = 0;
 
-Shader::Shader() : _id(0), _vert(0), _frag(0)
+const char* Shader::MVP_NAME = "modelViewProjectionMatrix";
+
+Shader::Shader() : _id(0), _vert(0), _frag(0), _mvpLocation(-1)
 {}
 
 Shader::~Shader()
@@ -45,6 +47,10 @@ bool Shader::init(const ShaderMetadata &metadata)
 	
 	if (!link(_frag, _vert))
 		return false;
+	
+	// Get the location of the MVP matrix and cache it. All shaders
+	// will require it
+	_mvpLocation = getUniformLocation(MVP_NAME);
 	
 	return true;
 }

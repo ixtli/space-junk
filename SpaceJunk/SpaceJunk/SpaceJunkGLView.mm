@@ -160,15 +160,15 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void) drawView
 {
-	Engine::getInstance()->update();
-	
 	[[self openGLContext] makeCurrentContext];
+	
+	Engine::getInstance()->update();
 	
 	if (resized)
 	{
 		NSRect rect = [self bounds];
-		Renderer::getInstance()->resize(
-																		Size2I((GLuint)rect.size.width, (GLuint)rect.size.height));
+		Renderer::getInstance()->resize(Size2I((GLuint)rect.size.width,
+																					 (GLuint)rect.size.height));
 		resized = false;
 	}
 	

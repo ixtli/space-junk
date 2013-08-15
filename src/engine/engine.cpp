@@ -58,7 +58,7 @@ bool Engine::init()
 	h->init();
 	
 	// Initialize the scene
-	CubeManager::instance()->init();
+	CubeManager::getInstance()->init();
 	
 	return true;
 }
@@ -68,4 +68,5 @@ void Engine::update()
 	time_t t = time(0);
 	
 	UIManager::getInstance()->update(t);
+	CubeManager::getInstance()->update(t);
 }

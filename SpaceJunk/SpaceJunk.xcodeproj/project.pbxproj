@@ -49,6 +49,7 @@
 		A3A86DA717B2144F00426EEC /* uiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8A17B2127700426EEC /* uiManager.cpp */; };
 		A3A86DA917B214E200426EEC /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86DA817B214E200426EEC /* libv8_snapshot.a */; };
 		A3A86DAB17B214F400426EEC /* libpthread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86DAA17B214F400426EEC /* libpthread.dylib */; };
+		A3C3BC4F17BC62C800FBF633 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3C3BC4D17BC62C800FBF633 /* camera.cpp */; };
 		A3D7802217B867CA00C173D4 /* solidCube.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3D7802017B8679200C173D4 /* solidCube.fsh */; };
 		A3D7802317B867CA00C173D4 /* solidCube.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3D7802117B867A100C173D4 /* solidCube.vsh */; };
 		A3D7806D17B8A15600C173D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A315CD8717B2041B00DEA6D2 /* MainMenu.xib */; };
@@ -144,6 +145,8 @@
 		A3A86DA817B214E200426EEC /* libv8_snapshot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_snapshot.a; path = "../v8-build/native/libv8_snapshot.a"; sourceTree = "<group>"; };
 		A3A86DAA17B214F400426EEC /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = usr/lib/libpthread.dylib; sourceTree = SDKROOT; };
 		A3A86DAC17B2152F00426EEC /* v8.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = v8.h; path = ../../v8/include/v8.h; sourceTree = "<group>"; };
+		A3C3BC4D17BC62C800FBF633 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
+		A3C3BC4E17BC62C800FBF633 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		A3D7802017B8679200C173D4 /* solidCube.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solidCube.fsh; sourceTree = "<group>"; };
 		A3D7802117B867A100C173D4 /* solidCube.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solidCube.vsh; sourceTree = "<group>"; };
 		A3D7802417B86E4200C173D4 /* glm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = glm.hpp; path = ../glm/glm/glm.hpp; sourceTree = "<group>"; };
@@ -319,6 +322,8 @@
 			children = (
 				A3A86D6617B2127700426EEC /* hud.cpp */,
 				A3A86D6717B2127700426EEC /* hud.h */,
+				A3C3BC4D17BC62C800FBF633 /* camera.cpp */,
+				A3C3BC4E17BC62C800FBF633 /* camera.h */,
 			);
 			name = game;
 			path = ../../src/game;
@@ -487,6 +492,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3C3BC4F17BC62C800FBF633 /* camera.cpp in Sources */,
 				A317B52D17B8288B00416550 /* cubeManager.cpp in Sources */,
 				A317B51C17B222EF00416550 /* log.c in Sources */,
 				A317B53017B82B9A00416550 /* cube.cpp in Sources */,
@@ -657,6 +663,7 @@
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = NO;
 				GCC_WARN_UNUSED_LABEL = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../src/**";
 				INFOPLIST_FILE = "SpaceJunk/SpaceJunk-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -684,6 +691,7 @@
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = NO;
 				GCC_WARN_UNUSED_LABEL = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../src/**";
 				INFOPLIST_FILE = "SpaceJunk/SpaceJunk-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

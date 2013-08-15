@@ -13,8 +13,6 @@
 #include <stdio.h>
 #endif
 
-#include "glutil.h"
-#include "shaderManager.h"
 #include "CubeManager.h"
 
 CubeManager CubeManager::_instance;
@@ -25,7 +23,9 @@ _size(),
 _buffer(),
 _cubes(NULL),
 _verts(NULL),
-_indicies(NULL)
+_indicies(NULL),
+_camera(),
+_shaderFormat(SOLID_CUBE_SHADER)
 
 {}
 
@@ -40,7 +40,6 @@ bool CubeManager::init()
 {
 	const Size3U mapSize(2, 3, 2);
 	
-	_shaderFormat = SOLID_CUBE_SHADER;
 	_size.set(mapSize);
 	GLuint total = _size.volume();
 	GLuint indexCount = INDICIES_PER_CUBE * total - 2;
@@ -69,7 +68,8 @@ bool CubeManager::init()
 		error("Couldn't allocate memory for verts");
 	}
 	
-	// Initialize
+	// TODO: Do something fun with this
+	// Initialize cubes
 	GLuint i = 0;
 	for (GLuint x = 0; x < _size.width; x++)
 	{
@@ -92,8 +92,11 @@ bool CubeManager::init()
 		}
 	}
 	
-	generateElementIndicies(_indicies);
+	// Initialize camera
+	_camera.init();
 	
+	// Make indicies and verts from generated cubes
+	generateElementIndicies(_indicies);
 	generateVertsFromCubes(_verts);
 	
 	// Initialize a new trianglebuffer
@@ -107,18 +110,29 @@ bool CubeManager::init()
 		.attributes = ShaderFormats::definitions[_shaderFormat].attrs
 	};
 	
-	bool result = _buffer.init(conf);
-	
-	return result;
+	// Initialize the buffer and return status
+	return _buffer.init(conf);
 }
 
-// Inline render functions
+void CubeManager::viewDidResize(const Size2I &bounds)
+{
+	_camera.update(bounds);
+	ShaderManager::getInstance()->setMVP(_camera.getMatrix(), _shaderFormat);
+	GetGLError();
+}
+
 void CubeManager::draw()
 {
 	ShaderManager::use(_instance._shaderFormat);
 	_instance._buffer.draw();
 	GetGLError();
-};
+}
+
+// Engine update function
+void CubeManager::update(time_t dt)
+{
+	
+}
 
 void CubeManager::generateElementIndicies(GLushort* indicies)
 {
@@ -262,10 +276,10 @@ void CubeManager::generateVertsFromCubes(ColorVertex* verts)
 		Color4u(100, 200, 100, 175),
 		Color4u(100, 200, 100, 175),
 		Color4u(100, 200, 100, 175),
-		Color4u(255, 255, 255, 175),
-		Color4u(255, 255, 255, 175),
-		Color4u(255, 255, 255, 175),
-		Color4u(255, 255, 255, 175)
+		Color4u(200, 100, 100, 175),
+		Color4u(200, 100, 100, 175),
+		Color4u(200, 100, 100, 175),
+		Color4u(200, 100, 100, 175),
 	};
 	
 	GLuint total = _size.volume();

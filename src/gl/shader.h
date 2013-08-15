@@ -23,10 +23,13 @@ public:
 	GLint getAttrLocation(const char* const attrName) const;
 	GLint getUniformLocation(const char* const uniName) const;
 	
-	// Getter for rendering
+	// Getters for rendering
 	inline GLuint id() const { return _id; };
+	inline GLint mvpLoc() const { return _mvpLocation; };
 	
 private:
+	
+	static const char* MVP_NAME;
 	
 	bool compileShader(const char* src, GLenum type, GLuint &s);
 	bool link(GLuint frag, GLuint vert);
@@ -35,6 +38,8 @@ private:
 	static GLuint _currentProgram;
 	
 	GLuint _id, _vert, _frag;
+	
+	GLint _mvpLocation;
 };
 
 #endif /* defined(__SpaceJunk__shader__) */

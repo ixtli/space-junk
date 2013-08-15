@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__uiManager__
 #define __SpaceJunk__uiManager__
 
+#include "geometry.h"
+
 class UILayer;
 
 class UIManager
@@ -18,6 +20,7 @@ public:
 	static UIManager* getInstance() { return &_instance; };
 	
 	bool init();
+	void viewDidResize(const Size2I &bounds);
 	bool addLayer(UILayer* layer);
 	bool removeLayer(const UILayer* layer);
 	
