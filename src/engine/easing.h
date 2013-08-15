@@ -40,7 +40,7 @@
 
 /*
  * All functions hereafter follow the following variable naming convention:
- * t: current time, b: begInnIng value, c: change In value, d: duration
+ * t: current time, b: beginning value, c: change in value, d: duration
  */
 
 #include <math.h>
