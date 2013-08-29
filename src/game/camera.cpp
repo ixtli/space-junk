@@ -15,7 +15,8 @@ Camera::Camera() :
 
 _matrix(1.0f),
 _rotation(1.0f),
-_perspective(45.0f)
+_perspective(45.0f),
+_rotationDuration(0.0f)
 
 {}
 
@@ -44,9 +45,15 @@ void Camera::updateScreenBounds(const Size2I &bounds)
 	updateMatrix();
 }
 
+void Camera::rotate(GLfloat angle, GLfloat duration)
+{
+	_rotationDuration = duration;
+	_rotationTimeAccumulator = 0;
+}
+
 void Camera::rotate(GLfloat angle)
 {
-	_rotation = glm::rotate(_rotation, angle, glm::vec3(1.0, 1.0, 0.0));
+	_rotation = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(1.0, 1.0, 0.0));
 	updateMatrix();
 }
 
@@ -62,4 +69,24 @@ void Camera::perspectiveAngle(GLfloat angle)
 void Camera::updateMatrix()
 {
 	_matrix = _projection * _view * _rotation;
+}
+
+void Camera::update(clock_t dt)
+{
+	if (_rotationDuration > _rotationTimeAccumulator)
+	{
+		_rotationTimeAccumulator += dt;
+		GLfloat out = easeInOutQuad<GLfloat>(_rotationTimeAccumulator,
+																				 _rotationDuration);
+		
+		rotate(180.0f * out);
+	}
+	
+//	if (_panDuration < _panTimeAccumulator)
+//	{
+//		_panTimeAccumulator += dt;
+//		GLfloat out = easeInOutQuad<GLfloat>(0, _panTimeAccumulator, 0, 1, _panDuration);
+//		
+//		
+//	}
 }

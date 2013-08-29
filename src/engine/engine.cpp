@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include <math.h>
+
 #include "v8.h"
 
 #include "uiManager.h"
@@ -25,7 +27,9 @@ Engine Engine::_instance;
 Engine::Engine() :
 
 _hud(NULL),
-_previousUpdate(0)
+_previousUpdate(0),
+_maxFPS(60),
+_minClocksPerFrame(0)
 
 { }
 
@@ -53,6 +57,10 @@ bool Engine::init()
 	String::AsciiValue ascii(result);
 	info("%s", *ascii);
 	
+	// Configure maximum frames per second
+	info("Max FPS: %lu", _maxFPS);
+	setMaxFPS(_maxFPS);
+	
 	UIManager::getInstance()->init();
 	
 	HUD* h = new HUD();
@@ -66,15 +74,27 @@ bool Engine::init()
 	return true;
 }
 
+void Engine::setMaxFPS(clock_t frameCount)
+{
+	_maxFPS = frameCount;
+	_minClocksPerFrame = CLOCKS_PER_SEC / _maxFPS / 1000;
+	
+	info("%d\t%lu", CLOCKS_PER_SEC, _minClocksPerFrame);
+	
+	info("Clocks before frame: %lu", _minClocksPerFrame);
+}
+
 void Engine::update()
 {
 	clock_t t = clock();
-	clock_t delta = 0;
+	clock_t delta = t - _previousUpdate;
 	
-	delta = t - _previousUpdate;
+	if (delta < _minClocksPerFrame) return;
+	
+	_previousUpdate = t;
 	
 	UIManager::getInstance()->update(delta);
 	CubeManager::getInstance()->update(delta);
 	
-	_previousUpdate = t;
+	
 }

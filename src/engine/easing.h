@@ -48,11 +48,12 @@
 #define EASING_FUNCTION(name) \
 template <class T> \
 __attribute__((always_inline)) \
-T name (T x, T t, T b, T c, T d)
+T name (T t, T d, T b = 0, T c = 1)
 
 EASING_FUNCTION(easeInQuad)
 {
-	return c * (t /= d) * t + b;
+	t /= d;
+	return c * t * t + b;
 }
 
 EASING_FUNCTION(easeOutQuad)
@@ -63,7 +64,8 @@ EASING_FUNCTION(easeOutQuad)
 EASING_FUNCTION(easeInOutQuad)
 {
 	if ((t/=d/2) < 1) return c/2*t*t + b;
-	return -c/2 * ((--t)*(t-2) - 1) + b;
+	t--;
+	return -c/2 * (t*(t-2) - 1) + b;
 }
 
 EASING_FUNCTION(easeInCubic)
@@ -131,12 +133,12 @@ EASING_FUNCTION(easeInOutSine)
 
 EASING_FUNCTION(easeInExpo)
 {
-	return (t==0) ? b : c * pow(2, 10 * (t/d - 1)) + b;
+	return (t==0) ? b : c * (T)pow(2, 10 * (t/d - 1)) + b;
 }
 
 EASING_FUNCTION(easeOutExpo)
 {
-	return (t==d) ? b+c : c * (-pow(2, -10 * t/d) + 1) + b;
+	return (t==d) ? b+c : c * (T)(-pow(2.0, -10.0 * t/d) + 1.0) + b;
 }
 
 EASING_FUNCTION(easeInOutExpo)
@@ -221,17 +223,6 @@ EASING_FUNCTION(easeOutBounce)
 	} else {
 		return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
 	}
-}
-
-EASING_FUNCTION(easeInBounce)
-{
-	return c - easeOutBounce(x, d-t, 0, c, d) + b;
-}
-
-EASING_FUNCTION(easeInOutBounce)
-{
-	if (t < d/2) return easeInBounce(x, t*2, 0, c, d) * .5 + b;
-	return easeOutBounce(x, t*2-d, 0, c, d) * .5 + c*.5 + b;
 }
 
 #endif

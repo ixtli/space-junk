@@ -19,6 +19,7 @@ public:
 	
 	bool init();
 	void update();
+	void setMaxFPS(clock_t frameCount);
 	
 private:
 	
@@ -30,6 +31,8 @@ private:
 	HUD* _hud;
 	
 	clock_t _previousUpdate;
+	clock_t _minClocksPerFrame;
+	clock_t _maxFPS;
 };
 
 #endif /* defined(__Space_Junk__engine__) */

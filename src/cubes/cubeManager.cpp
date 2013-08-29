@@ -13,6 +13,8 @@
 #include <stdio.h>
 #endif
 
+#include "easing.h"
+
 #include "CubeManager.h"
 
 CubeManager CubeManager::_instance;
@@ -94,6 +96,7 @@ bool CubeManager::init()
 	
 	// Initialize camera
 	_camera.init();
+	_camera.rotate(45.0f, 100000);
 	
 	// Make indicies and verts from generated cubes
 	generateElementIndicies(_indicies);
@@ -117,8 +120,6 @@ bool CubeManager::init()
 void CubeManager::viewDidResize(const Size2I &bounds)
 {
 	_camera.updateScreenBounds(bounds);
-	ShaderManager::getInstance()->setMVP(_camera.getMatrix(), _shaderFormat);
-	GetGLError();
 }
 
 void CubeManager::draw()
@@ -131,7 +132,7 @@ void CubeManager::draw()
 // Engine update function
 void CubeManager::update(clock_t dt)
 {
-	_camera.rotate(dt / 1000.0f);
+	_camera.update(dt);
 	ShaderManager::getInstance()->setMVP(_camera.getMatrix(), _shaderFormat);
 }
 

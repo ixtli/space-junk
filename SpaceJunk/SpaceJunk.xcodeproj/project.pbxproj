@@ -94,7 +94,6 @@
 		A317B52F17B82B9A00416550 /* cube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cube.h; path = ../../src/cubes/cube.h; sourceTree = "<group>"; };
 		A3A86D4B17B210C300426EEC /* SpaceJunkGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpaceJunkGLView.h; sourceTree = "<group>"; };
 		A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkGLView.mm; sourceTree = "<group>"; };
-		A3A86D5B17B2127700426EEC /* easingFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = easingFunctions.h; sourceTree = "<group>"; };
 		A3A86D5C17B2127700426EEC /* engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
 		A3A86D5D17B2127700426EEC /* engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
 		A3A86D5E17B2127700426EEC /* environment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = environment.h; sourceTree = "<group>"; };
@@ -303,7 +302,6 @@
 		A3A86D5A17B2127700426EEC /* engine */ = {
 			isa = PBXGroup;
 			children = (
-				A3A86D5B17B2127700426EEC /* easingFunctions.h */,
 				A3A86D5C17B2127700426EEC /* engine.cpp */,
 				A3A86D5D17B2127700426EEC /* engine.h */,
 				A3A86D5E17B2127700426EEC /* environment.h */,

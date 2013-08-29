@@ -29,6 +29,10 @@
 	// called from a background thread. It's important to create one or you will
 	// leak objects. With ARC, there's a convenient block for this!
 	@autoreleasepool {
+		
+		[[self openGLContext] makeCurrentContext];
+		Engine::getInstance()->update();
+		
 		[self drawView];
 	}
 	
@@ -74,8 +78,6 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	[self setPixelFormat:pf];
 	
 	[self setOpenGLContext:context];
-	
-	
 }
 
 - (void) prepareOpenGL
@@ -161,8 +163,6 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 - (void) drawView
 {
 	[[self openGLContext] makeCurrentContext];
-	
-	Engine::getInstance()->update();
 	
 	if (resized)
 	{

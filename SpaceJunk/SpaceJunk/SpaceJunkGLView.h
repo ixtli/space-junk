@@ -12,6 +12,10 @@
 	
 	CVDisplayLinkRef displayLink;
 	
+	@private
+	
+	
+	
 }
 
 @property (atomic) BOOL resized;
