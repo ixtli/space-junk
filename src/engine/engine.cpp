@@ -58,7 +58,7 @@ bool Engine::init()
 	info("%s", *ascii);
 	
 	// Configure maximum frames per second
-	info("Max FPS: %lu", _maxFPS);
+	info("Max FPS: %llu", _maxFPS);
 	setMaxFPS(_maxFPS);
 	
 	UIManager::getInstance()->init();
@@ -69,29 +69,31 @@ bool Engine::init()
 	// Initialize the scene
 	CubeManager::getInstance()->init();
 	
-	_previousUpdate = clock();
+	_previousUpdate = time(NULL);
 	
 	return true;
 }
 
-void Engine::setMaxFPS(clock_t frameCount)
+void Engine::setMaxFPS(time_t frameCount)
 {
 	_maxFPS = frameCount;
-	_minClocksPerFrame = CLOCKS_PER_SEC / _maxFPS / 1000;
+	_minClocksPerFrame = 1000000000 / _maxFPS;
 	
-	info("%d\t%lu", CLOCKS_PER_SEC, _minClocksPerFrame);
+	info("%d\t%llu", CLOCKS_PER_SEC, _minClocksPerFrame);
 	
-	info("Clocks before frame: %lu", _minClocksPerFrame);
+	info("Clocks before frame: %llu", _minClocksPerFrame);
 }
 
-void Engine::update()
+void Engine::update(uint64_t dt)
 {
-	clock_t t = clock();
-	clock_t delta = t - _previousUpdate;
+	uint64_t delta = dt - _previousUpdate;
 	
 	if (delta < _minClocksPerFrame) return;
 	
-	_previousUpdate = t;
+	
+	info("%llu", dt);
+	
+	_previousUpdate = dt;
 	
 	UIManager::getInstance()->update(delta);
 	CubeManager::getInstance()->update(delta);

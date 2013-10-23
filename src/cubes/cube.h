@@ -11,6 +11,8 @@
 
 #include "geometry.h"
 
+#include "glutil.h"
+
 class Cube
 {
 public:

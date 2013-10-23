@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__color__
 #define __SpaceJunk__color__
 
+#include "glutil.h"
+
 struct Color4u
 {
 	Color4u() : r(0), g(0), b(0), a(255) {};

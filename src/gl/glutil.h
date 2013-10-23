@@ -9,6 +9,9 @@
 #ifndef SpaceJunk_glutil_h
 #define SpaceJunk_glutil_h
 
+#import <OpenGL/gl3.h>
+#import <OpenGL/gl3ext.h>
+
 #ifdef DEBUG
 
 #define GetGLError()                                        \

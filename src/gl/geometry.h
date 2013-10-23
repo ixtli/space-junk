@@ -49,9 +49,9 @@ public:
 	T x, y;
 };
 
-typedef Point2<GLfloat> Point2F;
-typedef Point2<GLint> Point2I;
-typedef Point2<GLuint> Point2U;
+typedef Point2<float> Point2F;
+typedef Point2<int> Point2I;
+typedef Point2<unsigned int> Point2U;
 typedef Point2<size_t> Point2L;
 
 template <class T>
@@ -79,9 +79,9 @@ public:
 	T x, y, z;
 };
 
-typedef Point3<GLfloat> Point3F;
-typedef Point3<GLint> Point3I;
-typedef Point3<GLuint> Point3U;
+typedef Point3<float> Point3F;
+typedef Point3<int> Point3I;
+typedef Point3<unsigned int> Point3U;
 typedef Point3<size_t> Point3L;
 
 template <class T>
@@ -101,9 +101,9 @@ public:
 	T width, height;
 };
 
-typedef Size2<GLfloat> Size2F;
-typedef Size2<GLint> Size2I;
-typedef Size2<GLuint> Size2U;
+typedef Size2<float> Size2F;
+typedef Size2<int> Size2I;
+typedef Size2<unsigned int> Size2U;
 typedef Size2<size_t> Size2L;
 
 template <class T>
@@ -130,9 +130,9 @@ public:
 	T width, height, depth;
 };
 
-typedef Size3<GLfloat> Size3F;
-typedef Size3<GLint> Size3I;
-typedef Size3<GLuint> Size3U;
+typedef Size3<float> Size3F;
+typedef Size3<int> Size3I;
+typedef Size3<unsigned int> Size3U;
 typedef Size3<size_t> Size3L;
 
 template <class T>
@@ -150,9 +150,9 @@ public:
 	Point2<T> position;
 };
 
-typedef Rectangle<GLint> RectI;
-typedef Rectangle<GLuint> RectU;
-typedef Rectangle<GLfloat> RectF;
+typedef Rectangle<int> RectI;
+typedef Rectangle<unsigned int> RectU;
+typedef Rectangle<float> RectF;
 typedef Rectangle<size_t> RectL;
 
 #endif /* defined(__SpaceJunk__geometry__) */

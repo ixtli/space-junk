@@ -18,8 +18,8 @@ public:
 	inline static Engine* getInstance() { return &_instance; };
 	
 	bool init();
-	void update();
-	void setMaxFPS(clock_t frameCount);
+	void update(uint64_t dt);
+	void setMaxFPS(time_t frameCount);
 	
 private:
 	
@@ -30,9 +30,9 @@ private:
 	
 	HUD* _hud;
 	
-	clock_t _previousUpdate;
-	clock_t _minClocksPerFrame;
-	clock_t _maxFPS;
+	uint64_t _previousUpdate;
+	uint64_t _minClocksPerFrame;
+	uint64_t _maxFPS;
 };
 
 #endif /* defined(__Space_Junk__engine__) */

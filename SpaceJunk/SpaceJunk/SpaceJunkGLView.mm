@@ -9,7 +9,7 @@
 #import "SpaceJunkGLView.h"
 
 #include "engine.h"
-#include "renderer.h"
+#include "bridge-osx.h"
 
 @interface SpaceJunkGLView (PrivateMethods)
 - (void) initGL;
@@ -29,10 +29,7 @@
 	// called from a background thread. It's important to create one or you will
 	// leak objects. With ARC, there's a convenient block for this!
 	@autoreleasepool {
-		
 		[[self openGLContext] makeCurrentContext];
-		Engine::getInstance()->update();
-		
 		[self drawView];
 	}
 	
@@ -91,13 +88,11 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	CVDisplayLinkCreateWithActiveCGDisplays(&displayLink);
 	
 	// Set renderer output callback fxn
-	CVDisplayLinkSetOutputCallback(displayLink,
-																 &dispLinkCallback,
+	CVDisplayLinkSetOutputCallback(displayLink, &dispLinkCallback,
 																 (__bridge void *)(self));
 	
 	// Set the display link for the current renderer
-	CGLContextObj cglContext = (CGLContextObj)[[self openGLContext]
-																						 CGLContextObj];
+	CGLContextObj cglContext = (CGLContextObj)[[self openGLContext] CGLContextObj];
 	
 	CGLPixelFormatObj cglPixelFormat = (CGLPixelFormatObj)[[self pixelFormat]
 																												 CGLPixelFormatObj];
@@ -125,9 +120,7 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	GLint swapInt = 1;
 	[[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
 	
-	// Init our renderer. Use zero for the default FBO
-	// N.B.: Not appropriate for iOS
-	Renderer::getInstance()->init(0);
+	initializeRenderer();
 	
 	// Init the engine
 	Engine::getInstance()->init();
@@ -167,12 +160,11 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	if (resized)
 	{
 		NSRect rect = [self bounds];
-		Renderer::getInstance()->resize(Size2I((GLuint)rect.size.width,
-																					 (GLuint)rect.size.height));
+		resizeView((unsigned)round(rect.size.width), (unsigned)round(rect.size.height));
 		resized = false;
 	}
 	
-	Renderer::getInstance()->render();
+	render();
 	
 	CGLFlushDrawable((CGLContextObj)[[self openGLContext] CGLContextObj]);
 }
