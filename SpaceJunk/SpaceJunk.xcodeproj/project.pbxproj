@@ -18,7 +18,6 @@
 		A315CD9B17B2041B00DEA6D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A315CD9917B2041B00DEA6D2 /* InfoPlist.strings */; };
 		A315CD9D17B2041B00DEA6D2 /* SpaceJunkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A315CD9C17B2041B00DEA6D2 /* SpaceJunkTests.m */; };
 		A317B51817B21A6000416550 /* environment.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D5F17B2127700426EEC /* environment.mm */; };
-		A317B51A17B21AF400416550 /* libv8_base.x64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A317B51917B21AF400416550 /* libv8_base.x64.a */; };
 		A317B51C17B222EF00416550 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D6217B2127700426EEC /* log.c */; };
 		A317B52017B2237000416550 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51E17B2235E00416550 /* solidQuad.fsh */; };
 		A317B52117B2237000416550 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51F17B2235E00416550 /* solidQuad.vsh */; };
@@ -48,12 +47,16 @@
 		A3A86DA517B2144F00426EEC /* uiElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8617B2127700426EEC /* uiElement.cpp */; };
 		A3A86DA617B2144F00426EEC /* uiLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8817B2127700426EEC /* uiLayer.cpp */; };
 		A3A86DA717B2144F00426EEC /* uiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8A17B2127700426EEC /* uiManager.cpp */; };
-		A3A86DA917B214E200426EEC /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86DA817B214E200426EEC /* libv8_snapshot.a */; };
 		A3A86DAB17B214F400426EEC /* libpthread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86DAA17B214F400426EEC /* libpthread.dylib */; };
 		A3C3BC4F17BC62C800FBF633 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3C3BC4D17BC62C800FBF633 /* camera.cpp */; };
 		A3D7802217B867CA00C173D4 /* solidCube.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3D7802017B8679200C173D4 /* solidCube.fsh */; };
 		A3D7802317B867CA00C173D4 /* solidCube.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3D7802117B867A100C173D4 /* solidCube.vsh */; };
 		A3D7806D17B8A15600C173D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A315CD8717B2041B00DEA6D2 /* MainMenu.xib */; };
+		A3EA781A1826ED5F0052CFC9 /* libv8_base.x64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */; };
+		A3EA781B1826ED5F0052CFC9 /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */; };
+		A3EA781D1826ED830052CFC9 /* libicui18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA781C1826ED830052CFC9 /* libicui18n.a */; };
+		A3EA78301826EDB50052CFC9 /* libicudata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA782E1826EDB50052CFC9 /* libicudata.a */; };
+		A3EA78311826EDB50052CFC9 /* libicuuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA782F1826EDB50052CFC9 /* libicuuc.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +89,6 @@
 		A315CD9817B2041B00DEA6D2 /* SpaceJunkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpaceJunkTests-Info.plist"; sourceTree = "<group>"; };
 		A315CD9A17B2041B00DEA6D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A315CD9C17B2041B00DEA6D2 /* SpaceJunkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpaceJunkTests.m; sourceTree = "<group>"; };
-		A317B51917B21AF400416550 /* libv8_base.x64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_base.x64.a; path = "../v8-build/native/libv8_base.x64.a"; sourceTree = "<group>"; };
 		A317B51E17B2235E00416550 /* solidQuad.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solidQuad.fsh; sourceTree = "<group>"; };
 		A317B51F17B2235E00416550 /* solidQuad.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solidQuad.vsh; sourceTree = "<group>"; };
 		A317B52B17B8286F00416550 /* cubeManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cubeManager.cpp; path = ../../src/cubes/cubeManager.cpp; sourceTree = "<group>"; };
@@ -144,7 +146,6 @@
 		A3A86D8B17B2127700426EEC /* uiManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = uiManager.h; sourceTree = "<group>"; };
 		A3A86D8C17B2128900426EEC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		A3A86D9217B2139C00426EEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		A3A86DA817B214E200426EEC /* libv8_snapshot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_snapshot.a; path = "../v8-build/native/libv8_snapshot.a"; sourceTree = "<group>"; };
 		A3A86DAA17B214F400426EEC /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = usr/lib/libpthread.dylib; sourceTree = SDKROOT; };
 		A3A86DAC17B2152F00426EEC /* v8.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = v8.h; path = ../../v8/include/v8.h; sourceTree = "<group>"; };
 		A3C3BC4D17BC62C800FBF633 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
@@ -155,6 +156,11 @@
 		A3D7802A17B8992C00C173D4 /* matrix_transform.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = matrix_transform.hpp; path = ../glm/glm/gtc/matrix_transform.hpp; sourceTree = "<group>"; };
 		A3D7802C17B89CF900C173D4 /* type_ptr.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = type_ptr.hpp; path = ../glm/glm/gtc/type_ptr.hpp; sourceTree = "<group>"; };
 		A3E38A4017BC9AE200A8D678 /* easing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
+		A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_base.x64.a; path = "../v8-build/native/libv8_base.x64.a"; sourceTree = "<group>"; };
+		A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_snapshot.a; path = "../v8-build/native/libv8_snapshot.a"; sourceTree = "<group>"; };
+		A3EA781C1826ED830052CFC9 /* libicui18n.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicui18n.a; path = "../v8-build/native/libicui18n.a"; sourceTree = "<group>"; };
+		A3EA782E1826EDB50052CFC9 /* libicudata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicudata.a; path = "../v8-build/native/libicudata.a"; sourceTree = "<group>"; };
+		A3EA782F1826EDB50052CFC9 /* libicuuc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicuuc.a; path = "../v8-build/native/libicuuc.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,11 +168,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A317B51A17B21AF400416550 /* libv8_base.x64.a in Frameworks */,
 				A3A86DAB17B214F400426EEC /* libpthread.dylib in Frameworks */,
-				A3A86DA917B214E200426EEC /* libv8_snapshot.a in Frameworks */,
+				A3EA781B1826ED5F0052CFC9 /* libv8_snapshot.a in Frameworks */,
 				A3A86D9317B2139C00426EEC /* QuartzCore.framework in Frameworks */,
+				A3EA781A1826ED5F0052CFC9 /* libv8_base.x64.a in Frameworks */,
 				A3A86D8D17B2128900426EEC /* OpenGL.framework in Frameworks */,
+				A3EA78301826EDB50052CFC9 /* libicudata.a in Frameworks */,
+				A3EA78311826EDB50052CFC9 /* libicuuc.a in Frameworks */,
+				A3EA781D1826ED830052CFC9 /* libicui18n.a in Frameworks */,
 				A315CD7317B2041B00DEA6D2 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,9 +215,12 @@
 		A315CD7117B2041B00DEA6D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A317B51917B21AF400416550 /* libv8_base.x64.a */,
+				A3EA782E1826EDB50052CFC9 /* libicudata.a */,
+				A3EA782F1826EDB50052CFC9 /* libicuuc.a */,
+				A3EA781C1826ED830052CFC9 /* libicui18n.a */,
+				A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */,
+				A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */,
 				A3A86DAA17B214F400426EEC /* libpthread.dylib */,
-				A3A86DA817B214E200426EEC /* libv8_snapshot.a */,
 				A3A86D9217B2139C00426EEC /* QuartzCore.framework */,
 				A3A86D8C17B2128900426EEC /* OpenGL.framework */,
 				A315CD7217B2041B00DEA6D2 /* Cocoa.framework */,
@@ -615,6 +627,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -648,6 +661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
@@ -673,10 +687,14 @@
 				INFOPLIST_FILE = "SpaceJunk/SpaceJunk-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/ixtli/Public/Project/cpp/space-junk/v8-build/native",
+					"$(SRCROOT)/../v8-build/native",
+					"/Users/ixtli/Public/project/cpp/space-junk/v8-build/native",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -701,10 +719,15 @@
 				INFOPLIST_FILE = "SpaceJunk/SpaceJunk-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/ixtli/Public/Project/cpp/space-junk/v8-build/native",
+					"$(SRCROOT)/../v8-build/native",
+					"/Users/ixtli/Public/project/cpp/space-junk/v8-build/native",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = "-lpthreads";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
