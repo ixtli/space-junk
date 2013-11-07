@@ -9,8 +9,8 @@
 #ifndef __SpaceJunk__bridge_osx__
 #define __SpaceJunk__bridge_osx__
 
-void initializeRenderer();
 void resizeView(unsigned int w, unsigned int h);
 void render();
+void updateGameEvent(void* ctx);
 
 #endif /* defined(__SpaceJunk__bridge_osx__) */

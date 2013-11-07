@@ -12,11 +12,10 @@
 	
 	CVDisplayLinkRef displayLink;
 	
-	@private
-	
-	
-	
 }
+
+- (void)resumeDrawing;
+- (void)stopDrawing;
 
 @property (atomic) BOOL resized;
 

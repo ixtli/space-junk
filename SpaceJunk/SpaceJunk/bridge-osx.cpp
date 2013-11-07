@@ -6,16 +6,14 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "bridge-osx.h"
+#include <sys/time.h>
 
+#include "log.h"
+#include "engine.h"
 #include "renderer.h"
 
-void initializeRenderer()
-{
-	// Init our renderer. Use zero for the default FBO
-	// N.B.: Not appropriate for iOS
-	Renderer::getInstance()->init(0);
-}
+#include "bridge-osx.h"
+
 
 void resizeView(unsigned int w, unsigned h)
 {
@@ -25,4 +23,11 @@ void resizeView(unsigned int w, unsigned h)
 void render()
 {
 	Renderer::getInstance()->render();
+}
+
+void updateGameEvent(void* ctx)
+{
+	static timeval now;
+	gettimeofday(&now, NULL);
+	Engine::getInstance()->update(now.tv_usec);
 }

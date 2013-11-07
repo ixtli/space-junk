@@ -9,20 +9,22 @@
 #ifndef __SpaceJunk__cubeScene__
 #define __SpaceJunk__cubeScene__
 
+#include "IComponent.h"
+
 #include "glutil.h"
 #include "camera.h"
 #include "shaderManager.h"
 #include "triangleBuffer.h"
 #include "cube.h"
 
-class CubeManager
+class CubeManager : public IComponent
 {
 public:
 	
 	inline static CubeManager* getInstance() { return &_instance; };
 	
-	bool init();
-	void update(clock_t dt);
+	virtual bool init();
+	virtual void update(uint32_t dt);
 	void viewDidResize(const Size2I &bounds);
 	
 	static void draw();
@@ -31,8 +33,7 @@ private:
 	
 	// Static or hidden
 	CubeManager();
-	~CubeManager();
-	static CubeManager _instance;
+	virtual ~CubeManager();
 	
 	// Convenience const values
 	static const GLuint SIDE_COUNT = 6;
@@ -52,6 +53,8 @@ private:
 	GLushort* _indicies;
 	ColorVertex* _verts;
 	Camera _camera;
+	
+	static CubeManager _instance;
 	
 };
 

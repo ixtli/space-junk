@@ -9,28 +9,36 @@
 #ifndef __SpaceJunk__uiManager__
 #define __SpaceJunk__uiManager__
 
+#include "IComponent.h"
+
 #include "geometry.h"
 
 class UILayer;
 
-class UIManager
+/**
+ Manages the user interface layer which is drawn on top of the scene
+ */
+class UIManager : public IComponent
 {
 public:
 	
+	/** @return the singleton instance of the class */
 	static UIManager* getInstance() { return &_instance; };
 	
-	bool init();
+	// IComponent functionality
+	virtual bool init();
+	virtual void update(uint32_t dt);
+	
 	void viewDidResize(const Size2I &bounds);
 	bool addLayer(UILayer* layer);
 	bool removeLayer(const UILayer* layer);
 	
 	static void draw();
-	static void update(clock_t time);
 	
 private:
 	
 	UIManager();
-	~UIManager();
+	virtual ~UIManager();
 	
 	bool growLayerList();
 	
@@ -38,6 +46,7 @@ private:
 	size_t _maxLayers;
 	size_t _layerCount;
 	
+	/** Singleton instance */
 	static UIManager _instance;
 	
 };

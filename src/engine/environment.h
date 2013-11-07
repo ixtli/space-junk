@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__environment__
 #define __SpaceJunk__environment__
 
+#include <stdlib.h>
+
 class Environment
 {
 public:
@@ -18,6 +20,7 @@ public:
 	// Static functionality
 	inline static Environment* getInstance() { return &_instance; };
 	static char* newPathForFile(const char* name, const char* type);
+	static uint32_t currentTime();
 	
 private:
 	

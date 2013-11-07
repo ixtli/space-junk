@@ -8,95 +8,81 @@
 
 #include <math.h>
 
-#include "v8.h"
-
+#include "JSManager.h"
 #include "uiManager.h"
 #include "environment.h"
 #include "renderer.h"
 #include "version.h"
-
 #include "hud.h"
 #include "cubeManager.h"
 
 #include "engine.h"
 
-using namespace v8;
-
 Engine Engine::_instance;
 
+/** Construct the engine wrapper */
 Engine::Engine() :
 
 _hud(NULL),
-_previousUpdate(0),
-_maxFPS(60),
-_minClocksPerFrame(0)
+_lastUpdate(0)
 
 { }
 
+/** Destroy the engine. */
 Engine::~Engine()
 {
 	if (_hud) delete _hud;
 }
 
+/**
+ Initialize the engine
+ @return true if successful
+ */
 bool Engine::init()
 {
 	info("%s v%u.%u", V_DISPLAY_NAME, V_MAJOR, V_MINOR);
 	
-	// Init the environment wrapper
-	Environment::getInstance()->init();
+	// Start components
+	initComponents();
 	
-	Isolate* isolate = Isolate::GetCurrent();
-	HandleScope handle_scope(isolate);
-	Handle<Context> context = Context::New(isolate);
-	Persistent<Context> persistent_context(isolate, context);
-	Context::Scope context_scope(context);
-	Handle<String> source = String::New("'Hello' + ', World!'");
-	Handle<Script> script = Script::Compile(source);
-	Handle<Value> result = script->Run();
-	persistent_context.Dispose();
-	String::AsciiValue ascii(result);
-	info("%s", *ascii);
-	
-	// Configure maximum frames per second
-	info("Max FPS: %llu", _maxFPS);
-	setMaxFPS(_maxFPS);
-	
-	UIManager::getInstance()->init();
-	
+	// @TODO: Put this somewhere else
+	// Initialize the HUD
 	HUD* h = new HUD();
 	h->init();
 	
-	// Initialize the scene
-	CubeManager::getInstance()->init();
-	
-	_previousUpdate = time(NULL);
+	// Do this last so the gap isn't too great
+	_lastUpdate = Environment::currentTime();
 	
 	return true;
 }
 
-void Engine::setMaxFPS(time_t frameCount)
+/** Initialize managers that implement IComponent */
+bool Engine::initComponents()
 {
-	_maxFPS = frameCount;
-	_minClocksPerFrame = 1000000000 / _maxFPS;
+	_components[UI_MANAGER] = UIManager::getInstance();
+	_components[CUBE_MANAGER] = CubeManager::getInstance();
+	_components[JS_MANAGER] = JSManager::getInstance();
 	
-	info("%d\t%llu", CLOCKS_PER_SEC, _minClocksPerFrame);
+	for (size_t i = 0; i < NUM_COMPONENTS; i++)
+	{
+		if (!_components[i]->init())
+		{
+			error("A component failed to intialize properly: halting.");
+			return false;
+		}
+	}
 	
-	info("Clocks before frame: %llu", _minClocksPerFrame);
+	return true;
 }
 
-void Engine::update(uint64_t dt)
+/** Update game components */
+void Engine::update(uint32_t now)
 {
-	uint64_t delta = dt - _previousUpdate;
+	_lastUpdate = now - _lastUpdate;
 	
-	if (delta < _minClocksPerFrame) return;
+	// Update components
+	for (size_t i = 0; i < NUM_COMPONENTS; i++)
+		_components[i]->update(_lastUpdate);
 	
-	
-	info("%llu", dt);
-	
-	_previousUpdate = dt;
-	
-	UIManager::getInstance()->update(delta);
-	CubeManager::getInstance()->update(delta);
-	
-	
+	_lastUpdate = now;
 }

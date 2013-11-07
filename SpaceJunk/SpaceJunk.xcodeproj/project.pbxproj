@@ -11,13 +11,13 @@
 		A315CD7D17B2041B00DEA6D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A315CD7B17B2041B00DEA6D2 /* InfoPlist.strings */; };
 		A315CD7F17B2041B00DEA6D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A315CD7E17B2041B00DEA6D2 /* main.m */; };
 		A315CD8317B2041B00DEA6D2 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A315CD8117B2041B00DEA6D2 /* Credits.rtf */; };
-		A315CD8617B2041B00DEA6D2 /* SpaceJunkAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A315CD8517B2041B00DEA6D2 /* SpaceJunkAppDelegate.m */; };
+		A315CD8617B2041B00DEA6D2 /* SpaceJunkAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A315CD8517B2041B00DEA6D2 /* SpaceJunkAppDelegate.mm */; };
 		A315CD8B17B2041B00DEA6D2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A315CD8A17B2041B00DEA6D2 /* Images.xcassets */; };
 		A315CD9217B2041B00DEA6D2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A315CD9117B2041B00DEA6D2 /* XCTest.framework */; };
 		A315CD9317B2041B00DEA6D2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A315CD7217B2041B00DEA6D2 /* Cocoa.framework */; };
 		A315CD9B17B2041B00DEA6D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A315CD9917B2041B00DEA6D2 /* InfoPlist.strings */; };
 		A315CD9D17B2041B00DEA6D2 /* SpaceJunkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A315CD9C17B2041B00DEA6D2 /* SpaceJunkTests.m */; };
-		A317B51817B21A6000416550 /* environment.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D5F17B2127700426EEC /* environment.mm */; };
+		A317B51817B21A6000416550 /* environment-osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D5F17B2127700426EEC /* environment-osx.mm */; };
 		A317B51C17B222EF00416550 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D6217B2127700426EEC /* log.c */; };
 		A317B52017B2237000416550 /* solidQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51E17B2235E00416550 /* solidQuad.fsh */; };
 		A317B52117B2237000416550 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51F17B2235E00416550 /* solidQuad.vsh */; };
@@ -57,6 +57,7 @@
 		A3EA781D1826ED830052CFC9 /* libicui18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA781C1826ED830052CFC9 /* libicui18n.a */; };
 		A3EA78301826EDB50052CFC9 /* libicudata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA782E1826EDB50052CFC9 /* libicudata.a */; };
 		A3EA78311826EDB50052CFC9 /* libicuuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA782F1826EDB50052CFC9 /* libicuuc.a */; };
+		A3EA787C1827557A0052CFC9 /* JSManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3EA787A1827557A0052CFC9 /* JSManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +82,7 @@
 		A315CD8017B2041B00DEA6D2 /* SpaceJunk-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpaceJunk-Prefix.pch"; sourceTree = "<group>"; };
 		A315CD8217B2041B00DEA6D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		A315CD8417B2041B00DEA6D2 /* SpaceJunkAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpaceJunkAppDelegate.h; sourceTree = "<group>"; };
-		A315CD8517B2041B00DEA6D2 /* SpaceJunkAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpaceJunkAppDelegate.m; sourceTree = "<group>"; };
+		A315CD8517B2041B00DEA6D2 /* SpaceJunkAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkAppDelegate.mm; sourceTree = "<group>"; };
 		A315CD8817B2041B00DEA6D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A315CD8A17B2041B00DEA6D2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A315CD9017B2041B00DEA6D2 /* SpaceJunkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceJunkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +103,7 @@
 		A3A86D5C17B2127700426EEC /* engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
 		A3A86D5D17B2127700426EEC /* engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
 		A3A86D5E17B2127700426EEC /* environment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = environment.h; sourceTree = "<group>"; };
-		A3A86D5F17B2127700426EEC /* environment.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = environment.mm; sourceTree = "<group>"; };
+		A3A86D5F17B2127700426EEC /* environment-osx.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "environment-osx.mm"; sourceTree = "<group>"; };
 		A3A86D6017B2127700426EEC /* file.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		A3A86D6117B2127700426EEC /* file.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
 		A3A86D6217B2127700426EEC /* log.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = log.c; sourceTree = "<group>"; };
@@ -161,6 +162,9 @@
 		A3EA781C1826ED830052CFC9 /* libicui18n.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicui18n.a; path = "../v8-build/native/libicui18n.a"; sourceTree = "<group>"; };
 		A3EA782E1826EDB50052CFC9 /* libicudata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicudata.a; path = "../v8-build/native/libicudata.a"; sourceTree = "<group>"; };
 		A3EA782F1826EDB50052CFC9 /* libicuuc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicuuc.a; path = "../v8-build/native/libicuuc.a"; sourceTree = "<group>"; };
+		A3EA78781826F8C40052CFC9 /* IComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IComponent.h; sourceTree = "<group>"; };
+		A3EA787A1827557A0052CFC9 /* JSManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSManager.cpp; sourceTree = "<group>"; };
+		A3EA787B1827557A0052CFC9 /* JSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +247,7 @@
 		A315CD7817B2041B00DEA6D2 /* SpaceJunk */ = {
 			isa = PBXGroup;
 			children = (
+				A3EA7879182755660052CFC9 /* js */,
 				A317B52717B8280C00416550 /* cubes */,
 				A317B51D17B2235E00416550 /* shader */,
 				A3A86D5A17B2127700426EEC /* engine */,
@@ -252,7 +257,7 @@
 				A3A86D4B17B210C300426EEC /* SpaceJunkGLView.h */,
 				A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */,
 				A315CD8417B2041B00DEA6D2 /* SpaceJunkAppDelegate.h */,
-				A315CD8517B2041B00DEA6D2 /* SpaceJunkAppDelegate.m */,
+				A315CD8517B2041B00DEA6D2 /* SpaceJunkAppDelegate.mm */,
 				A315CD8717B2041B00DEA6D2 /* MainMenu.xib */,
 				A3A86DAC17B2152F00426EEC /* v8.h */,
 				A315CD8A17B2041B00DEA6D2 /* Images.xcassets */,
@@ -322,13 +327,14 @@
 				A3A86D5C17B2127700426EEC /* engine.cpp */,
 				A3A86D5D17B2127700426EEC /* engine.h */,
 				A3A86D5E17B2127700426EEC /* environment.h */,
-				A3A86D5F17B2127700426EEC /* environment.mm */,
+				A3A86D5F17B2127700426EEC /* environment-osx.mm */,
 				A3A86D6017B2127700426EEC /* file.cpp */,
 				A3A86D6117B2127700426EEC /* file.h */,
 				A3A86D6217B2127700426EEC /* log.c */,
 				A3A86D6317B2127700426EEC /* log.h */,
 				A3A86D6417B2127700426EEC /* version.h */,
 				A3E38A4017BC9AE200A8D678 /* easing.h */,
+				A3EA78781826F8C40052CFC9 /* IComponent.h */,
 			);
 			name = engine;
 			path = ../../src/engine;
@@ -404,6 +410,15 @@
 				A3D7802417B86E4200C173D4 /* glm.hpp */,
 			);
 			name = glm;
+			sourceTree = "<group>";
+		};
+		A3EA7879182755660052CFC9 /* js */ = {
+			isa = PBXGroup;
+			children = (
+				A3EA787A1827557A0052CFC9 /* JSManager.cpp */,
+				A3EA787B1827557A0052CFC9 /* JSManager.h */,
+			);
+			name = js;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -513,7 +528,7 @@
 				A317B52D17B8288B00416550 /* cubeManager.cpp in Sources */,
 				A317B51C17B222EF00416550 /* log.c in Sources */,
 				A317B53017B82B9A00416550 /* cube.cpp in Sources */,
-				A317B51817B21A6000416550 /* environment.mm in Sources */,
+				A317B51817B21A6000416550 /* environment-osx.mm in Sources */,
 				A3A86D9417B2144F00426EEC /* engine.cpp in Sources */,
 				A3A86D9517B2144F00426EEC /* file.cpp in Sources */,
 				A3A86D9617B2144F00426EEC /* hud.cpp in Sources */,
@@ -533,11 +548,12 @@
 				A3A86DA417B2144F00426EEC /* uiColorRectElement.cpp in Sources */,
 				A3A86DA517B2144F00426EEC /* uiElement.cpp in Sources */,
 				A3A86DA617B2144F00426EEC /* uiLayer.cpp in Sources */,
+				A3EA787C1827557A0052CFC9 /* JSManager.cpp in Sources */,
 				A35D18D518067413009C816E /* bridge-osx.cpp in Sources */,
 				A3A86DA717B2144F00426EEC /* uiManager.cpp in Sources */,
 				A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */,
 				A315CD7F17B2041B00DEA6D2 /* main.m in Sources */,
-				A315CD8617B2041B00DEA6D2 /* SpaceJunkAppDelegate.m in Sources */,
+				A315CD8617B2041B00DEA6D2 /* SpaceJunkAppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,13 +622,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -645,6 +662,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
@@ -653,7 +671,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

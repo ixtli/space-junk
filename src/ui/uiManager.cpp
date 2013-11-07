@@ -22,6 +22,7 @@ _maxLayers(0)
 
 {}
 
+/** Destroy all layers and deinit the class */
 UIManager::~UIManager()
 {
 	if (_layers)
@@ -32,6 +33,10 @@ UIManager::~UIManager()
 	}
 }
 
+/**
+ Initialize the manager
+ @return true if completed succesfully
+ */
 bool UIManager::init()
 {
 	info("Initializing.");
@@ -39,13 +44,18 @@ bool UIManager::init()
 	return true;
 }
 
+/** Render UI using OpenGL */
 void UIManager::draw()
 {
 	for (size_t i = 0; i < _instance._layerCount; i++)
 		_instance._layers[i]->draw();
 }
 
-void UIManager::update(clock_t time)
+/**
+ Update the UI based on time since the last tick
+ @param dt the fraction of a second since the last update
+ */
+void UIManager::update(uint32_t dt)
 {
 	for (size_t i = 0; i < _instance._layerCount; i++)
 		_instance._layers[i]->update();

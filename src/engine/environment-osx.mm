@@ -6,7 +6,11 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include <sys/time.h>
 #include <sys/utsname.h>
+
+#include "renderer.h"
+#include "engine.h"
 
 #include "environment.h"
 
@@ -33,9 +37,24 @@ bool Environment::init()
 	info("%s v%s %s @%s", name.sysname, name.release, name.machine, name.nodename);
 	info("%s", name.version);
 	
+	// Init our renderer. Use zero for the default FBO
+	// N.B.: Not appropriate for iOS
+	if (!Renderer::getInstance()->init(0))
+		return false;
+	
+	// Init the engine
+	if (!Engine::getInstance()->init())
+		return false;
+	
 	return true;
 }
 
+/**
+ Return the full path for a file of a given name and extension
+ @param name the name of the file in the bundle
+ @param the type of the file in the bundle
+ @return The full path
+ */
 char* Environment::newPathForFile(const char *name, const char *type)
 {
 	
@@ -60,3 +79,12 @@ char* Environment::newPathForFile(const char *name, const char *type)
 	return ret;
 }
 
+/**
+ @return the current time in milliseconds
+ */
+uint32_t Environment::currentTime()
+{
+	static timeval ct;
+	gettimeofday(&ct, NULL);
+	return ct.tv_usec;
+}

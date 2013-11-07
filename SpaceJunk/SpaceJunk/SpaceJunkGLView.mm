@@ -8,7 +8,6 @@
 
 #import "SpaceJunkGLView.h"
 
-#include "engine.h"
 #include "bridge-osx.h"
 
 @interface SpaceJunkGLView (PrivateMethods)
@@ -99,9 +98,6 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(displayLink,
 																										cglContext,
 																										cglPixelFormat);
-	
-	// Activate the display link
-	CVDisplayLinkStart(displayLink);
 }
 
 - (void) windowWillClose:(NSNotification*)notification
@@ -109,7 +105,7 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	// Stop the display link when the window is closing because default
 	// OpenGL render buffers will be destroyed.  If display link continues to
 	// fire without renderbuffers, OpenGL draw calls will set errors.
-	CVDisplayLinkStop(displayLink);
+	[self stopDrawing];
 }
 
 - (void) initGL
@@ -119,12 +115,6 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	// Causes buffer swaps to sync with vertical refresh
 	GLint swapInt = 1;
 	[[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
-	
-	initializeRenderer();
-	
-	// Init the engine
-	Engine::getInstance()->init();
-	
 }
 
 - (void) renewGState
@@ -171,8 +161,28 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void) dealloc
 {
-	CVDisplayLinkStop(displayLink);
+	[self stopDrawing];
 	CVDisplayLinkRelease(displayLink);
+}
+
+#pragma mark -
+#pragma mark Useful public helper methods
+
+- (void)resumeDrawing
+{
+	if (displayLink)
+	{
+		// Activate the display link
+		CVDisplayLinkStart(displayLink);
+	}
+}
+
+- (void)stopDrawing
+{
+	if (displayLink)
+	{
+		CVDisplayLinkStop(displayLink);
+	}
 }
 
 @end

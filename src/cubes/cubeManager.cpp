@@ -125,15 +125,16 @@ void CubeManager::viewDidResize(const Size2I &bounds)
 void CubeManager::draw()
 {
 	ShaderManager::use(_instance._shaderFormat);
+	ShaderManager::getInstance()->setMVP(_instance._camera.getMatrix(),
+																			 _instance._shaderFormat);
 	_instance._buffer.draw();
 	GetGLError();
 }
 
 // Engine update function
-void CubeManager::update(clock_t dt)
+void CubeManager::update(uint32_t dt)
 {
 	_camera.update(dt);
-	ShaderManager::getInstance()->setMVP(_camera.getMatrix(), _shaderFormat);
 }
 
 void CubeManager::generateElementIndicies(GLushort* indicies)
