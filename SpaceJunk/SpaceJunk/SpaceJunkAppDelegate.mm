@@ -7,7 +7,6 @@
 //
 
 #include "environment.h"
-#include "bridge-osx.h"
 
 #import "SpaceJunkAppDelegate.h"
 
@@ -32,7 +31,7 @@ static const uint64_t gameUpdateLeeway = 2ull * NSEC_PER_MSEC; // 2ms ?
 														gameUpdateInterval,
 														gameUpdateLeeway);
 	
-	dispatch_source_set_event_handler_f(self.timer, updateGameEvent);
+	dispatch_source_set_event_handler_f(self.timer, Environment::updateGameEvent);
 	
 	return true;
 }

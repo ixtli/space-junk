@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#import "SpaceJunkGLView.h"
+#import "renderer.h"
 
-#include "bridge-osx.h"
+#import "SpaceJunkGLView.h"
 
 @interface SpaceJunkGLView (PrivateMethods)
 - (void) initGL;
@@ -150,11 +150,12 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	if (resized)
 	{
 		NSRect rect = [self bounds];
-		resizeView((unsigned)round(rect.size.width), (unsigned)round(rect.size.height));
+		Renderer::getInstance()->resize(Size2I((unsigned)round(rect.size.width),
+																					 (unsigned)round(rect.size.height)));
 		resized = false;
 	}
 	
-	render();
+	Renderer::getInstance()->render();
 	
 	CGLFlushDrawable((CGLContextObj)[[self openGLContext] CGLContextObj]);
 }

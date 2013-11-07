@@ -21,6 +21,7 @@ public:
 	inline static Environment* getInstance() { return &_instance; };
 	static char* newPathForFile(const char* name, const char* type);
 	static uint32_t currentTime();
+	static void updateGameEvent(void* ctx);
 	
 private:
 	

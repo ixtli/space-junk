@@ -23,7 +23,6 @@
 		A317B52117B2237000416550 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51F17B2235E00416550 /* solidQuad.vsh */; };
 		A317B52D17B8288B00416550 /* cubeManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52B17B8286F00416550 /* cubeManager.cpp */; };
 		A317B53017B82B9A00416550 /* cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52E17B82B9A00416550 /* cube.cpp */; };
-		A35D18D518067413009C816E /* bridge-osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A35D18D318067413009C816E /* bridge-osx.cpp */; };
 		A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */; };
 		A3A86D8D17B2128900426EEC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86D8C17B2128900426EEC /* OpenGL.framework */; };
 		A3A86D9317B2139C00426EEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86D9217B2139C00426EEC /* QuartzCore.framework */; };
@@ -96,8 +95,6 @@
 		A317B52C17B8286F00416550 /* cubeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cubeManager.h; path = ../../src/cubes/cubeManager.h; sourceTree = "<group>"; };
 		A317B52E17B82B9A00416550 /* cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cube.cpp; path = ../../src/cubes/cube.cpp; sourceTree = "<group>"; };
 		A317B52F17B82B9A00416550 /* cube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cube.h; path = ../../src/cubes/cube.h; sourceTree = "<group>"; };
-		A35D18D318067413009C816E /* bridge-osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "bridge-osx.cpp"; sourceTree = "<group>"; };
-		A35D18D418067413009C816E /* bridge-osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bridge-osx.h"; sourceTree = "<group>"; };
 		A3A86D4B17B210C300426EEC /* SpaceJunkGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpaceJunkGLView.h; sourceTree = "<group>"; };
 		A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SpaceJunkGLView.mm; sourceTree = "<group>"; };
 		A3A86D5C17B2127700426EEC /* engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
@@ -262,8 +259,6 @@
 				A3A86DAC17B2152F00426EEC /* v8.h */,
 				A315CD8A17B2041B00DEA6D2 /* Images.xcassets */,
 				A315CD7917B2041B00DEA6D2 /* Supporting Files */,
-				A35D18D318067413009C816E /* bridge-osx.cpp */,
-				A35D18D418067413009C816E /* bridge-osx.h */,
 			);
 			path = SpaceJunk;
 			sourceTree = "<group>";
@@ -549,7 +544,6 @@
 				A3A86DA517B2144F00426EEC /* uiElement.cpp in Sources */,
 				A3A86DA617B2144F00426EEC /* uiLayer.cpp in Sources */,
 				A3EA787C1827557A0052CFC9 /* JSManager.cpp in Sources */,
-				A35D18D518067413009C816E /* bridge-osx.cpp in Sources */,
 				A3A86DA717B2144F00426EEC /* uiManager.cpp in Sources */,
 				A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */,
 				A315CD7F17B2041B00DEA6D2 /* main.m in Sources */,

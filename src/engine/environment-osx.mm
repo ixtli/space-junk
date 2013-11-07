@@ -88,3 +88,11 @@ uint32_t Environment::currentTime()
 	gettimeofday(&ct, NULL);
 	return ct.tv_usec;
 }
+
+void Environment::updateGameEvent(void* ctx)
+{
+	static timeval now;
+	gettimeofday(&now, NULL);
+	Engine::getInstance()->update(now.tv_usec);
+}
+
