@@ -15,7 +15,7 @@ class RectLayer
 {
 public:
 	
-	static const GLuint MAX_RECTS = 0xFFF0;
+	static const GLuint MAX_RECTS = 0xFFFC;
 	
 	RectLayer(bool dynamic = false);
 	~RectLayer();

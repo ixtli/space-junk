@@ -29,13 +29,13 @@ extern "C" {
 	logToLog(LOGMETA fmt "\n",																									\
 	FILENAME, __FUNCTION__, __LINE__, ##__VA_ARGS__)
 
-__attribute__ ((__format__ (__printf__, 1, 2)))
-void logToLog(const char* format, ...);
-
 #else
-#define log(fmt, ...) {}
+#define info(fmt, ...) {}
 #endif
 
+__attribute__ ((__format__ (__printf__, 1, 2)))
+void logToLog(const char* format, ...);
+	
 #define warn(fmt, ...)																												\
 	warnToLog(WARNMETA LOGMETA fmt "\n",																				\
 	__FUNCTION__,	FILENAME, __LINE__, ##__VA_ARGS__)

@@ -183,6 +183,7 @@ bool ColorRectLayer::initLayer()
 	
 	_initialized = true;
 	_dirty = false;
+	
 	return true;
 }
 
