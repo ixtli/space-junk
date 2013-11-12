@@ -27,7 +27,7 @@ public:
 	
 	// IComponent functionality
 	virtual bool init();
-	virtual void update(uint32_t dt);
+	virtual void update(sjtime_t dt);
 	
 	void viewDidResize(const Size2I &bounds);
 	bool addLayer(UILayer* layer);

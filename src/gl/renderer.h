@@ -24,7 +24,7 @@ public:
 	
 	bool init(GLuint defaultFBO);
 	void resize(const Size2I& newBounds);
-	void render();
+	void render(sjtime_t currentTime);
 	
 #pragma mark -
 #pragma mark Getters

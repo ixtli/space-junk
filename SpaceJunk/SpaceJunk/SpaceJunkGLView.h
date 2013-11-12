@@ -17,6 +17,6 @@
 - (void)resumeDrawing;
 - (void)stopDrawing;
 
-@property (atomic) BOOL resized;
+@property (nonatomic) BOOL resized;
 
 @end

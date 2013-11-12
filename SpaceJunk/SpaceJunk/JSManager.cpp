@@ -24,7 +24,7 @@ JSManager::~JSManager()
 }
 
 /** @param dt the time in fractions of a second since last update */
-void JSManager::update(uint32_t dt)
+void JSManager::update(sjtime_t dt)
 {
 	
 }
@@ -38,7 +38,7 @@ bool JSManager::init()
 	Handle<Context> context = Context::New(isolate);
 	Persistent<Context> persistent_context(isolate, context);
 	Context::Scope context_scope(context);
-	Handle<String> source = String::New("'Hello' + ', World!'");
+	Handle<String> source = String::New("(function(){return 'Hello, world.'})()");
 	Handle<Script> script = Script::Compile(source);
 	Handle<Value> result = script->Run();
 	persistent_context.Dispose();

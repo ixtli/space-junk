@@ -22,7 +22,7 @@ public:
 	
 	// IComponent functionality
 	virtual bool init();
-	virtual void update(uint32_t now);
+	virtual void update(sjtime_t now);
 	
 private:
 	
@@ -43,9 +43,7 @@ private:
 	
 	bool initComponents();
 	
-	uint32_t _lastUpdate;
-	
-	HUD* _hud;
+	sjtime_t _lastUpdate;
 };
 
 #endif /* defined(__Space_Junk__engine__) */

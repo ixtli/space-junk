@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include "hud.h"
+
 #include "colorRectUILayer.h"
 
 #include "uiLayer.h"
@@ -41,6 +43,11 @@ bool UIManager::init()
 {
 	info("Initializing.");
 	
+	// @TODO: Put this somewhere else
+	// Initialize the HUD
+	HUD* h = new HUD();
+	h->init();
+	
 	return true;
 }
 
@@ -55,7 +62,7 @@ void UIManager::draw()
  Update the UI based on time since the last tick
  @param dt the fraction of a second since the last update
  */
-void UIManager::update(uint32_t dt)
+void UIManager::update(sjtime_t dt)
 {
 	for (size_t i = 0; i < _instance._layerCount; i++)
 		_instance._layers[i]->update();
@@ -100,6 +107,8 @@ bool UIManager::removeLayer(const UILayer *layer)
 	{
 		_layerCount--;
 		_layers[_layerCount] = NULL;
+	} else {
+		warn("Layer not found.");
 	}
 	
 	return found;
@@ -111,7 +120,7 @@ bool UIManager::growLayerList()
 	
 	if (!newList)
 	{
-		error("Attempt to expand layer list failed.");
+		error("Allocation failed.");
 		return false;
 	}
 	

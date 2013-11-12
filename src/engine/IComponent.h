@@ -16,7 +16,7 @@ class IComponent
 public:
 	virtual ~IComponent() {};
 	virtual bool init() = 0;
-	virtual void update(uint32_t dt) = 0;
+	virtual void update(sjtime_t dt) = 0;
 };
 
 #endif

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#import "renderer.h"
+#import "environment.h"
 
 #import "SpaceJunkGLView.h"
 
@@ -22,19 +22,6 @@
 #pragma mark -
 #pragma mark CVDisplayLink methods
 
-- (CVReturn) getFrameForTime:(const CVTimeStamp*)outputTime
-{
-	// There is no autorelease pool when this method is called because it will be
-	// called from a background thread. It's important to create one or you will
-	// leak objects. With ARC, there's a convenient block for this!
-	@autoreleasepool {
-		[[self openGLContext] makeCurrentContext];
-		[self drawView];
-	}
-	
-	return kCVReturnSuccess;
-}
-
 // This is the renderer output callback function
 static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 																 const CVTimeStamp* now,
@@ -43,8 +30,17 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 																 CVOptionFlags* flagsOut,
 																 void* displayLinkContext)
 {
-	return [(__bridge SpaceJunkGLView*)displayLinkContext
-					getFrameForTime:outputTime];
+	// Cast the view
+	SpaceJunkGLView* v = (__bridge SpaceJunkGLView*)displayLinkContext;
+	
+	// There is no autorelease pool when this method is called because it will be
+	// called from a background thread. It's important to create one or you will
+	// leak objects. With ARC, there's a convenient block for this!
+	@autoreleasepool {
+		[v drawView];
+	}
+	
+	return kCVReturnSuccess;
 }
 
 #pragma mark -
@@ -95,6 +91,7 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	
 	CGLPixelFormatObj cglPixelFormat = (CGLPixelFormatObj)[[self pixelFormat]
 																												 CGLPixelFormatObj];
+	
 	CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(displayLink,
 																										cglContext,
 																										cglPixelFormat);
@@ -149,13 +146,13 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	
 	if (resized)
 	{
-		NSRect rect = [self bounds];
-		Renderer::getInstance()->resize(Size2I((unsigned)round(rect.size.width),
-																					 (unsigned)round(rect.size.height)));
+		NSSize size = [self bounds].size;
+		Environment::viewResize((unsigned)round(size.width),
+														(unsigned)round(size.height));
 		resized = false;
 	}
 	
-	Renderer::getInstance()->render();
+	Environment::render();
 	
 	CGLFlushDrawable((CGLContextObj)[[self openGLContext] CGLContextObj]);
 }
@@ -164,6 +161,7 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 {
 	[self stopDrawing];
 	CVDisplayLinkRelease(displayLink);
+	displayLink = NULL;
 }
 
 #pragma mark -

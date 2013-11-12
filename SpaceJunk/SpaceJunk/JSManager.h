@@ -19,7 +19,7 @@ public:
 	static inline JSManager* getInstance() { return &_instance; };
 	
 	// IComponent implementation
-	void update(uint32_t dt);
+	void update(sjtime_t dt);
 	bool init();
 	
 private:

@@ -20,8 +20,10 @@ public:
 	// Static functionality
 	inline static Environment* getInstance() { return &_instance; };
 	static char* newPathForFile(const char* name, const char* type);
-	static uint32_t currentTime();
+	static sjtime_t currentTime();
 	static void updateGameEvent(void* ctx);
+	static void render();
+	static void viewResize(unsigned w, unsigned h);
 	
 private:
 	

@@ -82,17 +82,25 @@ char* Environment::newPathForFile(const char *name, const char *type)
 /**
  @return the current time in milliseconds
  */
-uint32_t Environment::currentTime()
+sjtime_t Environment::currentTime()
 {
-	static timeval ct;
+	timeval ct;
 	gettimeofday(&ct, NULL);
-	return ct.tv_usec;
+	return (ct.tv_sec * 1000000) + ct.tv_usec;
 }
 
 void Environment::updateGameEvent(void* ctx)
 {
-	static timeval now;
-	gettimeofday(&now, NULL);
-	Engine::getInstance()->update(now.tv_usec);
+	Engine::getInstance()->update(currentTime());
+}
+
+void Environment::render()
+{
+	Renderer::getInstance()->render(currentTime());
+}
+
+void Environment::viewResize(unsigned int w, unsigned int h)
+{
+	Renderer::getInstance()->resize(Size2I(w, h));
 }
 

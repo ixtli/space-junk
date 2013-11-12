@@ -23,7 +23,6 @@ Engine Engine::_instance;
 /** Construct the engine wrapper */
 Engine::Engine() :
 
-_hud(NULL),
 _lastUpdate(0)
 
 { }
@@ -31,7 +30,7 @@ _lastUpdate(0)
 /** Destroy the engine. */
 Engine::~Engine()
 {
-	if (_hud) delete _hud;
+	
 }
 
 /**
@@ -44,11 +43,6 @@ bool Engine::init()
 	
 	// Start components
 	initComponents();
-	
-	// @TODO: Put this somewhere else
-	// Initialize the HUD
-	HUD* h = new HUD();
-	h->init();
 	
 	// Do this last so the gap isn't too great
 	_lastUpdate = Environment::currentTime();
@@ -76,7 +70,7 @@ bool Engine::initComponents()
 }
 
 /** Update game components */
-void Engine::update(uint32_t now)
+void Engine::update(sjtime_t now)
 {
 	_lastUpdate = now - _lastUpdate;
 	
