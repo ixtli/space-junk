@@ -8,8 +8,6 @@
 
 #include "hud.h"
 
-#include "colorRectUILayer.h"
-
 #include "uiLayer.h"
 
 #include "uiManager.h"

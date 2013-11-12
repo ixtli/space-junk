@@ -17,7 +17,7 @@ extern "C" {
 
 #define ERRORMETA "ERROR: "
 #define WARNMETA "WARNING: "
-#define LOGMETA "[%s(%s:%u)] "
+#define LOGMETA "[%s::%s:%u] "
 
 // stackoverflow.com/questions/8487986/file-macro-shows-full-path
 #define FILENAME (strrchr(__FILE__,'/') ? strrchr(__FILE__,'/') + 1 : __FILE__)
@@ -27,7 +27,7 @@ extern "C" {
 
 #define info(fmt, ...)																												\
 	logToLog(LOGMETA fmt "\n",																									\
-	__FUNCTION__,	FILENAME, __LINE__, ##__VA_ARGS__)
+	FILENAME, __FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 __attribute__ ((__format__ (__printf__, 1, 2)))
 void logToLog(const char* format, ...);

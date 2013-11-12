@@ -41,7 +41,7 @@
 		A3A86DA017B2144F00426EEC /* shaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D7B17B2127700426EEC /* shaderManager.cpp */; };
 		A3A86DA117B2144F00426EEC /* triangleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D7D17B2127700426EEC /* triangleBuffer.cpp */; };
 		A3A86DA217B2144F00426EEC /* vertexFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D7F17B2127700426EEC /* vertexFormats.cpp */; };
-		A3A86DA317B2144F00426EEC /* colorRectUILayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8217B2127700426EEC /* colorRectUILayer.cpp */; };
+		A3A86DA317B2144F00426EEC /* uiColorRectLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8217B2127700426EEC /* uiColorRectLayer.cpp */; };
 		A3A86DA417B2144F00426EEC /* uiColorRectElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8417B2127700426EEC /* uiColorRectElement.cpp */; };
 		A3A86DA517B2144F00426EEC /* uiElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8617B2127700426EEC /* uiElement.cpp */; };
 		A3A86DA617B2144F00426EEC /* uiLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8817B2127700426EEC /* uiLayer.cpp */; };
@@ -132,8 +132,8 @@
 		A3A86D7E17B2127700426EEC /* triangleBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangleBuffer.h; sourceTree = "<group>"; };
 		A3A86D7F17B2127700426EEC /* vertexFormats.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vertexFormats.cpp; sourceTree = "<group>"; };
 		A3A86D8017B2127700426EEC /* vertexFormats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vertexFormats.h; sourceTree = "<group>"; };
-		A3A86D8217B2127700426EEC /* colorRectUILayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = colorRectUILayer.cpp; sourceTree = "<group>"; };
-		A3A86D8317B2127700426EEC /* colorRectUILayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = colorRectUILayer.h; sourceTree = "<group>"; };
+		A3A86D8217B2127700426EEC /* uiColorRectLayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = uiColorRectLayer.cpp; sourceTree = "<group>"; };
+		A3A86D8317B2127700426EEC /* uiColorRectLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = uiColorRectLayer.h; sourceTree = "<group>"; };
 		A3A86D8417B2127700426EEC /* uiColorRectElement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = uiColorRectElement.cpp; sourceTree = "<group>"; };
 		A3A86D8517B2127700426EEC /* uiColorRectElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = uiColorRectElement.h; sourceTree = "<group>"; };
 		A3A86D8617B2127700426EEC /* uiElement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = uiElement.cpp; sourceTree = "<group>"; };
@@ -382,8 +382,8 @@
 		A3A86D8117B2127700426EEC /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				A3A86D8217B2127700426EEC /* colorRectUILayer.cpp */,
-				A3A86D8317B2127700426EEC /* colorRectUILayer.h */,
+				A3A86D8217B2127700426EEC /* uiColorRectLayer.cpp */,
+				A3A86D8317B2127700426EEC /* uiColorRectLayer.h */,
 				A3A86D8417B2127700426EEC /* uiColorRectElement.cpp */,
 				A3A86D8517B2127700426EEC /* uiColorRectElement.h */,
 				A3A86D8617B2127700426EEC /* uiElement.cpp */,
@@ -539,7 +539,7 @@
 				A3A86DA017B2144F00426EEC /* shaderManager.cpp in Sources */,
 				A3A86DA117B2144F00426EEC /* triangleBuffer.cpp in Sources */,
 				A3A86DA217B2144F00426EEC /* vertexFormats.cpp in Sources */,
-				A3A86DA317B2144F00426EEC /* colorRectUILayer.cpp in Sources */,
+				A3A86DA317B2144F00426EEC /* uiColorRectLayer.cpp in Sources */,
 				A3A86DA417B2144F00426EEC /* uiColorRectElement.cpp in Sources */,
 				A3A86DA517B2144F00426EEC /* uiElement.cpp in Sources */,
 				A3A86DA617B2144F00426EEC /* uiLayer.cpp in Sources */,

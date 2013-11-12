@@ -6,21 +6,21 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "colorRectUILayer.h"
+#include "uiColorRectLayer.h"
 
-ColorRectUILayer::ColorRectUILayer() :
+UIColorRectLayer::UIColorRectLayer() :
 
 UILayer(&_layer),
 _r()
 
 {}
 
-ColorRectUILayer::~ColorRectUILayer()
+UIColorRectLayer::~UIColorRectLayer()
 {
 	
 }
 
-bool ColorRectUILayer::init()
+bool UIColorRectLayer::init()
 {
 	// TODO: Remove temp data
 	_r.width(27);

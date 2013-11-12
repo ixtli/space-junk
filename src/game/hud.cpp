@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "colorRectUILayer.h"
+#include "uiColorRectLayer.h"
 #include "uiManager.h"
 
 #include "hud.h"
@@ -28,7 +28,7 @@ HUD::~HUD()
 
 bool HUD::init()
 {
-	_colorLayer = new ColorRectUILayer();
+	_colorLayer = new UIColorRectLayer();
 	_colorLayer->init();
 	UIManager::getInstance()->addLayer(_colorLayer);
 	

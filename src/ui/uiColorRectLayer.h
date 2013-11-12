@@ -1,24 +1,24 @@
 //
-//  colorRectUILayer.h
+//  uiColorRectLayer.h
 //  SpaceJunk
 //
 //  Created by ixtli on 5/31/13.
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#ifndef __SpaceJunk__colorRectUILayer__
-#define __SpaceJunk__colorRectUILayer__
+#ifndef __SpaceJunk__uiColorRectLayer__
+#define __SpaceJunk__uiColorRectLayer__
 
 #include "colorRectLayer.h"
 #include "uiLayer.h"
 #include "uiColorRectElement.h"
 
-class ColorRectUILayer : public UILayer
+class UIColorRectLayer : public UILayer
 {
 public:
 	
-	ColorRectUILayer();
-	~ColorRectUILayer();
+	UIColorRectLayer();
+	~UIColorRectLayer();
 	
 	bool init();
 	
@@ -33,4 +33,4 @@ private:
 	
 };
 
-#endif /* defined(__SpaceJunk__colorRectUILayer__) */
+#endif /* defined(__SpaceJunk__uiColorRectLayer__) */
