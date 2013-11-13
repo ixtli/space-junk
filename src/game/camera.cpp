@@ -45,7 +45,7 @@ void Camera::updateScreenBounds(const Size2I &bounds)
 	updateMatrix();
 }
 
-void Camera::rotate(GLfloat angle, GLfloat duration)
+void Camera::rotate(GLfloat angle, sjtime_t duration)
 {
 	_rotationDuration = duration;
 	_rotationTimeAccumulator = 0;
@@ -71,7 +71,7 @@ void Camera::updateMatrix()
 	_matrix = _projection * _view * _rotation;
 }
 
-void Camera::update(clock_t dt)
+void Camera::update(sjtime_t dt)
 {
 	if (_rotationDuration > _rotationTimeAccumulator)
 	{
@@ -81,12 +81,4 @@ void Camera::update(clock_t dt)
 		
 		rotate(180.0f * out);
 	}
-	
-//	if (_panDuration < _panTimeAccumulator)
-//	{
-//		_panTimeAccumulator += dt;
-//		GLfloat out = easeInOutQuad<GLfloat>(0, _panTimeAccumulator, 0, 1, _panDuration);
-//		
-//		
-//	}
 }

@@ -142,6 +142,10 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void) drawView
 {
+	// This does not update a visible framebuffer, so other contexts can be
+	// current while it is happening
+	Environment::updateRenderables();
+	
 	[[self openGLContext] makeCurrentContext];
 	
 	if (resized)

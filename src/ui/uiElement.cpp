@@ -11,21 +11,27 @@
 UIElement::UIElement() :
 
 _rect(),
-_depth(0)
+_depth(0),
+_isAnimating(false),
+_dirty(true)
 
 {}
 
 UIElement::UIElement(const RectI& rect) :
 
 _rect(rect),
-_depth(0)
+_depth(0),
+_isAnimating(false),
+_dirty(true)
 
 {}
 
 UIElement::UIElement(const RectI& rect, GLfloat depth) :
 
 _rect(rect),
-_depth(depth)
+_depth(depth),
+_isAnimating(false),
+_dirty(true)
 
 {}
 

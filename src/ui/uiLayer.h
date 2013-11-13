@@ -21,16 +21,10 @@ public:
 	
 	inline void draw() const { _layer->draw(); };
 	
-	inline void update()
-	{
-		for (size_t i = 0; i < _elementCount; i++)
-			_elementList[i]->update();
-		
-		_layer->commit();
-	}
+	void update(sjtime_t dt);
+	void depth(uint32_t d);
 	
-	inline void depth(GLfloat d) { _depth = d; };
-	inline GLfloat depth() const { return _depth; };
+	inline uint32_t depth() const { return _depth; };
 	
 	bool addElement(UIElement* e);
 	bool removeElement(UIElement* e);
@@ -40,7 +34,7 @@ protected:
 	UIElement** _elementList;
 	size_t _elementCount;
 	
-	GLfloat _depth;
+	uint32_t _depth;
 	
 private:
 	

@@ -13,25 +13,25 @@
 #include "uiElement.h"
 #include "colorRectLayer.h"
 
-class ColorRectUIElement : public UIElement
+class UIColorRectElement : public UIElement
 {
 public:
 	
-	ColorRectUIElement();
-	ColorRectUIElement(const RectI& rect, GLfloat depth);
-	ColorRectUIElement(const RectI& rect, const Color4u& color, GLfloat depth);
-	~ColorRectUIElement();
+	UIColorRectElement();
+	UIColorRectElement(const RectI& rect, GLfloat depth);
+	UIColorRectElement(const RectI& rect, const Color4u& color, GLfloat depth);
+	~UIColorRectElement();
 	
 	const Color4u* color() const { return &_color; };
 	
-	inline void red(GLubyte r) { _color.r = r; };
-	inline void green(GLubyte g) { _color.g = g; };
-	inline void blue(GLubyte b) { _color.b = b; };
-	inline void alpha(GLubyte a) { _color.a = a; };
+	inline void red(GLubyte r) { _color.r = r; makeDirty(); };
+	inline void green(GLubyte g) { _color.g = g; makeDirty(); };
+	inline void blue(GLubyte b) { _color.b = b; makeDirty(); };
+	inline void alpha(GLubyte a) { _color.a = a; makeDirty(); };
 	
 	void rgba(GLubyte r, GLubyte g, GLubyte b, GLubyte a);
 	
-	virtual void update() {};
+	virtual void update(sjtime_t dt);
 	
 	ColorRect* layerRect() { return &_layerRect; };
 	

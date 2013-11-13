@@ -10,7 +10,6 @@
 #define __SpaceJunk__renderer__
 
 #include "geometry.h"
-
 #include "glutil.h"
 
 class Renderer
@@ -24,7 +23,8 @@ public:
 	
 	bool init(GLuint defaultFBO);
 	void resize(const Size2I& newBounds);
-	void render(sjtime_t currentTime);
+	void render();
+	void updateRenderables(sjtime_t currentTime);
 	
 #pragma mark -
 #pragma mark Getters
@@ -56,6 +56,7 @@ private:
 	
 	Size2I _bounds;
 	GLuint _defaultFBOName;
+	sjtime_t _lastUpdate;
 	
 	void resetGL();
 	

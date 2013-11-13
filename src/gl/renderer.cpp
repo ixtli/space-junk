@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "glutil.h"
-#include "geometry.h"
+#include "environment.h"
 #include "shaderManager.h"
 #include "uiManager.h"
 #include "cubeManager.h"
@@ -20,7 +19,12 @@ GLuint Renderer::_currentVAO = 0;
 const GLfloat Renderer::projectionNear = -1.0f;
 const GLfloat Renderer::projectionFar = 1.0f;
 
-Renderer::Renderer() : _bounds(), _defaultFBOName(0)
+Renderer::Renderer() :
+
+_bounds(),
+_defaultFBOName(0),
+_lastUpdate(0)
+
 { }
 
 Renderer::~Renderer()
@@ -44,6 +48,8 @@ bool Renderer::init(GLuint defaultFBO)
 	if (!ShaderManager::getInstance()->init())
 		return false;
 	
+	_lastUpdate = Environment::currentTime();
+	
 	return true;
 }
 
@@ -66,8 +72,8 @@ void Renderer::resize(const Size2I& newBounds)
 	// Apply that matrix to all ortho shaders
 	ShaderManager::getInstance()->applyProjectionMVP(ortho, ORTHOGRAPHIC_PROJECTION);
 	
-	// Update managers with the resize event
 	UIManager::getInstance()->viewDidResize(_bounds);
+	
 	CubeManager::getInstance()->viewDidResize(_bounds);
 }
 
@@ -87,7 +93,18 @@ void Renderer::resetGL()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Renderer::render(sjtime_t currentTime)
+void Renderer::updateRenderables(sjtime_t currentTime)
+{
+	sjtime_t dt = currentTime - _lastUpdate;
+	
+	// Update the geometry of the elements for dt
+	UIManager::getInstance()->update(dt);
+	CubeManager::getInstance()->update(dt);
+	
+	_lastUpdate = currentTime;
+}
+
+void Renderer::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	

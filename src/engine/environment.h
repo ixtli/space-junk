@@ -22,8 +22,20 @@ public:
 	static char* newPathForFile(const char* name, const char* type);
 	static sjtime_t currentTime();
 	static void updateGameEvent(void* ctx);
+	
+	static void updateRenderables();
 	static void render();
 	static void viewResize(unsigned w, unsigned h);
+	
+	typedef enum
+	{
+		UI_ELEMENT,
+		NUM_LOCKS
+	} LockNames;
+	
+	static void releaseLock(LockNames name);
+	static bool requestLock(LockNames name, bool wait);
+	static bool waitOnLock(LockNames name, sjtime_t time);
 	
 private:
 	

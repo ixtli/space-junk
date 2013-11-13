@@ -96,7 +96,7 @@ bool CubeManager::init()
 	
 	// Initialize camera
 	_camera.init();
-	_camera.rotate(45.0f, 100000);
+	_camera.rotate(45.0f, 5000);
 	
 	// Make indicies and verts from generated cubes
 	generateElementIndicies(_indicies);

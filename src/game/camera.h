@@ -21,11 +21,11 @@ public:
 	bool init();
 	void updateScreenBounds(const Size2I &bounds);
 	void perspectiveAngle(GLfloat angle);
-	void rotate(GLfloat angle, GLfloat duration);
+	void rotate(GLfloat angle, sjtime_t duration);
 	void rotate(GLfloat angle);
 	void lookAt(const Point3F &loc);
 	
-	void update(clock_t dt);
+	void update(sjtime_t dt);
 	
 	inline const glm::mat4& getMatrix() const { return _matrix; };
 	
@@ -41,7 +41,7 @@ private:
 	glm::mat4 _view, _projection, _rotation, _matrix;
 	
 	GLfloat _rotationDuration, _rotationTimeAccumulator;
-	GLfloat _panDuration, _panTimeAccumulator;
+	sjtime_t _panDuration, _panTimeAccumulator;
 };
 
 #endif /* defined(__SpaceJunk__camera__) */

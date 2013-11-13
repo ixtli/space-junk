@@ -29,7 +29,7 @@ private:
 	
 	ColorRectLayer _layer;
 	
-	ColorRectUIElement _r;
+	UIColorRectElement _r;
 	
 };
 

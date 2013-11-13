@@ -63,7 +63,7 @@ void UIManager::draw()
 void UIManager::update(sjtime_t dt)
 {
 	for (size_t i = 0; i < _instance._layerCount; i++)
-		_instance._layers[i]->update();
+		_instance._layers[i]->update(dt);
 }
 
 void UIManager::viewDidResize(const Size2I &bounds)
