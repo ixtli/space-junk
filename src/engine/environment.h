@@ -26,6 +26,7 @@ public:
 	static void updateRenderables();
 	static void render();
 	static void viewResize(unsigned w, unsigned h);
+	static unsigned int defaultFBO();
 	
 	typedef enum
 	{

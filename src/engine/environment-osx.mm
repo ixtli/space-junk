@@ -54,9 +54,7 @@ bool Environment::init()
 		}
 	}
 	
-	// Init our renderer. Use zero for the default FBO
-	// N.B.: Not appropriate for iOS
-	if (!Renderer::getInstance()->init(0))
+	if (!Renderer::getInstance()->init())
 		return false;
 	
 	// Init the engine
@@ -155,6 +153,12 @@ bool Environment::waitOnLock(LockNames name, sjtime_t time)
 	return (ret == 0) ? true : false;
 }
 
+unsigned int Environment::defaultFBO()
+{
+	// Use zero for the default FBO. N.B.: Not appropriate for iOS
+	return 0;
+}
+
 void Environment::updateGameEvent(void* ctx)
 {
 	Engine::getInstance()->update(currentTime());
@@ -162,7 +166,7 @@ void Environment::updateGameEvent(void* ctx)
 
 void Environment::updateRenderables()
 {
-	Renderer::getInstance()->updateRenderables(currentTime());
+	Renderer::getInstance()->update(currentTime());
 }
 
 void Environment::render()

@@ -9,7 +9,7 @@
 #ifndef __SpaceJunk__uiColorRectLayer__
 #define __SpaceJunk__uiColorRectLayer__
 
-#include "colorRectLayer.h"
+#include "rectLayer.h"
 #include "uiLayer.h"
 #include "uiColorRectElement.h"
 
@@ -18,18 +18,22 @@ class UIColorRectLayer : public UILayer
 public:
 	
 	UIColorRectLayer();
-	~UIColorRectLayer();
+	virtual ~UIColorRectLayer();
 	
-	bool init();
+	virtual bool init(size_t initialCount);
 	
-	void addElement(UIElement* e);
-	void removeElement(UIElement* e);
+	virtual void draw() const { _layer.draw(); };
+	virtual void depth(uint32_t d) { _depth = d; };
+	virtual void update(sjtime_t dt);
+	virtual bool addElement(UIElement* e) { return false; };
+	virtual bool removeElement(UIElement* e) { return false; };
 	
 private:
 	
-	ColorRectLayer _layer;
+	RectLayer<UIColorRectElement, ColorVertex> _layer;
 	
-	UIColorRectElement _r;
+	UIColorRectElement* _r;
+	size_t _elementCount;
 	
 };
 

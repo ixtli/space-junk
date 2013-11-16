@@ -29,7 +29,8 @@ HUD::~HUD()
 bool HUD::init()
 {
 	_colorLayer = new UIColorRectLayer();
-	_colorLayer->init();
+	_colorLayer->init(5);
+	
 	UIManager::getInstance()->addLayer(_colorLayer);
 	
 	return true;

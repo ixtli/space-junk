@@ -32,23 +32,45 @@ Renderer::~Renderer()
 	
 }
 
-bool Renderer::init(GLuint defaultFBO)
+bool Renderer::init()
 {
 	// Emit some basic data about the environment
 	info("Hardware Renderer: %s", glGetString(GL_RENDERER));
 	info("OpenGL Version: %s", glGetString(GL_VERSION));
 	info("GLSL Version: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
 	
-	// Save the default VBO
-	_defaultFBOName = defaultFBO;
+	// Save the default FBO
+	_defaultFBOName = Environment::defaultFBO();
 	
+	// Reset gl state
 	resetGL();
 	
 	// Initialize Shaders
 	if (!ShaderManager::getInstance()->init())
 		return false;
 	
+	// Initialize renderable components
+	if (!initComponents())
+		return false;
+	
 	_lastUpdate = Environment::currentTime();
+	
+	return true;
+}
+
+bool Renderer::initComponents()
+{
+	_components[UI_MANAGER] = UIManager::getInstance();
+	_components[CUBE_MANANGER] = CubeManager::getInstance();
+	
+	for (size_t i = 0; i < NUM_COMPONENTS; i++)
+	{
+		if (!_components[i]->init())
+		{
+			error("Component failed to initialize.");
+			return false;
+		}
+	}
 	
 	return true;
 }
@@ -72,8 +94,8 @@ void Renderer::resize(const Size2I& newBounds)
 	// Apply that matrix to all ortho shaders
 	ShaderManager::getInstance()->applyProjectionMVP(ortho, ORTHOGRAPHIC_PROJECTION);
 	
+	// @TODO: Perhaps generalize this?
 	UIManager::getInstance()->viewDidResize(_bounds);
-	
 	CubeManager::getInstance()->viewDidResize(_bounds);
 }
 
@@ -93,13 +115,14 @@ void Renderer::resetGL()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Renderer::updateRenderables(sjtime_t currentTime)
+void Renderer::update(sjtime_t currentTime)
 {
 	sjtime_t dt = currentTime - _lastUpdate;
 	
-	// Update the geometry of the elements for dt
-	UIManager::getInstance()->update(dt);
-	CubeManager::getInstance()->update(dt);
+	for (size_t i = 0; i < NUM_COMPONENTS; i++)
+	{
+		_components[i]->update(dt);
+	}
 	
 	_lastUpdate = currentTime;
 }

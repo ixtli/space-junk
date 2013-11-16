@@ -11,8 +11,6 @@
 
 #include "IComponent.h"
 
-class HUD;
-
 class Engine : public IComponent
 {
 public:
@@ -33,11 +31,9 @@ private:
 	
 	typedef enum
 	{
-		UI_MANAGER,
-		CUBE_MANAGER,
 		JS_MANAGER,
 		NUM_COMPONENTS
-	} ComponentList;
+	} EngineComponentList;
 	
 	IComponent* _components[NUM_COMPONENTS];
 	

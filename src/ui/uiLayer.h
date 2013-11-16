@@ -16,29 +16,21 @@ class UILayer
 {
 public:
 	
-	UILayer(RectLayer* layer);
-	~UILayer();
+	UILayer() : _depth(0) {};
+	virtual ~UILayer() {};
 	
-	inline void draw() const { _layer->draw(); };
-	
-	void update(sjtime_t dt);
-	void depth(uint32_t d);
+	virtual bool init(size_t initialCount) = 0;
+	virtual void draw() const = 0;
+	virtual void update(sjtime_t dt) = 0;
+	virtual void depth(uint32_t d) = 0;
+	virtual bool addElement(UIElement* e) = 0;
+	virtual bool removeElement(UIElement* e) = 0;
 	
 	inline uint32_t depth() const { return _depth; };
 	
-	bool addElement(UIElement* e);
-	bool removeElement(UIElement* e);
-	
 protected:
 	
-	UIElement** _elementList;
-	size_t _elementCount;
-	
 	uint32_t _depth;
-	
-private:
-	
-	RectLayer* _layer;
 	
 };
 

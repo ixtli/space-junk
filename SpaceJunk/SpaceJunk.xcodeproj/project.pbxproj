@@ -30,7 +30,6 @@
 		A3A86D9517B2144F00426EEC /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D6017B2127700426EEC /* file.cpp */; };
 		A3A86D9617B2144F00426EEC /* hud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D6617B2127700426EEC /* hud.cpp */; };
 		A3A86D9717B2144F00426EEC /* color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D6917B2127700426EEC /* color.cpp */; };
-		A3A86D9817B2144F00426EEC /* colorRectLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D6B17B2127700426EEC /* colorRectLayer.cpp */; };
 		A3A86D9917B2144F00426EEC /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D6D17B2127700426EEC /* geometry.cpp */; };
 		A3A86D9A17B2144F00426EEC /* glutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D6F17B2127700426EEC /* glutil.cpp */; };
 		A3A86D9B17B2144F00426EEC /* quadLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D7117B2127700426EEC /* quadLayer.cpp */; };
@@ -110,8 +109,6 @@
 		A3A86D6717B2127700426EEC /* hud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hud.h; sourceTree = "<group>"; };
 		A3A86D6917B2127700426EEC /* color.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = color.cpp; sourceTree = "<group>"; };
 		A3A86D6A17B2127700426EEC /* color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
-		A3A86D6B17B2127700426EEC /* colorRectLayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = colorRectLayer.cpp; sourceTree = "<group>"; };
-		A3A86D6C17B2127700426EEC /* colorRectLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = colorRectLayer.h; sourceTree = "<group>"; };
 		A3A86D6D17B2127700426EEC /* geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = geometry.cpp; sourceTree = "<group>"; };
 		A3A86D6E17B2127700426EEC /* geometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = geometry.h; sourceTree = "<group>"; };
 		A3A86D6F17B2127700426EEC /* glutil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = glutil.cpp; sourceTree = "<group>"; };
@@ -352,8 +349,6 @@
 			children = (
 				A3A86D6917B2127700426EEC /* color.cpp */,
 				A3A86D6A17B2127700426EEC /* color.h */,
-				A3A86D6B17B2127700426EEC /* colorRectLayer.cpp */,
-				A3A86D6C17B2127700426EEC /* colorRectLayer.h */,
 				A3A86D6D17B2127700426EEC /* geometry.cpp */,
 				A3A86D6E17B2127700426EEC /* geometry.h */,
 				A3A86D6F17B2127700426EEC /* glutil.cpp */,
@@ -528,7 +523,6 @@
 				A3A86D9517B2144F00426EEC /* file.cpp in Sources */,
 				A3A86D9617B2144F00426EEC /* hud.cpp in Sources */,
 				A3A86D9717B2144F00426EEC /* color.cpp in Sources */,
-				A3A86D9817B2144F00426EEC /* colorRectLayer.cpp in Sources */,
 				A3A86D9917B2144F00426EEC /* geometry.cpp in Sources */,
 				A3A86D9A17B2144F00426EEC /* glutil.cpp in Sources */,
 				A3A86D9B17B2144F00426EEC /* quadLayer.cpp in Sources */,
@@ -702,7 +696,7 @@
 					"$(SRCROOT)/../v8-build/native",
 					"/Users/ixtli/Public/project/cpp/space-junk/v8-build/native",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
@@ -734,7 +728,7 @@
 					"$(SRCROOT)/../v8-build/native",
 					"/Users/ixtli/Public/project/cpp/space-junk/v8-build/native",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;

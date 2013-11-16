@@ -6,15 +6,9 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include <math.h>
-
 #include "JSManager.h"
-#include "uiManager.h"
 #include "environment.h"
-#include "renderer.h"
 #include "version.h"
-#include "hud.h"
-#include "cubeManager.h"
 
 #include "engine.h"
 
@@ -53,8 +47,6 @@ bool Engine::init()
 /** Initialize managers that implement IComponent */
 bool Engine::initComponents()
 {
-	_components[UI_MANAGER] = UIManager::getInstance();
-	_components[CUBE_MANAGER] = CubeManager::getInstance();
 	_components[JS_MANAGER] = JSManager::getInstance();
 	
 	for (size_t i = 0; i < NUM_COMPONENTS; i++)
