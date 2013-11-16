@@ -99,6 +99,22 @@ public:
 	};
 	
 	/**
+	 O(1)
+	 @param idx the index of the rect you'd like
+	 @return a pointer to the rect you requested or null if error
+	 */
+	R* rectForIndex(GLuint idx)
+	{
+		if (idx >= _usedRects)
+		{
+			warn("Attempt to query outside of range.");
+			return NULL;
+		}
+		
+		return &_rects[idx];
+	}
+	
+	/**
 	 Remove a rect from the list.
 	 Worst case: O(n), n == (_usedRects - 1)
 	 @param r the rect to remove

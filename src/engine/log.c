@@ -21,7 +21,7 @@ void logToLog(const char* format, ...)
 
 void warnToLog(const char* format, ...)
 {
-	// TODO: handle non-debug case
+	// @TODO: handle non-debug case
 	va_list ap;
 	va_start(ap, format);
 	vprintf(format, ap);
@@ -30,7 +30,7 @@ void warnToLog(const char* format, ...)
 
 void errorToLog(const char* format, ...)
 {
-	// TODO: handle non-debug case
+	// @TODO: handle non-debug case
 	va_list ap;
 	va_start(ap, format);
 	vprintf(format, ap);

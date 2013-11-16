@@ -35,7 +35,7 @@ public:
 	
 	// Inline getters and setters
 	void usedQuads(GLuint used);
-	inline bool update(const GLvoid* verts) {return _buffer.updateVerts(verts);};
+	bool update(const GLvoid* verts);
 	inline GLuint usedQuads() const { return _usedQuads; };
 	
 private:

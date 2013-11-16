@@ -18,11 +18,12 @@ typedef struct
 	Point2F texCoord;
 } TextureVertex;
 
-typedef struct
+class ColorVertex
 {
+public:
 	Point3F location;
 	Color4u color;
-} ColorVertex;
+};
 
 typedef struct
 {

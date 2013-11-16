@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include "randUtil.h"
+
 #include "uiColorRectLayer.h"
 
 UIColorRectLayer::UIColorRectLayer() :
@@ -21,26 +23,42 @@ UIColorRectLayer::~UIColorRectLayer()
 
 bool UIColorRectLayer::init(size_t initialCount)
 {
-	if (!_layer.init(0, 1, SOLID_QUAD_SHADER))
+	if (!_layer.init(0, 5, SOLID_QUAD_SHADER))
 	{
 		error("couldn't init layer.");
 		return false;
 	}
 	
-	// TODO: Remove temp data
-	_r = _layer.newRect();
-	_r->width(100);
-	_r->height(50);
-	_r->top(25);
-	_r->left(25);
-	_r->rgba(180, 90, 5, 128);
-	_layer.updateRect(_r);
+	randomRect();
+	randomRect();
+	randomRect();
+	randomRect();
+	randomRect();
+	
 	_layer.commit();
 	
 	return true;
 }
 
+void UIColorRectLayer::randomRect()
+{
+	// TODO: Remove temp data
+	UIColorRectElement* _r = _layer.newRect();
+	_r->width(RAND_BETWEEN(50, 200));
+	_r->height(RAND_BETWEEN(50, 200));
+	_r->top(RAND_BETWEEN(100, 300));
+	_r->left(RAND_BETWEEN(100, 300));
+	_r->rgba(RAND_BELOW(255), RAND_BELOW(255), RAND_BELOW(255), 128);
+	_layer.updateRect(_r);
+}
+
 void UIColorRectLayer::update(sjtime_t dt)
 {
+	GLuint idx = RAND_BELOW(5);
+	UIColorRectElement* _r = _layer.rectForIndex(idx);
+	_r->rgba(RAND_BELOW(255), RAND_BELOW(255), RAND_BELOW(255), 128);
+	_layer.updateRect(_r);
 	
+	
+	_layer.commit();
 }

@@ -42,6 +42,9 @@ bool Environment::init()
 	info("%s v%s %s @%s", name.sysname, name.release, name.machine, name.nodename);
 	info("%s", name.version);
 	
+	// The thing everyone knows.
+	srand((unsigned)time(NULL));
+	
 	// Initialize locks
 	for (size_t i = 0; i < NUM_LOCKS; i++)
 	{
@@ -178,5 +181,4 @@ void Environment::viewResize(unsigned int w, unsigned int h)
 {
 	Renderer::getInstance()->resize(Size2I(w, h));
 }
-
 

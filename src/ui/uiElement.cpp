@@ -11,8 +11,7 @@
 UIElement::UIElement() :
 
 _rect(),
-_depthOffset(0),
-_dirty(true)
+_depthOffset(0)
 
 {}
 
@@ -21,7 +20,6 @@ UIElement& UIElement::operator=(const UIElement &e)
 	_rect = e._rect;
 	_index = e._index;
 	_depthOffset = e._depthOffset;
-	_dirty = e._dirty;
 	
 	return *this;
 }

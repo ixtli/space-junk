@@ -28,6 +28,8 @@ public:
 	static void viewResize(unsigned w, unsigned h);
 	static unsigned int defaultFBO();
 	
+	static unsigned int randRange(unsigned int min, unsigned int max);
+	
 	typedef enum
 	{
 		UI_ELEMENT,

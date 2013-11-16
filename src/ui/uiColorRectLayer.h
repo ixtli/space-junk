@@ -30,10 +30,9 @@ public:
 	
 private:
 	
-	RectLayer<UIColorRectElement, ColorVertex> _layer;
+	void randomRect();
 	
-	UIColorRectElement* _r;
-	size_t _elementCount;
+	RectLayer<UIColorRectElement, ColorVertex> _layer;
 	
 };
 

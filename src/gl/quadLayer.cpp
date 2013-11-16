@@ -104,3 +104,8 @@ bool QuadLayer::resizeLayer(GLuint newMaxQuads)
 	
 	return true;
 }
+
+bool QuadLayer::update(const GLvoid* verts)
+{
+	return _buffer.updateVerts(verts);
+}
