@@ -9,7 +9,7 @@
 #ifndef __SpaceJunk__hud__
 #define __SpaceJunk__hud__
 
-class UIColorRectLayer;
+#include "uiColorRectLayer.h"
 
 class HUD
 {
@@ -22,7 +22,7 @@ public:
 	
 private:
 	
-	UIColorRectLayer* _colorLayer;
+	UIColorRectLayer _colorLayer;
 	
 };
 

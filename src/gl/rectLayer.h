@@ -120,25 +120,25 @@ public:
 	 @param r the rect to remove
 	 @return true if successful, false otherwise
 	 */
-	bool removeRect(const R& r)
+	bool removeRect(const R* r)
 	{
-		if (r.index() >= _usedRects)
+		if (r->index() >= _usedRects)
 		{
 			warn("Out of bounds.");
 			return false;
 		}
 		
-		if (&r != _rects[r.index()])
+		if (r != &_rects[r->index()])
 		{
 			warn("Out of sync.");
 			return false;
 		}
 		
-		for (GLuint i = r.index() + 1; i < _usedRects; i++)
+		for (GLuint i = r->index() + 1; i < _usedRects; i++)
 		{
 			_rects[i - 1] = _rects[i];
-			_rects[i - 1]->index(i - 1);
-			updateRect(_rects[i - 1]);
+			_rects[i - 1].index(i - 1);
+			updateRect(&_rects[i - 1]);
 		}
 		
 		_usedRects--;
@@ -159,7 +159,7 @@ public:
 			return;
 		}
 		
-		r->updateVerts(_depth, _verts);
+		r->updateVerts(_depth + (0.0001f * r->index()), _verts);
 		
 		listChanged();
 	};
@@ -192,6 +192,8 @@ public:
 		_initialized = true;
 		_dirty = false;
 	};
+	
+	inline GLuint maxRects() const { return _maxRects; };
 	
 protected:
 	

@@ -38,7 +38,7 @@ void UIColorRectElement::rgba(GLubyte r, GLubyte g, GLubyte b, GLubyte a)
 	alpha(a);
 }
 
-void UIColorRectElement::updateVerts(GLfloat baseDepth, ColorVertex* verts) const
+void UIColorRectElement::updateVerts(GLfloat depth, ColorVertex* verts) const
 {
 	size_t v = _index * 4;
 	
@@ -46,27 +46,27 @@ void UIColorRectElement::updateVerts(GLfloat baseDepth, ColorVertex* verts) cons
 	verts[v].location.x = _rect.position.x;
 	verts[v].location.y = _rect.position.y + _rect.bounds.height;
 	
-	verts[v].location.z = baseDepth + _depthOffset;
+	verts[v].location.z = depth;
 	verts[v++].color = _color;
 	
 	// Bottom Right
 	verts[v].location.x = _rect.position.x + _rect.bounds.width;
 	verts[v].location.y = _rect.position.y + _rect.bounds.height;
 	
-	verts[v].location.z = baseDepth + _depthOffset;
+	verts[v].location.z = depth;
 	verts[v++].color = _color;
 	
 	// Top Left
 	verts[v].location.x = _rect.position.x;
 	verts[v].location.y = _rect.position.y;
 	
-	verts[v].location.z = baseDepth + _depthOffset;
+	verts[v].location.z = depth;
 	verts[v++].color = _color;
 	
 	// Top Right
 	verts[v].location.x = _rect.position.x + _rect.bounds.width;
 	verts[v].location.y = _rect.position.y;
 	
-	verts[v].location.z = baseDepth + _depthOffset;
+	verts[v].location.z = depth;
 	verts[v++].color = _color;
 }

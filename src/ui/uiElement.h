@@ -27,21 +27,18 @@ public:
 	inline void height(GLuint height) {_rect.bounds.height = height; };
 	inline void top(GLuint top) { _rect.position.y = top; };
 	inline void left(GLuint left) { _rect.position.x = left; };
-	inline void depth(GLfloat d) { _depthOffset = d; };
 	inline void index(GLuint i) { _index = i; };
 	
 	// Getters
 	inline const RectI* rect() const { return &_rect; };
 	inline const Size2I* size() const { return &_rect.bounds; };
 	inline const Point2I* position() const { return &_rect.position; };
-	inline const GLfloat depth() const { return _depthOffset; };
 	inline GLuint index() const { return _index; };
 	
 protected:
 	
 	RectI _rect;
 	GLuint _index;
-	GLfloat _depthOffset;
 	
 };
 

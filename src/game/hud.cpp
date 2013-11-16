@@ -6,32 +6,23 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "uiColorRectLayer.h"
 #include "uiManager.h"
 
 #include "hud.h"
 
-HUD::HUD() :
-
-_colorLayer(NULL)
+HUD::HUD()
 
 {}
 
 HUD::~HUD()
 {
-	if (_colorLayer)
-	{
-		UIManager::getInstance()->removeLayer(_colorLayer);
-		delete _colorLayer;
-	}
+	UIManager::getInstance()->removeLayer(&_colorLayer);
 }
 
 bool HUD::init()
 {
-	_colorLayer = new UIColorRectLayer();
-	_colorLayer->init(5);
-	
-	UIManager::getInstance()->addLayer(_colorLayer);
+	_colorLayer.init(100);
+	UIManager::getInstance()->addLayer(&_colorLayer);
 	
 	return true;
 }

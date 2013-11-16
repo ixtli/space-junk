@@ -20,7 +20,7 @@ public:
 	UIColorRectLayer();
 	virtual ~UIColorRectLayer();
 	
-	virtual bool init(size_t initialCount);
+	virtual bool init(uint32_t initialCount);
 	
 	virtual void draw() const { _layer.draw(); };
 	virtual void depth(uint32_t d) { _depth = d; };

@@ -10,8 +10,7 @@
 
 UIElement::UIElement() :
 
-_rect(),
-_depthOffset(0)
+_rect()
 
 {}
 
@@ -19,7 +18,6 @@ UIElement& UIElement::operator=(const UIElement &e)
 {
 	_rect = e._rect;
 	_index = e._index;
-	_depthOffset = e._depthOffset;
 	
 	return *this;
 }
