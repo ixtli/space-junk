@@ -144,10 +144,6 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 {
 	[[self openGLContext] makeCurrentContext];
 	
-	// This does not update a visible framebuffer, so other contexts can be
-	// current while it is happening
-	Environment::updateRenderables();
-	
 	if (resized)
 	{
 		NSSize size = [self bounds].size;
@@ -156,6 +152,7 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 		resized = false;
 	}
 	
+	Environment::updateRenderables();
 	Environment::render();
 	
 	CGLFlushDrawable((CGLContextObj)[[self openGLContext] CGLContextObj]);

@@ -7,7 +7,7 @@
 //
 
 #include "randUtil.h"
-
+#include "renderer.h"
 #include "uiColorRectLayer.h"
 
 UIColorRectLayer::UIColorRectLayer() :
@@ -23,17 +23,11 @@ UIColorRectLayer::~UIColorRectLayer()
 
 bool UIColorRectLayer::init(size_t initialCount)
 {
-	if (!_layer.init(0, 5, SOLID_QUAD_SHADER))
+	if (!_layer.init(0, 300, SOLID_QUAD_SHADER))
 	{
 		error("couldn't init layer.");
 		return false;
 	}
-	
-	randomRect();
-	randomRect();
-	randomRect();
-	randomRect();
-	randomRect();
 	
 	_layer.commit();
 	
@@ -44,21 +38,29 @@ void UIColorRectLayer::randomRect()
 {
 	// TODO: Remove temp data
 	UIColorRectElement* _r = _layer.newRect();
+	
+	const Size2I bounds = Renderer::getInstance()->bounds();
+	
 	_r->width(RAND_BETWEEN(50, 200));
 	_r->height(RAND_BETWEEN(50, 200));
-	_r->top(RAND_BETWEEN(100, 300));
-	_r->left(RAND_BETWEEN(100, 300));
+	_r->top(RAND_BELOW(bounds.height));
+	_r->left(RAND_BELOW(bounds.width));
 	_r->rgba(RAND_BELOW(255), RAND_BELOW(255), RAND_BELOW(255), 128);
 	_layer.updateRect(_r);
 }
 
 void UIColorRectLayer::update(sjtime_t dt)
 {
-	GLuint idx = RAND_BELOW(5);
-	UIColorRectElement* _r = _layer.rectForIndex(idx);
-	_r->rgba(RAND_BELOW(255), RAND_BELOW(255), RAND_BELOW(255), 128);
-	_layer.updateRect(_r);
+	GLuint idx = RAND_BELOW(300);
 	
+	if (idx >= _layer.used())
+	{
+		randomRect();
+	} else {
+		UIColorRectElement* _r = _layer.rectForIndex(idx);
+		_r->rgba(RAND_BELOW(255), RAND_BELOW(255), RAND_BELOW(255), 128);
+		_layer.updateRect(_r);
+	}
 	
 	_layer.commit();
 }
