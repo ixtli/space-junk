@@ -11,6 +11,8 @@
 
 #include "uiColorRectLayer.h"
 
+#include "Easer.h"
+
 class HUD
 {
 public:
@@ -20,10 +22,13 @@ public:
 	
 	bool init();
 	
+	void update(sjtime_t dt);
+	
 private:
 	
 	UIColorRectLayer _colorLayer;
-	
+	Easer _easer;
+	UIColorRectElement* _elt;
 };
 
 #endif /* defined(__SpaceJunk__hud__) */

@@ -10,7 +10,8 @@
 
 UIElement::UIElement() :
 
-_rect()
+_rect(),
+_dirty(false)
 
 {}
 
@@ -18,11 +19,7 @@ UIElement& UIElement::operator=(const UIElement &e)
 {
 	_rect = e._rect;
 	_index = e._index;
+	_dirty = e._dirty;
 	
 	return *this;
-}
-
-UIElement::~UIElement()
-{
-    
 }

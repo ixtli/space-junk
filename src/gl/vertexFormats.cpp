@@ -8,7 +8,7 @@
 
 #include "vertexFormats.h"
 
-const VertexAttribute VertexFormats::attributes[NUM_VERTEX_ATTRIBUTES] =
+constexpr const VertexAttribute VertexFormats::attributes[NUM_VERTEX_ATTRIBUTES] =
 {
 	// POSITION_ATTRIB
 	{
@@ -38,7 +38,7 @@ const VertexAttribute VertexFormats::attributes[NUM_VERTEX_ATTRIBUTES] =
 	}
 };
 
-const VertexAttribute* const VertexFormats::solidQuadList[] =
+constexpr const VertexAttribute* const VertexFormats::solidQuadList[] =
 {
 	&attributes[POSITION_ATTRIB],
 	&attributes[COLORED_ATTRIB]

@@ -43,7 +43,7 @@ bool UIManager::init()
 	
 	// @TODO: Put this somewhere else
 	// Initialize the HUD
-	HUD* h = new HUD();
+	h = new HUD();
 	h->init();
 	
 	return true;
@@ -62,6 +62,8 @@ void UIManager::draw()
  */
 void UIManager::update(sjtime_t dt)
 {
+	h->update(dt);
+	
 	for (size_t i = 0; i < _instance._layerCount; i++)
 		_instance._layers[i]->update(dt);
 }

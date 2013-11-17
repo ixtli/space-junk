@@ -25,8 +25,9 @@ public:
 	virtual void draw() const { _layer.draw(); };
 	virtual void depth(uint32_t d) { _depth = d; };
 	virtual void update(sjtime_t dt);
-	virtual bool addElement(UIElement* e) { return false; };
-	virtual bool removeElement(UIElement* e) { return false; };
+	
+	UIColorRectElement* newElement();
+	void removeElement(UIColorRectElement* e);
 	
 private:
 	

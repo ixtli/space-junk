@@ -25,11 +25,6 @@ UIColorRectElement& UIColorRectElement::operator=(const UIColorRectElement &c)
 	return *this;
 }
 
-UIColorRectElement::~UIColorRectElement()
-{
-	
-}
-
 void UIColorRectElement::rgba(GLubyte r, GLubyte g, GLubyte b, GLubyte a)
 {
 	red(r);

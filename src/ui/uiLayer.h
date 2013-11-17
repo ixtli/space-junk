@@ -23,8 +23,6 @@ public:
 	virtual void draw() const = 0;
 	virtual void update(sjtime_t dt) = 0;
 	virtual void depth(uint32_t d) = 0;
-	virtual bool addElement(UIElement* e) = 0;
-	virtual bool removeElement(UIElement* e) = 0;
 	
 	inline uint32_t depth() const { return _depth; };
 	

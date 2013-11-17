@@ -27,11 +27,11 @@ public:
 
 typedef struct
 {
-	GLint size;								// how many vars in the attr
-	GLenum type;							// type of vars in the attr
-	GLboolean normalize;			// normilze these data?
-	GLsizei byteCount;				// the size of the vertex attribute (in bytes)
-	const char* const name;		// shader variable name
+	const GLint size;								// how many vars in the attr
+	const GLenum type;							// type of vars in the attr
+	const GLboolean normalize;			// normilze these data?
+	const GLsizei byteCount;				// the size of the vertex attribute (in bytes)
+	const char* const name;					// shader variable name
 } VertexAttribute;
 
 /* Below are const definitions, add your vertex formats in kind. */

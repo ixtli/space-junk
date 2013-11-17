@@ -17,17 +17,16 @@ class UIColorRectElement : public UIElement
 public:
 	
 	UIColorRectElement();
-	~UIColorRectElement();
 	
 	UIColorRectElement& operator=(const UIColorRectElement& c);
 	
 	const Color4u* color() const { return &_color; };
 	
 	// Setters
-	inline void red(GLubyte r) { _color.r = r; };
-	inline void green(GLubyte g) { _color.g = g; };
-	inline void blue(GLubyte b) { _color.b = b; };
-	inline void alpha(GLubyte a) { _color.a = a; };
+	inline void red(GLubyte r) { _color.r = r; makeDirty(); };
+	inline void green(GLubyte g) { _color.g = g; makeDirty(); };
+	inline void blue(GLubyte b) { _color.b = b; makeDirty(); };
+	inline void alpha(GLubyte a) { _color.a = a; makeDirty(); };
 	void rgba(GLubyte r, GLubyte g, GLubyte b, GLubyte a);
 	
 	void updateVerts(GLfloat baseDepth, ColorVertex* verts) const;

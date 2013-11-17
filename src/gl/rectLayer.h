@@ -18,6 +18,8 @@ public:
 	
 	static const GLuint MAX_RECTS = 0xFFFC;
 	
+	static constexpr const GLfloat DEPTH_OFFSET = 0.0001f;
+	
 	RectLayer(bool dynamic = false) :
 	
 	_quadLayer(dynamic),
@@ -93,7 +95,7 @@ public:
 		_usedRects++;
 		_quadLayer.usedQuads(_usedRects);
 		
-		updateRect(ret);
+		listChanged();
 		
 		return ret;
 	};
@@ -159,7 +161,7 @@ public:
 			return;
 		}
 		
-		r->updateVerts(_depth + (0.0001f * r->index()), _verts);
+		r->updateVerts(_depth + (DEPTH_OFFSET * r->index()), _verts);
 		
 		listChanged();
 	};
