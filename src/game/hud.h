@@ -27,7 +27,7 @@ public:
 private:
 	
 	UIColorRectLayer _colorLayer;
-	Easer _easer;
+	Easer<GLuint> _easer;
 	UIColorRectElement* _elt;
 };
 

@@ -26,14 +26,16 @@ bool HUD::init()
 	
 	_elt->width(50);
 	_elt->height(50);
-	_elt->left(150);
+	_elt->left(50);
 	_elt->top(100);
 	_elt->rgba(255, 0, 0, 128);
 	
-	_easer.init(1000);
-	_easer.setStart(150);
-	_easer.setDistance(500);
+	_easer.init(easeInOutQuad<double>);
+	_easer.setDuration(1000);
+	_easer.setStart(50);
+	_easer.setDistance(250);
 	_easer.restart();
+	
 	UIManager::getInstance()->addLayer(&_colorLayer);
 	
 	return true;
@@ -44,4 +46,7 @@ void HUD::update(sjtime_t dt)
 	if (_easer.isComplete()) return;
 	
 	_elt->left(_easer.update(dt));
+	
+	if (_easer.isComplete())
+		_elt->left(_easer.getEnd());
 }
