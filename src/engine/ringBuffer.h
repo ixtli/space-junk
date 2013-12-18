@@ -9,38 +9,107 @@
 #ifndef __SpaceJunk__ringBuffer__
 #define __SpaceJunk__ringBuffer__
 
-#include <assert.h>
+#include <atomic>
+#include <stdlib.h>
 
-/**
- A lock-free multiproducer, multiconsumer queue implemented as a ring buffer.
- Please make sure to always define Q_SIZE as a power of two
- */
-template<class T, unsigned Q_SIZE>
+// Single-producer, single-consumer ring buffer meant to fascilitate extremely
+// low-cost, thread safe async communication between two threads. Both lock-free
+// and wait-free.
+template <typename T, size_t Q_SIZE>
 class RingBuffer
 {
 public:
 	
-	RingBuffer()
-	{
-		
-	};
+	// Denote capacity without actually using memory. Remember that our Full/Empty
+	// mode is to _always keep one slot open_! It simplifies a lot of the code so
+	// it's probably always best to keep T small.
+	enum { CAPACITY = Q_SIZE + 1 };
 	
-	void push(T* x);
-	T* pop();
+	RingBuffer() : _tail(0), _head(0) {};
+	~RingBuffer() {};
+	
+	bool init();
+	
+	// Queue mutators. Remember that this implementation is single-producer, single-
+	// consumer. So don't use either from more than one thread.
+	bool push(const T& item);
+	bool pop(T& item);
+	
+	// Meta-information about the queue. These functions require memory locking
+	// and unlocking so calling generally incurs the same overhead as the above
+	// mutators. To be used for testing and auditing.
+	bool wasEmpty() const;
+	bool wasFull() const;
+	
+	// A convenience that's usually included in most example code that deals with
+	// C++11 memory ordering operations
+	bool isLockFree() const;
 	
 private:
 	
-	static const unsigned Q_MASK = Q_SIZE - 1;
+	inline size_t increment(size_t idx) const { return (idx + 1) % CAPACITY; };
 	
-	T* _array[Q_SIZE];
-	unsigned _head;
-	unsigned _tail;
+	std::atomic<size_t> _tail; // Input location
+	std::atomic<size_t> _head; // Output location
 	
-	// The following conditionals are required because in the case that either
-	// of them are true, their associated ops must wait
-	bool _isEmpty;
-	bool _isFull;
-	
+	T _array[CAPACITY];
 };
+
+#pragma mark -
+#pragma mark Implementation
+
+template <typename T, size_t Q_SIZE>
+bool RingBuffer<T, Q_SIZE>::init()
+{
+	return (Q_SIZE > 0);
+}
+
+template <typename T, size_t Q_SIZE>
+bool RingBuffer<T, Q_SIZE>::push(const T& item)
+{
+	const size_t currentTail = _tail.load(std::memory_order_relaxed);
+	const size_t nextTail = increment(currentTail);
+	
+	// Are we full?
+	if (nextTail == _head.load(std::memory_order_acquire))
+		return false;
+	
+	_array[currentTail] = item;
+	_tail.store(nextTail, std::memory_order_release);
+	return true;
+}
+
+template <typename T, size_t Q_SIZE>
+bool RingBuffer<T, Q_SIZE>::pop(T& item)
+{
+	const size_t currentHead = _head.load(std::memory_order_relaxed);
+	
+	if (currentHead == _tail.load(std::memory_order_acquire))
+		return false;
+	
+	item = _array[currentHead];
+	_head.store(increment(currentHead), std::memory_order_release);
+	return true;
+}
+
+template <typename T, size_t Q_SIZE>
+bool RingBuffer<T, Q_SIZE>::wasEmpty() const
+{
+	return (_tail.load() == _head.load());
+}
+
+template <typename T, size_t Q_SIZE>
+bool RingBuffer<T, Q_SIZE>::wasFull() const
+{
+	const size_t nextTail = increment(_tail.load());
+	return (nextTail == _head.load());
+}
+
+template <typename T, size_t Q_SIZE>
+bool RingBuffer<T, Q_SIZE>::isLockFree() const
+{
+	return (_tail.is_lock_free() && _head.is_lock_free());
+}
+
 
 #endif /* defined(__SpaceJunk__ringBuffer__) */
