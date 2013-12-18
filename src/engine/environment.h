@@ -28,17 +28,7 @@ public:
 	static void viewResize(unsigned w, unsigned h);
 	static unsigned int defaultFBO();
 	
-	static unsigned int randRange(unsigned int min, unsigned int max);
-	
-	typedef enum
-	{
-		UI_ELEMENT,
-		NUM_LOCKS
-	} LockNames;
-	
-	static void releaseLock(LockNames name);
-	static bool requestLock(LockNames name, bool wait);
-	static bool waitOnLock(LockNames name, sjtime_t time);
+	static unsigned getRandomUnsignedBetween(unsigned min, unsigned max);
 	
 private:
 	

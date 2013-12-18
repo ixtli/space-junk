@@ -82,3 +82,4 @@ void Camera::update(sjtime_t dt)
 		rotate(180.0f * out);
 	}
 }
+

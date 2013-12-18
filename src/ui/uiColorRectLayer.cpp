@@ -38,11 +38,12 @@ void UIColorRectLayer::randomRect()
 	
 	const Size2I bounds = Renderer::getInstance()->bounds();
 	
-	_r->width(RAND_BETWEEN(50, 200));
-	_r->height(RAND_BETWEEN(50, 200));
-	_r->top(RAND_BELOW(bounds.height));
-	_r->left(RAND_BELOW(bounds.width));
-	_r->rgba(RAND_BELOW(255), RAND_BELOW(255), RAND_BELOW(255), 128);
+	_r->width(RAND_UINT(50, 200));
+	_r->height(RAND_UINT(50, 200));
+	_r->top(RAND_UINT(0, bounds.height));
+	_r->left(RAND_UINT(0, bounds.width));
+	_r->rgba(RAND_BYTE(0, 255), RAND_BYTE(0, 255), RAND_BYTE(0, 255), 128);
+	
 }
 
 void UIColorRectLayer::update(sjtime_t dt)

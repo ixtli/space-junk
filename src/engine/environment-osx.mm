@@ -8,15 +8,11 @@
 
 #include <sys/time.h>
 #include <sys/utsname.h>
-#include <dispatch/dispatch.h>
 
 #include "renderer.h"
 #include "engine.h"
 
 #include "environment.h"
-
-// Some good 'ol c style file-level globals
-static dispatch_semaphore_t _global_locks[Environment::NUM_LOCKS];
 
 Environment Environment::_instance;
 
@@ -25,8 +21,7 @@ Environment::Environment()
 
 Environment::~Environment()
 {
-	for (size_t i = 0; i < NUM_LOCKS; i++)
-		_global_locks[i] = NULL;
+	
 }
 
 bool Environment::init()
@@ -41,21 +36,6 @@ bool Environment::init()
 	
 	info("%s v%s %s @%s", name.sysname, name.release, name.machine, name.nodename);
 	info("%s", name.version);
-	
-	// The thing everyone knows.
-	srand((unsigned)time(NULL));
-	
-	// Initialize locks
-	for (size_t i = 0; i < NUM_LOCKS; i++)
-	{
-		_global_locks[i] = dispatch_semaphore_create(0);
-		
-		if (!_global_locks[i])
-		{
-			error("Could not create semaphore index %lu.", i);
-			return false;
-		}
-	}
 	
 	if (!Renderer::getInstance()->init())
 		return false;
@@ -111,51 +91,6 @@ sjtime_t Environment::currentTime()
 	return (ct.tv_sec * 1000) + ((sjtime_t)round(ct.tv_usec * 0.001));
 }
 
-/**
- Signal a semaphore. Similar to releasing a lock.
- @param name the SemaphoreNames enum id for the semaphore to lock
- */
-void Environment::releaseLock(LockNames name)
-{
-	long ret = dispatch_semaphore_signal(_global_locks[name]);
-	
-	if (ret)
-	{
-		info("Lock awoke a thread.");
-	}
-}
-
-/**
- Take a named lock
- @param name the name of the lock
- @param wait if true, wait for the lock, else just try
- @return true if the lock was obtained, false otherwise
- */
-bool Environment::requestLock(LockNames name, bool wait)
-{
-	long ret = dispatch_semaphore_wait(_global_locks[name],
-			wait ? DISPATCH_TIME_FOREVER : DISPATCH_TIME_NOW);
-	
-	return (ret == 0) ? true : false;
-}
-
-/**
- Wait for given amount milliseconds before giving up waiting for the lock
- @param name the name of the lock to wait on
- @param time the amount of time to wait in milliseconds
- @return
- */
-bool Environment::waitOnLock(LockNames name, sjtime_t time)
-{
-	// 1000 microseconds in a millisecond
-	// the unit is in nanoseconds
-	dispatch_time_t timeToWait = time * 1000 * NSEC_PER_USEC;
-	
-	long ret = dispatch_semaphore_wait(_global_locks[name], timeToWait);
-	
-	return (ret == 0) ? true : false;
-}
-
 unsigned int Environment::defaultFBO()
 {
 	// Use zero for the default FBO. N.B.: Not appropriate for iOS
@@ -181,4 +116,3 @@ void Environment::viewResize(unsigned int w, unsigned int h)
 {
 	Renderer::getInstance()->resize(Size2I(w, h));
 }
-
