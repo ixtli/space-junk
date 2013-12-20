@@ -14,7 +14,6 @@
 #include "geometry.h"
 
 class UILayer;
-class HUD;
 
 /**
  Manages the user interface layer which is drawn on top of the scene
@@ -49,9 +48,6 @@ private:
 	
 	/** Singleton instance */
 	static UIManager _instance;
-	
-	// @TODO: Do something with this
-	HUD* h;
 	
 };
 

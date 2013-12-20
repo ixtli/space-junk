@@ -10,7 +10,6 @@
 #define __SpaceJunk__ringBuffer__
 
 #include <atomic>
-#include <stdlib.h>
 
 // Single-producer, single-consumer ring buffer meant to fascilitate extremely
 // low-cost, thread safe async communication between two threads. Both lock-free
