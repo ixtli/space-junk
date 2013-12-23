@@ -27,7 +27,7 @@ misc
 ===
 ## source style and notes
 + try to limit lines to 80 characters in width: not all of us edit code on 20+ inch monitors.
-+ we take for granted that C++2003 value initialization rules are applied. By way of explanation, consider a template class C<type T> which contains a member variable of type T called x. We assume that after calling the default constructor C<int> foo = C<int>(), x will be equal to zero.
++ we take for granted that C++2003 value initialization rules are applied. By way of explanation, consider a template class `C<type T>` which contains a member variable of type T called x. We assume that after calling the default constructor `C<int> foo = C<int>()`, `foo.x` will be equal to zero.
 + don't cuddle { } with keywords or other statements except for `else` and `else if`
 
 ## troubleshooting
