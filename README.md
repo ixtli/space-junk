@@ -31,4 +31,4 @@ misc
 + don't cuddle { } with keywords or other statements except for `else` and `else if`
 
 ## troubleshooting
-+ Sometimes you might get an svn error when `make dependencies` tries to use git-svn to update subdirectories in the v8 subrepo. Simply delete the offending directories and rerun `makde dependencies`.
++ Sometimes you might get an svn error when `make dependencies` tries to use git-svn to update subdirectories in the v8 subrepo. Simply delete the offending directories and rerun `make dependencies`.
