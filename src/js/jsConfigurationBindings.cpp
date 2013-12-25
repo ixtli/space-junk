@@ -8,12 +8,15 @@
 
 #include "jsConfigurationBindings.h"
 
-void setPort(const FunctionCallbackInfo<Value> &info)
+void setPort(Local<String> property,
+						 Local<Value> value,
+						 const PropertyCallbackInfo<void>& info)
 {
 	
 }
 
-void getPort(const FunctionCallbackInfo<Value> &info)
+void getPort(Local<String> property,
+						 const PropertyCallbackInfo<Value>& info)
 {
 	info.GetReturnValue().Set(Integer::New(5));
 }

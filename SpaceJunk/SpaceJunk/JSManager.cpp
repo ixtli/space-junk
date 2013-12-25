@@ -49,14 +49,12 @@ bool JSManager::init()
 	
 	// Config object
 	Handle<ObjectTemplate> config = ObjectTemplate::New();
-	config->SetAccessor(String::New("port"),
-											FunctionTemplate::New(getPort),
-											FunctionTemplate::New(setPort));
+	config->SetAccessor(String::NewFromUtf8(isolate, "port"), getPort, setPort);
 	
 	// Expose some globals to the config file
 	
 	Handle<ObjectTemplate> global = ObjectTemplate::New();
-	global->Set(String::New("log"), FunctionTemplate::New(v8Log));
+	global->Set(String::NewFromUtf8(isolate, "log"), FunctionTemplate::New(v8Log));
 	Handle<Context> context = Context::New(isolate, NULL, global);
 	Context::Scope context_scope(context);
 	
@@ -65,7 +63,7 @@ bool JSManager::init()
 	if (!f.init("config", "js"))
 		return false;
 	
-	Handle<String> source = String::New(f.contents());
+	Handle<String> source = String::NewFromUtf8(isolate, f.contents());
 	Handle<Script> script = Script::Compile(source);
 	Handle<Value> result = script->Run();
 	Local<Boolean> b = result->ToBoolean();
