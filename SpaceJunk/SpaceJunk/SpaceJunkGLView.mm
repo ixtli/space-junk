@@ -17,8 +17,6 @@
 
 @implementation SpaceJunkGLView
 
-@synthesize resized;
-
 #pragma mark -
 #pragma mark CVDisplayLink methods
 
@@ -30,14 +28,11 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 																 CVOptionFlags* flagsOut,
 																 void* displayLinkContext)
 {
-	// Cast the view
-	SpaceJunkGLView* v = (__bridge SpaceJunkGLView*)displayLinkContext;
-	
 	// There is no autorelease pool when this method is called because it will be
 	// called from a background thread. It's important to create one or you will
 	// leak objects. With ARC, there's a convenient block for this!
 	@autoreleasepool {
-		[v drawView];
+		[(__bridge SpaceJunkGLView*)displayLinkContext drawView];
 	}
 	
 	return kCVReturnSuccess;
@@ -136,20 +131,19 @@ static CVReturn dispLinkCallback(CVDisplayLinkRef displayLink,
 	// CVDisplayLink draws on a secondary thread, instead of wasting time with
 	// locking, just service the rect size change whenever we can, since it's
 	// something that wont happen often and doesn't need to look good.
-	
-	resized = true;
+	self.resized = true;
 }
 
 - (void) drawView
 {
 	[[self openGLContext] makeCurrentContext];
 	
-	if (resized)
+	if (self.resized)
 	{
 		NSSize size = [self bounds].size;
 		Environment::viewResize((unsigned)round(size.width),
 														(unsigned)round(size.height));
-		resized = false;
+		self.resized = false;
 	}
 	
 	Environment::updateRenderables();

@@ -9,6 +9,7 @@
 #include "JSManager.h"
 #include "environment.h"
 #include "version.h"
+#include "configuration.h"
 
 #include "engine.h"
 
@@ -47,16 +48,8 @@ bool Engine::init()
 /** Initialize managers that implement IComponent */
 bool Engine::initComponents()
 {
-	_components[JS_MANAGER] = JSManager::getInstance();
-	
-	for (size_t i = 0; i < NUM_COMPONENTS; i++)
-	{
-		if (!_components[i]->init())
-		{
-			error("A component failed to intialize properly: halting.");
-			return false;
-		}
-	}
+	if (!JSManager::getInstance()->init())
+		return false;
 	
 	return true;
 }
@@ -66,9 +59,6 @@ void Engine::update(sjtime_t now)
 {
 	_lastUpdate = now - _lastUpdate;
 	
-	// Update components
-	for (size_t i = 0; i < NUM_COMPONENTS; i++)
-		_components[i]->update(_lastUpdate);
 	
 	_lastUpdate = now;
 }

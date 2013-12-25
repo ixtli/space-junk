@@ -9,9 +9,7 @@
 #ifndef __SpaceJunk__JSManager__
 #define __SpaceJunk__JSManager__
 
-#include "IComponent.h"
-
-class JSManager : public IComponent
+class JSManager
 {
 public:
 	
@@ -19,13 +17,12 @@ public:
 	static inline JSManager* getInstance() { return &_instance; };
 	
 	// IComponent implementation
-	void update(sjtime_t dt);
 	bool init();
 	
 private:
 	
 	JSManager();
-	virtual ~JSManager();
+	~JSManager();
 	
 	/** The singleton instance */
 	static JSManager _instance;

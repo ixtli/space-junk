@@ -29,14 +29,6 @@ private:
 	
 	static Engine _instance;
 	
-	typedef enum
-	{
-		JS_MANAGER,
-		NUM_COMPONENTS
-	} EngineComponentList;
-	
-	IComponent* _components[NUM_COMPONENTS];
-	
 	bool initComponents();
 	
 	sjtime_t _lastUpdate;

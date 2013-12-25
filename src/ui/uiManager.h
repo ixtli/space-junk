@@ -10,7 +10,7 @@
 #define __SpaceJunk__uiManager__
 
 #include "IComponent.h"
-
+#include "simpleVector.h"
 #include "geometry.h"
 
 class UILayer;
@@ -31,7 +31,7 @@ public:
 	
 	void viewDidResize(const Size2I &bounds);
 	bool addLayer(UILayer* layer);
-	bool removeLayer(const UILayer* layer);
+	bool removeLayer(UILayer* const layer);
 	
 	static void draw();
 	
@@ -40,11 +40,7 @@ private:
 	UIManager();
 	virtual ~UIManager();
 	
-	bool growLayerList();
-	
-	UILayer** _layers;
-	size_t _maxLayers;
-	size_t _layerCount;
+	SimpleVector<UILayer*, true> _layers;
 	
 	/** Singleton instance */
 	static UIManager _instance;
