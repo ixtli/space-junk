@@ -1,7 +1,8 @@
 (function() {
 
-	log("Hello!");
-
-	return true;
+ spacejunk.log("Current port: " + spacejunk.port);
+ spacejunk.port = 8080;
+ spacejunk.blah = "Moo";
+ return true;
 
 })();

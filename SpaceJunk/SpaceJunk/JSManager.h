@@ -16,6 +16,9 @@ public:
 	/** @return the singleton instance */
 	static inline JSManager* getInstance() { return &_instance; };
 	
+	/** The javaScript file extension, with '.' in front */
+	constexpr static const char * JS_EXTENSION = ".js";
+	
 	// IComponent implementation
 	bool init();
 	
