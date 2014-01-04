@@ -17,7 +17,7 @@
 #include "glm.hpp"
 #include "matrix_transform.hpp"
 #include "type_ptr.hpp"
-#pragma cland diagnostic pop
+#pragma clang diagnostic pop
 
 typedef enum
 {

@@ -9,7 +9,10 @@
 #ifndef SpaceJunk_v8Util_h
 #define SpaceJunk_v8Util_h
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wshadow"
 #include "v8.h"
+#pragma clang diagnostic pop
 
 #define V8GETTER(X, PROP, INFO) void X(\
 	v8::Local<v8::String> PROP,\
