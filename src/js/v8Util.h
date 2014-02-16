@@ -23,11 +23,41 @@
 	v8::Local<v8::Value> VAL,\
 	const v8::PropertyCallbackInfo<void>& INFO)
 
+#define V8GETVAL(ISOLATE, OBJECT, NAME) \
+	OBJECT->Get(v8::String::NewFromUtf8(ISOLATE, NAME))
+
 inline const char * V8StrToCStr(const v8::String::Utf8Value& val)
 {
 	return *val ? *val : "<V8 String Conversion Failed>";
 }
 
+inline bool V8_V_TO_UINT32(const v8::Value* val, unsigned int &target)
+{
+	if (!val->IsUint32()) return false;
+	target = val->ToUint32()->Value();
+	return true;
+}
+
+inline bool V8_V_TO_INT32(const v8::Value* val, int &target)
+{
+	if (!val->IsInt32()) return false;
+	target = val->ToInt32()->Value();
+	return true;
+}
+
+inline bool V8_V_TO_BOOL(const v8::Value* val, bool &target)
+{
+	if (!val->IsBoolean()) return false;
+	target = val->ToBoolean()->Value();
+	return true;
+}
+
+inline bool V8_V_TO_STRING(const v8::Value* val, const char* &target)
+{
+	if (!val->IsString()) return false;
+	target = "TEST";
+	return true;
+}
 
 inline void v8Log(const v8::FunctionCallbackInfo<v8::Value> &args)
 {

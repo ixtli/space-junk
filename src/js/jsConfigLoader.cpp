@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "v8Util.h"
 #include "file.h"
 #include "configuration.h"
 #include "jsConfigLoader.h"
@@ -21,53 +20,64 @@ JSConfigLoader::JSConfigLoader()
 
 JSConfigLoader::~JSConfigLoader()
 {
+	_context.Reset();
+}
+
+void JSConfigLoader::installConfiguration(Persistent<Context> context)
+{
 	
 }
 
-static V8GETTER(portGetter, property, info)
+void JSConfigLoader::processConfigObject()
 {
-	info.GetReturnValue().Set(Integer::New(Configuration::getInstance()->_serverPort));
-}
-
-static V8SETTER(portSetter, prop, value, info)
-{
-	Local<Int32> port = value->ToInt32();
-	Configuration::getInstance()->_serverPort = port->Value();
+	Isolate* isolate = JSManager::getInstance()->isolate();
+	
+	// Get the instantiation of the global object
+	Local<Context> ctx = Local<Context>::New(isolate, _context);
+	Local<Object> globalInstance = JSManager::getInstance()->getGlobalObject(ctx);
+	
+	Local<Value> port = V8GETVAL(isolate, globalInstance, "port");
+	
+	if (!V8_V_TO_UINT32(*port, Configuration::getInstance()->_serverPort))
+	{
+		warn("Port not a uint. Ignoring.");
+	} else {
+		
+		info("Port after config: %u", Configuration::getInstance()->_serverPort);
+	}
 }
 
 bool JSConfigLoader::init()
 {
-	
-	// Create the configuration global template
-	Isolate* isolate = Isolate::GetCurrent();
+	Isolate* isolate = JSManager::getInstance()->isolate();
 	HandleScope handle_scope(isolate);
 	
-	// Expose some globals to the config file
-	Handle<ObjectTemplate> global = ObjectTemplate::New();
-	Handle<ObjectTemplate> sj = ObjectTemplate::New();
+	// Get a new object template for the global object
+	Local<ObjectTemplate> global = JSManager::getInstance()->newGlobalTemplate();
 	
-	sj->Set(String::NewFromUtf8(isolate, "log"), FunctionTemplate::New(v8Log));
-//	sj->SetAccessor(String::NewFromUtf8(isolate, "port"), portGetter, portSetter);
+	// Create the context in which to run the script
+	Local<Context> context = Context::New(isolate, NULL, global);
 	
-	Handle<String> sjName = String::NewFromUtf8(isolate, "spacejunk");
-	global->Set(sjName, sj);
-	Handle<Context> context = Context::New(isolate, NULL, global);
+	// Save the context so we can operate on it later
+	_context.Reset(isolate, context);
+	
+	// Enter the context so operations happen in it
 	Context::Scope context_scope(context);
 	
-	// Run our loaded config script in the contents
-	File f;
-	if (!f.init(CONFIG_NAME, JSManager::JS_EXTENSION))
+	// Run the script itself by name
+	Local<Value> ret = JSManager::runScript(CONFIG_NAME);
+	
+	bool result = false;
+	if (!V8_V_TO_BOOL(*ret, result))
+	{
+		error("Configuration did not return a boolean.");
 		return false;
+	} else if (!result) {
+		error("Configuration did not return true.");
+		return false;
+	}
 	
-	Handle<String> source = String::NewFromUtf8(isolate, f.contents());
-	Handle<Script> script = Script::Compile(source);
-	Handle<Value> result = script->Run();
+	processConfigObject();
 	
-	Handle<Object> blah = context->Global()->Get(sjName)->ToObject();
-	Handle<Value> port = blah->Get(String::NewFromUtf8(isolate, "port"));
-	
-	String::Utf8Value portAsStr(port);
-	info("port: %s", V8StrToCStr(portAsStr));
-	
-	return result->ToBoolean()->Value();
+	return true;
 }

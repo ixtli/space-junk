@@ -15,7 +15,7 @@ public:
 	
 	inline static Configuration* getInstance() { return &_instance; };
 	
-	int _serverPort;
+	unsigned int _serverPort;
 	
 private:
 	

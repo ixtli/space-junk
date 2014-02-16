@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__jsConfigLoader__
 #define __SpaceJunk__jsConfigLoader__
 
+#include "v8Util.h"
+
 class JSConfigLoader
 {
 public:
@@ -18,9 +20,15 @@ public:
 	
 	bool init();
 	
+	static void installConfiguration(v8::Persistent<v8::Context> context);
+	
 private:
 	
 	constexpr static const char * CONFIG_NAME = "config";
+	
+	void processConfigObject();
+	
+	v8::Persistent<v8::Context> _context;
 	
 };
 
