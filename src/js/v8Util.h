@@ -52,10 +52,10 @@ inline bool V8_V_TO_BOOL(const v8::Value* val, bool &target)
 	return true;
 }
 
-inline bool V8_V_TO_STRING(const v8::Value* val, const char* &target)
+inline bool V8_V_TO_STRING(const v8::Local<v8::Value> val, const char* &target)
 {
-	if (!val->IsString()) return false;
-	target = "TEST";
+	v8::String::Utf8Value utf8_value(val);
+	target = *utf8_value;
 	return true;
 }
 

@@ -10,6 +10,7 @@
 #include "shaderManager.h"
 
 ShaderFormat ShaderManager::_currentProgramID = NUM_SHADER_TYPES;
+
 ShaderManager ShaderManager::_instance;
 
 ShaderManager::ShaderManager()
@@ -24,7 +25,7 @@ bool ShaderManager::init()
 {
 	info("Initializing %u shaders.", NUM_SHADER_TYPES);
 	
-	for (ShaderFormat i = (ShaderFormat)0; i < NUM_SHADER_TYPES; i++)
+	for (unsigned int i = 0; i < NUM_SHADER_TYPES; i++)
 	{
 		if (!_shaders[i].init(ShaderFormats::definitions[i]))
 			return false;
@@ -35,11 +36,11 @@ bool ShaderManager::init()
 
 void ShaderManager::applyProjectionMVP(const glm::mat4 &mvp, ProjectionStyle style)
 {
-	for (ShaderFormat i = (ShaderFormat)0; i < NUM_SHADER_TYPES; i++)
+	for (unsigned int i = 0; i < NUM_SHADER_TYPES; i++)
 	{
 		if (ShaderFormats::definitions[i].projection == style)
 		{
-			setMVP(mvp, i);
+			setMVP(mvp, (ShaderFormat)i);
 		}
 	}
 }

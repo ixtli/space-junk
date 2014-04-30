@@ -11,6 +11,9 @@
 #include "jsConfigLoader.h"
 #include "JSManager.h"
 
+#include <wchar.h>
+#include <locale>
+
 using namespace v8;
 
 JSConfigLoader::JSConfigLoader()
@@ -45,6 +48,11 @@ void JSConfigLoader::processConfigObject()
 		
 		info("Port after config: %u", Configuration::getInstance()->_serverPort);
 	}
+	
+	Local<Value> blah = V8GETVAL(isolate, globalInstance, "blah");
+	const char *str = NULL;
+	V8_V_TO_STRING(blah, str);
+	info("value of blah var: %ls", L"Foo");
 }
 
 bool JSConfigLoader::init()

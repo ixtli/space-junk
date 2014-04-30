@@ -10,6 +10,8 @@
 #include "file.h"
 #include "jsConfigLoader.h"
 
+#include <locale>
+
 using namespace v8;
 
 JSManager JSManager::_instance;
