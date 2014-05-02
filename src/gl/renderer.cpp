@@ -60,17 +60,8 @@ bool Renderer::init()
 
 bool Renderer::initComponents()
 {
-	_components[UI_MANAGER] = UIManager::getInstance();
-	_components[CUBE_MANANGER] = CubeManager::getInstance();
-	
-	for (size_t i = 0; i < NUM_COMPONENTS; i++)
-	{
-		if (!_components[i]->init())
-		{
-			error("Component failed to initialize.");
-			return false;
-		}
-	}
+	UIManager::getInstance()->init();
+	CubeManager::getInstance()->init();
 	
 	return true;
 }
@@ -119,10 +110,8 @@ void Renderer::update(sjtime_t currentTime)
 {
 	sjtime_t dt = currentTime - _lastUpdate;
 	
-	for (size_t i = 0; i < NUM_COMPONENTS; i++)
-	{
-		_components[i]->update(dt);
-	}
+	UIManager::getInstance()->update(dt);
+	CubeManager::getInstance()->update(dt);
 	
 	_lastUpdate = currentTime;
 }

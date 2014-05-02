@@ -12,9 +12,7 @@
 #include "geometry.h"
 #include "glutil.h"
 
-#include "IComponent.h"
-
-class Renderer : public IComponent
+class Renderer
 {
 public:
 	
@@ -62,8 +60,6 @@ private:
 	
 	Renderer();
 	virtual ~Renderer();
-	
-	IComponent* _components[NUM_COMPONENTS];
 	
 	Size2I _bounds;
 	GLuint _defaultFBOName;

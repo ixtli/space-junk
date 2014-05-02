@@ -9,15 +9,13 @@
 #ifndef __SpaceJunk__cubeScene__
 #define __SpaceJunk__cubeScene__
 
-#include "IComponent.h"
-
 #include "glutil.h"
 #include "camera.h"
 #include "shaderManager.h"
 #include "triangleBuffer.h"
 #include "cube.h"
 
-class CubeManager : public IComponent
+class CubeManager
 {
 public:
 	

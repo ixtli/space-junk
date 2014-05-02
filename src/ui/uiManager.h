@@ -9,7 +9,6 @@
 #ifndef __SpaceJunk__uiManager__
 #define __SpaceJunk__uiManager__
 
-#include "IComponent.h"
 #include "simpleVector.h"
 #include "geometry.h"
 
@@ -18,7 +17,7 @@ class UILayer;
 /**
  Manages the user interface layer which is drawn on top of the scene
  */
-class UIManager : public IComponent
+class UIManager
 {
 public:
 	

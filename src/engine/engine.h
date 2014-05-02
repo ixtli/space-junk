@@ -9,9 +9,7 @@
 #ifndef __Space_Junk__engine__
 #define __Space_Junk__engine__
 
-#include "IComponent.h"
-
-class Engine : public IComponent
+class Engine
 {
 public:
 	

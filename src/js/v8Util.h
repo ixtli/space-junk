@@ -52,13 +52,6 @@ inline bool V8_V_TO_BOOL(const v8::Value* val, bool &target)
 	return true;
 }
 
-inline bool V8_V_TO_STRING(const v8::Local<v8::Value> val, const char* &target)
-{
-	v8::String::Utf8Value utf8_value(val);
-	target = *utf8_value;
-	return true;
-}
-
 inline void v8Log(const v8::FunctionCallbackInfo<v8::Value> &args)
 {
 	int length = args.Length();

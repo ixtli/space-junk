@@ -45,14 +45,12 @@ void JSConfigLoader::processConfigObject()
 	{
 		warn("Port not a uint. Ignoring.");
 	} else {
-		
 		info("Port after config: %u", Configuration::getInstance()->_serverPort);
 	}
 	
 	Local<Value> blah = V8GETVAL(isolate, globalInstance, "blah");
-	const char *str = NULL;
-	V8_V_TO_STRING(blah, str);
-	info("value of blah var: %ls", L"Foo");
+	String::Utf8Value example(blah);
+	info("value of blah var: %s", *example);
 }
 
 bool JSConfigLoader::init()

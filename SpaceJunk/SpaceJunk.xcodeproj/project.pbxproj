@@ -171,7 +171,6 @@
 		A3EA781C1826ED830052CFC9 /* libicui18n.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicui18n.a; path = "../v8-build/native/libicui18n.a"; sourceTree = "<group>"; };
 		A3EA782E1826EDB50052CFC9 /* libicudata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicudata.a; path = "../v8-build/native/libicudata.a"; sourceTree = "<group>"; };
 		A3EA782F1826EDB50052CFC9 /* libicuuc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicuuc.a; path = "../v8-build/native/libicuuc.a"; sourceTree = "<group>"; };
-		A3EA78781826F8C40052CFC9 /* IComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IComponent.h; sourceTree = "<group>"; };
 		A3EA787A1827557A0052CFC9 /* JSManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSManager.cpp; sourceTree = "<group>"; };
 		A3EA787B1827557A0052CFC9 /* JSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -361,7 +360,6 @@
 				A3A86D5F17B2127700426EEC /* environment-osx.mm */,
 				A3A86D6417B2127700426EEC /* version.h */,
 				A3E38A4017BC9AE200A8D678 /* easing.h */,
-				A3EA78781826F8C40052CFC9 /* IComponent.h */,
 				A3A356ED183895EF00F87091 /* Easer.cpp */,
 				A3A356EE183895EF00F87091 /* Easer.h */,
 				A33EA92018690CAA008D1334 /* configuration.cpp */,
