@@ -17,13 +17,13 @@ public:
 	inline static Engine* getInstance() { return &_instance; };
 	
 	// IComponent functionality
-	virtual bool init();
-	virtual void update(sjtime_t now);
+	bool init();
+	void update(sjtime_t now);
 	
 private:
 	
 	Engine();
-	virtual ~Engine();
+	~Engine();
 	
 	static Engine _instance;
 	

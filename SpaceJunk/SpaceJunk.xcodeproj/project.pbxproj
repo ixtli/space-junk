@@ -25,6 +25,7 @@
 		A317B53017B82B9A00416550 /* cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52E17B82B9A00416550 /* cube.cpp */; };
 		A33EA91C18690B01008D1334 /* config.js in Resources */ = {isa = PBXBuildFile; fileRef = A33EA91A18690A8B008D1334 /* config.js */; };
 		A33EA92218690CAA008D1334 /* configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A33EA92018690CAA008D1334 /* configuration.cpp */; };
+		A37E6E6819133E370011096E /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A37E6E6619133E370011096E /* server.cpp */; };
 		A3A356EF183895EF00F87091 /* Easer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A356ED183895EF00F87091 /* Easer.cpp */; };
 		A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */; };
 		A3A86D8D17B2128900426EEC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86D8C17B2128900426EEC /* OpenGL.framework */; };
@@ -103,6 +104,8 @@
 		A33EA92118690CAA008D1334 /* configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
 		A37D709C18617D5F001652B0 /* randUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = randUtil.h; path = ../../src/engine/randUtil.h; sourceTree = "<group>"; };
 		A37D709E18650F7A001652B0 /* simpleVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = simpleVector.h; sourceTree = "<group>"; };
+		A37E6E6619133E370011096E /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server.cpp; path = ../../src/server/server.cpp; sourceTree = "<group>"; };
+		A37E6E6719133E370011096E /* server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = server.h; path = ../../src/server/server.h; sourceTree = "<group>"; };
 		A397FCBB183AFCB700572122 /* ringBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ringBuffer.h; path = ../../src/engine/ringBuffer.h; sourceTree = "<group>"; };
 		A3A356ED183895EF00F87091 /* Easer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Easer.cpp; sourceTree = "<group>"; };
 		A3A356EE183895EF00F87091 /* Easer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Easer.h; sourceTree = "<group>"; };
@@ -264,6 +267,7 @@
 				A3A86D6517B2127700426EEC /* game */,
 				A3A86D6817B2127700426EEC /* gl */,
 				A3A86D8117B2127700426EEC /* ui */,
+				A37E6E6919133E450011096E /* server */,
 				A3A86D4B17B210C300426EEC /* SpaceJunkGLView.h */,
 				A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */,
 				A315CD8417B2041B00DEA6D2 /* SpaceJunkAppDelegate.h */,
@@ -349,6 +353,15 @@
 				A37D709E18650F7A001652B0 /* simpleVector.h */,
 			);
 			name = util;
+			sourceTree = "<group>";
+		};
+		A37E6E6919133E450011096E /* server */ = {
+			isa = PBXGroup;
+			children = (
+				A37E6E6619133E370011096E /* server.cpp */,
+				A37E6E6719133E370011096E /* server.h */,
+			);
+			name = server;
 			sourceTree = "<group>";
 		};
 		A3A86D5A17B2127700426EEC /* engine */ = {
@@ -573,6 +586,7 @@
 				A3A86D9C17B2144F00426EEC /* rectLayer.cpp in Sources */,
 				A3A86D9D17B2144F00426EEC /* renderer.cpp in Sources */,
 				A3A86D9E17B2144F00426EEC /* shader.cpp in Sources */,
+				A37E6E6819133E370011096E /* server.cpp in Sources */,
 				A3A86D9F17B2144F00426EEC /* shaderFormats.cpp in Sources */,
 				A3A86DA017B2144F00426EEC /* shaderManager.cpp in Sources */,
 				A3A86DA117B2144F00426EEC /* triangleBuffer.cpp in Sources */,

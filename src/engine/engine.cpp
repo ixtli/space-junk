@@ -7,6 +7,7 @@
 //
 
 #include "JSManager.h"
+#include "server.h"
 #include "environment.h"
 #include "version.h"
 #include "configuration.h"
@@ -39,6 +40,9 @@ bool Engine::init()
 	// Start components
 	initComponents();
 	
+	// Start the server
+	Server::getInstance()->run();
+	
 	// Do this last so the gap isn't too great
 	_lastUpdate = Environment::currentTime();
 	
@@ -49,6 +53,9 @@ bool Engine::init()
 bool Engine::initComponents()
 {
 	if (!JSManager::getInstance()->init())
+		return false;
+	
+	if (!Server::getInstance()->init())
 		return false;
 	
 	return true;
