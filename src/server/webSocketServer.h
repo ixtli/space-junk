@@ -14,10 +14,15 @@
 class WebSocketMessage
 {
 public:
-	WebSocketMessage(int fileDescriptor);
+	
+	WebSocketMessage();
 	~WebSocketMessage();
 	
-	void read();
+	bool read(int fileDescriptor);
+	
+	inline size_t messageLength() const { return _messageLength; };
+	inline const char* const message() const { return _message; };
+	inline bool complete() const { return _complete; };
 	
 private:
 	
@@ -48,16 +53,12 @@ private:
 		unsigned int payloadLength : 7;
 	} Header;
 	
-	// Message metadata
-	Header _preamble;
-	unsigned long _totalPayloadLength;
+	char* _message;
+	size_t _messageLength;
+	bool _complete;
 	
-	
-	int _fileDescriptor;
-	
-	ssize_t readBytes(size_t count, void* loc);
+	ssize_t readBytes(int fd, size_t count, void* loc);
+	void addToMessage(const char* msg, size_t len);
 };
-
-
 
 #endif /* defined(__SpaceJunk__webSocketServer__) */

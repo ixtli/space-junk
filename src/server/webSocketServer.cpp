@@ -10,27 +10,32 @@
 
 #include <cstdint>
 
-WebSocketMessage::WebSocketMessage(int fileDescriptor) :
+WebSocketMessage::WebSocketMessage() :
 
-_fileDescriptor(fileDescriptor)
+_message(NULL),
+_messageLength(0),
+_complete(false)
 
 {}
 
 WebSocketMessage::~WebSocketMessage()
 {
-	
+	if (_message || _messageLength)
+	{
+		delete [] _message;
+	}
 }
 
-ssize_t WebSocketMessage::readBytes(size_t count, void *loc)
+ssize_t WebSocketMessage::readBytes(int fd, size_t count, void *loc)
 {
-	ssize_t bytesRead = recv(_fileDescriptor, loc, count, 0);
+	ssize_t bytesRead = recv(fd, loc, count, 0);
 	
 	if (bytesRead <= 0)
 	{
 		// Got error connection closed by client
 		if (bytesRead == 0)
 		{
-			info("Socket %d hung up.", _fileDescriptor);
+			info("Socket %d hung up.", fd);
 		} else {
 			error("recv");
 		}
@@ -39,7 +44,7 @@ ssize_t WebSocketMessage::readBytes(size_t count, void *loc)
 	return bytesRead;
 }
 
-void WebSocketMessage::read()
+bool WebSocketMessage::read(int fileDescriptor)
 {
 	/*
 	 Protocol frame map:
@@ -66,25 +71,31 @@ void WebSocketMessage::read()
 	 
 	 */
 	
-	// Handle data from a client
-	if (!readBytes(sizeof(_preamble), &_preamble))
-		return;
+	// The message preamble
+	Header preamble;
 	
-	// There's some magic to be done when determining the size of the message
-	if (_preamble.payloadLength <= 125)
+	// Handle data from a client
+	if (!readBytes(fileDescriptor, sizeof(preamble), &preamble))
+		return false;
+	
+	// Will eventually contain the total byte size of message payload
+	unsigned long totalPayloadLength = 0;
+	
+	// preamble some magic to be done when determining the size of the message
+	if (preamble.payloadLength <= 125)
 	{
-		_totalPayloadLength = _preamble.payloadLength;
+		totalPayloadLength = preamble.payloadLength;
 		
-	} else if (_preamble.payloadLength == 126) {
+	} else if (preamble.payloadLength == 126) {
 		
 		// the following 2 bytes interpreted as a	16-bit unsigned integer are the
 		// payload length.
 		uint_fast16_t extraLen;
 		
-		if(!readBytes(sizeof(extraLen), &extraLen))
-			return;
+		if(!readBytes(fileDescriptor, sizeof(extraLen), &extraLen))
+			return false;
 		
-		_totalPayloadLength = extraLen;
+		totalPayloadLength = extraLen;
 		
 	} else {
 		
@@ -92,33 +103,72 @@ void WebSocketMessage::read()
 		// most significant bit MUST be 0) are the payload length.
 		uint_fast64_t extraLen;
 		
-		if(!readBytes(sizeof(extraLen), &extraLen))
-			return;
+		if(!readBytes(fileDescriptor, sizeof(extraLen), &extraLen))
+			return false;
 		
-		_totalPayloadLength = extraLen;
+		totalPayloadLength = extraLen;
 	}
 	
 	// Under the current version of the protocol, all payloads are masked, but
 	// it's still technically possible for the client to send unmasked data
 	uint_fast32_t maskingKey;
 	
-	if (_preamble.mask)
+	// The 32bit masking key is not present if the mask bit isn't set
+	if (preamble.mask)
 	{
-		if (!readBytes(sizeof(maskingKey), &maskingKey))
-			return;
+		if (!readBytes(fileDescriptor, sizeof(maskingKey), &maskingKey))
+			return false;
 	}
 	
-	info("WS OpCode: %u", _preamble.opCode);
+	// Read the message
+	char msg[totalPayloadLength + 1];
+	msg[totalPayloadLength] = '\0';
 	
-	char msg[_totalPayloadLength + 1];
-	msg[_totalPayloadLength] = '\0';
+	// Make sure the expected amount of bytes was read
+	ssize_t count = readBytes(fileDescriptor, totalPayloadLength, msg);
 	
-	ssize_t count = readBytes(_totalPayloadLength, msg);
+	info("C: %u\tM: %s\t%lu/%lu bytes:",
+			 preamble.opCode,
+			 (preamble.mask ? "yes" : "no"),
+			 count,
+			 totalPayloadLength);
 	
-	info("Read %lu / %lu bytes.",
-			 _totalPayloadLength,
-			 count);
+	// This would count as a violation of the standard.
+	if (count < totalPayloadLength)
+	{
+		error("Less bytes read than expected.");
+		return false;
+	}
 	
-	info("Read message: %s", msg);
+	if (preamble.fin)
+	{
+		_complete = true;
+		info("Message complete.");
+	}
+	
+	// This function appends a '\0' so only provide the raw string
+	addToMessage(msg, totalPayloadLength);
+	
+	return true;
+}
+
+void WebSocketMessage::addToMessage(const char *msg, size_t len)
+{
+	size_t newLength = _messageLength + len;
+	char* newMessage = new char[newLength + 1];
+	
+	// Safety
+	if (_messageLength && _message)
+	{
+		memcpy(newMessage, _message, _messageLength);
+		// We nolonger need the old one
+		delete [] _message;
+	}
+	
+	memcpy(newMessage + _messageLength, msg, len);
+	newMessage[newLength] = '\0';
+	
+	_messageLength = newLength;
+	_message = newMessage;
 }
 

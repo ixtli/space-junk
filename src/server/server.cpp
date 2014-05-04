@@ -136,6 +136,8 @@ void Server::awaitConnection()
 	int newFileDescriptor;
 	char remoteIP[INET6_ADDRSTRLEN];
 	
+	WebSocketMessage* msg = NULL;
+	
 	// When the application begins to shut down, this bit will get flipped
 	// and the thread will terminate
 	while (!_shouldTerminateThread)
@@ -191,9 +193,19 @@ void Server::awaitConnection()
 				continue;
 			}
 			
-			// Parse the message
-			WebSocketMessage msg(i);
-			msg.read();
+			if (!msg)
+			{
+				msg = new WebSocketMessage();
+			}
+			
+			msg->read(i);
+			
+			if (msg->complete())
+			{
+				info("MESSAGE:\n%s", msg->message());
+				delete msg;
+				msg = NULL;
+			}
 		}
 	}
 	
