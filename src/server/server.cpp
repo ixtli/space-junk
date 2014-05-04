@@ -15,6 +15,8 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
+#include "webSocketServer.h"
+
 #include "server.h"
 
 #pragma mark -
@@ -120,6 +122,8 @@ void Server::awaitConnection()
 		return;
 	}
 	
+	info("Listening on port: %s", kPortName);
+	
 	// Add the listener to the master set
 	FD_SET(listeningSocket, &master_fds);
 	
@@ -131,7 +135,6 @@ void Server::awaitConnection()
 	socklen_t addressLength;
 	int newFileDescriptor;
 	char remoteIP[INET6_ADDRSTRLEN];
-	char readBuffer[256];
 	
 	// When the application begins to shut down, this bit will get flipped
 	// and the thread will terminate
@@ -150,69 +153,57 @@ void Server::awaitConnection()
 		// Run through existing connections looking for data to read
 		for (int i = 0; i <= largestFileDescriptor; i++)
 		{
-			if (FD_ISSET(i, &read_fds))
+			if (!FD_ISSET(i, &read_fds))
 			{
-				// We got a connection!
-				if (i == listeningSocket)
-				{
-					// Handle a new connection
-					addressLength = sizeof(remoteAddress);
-					newFileDescriptor = accept(listeningSocket,
-																		 (struct sockaddr*) &remoteAddress,
-																		 &addressLength);
-					
-					// Error checking
-					if (newFileDescriptor == -1)
-					{
-						error("accept() failed.");
-						continue;
-					}
-					
-					FD_SET(newFileDescriptor, &master_fds);
-					if (newFileDescriptor > largestFileDescriptor)
-					{
-						largestFileDescriptor = newFileDescriptor;
-					}
-					
-					info("New connection from %s on socket %d",
-							 inet_ntop(remoteAddress.ss_family,
-												 get_in_addr(((struct sockaddr*)&remoteAddress)),
-												 remoteIP,
-												 INET6_ADDRSTRLEN),
-							 newFileDescriptor);
-					
-					continue;
-				}
-				
-				// Handle data from a client
-				ssize_t bytesRead = recv(i, readBuffer, sizeof(readBuffer), 0);
-				
-				if (bytesRead <= 0)
-				{
-					// Got error connection closed by client
-					if (bytesRead == 0)
-					{
-						info("Socket %d hung up.", i);
-					} else {
-						error("recv");
-					}
-					
-					close(i);
-					FD_CLR(i, &master_fds);
-					
-					continue;
-				}
-				
-				// We got some data from the client!
-				const char *msg = "{ \"success\": true }";
-				if (send(i, msg, 22, 0) == -1)
-				{
-					error("send() failed");
-				}
-				
-				info("msg from socket %d: %s", i, readBuffer);
+				continue;
 			}
+			
+			// We got a connection!
+			if (i == listeningSocket)
+			{
+				// Handle a new connection
+				addressLength = sizeof(remoteAddress);
+				newFileDescriptor = accept(listeningSocket,
+																	 (struct sockaddr*) &remoteAddress,
+																	 &addressLength);
+				
+				// Error checking
+				if (newFileDescriptor == -1)
+				{
+					error("accept() failed.");
+					continue;
+				}
+				
+				// Keep track of largest file descriptor
+				FD_SET(newFileDescriptor, &master_fds);
+				if (newFileDescriptor > largestFileDescriptor)
+				{
+					largestFileDescriptor = newFileDescriptor;
+				}
+				
+				info("New connection from %s on socket %d",
+						 inet_ntop(remoteAddress.ss_family,
+											 get_in_addr(((struct sockaddr*)&remoteAddress)),
+											 remoteIP,
+											 INET6_ADDRSTRLEN),
+						 newFileDescriptor);
+				
+				continue;
+			}
+			
+			// Parse the message
+			WebSocketMessage msg(i);
+			msg.read();
 		}
+	}
+	
+	info("Caught exit signal. Cleaning up.");
+	
+	// Clean up
+	for (int i = 0; i <= largestFileDescriptor; i++)
+	{
+		close(i);
+		FD_CLR(i, &master_fds);
 	}
 }
 

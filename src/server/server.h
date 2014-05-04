@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__server__
 #define __SpaceJunk__server__
 
+struct sockaddr;
+
 class Server
 {
 public:
@@ -26,7 +28,6 @@ private:
 	static Server _instance;
 	
 	static bool _shouldTerminateThread;
-	
 	static void* get_in_addr(struct sockaddr* sa);
 	static void awaitConnection();
 	
