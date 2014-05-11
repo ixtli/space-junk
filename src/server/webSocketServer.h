@@ -9,16 +9,17 @@
 #ifndef __SpaceJunk__webSocketServer__
 #define __SpaceJunk__webSocketServer__
 
-#include <sys/socket.h>
+#include "httpRequestHeaders.h"
 
 class WebSocketMessage
 {
 public:
 	
-	WebSocketMessage();
+	WebSocketMessage(int fileDescriptor);
 	~WebSocketMessage();
 	
-	bool read(int fileDescriptor);
+	bool init();
+	bool read();
 	
 	inline size_t messageLength() const { return _messageLength; };
 	inline const char* const message() const { return _message; };
@@ -51,14 +52,25 @@ private:
 		unsigned int opCode : 4;
 		unsigned int mask : 1;
 		unsigned int payloadLength : 7;
-	} Header;
+	} WSHeader;
 	
+	int _fileDescriptor;
 	char* _message;
 	size_t _messageLength;
 	bool _complete;
 	
-	ssize_t readBytes(int fd, size_t count, void* loc);
+	HTTPRequestHeaders _handshakeHeaders;
+	
+	ssize_t readBytes(size_t count, void* loc);
+	
 	void addToMessage(const char* msg, size_t len);
+	void clearMessage();
+	
+	void sendPong(const char* msg);
+	void sendHandshake();
+	
+	bool isControlFrame(const WSHeader& header);
+	bool isDataFrame(const WSHeader& header);
 };
 
 #endif /* defined(__SpaceJunk__webSocketServer__) */

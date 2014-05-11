@@ -16,6 +16,7 @@
 #include <netdb.h>
 
 #include "webSocketServer.h"
+#include "crypto.h"
 
 #include "server.h"
 
@@ -195,10 +196,19 @@ void Server::awaitConnection()
 			
 			if (!msg)
 			{
-				msg = new WebSocketMessage();
+				msg = new WebSocketMessage(i);
+				msg->init();
+				continue;
 			}
 			
-			msg->read(i);
+			if (!msg->read())
+			{
+				close(i);
+				FD_CLR(i, &master_fds);
+				delete msg;
+				msg = NULL;
+				continue;
+			}
 			
 			if (msg->complete())
 			{
@@ -224,6 +234,20 @@ bool Server::init()
 	info("Socket server initialization.");
 	
 	_shouldTerminateThread = false;
+	
+	// Test Base64 encode:
+	const char* testMessage = "Hello, World.";
+	int testSize = (int)strlen(testMessage);
+	const char* testTarget = "SGVsbG8sIFdvcmxkLg==";
+	char scratch[64];
+	memset(scratch, 0, 64);
+	base64Encode((const unsigned char*)testMessage, testSize, scratch);
+	
+	if (strcmp(scratch, testTarget))
+	{
+		error("Failed to correctly generate b64 string.");
+		return false;
+	}
 	
 	return true;
 }

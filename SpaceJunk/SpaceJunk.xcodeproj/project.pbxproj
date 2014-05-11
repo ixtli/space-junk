@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A30F4EAD191C5DF900C8E742 /* crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30F4EAB191C5DF900C8E742 /* crypto.cpp */; };
+		A30F4EAF191C621800C8E742 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A30F4EAE191C621700C8E742 /* libssl.dylib */; };
+		A30F4EB1191C621E00C8E742 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A30F4EB0191C621E00C8E742 /* libcrypto.dylib */; };
+		A30F4EB4191DA5F400C8E742 /* httpRequestHeaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30F4EB2191DA5F400C8E742 /* httpRequestHeaders.cpp */; };
 		A315CD7317B2041B00DEA6D2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A315CD7217B2041B00DEA6D2 /* Cocoa.framework */; };
 		A315CD7D17B2041B00DEA6D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A315CD7B17B2041B00DEA6D2 /* InfoPlist.strings */; };
 		A315CD7F17B2041B00DEA6D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A315CD7E17B2041B00DEA6D2 /* main.m */; };
@@ -56,6 +60,7 @@
 		A3D7802217B867CA00C173D4 /* solidCube.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3D7802017B8679200C173D4 /* solidCube.fsh */; };
 		A3D7802317B867CA00C173D4 /* solidCube.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3D7802117B867A100C173D4 /* solidCube.vsh */; };
 		A3D7806D17B8A15600C173D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A315CD8717B2041B00DEA6D2 /* MainMenu.xib */; };
+		A3E46B2C191DB922005A6738 /* stringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E46B2A191DB922005A6738 /* stringUtil.cpp */; };
 		A3EA781A1826ED5F0052CFC9 /* libv8_base.x64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */; };
 		A3EA781B1826ED5F0052CFC9 /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */; };
 		A3EA781D1826ED830052CFC9 /* libicui18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA781C1826ED830052CFC9 /* libicui18n.a */; };
@@ -75,6 +80,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A30F4EA7191B05CE00C8E742 /* utarray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utarray.h; sourceTree = "<group>"; };
+		A30F4EA8191B05CE00C8E742 /* uthash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uthash.h; sourceTree = "<group>"; };
+		A30F4EA9191B05CE00C8E742 /* utlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utlist.h; sourceTree = "<group>"; };
+		A30F4EAA191B05CE00C8E742 /* utstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utstring.h; sourceTree = "<group>"; };
+		A30F4EAB191C5DF900C8E742 /* crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = crypto.cpp; sourceTree = "<group>"; };
+		A30F4EAC191C5DF900C8E742 /* crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypto.h; sourceTree = "<group>"; };
+		A30F4EAE191C621700C8E742 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
+		A30F4EB0191C621E00C8E742 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
+		A30F4EB2191DA5F400C8E742 /* httpRequestHeaders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = httpRequestHeaders.cpp; path = ../../src/server/httpRequestHeaders.cpp; sourceTree = "<group>"; };
+		A30F4EB3191DA5F400C8E742 /* httpRequestHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = httpRequestHeaders.h; path = ../../src/server/httpRequestHeaders.h; sourceTree = "<group>"; };
 		A315CD6F17B2041B00DEA6D2 /* SpaceJunk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceJunk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A315CD7217B2041B00DEA6D2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A315CD7517B2041B00DEA6D2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -172,6 +187,8 @@
 		A3D7802A17B8992C00C173D4 /* matrix_transform.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = matrix_transform.hpp; path = ../glm/glm/gtc/matrix_transform.hpp; sourceTree = "<group>"; };
 		A3D7802C17B89CF900C173D4 /* type_ptr.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = type_ptr.hpp; path = ../glm/glm/gtc/type_ptr.hpp; sourceTree = "<group>"; };
 		A3E38A4017BC9AE200A8D678 /* easing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
+		A3E46B2A191DB922005A6738 /* stringUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stringUtil.cpp; path = ../../src/util/stringUtil.cpp; sourceTree = "<group>"; };
+		A3E46B2B191DB922005A6738 /* stringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stringUtil.h; path = ../../src/util/stringUtil.h; sourceTree = "<group>"; };
 		A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_base.x64.a; path = "../v8-build/native/libv8_base.x64.a"; sourceTree = "<group>"; };
 		A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_snapshot.a; path = "../v8-build/native/libv8_snapshot.a"; sourceTree = "<group>"; };
 		A3EA781C1826ED830052CFC9 /* libicui18n.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicui18n.a; path = "../v8-build/native/libicui18n.a"; sourceTree = "<group>"; };
@@ -186,6 +203,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A30F4EB1191C621E00C8E742 /* libcrypto.dylib in Frameworks */,
+				A30F4EAF191C621800C8E742 /* libssl.dylib in Frameworks */,
 				A3A86DAB17B214F400426EEC /* libpthread.dylib in Frameworks */,
 				A3EA781B1826ED5F0052CFC9 /* libv8_snapshot.a in Frameworks */,
 				A3A86D9317B2139C00426EEC /* QuartzCore.framework in Frameworks */,
@@ -210,9 +229,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A30F4EA6191B05CE00C8E742 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A30F4EA7191B05CE00C8E742 /* utarray.h */,
+				A30F4EA8191B05CE00C8E742 /* uthash.h */,
+				A30F4EA9191B05CE00C8E742 /* utlist.h */,
+				A30F4EAA191B05CE00C8E742 /* utstring.h */,
+			);
+			name = src;
+			path = ../uthash/src;
+			sourceTree = "<group>";
+		};
 		A315CD6617B2041B00DEA6D2 = {
 			isa = PBXGroup;
 			children = (
+				A30F4EA6191B05CE00C8E742 /* src */,
 				A3D7802917B86EB600C173D4 /* glm */,
 				A315CD7817B2041B00DEA6D2 /* SpaceJunk */,
 				A315CD9617B2041B00DEA6D2 /* SpaceJunkTests */,
@@ -233,6 +265,8 @@
 		A315CD7117B2041B00DEA6D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A30F4EB0191C621E00C8E742 /* libcrypto.dylib */,
+				A30F4EAE191C621700C8E742 /* libssl.dylib */,
 				A3EA782E1826EDB50052CFC9 /* libicudata.a */,
 				A3EA782F1826EDB50052CFC9 /* libicuuc.a */,
 				A3EA781C1826ED830052CFC9 /* libicui18n.a */,
@@ -354,6 +388,8 @@
 				A397FCBB183AFCB700572122 /* ringBuffer.h */,
 				A37D709C18617D5F001652B0 /* randUtil.h */,
 				A37D709E18650F7A001652B0 /* simpleVector.h */,
+				A3E46B2A191DB922005A6738 /* stringUtil.cpp */,
+				A3E46B2B191DB922005A6738 /* stringUtil.h */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -365,6 +401,8 @@
 				A37E6E6719133E370011096E /* server.h */,
 				A3D6DD191916BE4E00FC106E /* webSocketServer.cpp */,
 				A3D6DD1A1916BE4E00FC106E /* webSocketServer.h */,
+				A30F4EB2191DA5F400C8E742 /* httpRequestHeaders.cpp */,
+				A30F4EB3191DA5F400C8E742 /* httpRequestHeaders.h */,
 			);
 			name = server;
 			sourceTree = "<group>";
@@ -377,6 +415,8 @@
 				A3A86D5E17B2127700426EEC /* environment.h */,
 				A3A86D5F17B2127700426EEC /* environment-osx.mm */,
 				A3A86D6417B2127700426EEC /* version.h */,
+				A30F4EAB191C5DF900C8E742 /* crypto.cpp */,
+				A30F4EAC191C5DF900C8E742 /* crypto.h */,
 				A3E38A4017BC9AE200A8D678 /* easing.h */,
 				A3A356ED183895EF00F87091 /* Easer.cpp */,
 				A3A356EE183895EF00F87091 /* Easer.h */,
@@ -577,6 +617,7 @@
 				A3A356EF183895EF00F87091 /* Easer.cpp in Sources */,
 				A3C3BC4F17BC62C800FBF633 /* camera.cpp in Sources */,
 				A33EA92218690CAA008D1334 /* configuration.cpp in Sources */,
+				A30F4EB4191DA5F400C8E742 /* httpRequestHeaders.cpp in Sources */,
 				A317B52D17B8288B00416550 /* cubeManager.cpp in Sources */,
 				A317B51C17B222EF00416550 /* log.c in Sources */,
 				A3B16AE6186DF32B0093EBD5 /* jsConfigLoader.cpp in Sources */,
@@ -599,10 +640,12 @@
 				A3A86DA217B2144F00426EEC /* vertexFormats.cpp in Sources */,
 				A3A86DA317B2144F00426EEC /* uiColorRectLayer.cpp in Sources */,
 				A3A86DA417B2144F00426EEC /* uiColorRectElement.cpp in Sources */,
+				A30F4EAD191C5DF900C8E742 /* crypto.cpp in Sources */,
 				A3A86DA517B2144F00426EEC /* uiElement.cpp in Sources */,
 				A3A86DA617B2144F00426EEC /* uiLayer.cpp in Sources */,
 				A3EA787C1827557A0052CFC9 /* JSManager.cpp in Sources */,
 				A3A86DA717B2144F00426EEC /* uiManager.cpp in Sources */,
+				A3E46B2C191DB922005A6738 /* stringUtil.cpp in Sources */,
 				A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */,
 				A315CD7F17B2041B00DEA6D2 /* main.m in Sources */,
 				A315CD8617B2041B00DEA6D2 /* SpaceJunkAppDelegate.mm in Sources */,
@@ -766,6 +809,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
 			};
