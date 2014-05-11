@@ -56,7 +56,7 @@
 		A3A86DAB17B214F400426EEC /* libpthread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86DAA17B214F400426EEC /* libpthread.dylib */; };
 		A3B16AE6186DF32B0093EBD5 /* jsConfigLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3B16AE4186DF32B0093EBD5 /* jsConfigLoader.cpp */; };
 		A3C3BC4F17BC62C800FBF633 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3C3BC4D17BC62C800FBF633 /* camera.cpp */; };
-		A3D6DD1B1916BE4E00FC106E /* webSocketServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3D6DD191916BE4E00FC106E /* webSocketServer.cpp */; };
+		A3D6DD1B1916BE4E00FC106E /* webSocketMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3D6DD191916BE4E00FC106E /* webSocketMessage.cpp */; };
 		A3D7802217B867CA00C173D4 /* solidCube.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3D7802017B8679200C173D4 /* solidCube.fsh */; };
 		A3D7802317B867CA00C173D4 /* solidCube.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3D7802117B867A100C173D4 /* solidCube.vsh */; };
 		A3D7806D17B8A15600C173D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A315CD8717B2041B00DEA6D2 /* MainMenu.xib */; };
@@ -180,8 +180,8 @@
 		A3B16AE5186DF32B0093EBD5 /* jsConfigLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jsConfigLoader.h; path = ../../src/js/jsConfigLoader.h; sourceTree = "<group>"; };
 		A3C3BC4D17BC62C800FBF633 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
 		A3C3BC4E17BC62C800FBF633 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
-		A3D6DD191916BE4E00FC106E /* webSocketServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = webSocketServer.cpp; path = ../../src/server/webSocketServer.cpp; sourceTree = "<group>"; };
-		A3D6DD1A1916BE4E00FC106E /* webSocketServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = webSocketServer.h; path = ../../src/server/webSocketServer.h; sourceTree = "<group>"; };
+		A3D6DD191916BE4E00FC106E /* webSocketMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = webSocketMessage.cpp; path = ../../src/server/webSocketMessage.cpp; sourceTree = "<group>"; };
+		A3D6DD1A1916BE4E00FC106E /* webSocketMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = webSocketMessage.h; path = ../../src/server/webSocketMessage.h; sourceTree = "<group>"; };
 		A3D7802017B8679200C173D4 /* solidCube.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solidCube.fsh; sourceTree = "<group>"; };
 		A3D7802117B867A100C173D4 /* solidCube.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solidCube.vsh; sourceTree = "<group>"; };
 		A3D7802417B86E4200C173D4 /* glm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = glm.hpp; path = ../glm/glm/glm.hpp; sourceTree = "<group>"; };
@@ -404,8 +404,8 @@
 				A3E46B2D191F408E005A6738 /* webSocketSession.cpp */,
 				A3E46B2E191F408E005A6738 /* webSocketSession.h */,
 				A37E6E6719133E370011096E /* server.h */,
-				A3D6DD191916BE4E00FC106E /* webSocketServer.cpp */,
-				A3D6DD1A1916BE4E00FC106E /* webSocketServer.h */,
+				A3D6DD191916BE4E00FC106E /* webSocketMessage.cpp */,
+				A3D6DD1A1916BE4E00FC106E /* webSocketMessage.h */,
 				A30F4EB2191DA5F400C8E742 /* httpRequestHeaders.cpp */,
 				A30F4EB3191DA5F400C8E742 /* httpRequestHeaders.h */,
 			);
@@ -618,7 +618,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3D6DD1B1916BE4E00FC106E /* webSocketServer.cpp in Sources */,
+				A3D6DD1B1916BE4E00FC106E /* webSocketMessage.cpp in Sources */,
 				A3A356EF183895EF00F87091 /* Easer.cpp in Sources */,
 				A3C3BC4F17BC62C800FBF633 /* camera.cpp in Sources */,
 				A33EA92218690CAA008D1334 /* configuration.cpp in Sources */,

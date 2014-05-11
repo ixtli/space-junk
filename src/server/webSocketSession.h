@@ -9,7 +9,7 @@
 #ifndef __SpaceJunk__webSocketSession__
 #define __SpaceJunk__webSocketSession__
 
-#include "webSocketServer.h"
+#include "webSocketMessage.h"
 
 class WebSocketSession
 {

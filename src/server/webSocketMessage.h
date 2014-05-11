@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 ixtli. All rights reserved.
 //
 
-#ifndef __SpaceJunk__webSocketServer__
-#define __SpaceJunk__webSocketServer__
+#ifndef __SpaceJunk__webSocketMessage__
+#define __SpaceJunk__webSocketMessage__
 
 #include "httpRequestHeaders.h"
 
@@ -74,4 +74,4 @@ private:
 	bool isDataFrame(const WSHeader& header);
 };
 
-#endif /* defined(__SpaceJunk__webSocketServer__) */
+#endif /* defined(__SpaceJunk__webSocketMessage__) */

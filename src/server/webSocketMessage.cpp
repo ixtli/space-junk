@@ -1,5 +1,5 @@
 //
-//  webSocketServer.cpp
+//  webSocketMessage.cpp
 //  SpaceJunk
 //
 //  Created by ixtli on 5/4/14.
@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 #include "stringUtil.h"
-#include "webSocketServer.h"
+#include "webSocketMessage.h"
 #include "crypto.h"
 
 const char *kWebSocketProtocolVerison = "13";
