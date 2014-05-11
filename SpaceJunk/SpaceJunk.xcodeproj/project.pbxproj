@@ -61,6 +61,7 @@
 		A3D7802317B867CA00C173D4 /* solidCube.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3D7802117B867A100C173D4 /* solidCube.vsh */; };
 		A3D7806D17B8A15600C173D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A315CD8717B2041B00DEA6D2 /* MainMenu.xib */; };
 		A3E46B2C191DB922005A6738 /* stringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E46B2A191DB922005A6738 /* stringUtil.cpp */; };
+		A3E46B2F191F408E005A6738 /* webSocketSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E46B2D191F408E005A6738 /* webSocketSession.cpp */; };
 		A3EA781A1826ED5F0052CFC9 /* libv8_base.x64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */; };
 		A3EA781B1826ED5F0052CFC9 /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */; };
 		A3EA781D1826ED830052CFC9 /* libicui18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA781C1826ED830052CFC9 /* libicui18n.a */; };
@@ -189,6 +190,8 @@
 		A3E38A4017BC9AE200A8D678 /* easing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
 		A3E46B2A191DB922005A6738 /* stringUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stringUtil.cpp; path = ../../src/util/stringUtil.cpp; sourceTree = "<group>"; };
 		A3E46B2B191DB922005A6738 /* stringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stringUtil.h; path = ../../src/util/stringUtil.h; sourceTree = "<group>"; };
+		A3E46B2D191F408E005A6738 /* webSocketSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = webSocketSession.cpp; path = ../../src/server/webSocketSession.cpp; sourceTree = "<group>"; };
+		A3E46B2E191F408E005A6738 /* webSocketSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = webSocketSession.h; path = ../../src/server/webSocketSession.h; sourceTree = "<group>"; };
 		A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_base.x64.a; path = "../v8-build/native/libv8_base.x64.a"; sourceTree = "<group>"; };
 		A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_snapshot.a; path = "../v8-build/native/libv8_snapshot.a"; sourceTree = "<group>"; };
 		A3EA781C1826ED830052CFC9 /* libicui18n.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicui18n.a; path = "../v8-build/native/libicui18n.a"; sourceTree = "<group>"; };
@@ -398,6 +401,8 @@
 			isa = PBXGroup;
 			children = (
 				A37E6E6619133E370011096E /* server.cpp */,
+				A3E46B2D191F408E005A6738 /* webSocketSession.cpp */,
+				A3E46B2E191F408E005A6738 /* webSocketSession.h */,
 				A37E6E6719133E370011096E /* server.h */,
 				A3D6DD191916BE4E00FC106E /* webSocketServer.cpp */,
 				A3D6DD1A1916BE4E00FC106E /* webSocketServer.h */,
@@ -635,6 +640,7 @@
 				A3A86D9E17B2144F00426EEC /* shader.cpp in Sources */,
 				A37E6E6819133E370011096E /* server.cpp in Sources */,
 				A3A86D9F17B2144F00426EEC /* shaderFormats.cpp in Sources */,
+				A3E46B2F191F408E005A6738 /* webSocketSession.cpp in Sources */,
 				A3A86DA017B2144F00426EEC /* shaderManager.cpp in Sources */,
 				A3A86DA117B2144F00426EEC /* triangleBuffer.cpp in Sources */,
 				A3A86DA217B2144F00426EEC /* vertexFormats.cpp in Sources */,

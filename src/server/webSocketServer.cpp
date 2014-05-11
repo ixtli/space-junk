@@ -52,14 +52,14 @@ WebSocketMessage::~WebSocketMessage()
 
 void WebSocketMessage::clearMessage()
 {
-	if (_message && _messageLength)
+	if (_message)
 	{
 		delete [] _message;
 		_message = NULL;
-		_messageLength = 0;
 	}
+	
+	_messageLength = 0;
 }
-
 
 
 bool WebSocketMessage::init()
@@ -74,11 +74,15 @@ bool WebSocketMessage::init()
 		addToMessage(msg, bytesRead);
 	} while (bytesRead == bufferSize);
 	
+	if (!_messageLength)
+	{
+		error("No message recieved to initialize the connection.");
+		return false;
+	}
+	
 	_handshakeHeaders.init(_message);
 	
 	clearMessage();
-	
-	info("Protocol: %s", _handshakeHeaders.header("Sec-WebSocket-Protocol"));
 	
 	// Are we speaking the same language?
 	if (strcmp(kWebSocketProtocolVerison,
@@ -120,9 +124,6 @@ void WebSocketMessage::sendHandshake()
 		return;
 	}
 	
-	
-	info("Key: %s", key);
-	
 	// The encoded message goes in this buffer
 	char encodedMessage[256];
 	
@@ -137,8 +138,6 @@ void WebSocketMessage::sendHandshake()
 	strcpy(encodedMessage, key);
 	strcpy(encodedMessage + keyLength, kMagicGUID);
 	encodedMessage[charCount] = '\0';
-	
-	info("Resp (%lu): %s", charCount, encodedMessage);
 	
 	/*
 	 A SHA-1 hash (160 bits) [FIPS.180-3], base64-encoded (see Section 4 of
@@ -166,8 +165,6 @@ void WebSocketMessage::sendHandshake()
 					encodedMessage);
 
 	size_t responseLength = strlen(response);
-	
-	info("RESP:\n%s|||||", response);
 	
 	if (send(_fileDescriptor, response, responseLength + 1, 0) == -1)
 	{
@@ -335,21 +332,21 @@ bool WebSocketMessage::read()
 		}
 		
 		// Only try to unmask the data if the field is marked
-//		if (preamble.mask)
-//		{
-//			/*
-//			 Octet i of the transformed data ("transformed-octet-i") is the XOR of
-//			 octet i of the original data ("original-octet-i") with octet at index
-//			 i modulo 4 of the masking key ("masking-key-octet-j"):
-//			 
-//			 j                   = i MOD 4
-//			 transformed-octet-i = original-octet-i XOR masking-key-octet-j
-//			 */
-//			for (size_t i = 0; i < totalPayloadLength; i++)
-//			{
-//				msg[i] = msg[i] ^ maskingKey[i % 4];
-//			}
-//		}
+		if (preamble.mask)
+		{
+			/*
+			 Octet i of the transformed data ("transformed-octet-i") is the XOR of
+			 octet i of the original data ("original-octet-i") with octet at index
+			 i modulo 4 of the masking key ("masking-key-octet-j"):
+			 
+			 j                   = i MOD 4
+			 transformed-octet-i = original-octet-i XOR masking-key-octet-j
+			 */
+			for (size_t i = 0; i < totalPayloadLength; i++)
+			{
+				msg[i] = msg[i] ^ maskingKey[i % 4];
+			}
+		}
 		
 		// This function appends a '\0' so only provide the raw string
 		addToMessage(msg, totalPayloadLength);

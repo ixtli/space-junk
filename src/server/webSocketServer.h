@@ -25,6 +25,8 @@ public:
 	inline const char* const message() const { return _message; };
 	inline bool complete() const { return _complete; };
 	
+	void clearMessage();
+	
 private:
 	
 	typedef enum
@@ -64,7 +66,6 @@ private:
 	ssize_t readBytes(size_t count, void* loc);
 	
 	void addToMessage(const char* msg, size_t len);
-	void clearMessage();
 	
 	void sendPong(const char* msg);
 	void sendHandshake();

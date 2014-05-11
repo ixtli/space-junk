@@ -15,7 +15,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-#include "webSocketServer.h"
+#include "webSocketSession.h"
 #include "crypto.h"
 
 #include "server.h"
@@ -137,7 +137,7 @@ void Server::awaitConnection()
 	int newFileDescriptor;
 	char remoteIP[INET6_ADDRSTRLEN];
 	
-	WebSocketMessage* msg = NULL;
+	WebSocketSession* session = NULL;
 	
 	// When the application begins to shut down, this bit will get flipped
 	// and the thread will terminate
@@ -194,27 +194,25 @@ void Server::awaitConnection()
 				continue;
 			}
 			
-			if (!msg)
+			if (!session)
 			{
-				msg = new WebSocketMessage(i);
-				msg->init();
-				continue;
+				session = new WebSocketSession(i);
+				session->init();
+			} else {
+				session->newData();
 			}
 			
-			if (!msg->read())
+			// Any number of interactions could have caused the session to close
+			// so trap for all of them, even directly after init
+			if (!session->open())
 			{
+				// Clean up session
+				delete session;
+				session = NULL;
+				
+				// Clean up socket
 				close(i);
 				FD_CLR(i, &master_fds);
-				delete msg;
-				msg = NULL;
-				continue;
-			}
-			
-			if (msg->complete())
-			{
-				info("MESSAGE:\n%s", msg->message());
-				delete msg;
-				msg = NULL;
 			}
 		}
 	}
