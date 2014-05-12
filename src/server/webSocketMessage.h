@@ -49,11 +49,10 @@ private:
 	
 	typedef struct
 	{
-		unsigned int fin : 1;
-		unsigned int reserved : 3;
-		unsigned int opCode : 4;
-		unsigned int mask : 1;
-		unsigned int payloadLength : 7;
+		bool fin;
+		unsigned char opCode;
+		bool mask;
+		unsigned char payloadLength;
 	} WSHeader;
 	
 	int _fileDescriptor;

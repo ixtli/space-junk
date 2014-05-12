@@ -236,19 +236,21 @@ bool WebSocketMessage::read()
 	 +---------------------------------------------------------------+
 	 
 	 */
-	
+		
+	// Handle data from a client
+	uint_fast16_t rawPreamble = 0;
+	if (!readBytes(2, &rawPreamble))
+		return false;
+
 	// The message preamble
 	WSHeader preamble;
 	
-	// Handle data from a client
-	if (!readBytes(sizeof(preamble), &preamble))
-		return false;
+	preamble.fin = (rawPreamble & 0x0001);
+	preamble.opCode = ((rawPreamble >> 4) & 0x0F);
+	preamble.mask = (rawPreamble & 0x0100);
+	preamble.payloadLength = rawPreamble >> 9;
 	
-	// Finished being true changes handling of the rest of the things
-	if (preamble.fin)
-	{
-		_complete = true;
-	}
+	_complete = preamble.fin;
 	
 	info("%s frame", kOpCodeNames[preamble.opCode]);
 	
@@ -283,10 +285,6 @@ bool WebSocketMessage::read()
 		totalPayloadLength = extraLen;
 	}
 	
-	// Under the current version of the protocol, all payloads are masked, but
-	// it's still technically possible for the client to send unmasked data
-	char maskingKey[4] = { '\0', '\0', '\0', '\0' };
-	
 	// Enforce the standard
 	if (isControlFrame(preamble))
 	{
@@ -296,10 +294,14 @@ bool WebSocketMessage::read()
 		}
 	}
 	
+	// Under the current version of the protocol, all payloads are masked, but
+	// it's still technically possible for the client to send unmasked data
+	uint_fast32_t maskingKey = 0;
+	
 	// The 32bit masking key is not present if the mask bit isn't set
 	if (preamble.mask)
 	{
-		if (!readBytes(4, &maskingKey))
+		if (!readBytes(sizeof(maskingKey), &maskingKey))
 			return false;
 	}
 	
@@ -320,7 +322,7 @@ bool WebSocketMessage::read()
 	if (totalPayloadLength)
 	{
 		// Read the message
-		char msg[totalPayloadLength];
+		unsigned char msg[totalPayloadLength];
 		
 		// Make sure the expected amount of bytes was read
 		ssize_t count = readBytes(totalPayloadLength, msg);
@@ -329,6 +331,7 @@ bool WebSocketMessage::read()
 		if (count < totalPayloadLength)
 		{
 			warn("Less bytes read than expected.");
+			msg[count] = '\0';
 		}
 		
 		// Only try to unmask the data if the field is marked
@@ -342,14 +345,19 @@ bool WebSocketMessage::read()
 			 j                   = i MOD 4
 			 transformed-octet-i = original-octet-i XOR masking-key-octet-j
 			 */
-			for (size_t i = 0; i < totalPayloadLength; i++)
+			for (size_t i = 0; i < count; i++)
 			{
-				msg[i] = msg[i] ^ maskingKey[i % 4];
+				msg[i] = msg[i] ^ ((uint_fast8_t*)(&maskingKey))[i % 4];
 			}
 		}
 		
 		// This function appends a '\0' so only provide the raw string
-		addToMessage(msg, totalPayloadLength);
+		addToMessage((char*)msg, count);
+		
+		if (preamble.opCode == PING)
+		{
+			sendPong((char*)msg);
+		}
 	}
 	
 	return true;

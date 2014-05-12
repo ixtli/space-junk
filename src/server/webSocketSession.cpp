@@ -34,5 +34,11 @@ void WebSocketSession::newData()
 	{
 		_open = false;
 	}
+	
+	if (_message.complete())
+	{
+		info("Message: %s", _message.message());
+		_message.clearMessage();
+	}
 }
 
