@@ -11,6 +11,8 @@
 
 #include "webSocketMessage.h"
 
+#include "httpRequestHeaders.h"
+
 class WebSocketSession
 {
 public:
@@ -28,6 +30,9 @@ private:
 	bool _open;
 	int _fileDescriptor;
 	WebSocketMessage _message;
+	HTTPRequestHeaders _handshakeHeaders;
+	
+	void sendHandshake();
 	
 };
 

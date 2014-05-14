@@ -9,8 +9,6 @@
 #ifndef __SpaceJunk__webSocketMessage__
 #define __SpaceJunk__webSocketMessage__
 
-#include "httpRequestHeaders.h"
-
 class WebSocketMessage
 {
 public:
@@ -54,15 +52,13 @@ private:
 	char* _message;
 	size_t _messageLength;
 	bool _complete;
-	
-	HTTPRequestHeaders _handshakeHeaders;
+	unsigned int _closeStatusCode;
 	
 	ssize_t readBytes(size_t count, void* loc);
 	
 	void addToMessage(const char* msg, size_t len);
-	
+	void sendClose();
 	void sendPong(const void* msg, size_t len);
-	void sendHandshake();
 };
 
 #endif /* defined(__SpaceJunk__webSocketMessage__) */

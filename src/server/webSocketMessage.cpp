@@ -9,15 +9,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <cstdint>
-#include <stdio.h>
 
-#include "stringUtil.h"
 #include "webSocketMessage.h"
-#include "crypto.h"
-
-const char* kWebSocketProtocolVerison = "13";
-
-const char* kMagicGUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
 const char* const kOpCodeNames[] = {
 	"Continuation",
@@ -43,8 +36,7 @@ WebSocketMessage::WebSocketMessage(int fileDescriptor) :
 _fileDescriptor(fileDescriptor),
 _message(NULL),
 _messageLength(0),
-_complete(false),
-_handshakeHeaders()
+_complete(false)
 
 {}
 
@@ -67,36 +59,6 @@ void WebSocketMessage::clearMessage()
 
 bool WebSocketMessage::init()
 {
-	const size_t bufferSize = 1024;
-	char msg[bufferSize];
-	ssize_t bytesRead = 0;
-	
-	do
-	{
-		bytesRead = readBytes(bufferSize, msg);
-		addToMessage(msg, bytesRead);
-	} while (bytesRead == bufferSize);
-	
-	if (!_messageLength)
-	{
-		error("No message recieved to initialize the connection.");
-		return false;
-	}
-	
-	_handshakeHeaders.init(_message);
-	
-	clearMessage();
-	
-	// Are we speaking the same language?
-	if (strcmp(kWebSocketProtocolVerison,
-							_handshakeHeaders.header("Sec-WebSocket-Version")))
-	{
-		warn("Attempt to negotiate a WebSocket connection for an unsupported \
-				 version of the protocol.");
-		return false;
-	}
-	
-	sendHandshake();
 	
 	return true;
 }
@@ -114,10 +76,16 @@ void WebSocketMessage::sendPong(const void* msg, size_t len)
    frame.
 	 */
 	
+	if (len > 125)
+	{
+		error("Can not send control frame > 125b");
+		return;
+	}
+	
 	uint_fast8_t message[2 + len];
 	
 	message[0] = 0x89; // fin, opcode = pong
-	message[1] = (len & 0x7F); // size of payload AND that it is masked
+	message[1] = (len & 0x7F); // size of payload AND that it is NOT masked
 	
 	// Copy the message
 	memcpy(message + 2, msg, len);
@@ -129,61 +97,20 @@ void WebSocketMessage::sendPong(const void* msg, size_t len)
 	}
 }
 
-void WebSocketMessage::sendHandshake()
+void WebSocketMessage::sendClose()
 {
-	const char* key = _handshakeHeaders.header("Sec-WebSocket-Key");
+	/* (When sending a Close frame in response, the endpoint typically echos the
+   status code it received.) */
 	
-	if (!key)
+	uint_fast8_t message[4];
+	
+	message[0] = 0x88; // fin, opcode = close
+	message[1] = 0x2; // not masked, 2 bytes in length (status code)
+	*((unsigned int*)(&message[2])) = HTONS(_closeStatusCode);
+	
+	if (send(_fileDescriptor, message, 4, 0) == -1)
 	{
-		error("No Sec-WebSocket-Key header.");
-		return;
-	}
-	
-	// The encoded message goes in this buffer
-	char encodedMessage[256];
-	
-	/*
-	 the server has to take [..] the header field [Sec-WebSocket-Key] minus
-   any leading and trailing whitespace) and concatenate this with the
-   Globally Unique Identifier (GUID, [RFC4122]) "258EAFA5-E914-47DA-
-   95CA-C5AB0DC85B11"
-	 */
-	size_t keyLength = strlen(key);
-	size_t charCount = keyLength + strlen(kMagicGUID);
-	strcpy(encodedMessage, key);
-	strcpy(encodedMessage + keyLength, kMagicGUID);
-	encodedMessage[charCount] = '\0';
-	
-	/*
-	 A SHA-1 hash (160 bits) [FIPS.180-3], base64-encoded (see Section 4 of
-   [RFC4648]), of this concatenation is then returned in the server's
-   handshake.
-	 */
-	const size_t kSHA1OutputBytes = 20;
-	unsigned char sha1[kSHA1OutputBytes];
-	if (!SHA1String((unsigned char*)encodedMessage, charCount, sha1))
-	{
-		error("Failed to SHA1 encode response.");
-		return;
-	}
-	
-	// Encode the whole thing in Base64
-	base64Encode(sha1, kSHA1OutputBytes, encodedMessage);
-	
-	char response[512];
-	
-	sprintf(response,
-					"HTTP/1.1 101 Switching Protocols\r\n"
-					"Upgrade: websocket\r\n"
-					"Connection: Upgrade\r\n"
-					"Sec-WebSocket-Accept: %s\r\n\r\n",
-					encodedMessage);
-
-	size_t responseLength = strlen(response);
-	
-	if (send(_fileDescriptor, response, responseLength + 1, 0) == -1)
-	{
-		error("send().");
+		error("send()");
 	}
 }
 
@@ -299,61 +226,94 @@ bool WebSocketMessage::read()
 			return false;
 	}
 	
-	if (totalPayloadLength && opCode == CONNECTION_CLOSED)
+	if (opCode == CONNECTION_CLOSED)
 	{
-		/*
-		 If there is a body, the first two bytes of
-		 the body MUST be a 2-byte unsigned integer (in network byte order)
-		 representing a status code
-		 */
-		
-		uint_fast16_t statusCode = 0;
-		readBytes(2, &statusCode);
-		statusCode = NTOHS(statusCode);
-		info("Close code: %u", statusCode);
-		totalPayloadLength -= 2;
-	}
-	
-	if (totalPayloadLength)
-	{
-		// Read the message
-		unsigned char msg[totalPayloadLength + 1];
-		msg[totalPayloadLength] = '\0';
-		
-		// Make sure the expected amount of bytes was read
-		ssize_t count = readBytes(totalPayloadLength, msg);
-		
-		// This would count as a violation of the standard.
-		if (count < totalPayloadLength)
-		{
-			warn("Less bytes read than expected.");
-		}
-		
-		if (opCode == PING)
-		{
-			sendPong((char*)msg, totalPayloadLength);
-		}
-		
-		// Only try to unmask the data if the field is marked
-		if (masked)
+		if (totalPayloadLength)
 		{
 			/*
-			 Octet i of the transformed data ("transformed-octet-i") is the XOR of
-			 octet i of the original data ("original-octet-i") with octet at index
-			 i modulo 4 of the masking key ("masking-key-octet-j"):
-			 
-			 j                   = i MOD 4
-			 transformed-octet-i = original-octet-i XOR masking-key-octet-j
+			 If there is a body, the first two bytes of the body MUST be a 2-byte
+			 unsigned integer (in network byte order) representing a status code
 			 */
-			for (size_t i = 0; i < count; i++)
-			{
-				msg[i] = msg[i] ^ ((uint_fast8_t*)(&maskingKey))[i % 4];
-			}
+			uint_fast16_t closeStatusCode = 0;
+			readBytes(2, &closeStatusCode);
+			closeStatusCode = NTOHS(closeStatusCode);
+			totalPayloadLength -= 2;
+		} else {
+			/* Status codes in the range 0-999 are not used. */
+			_closeStatusCode = 1;
+		}
+	}
+	
+	if (!totalPayloadLength)
+	{
+		switch (opCode)
+		{
+			case PING:
+				sendPong(NULL, 0);
+				break;
+				
+			case CONNECTION_CLOSED:
+				sendClose();
+				return false;
+				
+			default:
+				break;
 		}
 		
-		// This function appends a '\0' so only provide the raw string
-		addToMessage((char*)msg, count);
+		return true;
 	}
+	
+	// Read the message
+	unsigned char msg[totalPayloadLength + 1];
+	msg[totalPayloadLength] = '\0';
+	
+	// Make sure the expected amount of bytes was read
+	ssize_t count = readBytes(totalPayloadLength, msg);
+	
+	// This would count as a violation of the standard.
+	if (count < totalPayloadLength)
+	{
+		warn("Less bytes read than expected.");
+	}
+	
+	if (opCode == PING)
+	{
+		// We pass it pre-decode because the spec says that the Pong must have
+		// the exact application data it received in the ping
+		sendPong((char*)msg, totalPayloadLength);
+	}
+	
+	// Only try to unmask the data if the field is marked
+	if (masked)
+	{
+		/*
+		 Octet i of the transformed data ("transformed-octet-i") is the XOR of
+		 octet i of the original data ("original-octet-i") with octet at index
+		 i modulo 4 of the masking key ("masking-key-octet-j"):
+		 
+		 j                   = i MOD 4
+		 transformed-octet-i = original-octet-i XOR masking-key-octet-j
+		 */
+		for (size_t i = 0; i < count; i++)
+		{
+			msg[i] = msg[i] ^ ((uint_fast8_t*)(&maskingKey))[i % 4];
+		}
+	}
+	
+	if (opCode == CONNECTION_CLOSED)
+	{
+		/* Following the 2-byte integer, the body MAY contain UTF-8-encoded data
+		 with value /reason/ */
+		
+		/* If an endpoint receives a Close frame and did not previously send a
+		 Close frame, the endpoint MUST send a Close frame in response. */
+		
+		sendClose();
+		return false;
+	}
+	
+	// This function appends a '\0' so only provide the raw string
+	addToMessage((char*)msg, count);
 	
 	return true;
 }
@@ -364,7 +324,7 @@ void WebSocketMessage::addToMessage(const char *msg, size_t len)
 	char* newMessage = new char[newLength + 1];
 	
 	// Safety
-	if (_messageLength && _message)
+	if (_message)
 	{
 		strcpy(newMessage, _message);
 		delete [] _message;
