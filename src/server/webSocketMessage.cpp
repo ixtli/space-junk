@@ -7,6 +7,7 @@
 //
 
 #include <sys/socket.h>
+#include <netinet/in.h>
 #include <cstdint>
 #include <stdio.h>
 
@@ -14,11 +15,11 @@
 #include "webSocketMessage.h"
 #include "crypto.h"
 
-const char *kWebSocketProtocolVerison = "13";
+const char* kWebSocketProtocolVerison = "13";
 
-const char *kMagicGUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+const char* kMagicGUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
-const char* kOpCodeNames[] = {
+const char* const kOpCodeNames[] = {
 	"Continuation",
 	"Text",
 	"Binary",
@@ -26,13 +27,15 @@ const char* kOpCodeNames[] = {
 	"Non-control reserved 2",
 	"Non-control reserved 3",
 	"Non-control reserved 4",
+	"Non-control reserved 5",
 	"Close",
 	"Ping",
 	"Pong",
 	"Control reserved 1",
 	"Control reserved 2",
 	"Control reserved 3",
-	"Control reserved 4"
+	"Control reserved 4",
+	"Control reserved 5"
 };
 
 WebSocketMessage::WebSocketMessage(int fileDescriptor) :
@@ -98,7 +101,7 @@ bool WebSocketMessage::init()
 	return true;
 }
 
-void WebSocketMessage::sendPong(const char* msg)
+void WebSocketMessage::sendPong(const void* msg, size_t len)
 {
 	/*
 	 A Pong frame sent in response to a Ping frame must have identical
@@ -111,7 +114,19 @@ void WebSocketMessage::sendPong(const char* msg)
    frame.
 	 */
 	
+	uint_fast8_t message[2 + len];
 	
+	message[0] = 0x89; // fin, opcode = pong
+	message[1] = (len & 0x7F); // size of payload AND that it is masked
+	
+	// Copy the message
+	memcpy(message + 2, msg, len);
+	
+	// Send it back
+	if (send(_fileDescriptor, message, 2 + len, 0) == -1)
+	{
+		error("send()");
+	}
 }
 
 void WebSocketMessage::sendHandshake()
@@ -155,7 +170,7 @@ void WebSocketMessage::sendHandshake()
 	// Encode the whole thing in Base64
 	base64Encode(sha1, kSHA1OutputBytes, encodedMessage);
 	
-	char response[1024];
+	char response[512];
 	
 	sprintf(response,
 					"HTTP/1.1 101 Switching Protocols\r\n"
@@ -190,26 +205,6 @@ ssize_t WebSocketMessage::readBytes(size_t count, void *loc)
 	return bytesRead;
 }
 
-bool WebSocketMessage::isControlFrame(const WSHeader& header)
-{
-	/*
-	 Control frames are identified by opcodes where the most significant
-   bit of the opcode is 1.
-	*/
-	
-	return header.opCode >= 8;
-}
-
-bool WebSocketMessage::isDataFrame(const WSHeader &header)
-{
-	/*
-	 Data frames (e.g., non-control frames) are identified by opcodes
-   where the most significant bit of the opcode is 0.
-	*/
-	
-	return header.opCode < 8;
-}
-
 bool WebSocketMessage::read()
 {
 	/*
@@ -242,27 +237,24 @@ bool WebSocketMessage::read()
 	if (!readBytes(2, &rawPreamble))
 		return false;
 
-	// The message preamble
-	WSHeader preamble;
+	rawPreamble = HTONS(rawPreamble);
 	
-	preamble.fin = (rawPreamble & 0x0001);
-	preamble.opCode = ((rawPreamble >> 4) & 0x0F);
-	preamble.mask = (rawPreamble & 0x0100);
-	preamble.payloadLength = rawPreamble >> 9;
+	unsigned int payloadLength = rawPreamble & 0x007F;
+	bool masked = rawPreamble & 0x0080;
+	_complete = rawPreamble & 0x8000;
+	unsigned int opCode = (rawPreamble >> 8) & 0x000F;
 	
-	_complete = preamble.fin;
-	
-	info("%s frame", kOpCodeNames[preamble.opCode]);
+	info("%s frame", kOpCodeNames[opCode]);
 	
 	// Will eventually contain the total byte size of message payload
-	unsigned long totalPayloadLength = 0;
+	size_t totalPayloadLength = 0;
 	
 	// preamble some magic to be done when determining the size of the message
-	if (preamble.payloadLength <= 125)
+	if (payloadLength <= 125)
 	{
-		totalPayloadLength = preamble.payloadLength;
+		totalPayloadLength = payloadLength;
 		
-	} else if (preamble.payloadLength == 126) {
+	} else if (payloadLength == 126) {
 		
 		// the following 2 bytes interpreted as a	16-bit unsigned integer are the
 		// payload length.
@@ -271,7 +263,8 @@ bool WebSocketMessage::read()
 		if(!readBytes(sizeof(extraLen), &extraLen))
 			return false;
 		
-		totalPayloadLength = extraLen;
+		/* Multibyte length quantities are expressed in network byte order. */
+		totalPayloadLength = NTOHS(extraLen);
 		
 	} else {
 		
@@ -282,11 +275,12 @@ bool WebSocketMessage::read()
 		if(!readBytes(sizeof(extraLen), &extraLen))
 			return false;
 		
-		totalPayloadLength = extraLen;
+		/* Multibyte length quantities are expressed in network byte order. */
+		totalPayloadLength = NTOHL(extraLen);
 	}
 	
-	// Enforce the standard
-	if (isControlFrame(preamble))
+	// Enforce the standard. (Control frames are those with MSB = 1)
+	if (opCode >= 8)
 	{
 		if (totalPayloadLength > 125)
 		{
@@ -299,13 +293,13 @@ bool WebSocketMessage::read()
 	uint_fast32_t maskingKey = 0;
 	
 	// The 32bit masking key is not present if the mask bit isn't set
-	if (preamble.mask)
+	if (masked)
 	{
 		if (!readBytes(sizeof(maskingKey), &maskingKey))
 			return false;
 	}
 	
-	if (totalPayloadLength && preamble.opCode == CONNECTION_CLOSED)
+	if (totalPayloadLength && opCode == CONNECTION_CLOSED)
 	{
 		/*
 		 If there is a body, the first two bytes of
@@ -315,6 +309,7 @@ bool WebSocketMessage::read()
 		
 		uint_fast16_t statusCode = 0;
 		readBytes(2, &statusCode);
+		statusCode = NTOHS(statusCode);
 		info("Close code: %u", statusCode);
 		totalPayloadLength -= 2;
 	}
@@ -322,7 +317,8 @@ bool WebSocketMessage::read()
 	if (totalPayloadLength)
 	{
 		// Read the message
-		unsigned char msg[totalPayloadLength];
+		unsigned char msg[totalPayloadLength + 1];
+		msg[totalPayloadLength] = '\0';
 		
 		// Make sure the expected amount of bytes was read
 		ssize_t count = readBytes(totalPayloadLength, msg);
@@ -331,11 +327,15 @@ bool WebSocketMessage::read()
 		if (count < totalPayloadLength)
 		{
 			warn("Less bytes read than expected.");
-			msg[count] = '\0';
+		}
+		
+		if (opCode == PING)
+		{
+			sendPong((char*)msg, totalPayloadLength);
 		}
 		
 		// Only try to unmask the data if the field is marked
-		if (preamble.mask)
+		if (masked)
 		{
 			/*
 			 Octet i of the transformed data ("transformed-octet-i") is the XOR of
@@ -353,11 +353,6 @@ bool WebSocketMessage::read()
 		
 		// This function appends a '\0' so only provide the raw string
 		addToMessage((char*)msg, count);
-		
-		if (preamble.opCode == PING)
-		{
-			sendPong((char*)msg);
-		}
 	}
 	
 	return true;

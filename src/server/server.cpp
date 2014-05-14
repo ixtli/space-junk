@@ -137,7 +137,8 @@ void Server::awaitConnection()
 	int newFileDescriptor;
 	char remoteIP[INET6_ADDRSTRLEN];
 	
-	WebSocketSession* session = NULL;
+	OpenSession* currentSession = NULL;
+	OpenSession* _sessionHead = NULL;
 	
 	// When the application begins to shut down, this bit will get flipped
 	// and the thread will terminate
@@ -184,6 +185,12 @@ void Server::awaitConnection()
 					largestFileDescriptor = newFileDescriptor;
 				}
 				
+				OpenSession* n = new OpenSession();
+				n->session = NULL;
+				n->fileDescriptor = newFileDescriptor;
+				
+				HASH_ADD_INT(_sessionHead, fileDescriptor, n);
+				
 				info("New connection from %s on socket %d",
 						 inet_ntop(remoteAddress.ss_family,
 											 get_in_addr(((struct sockaddr*)&remoteAddress)),
@@ -194,21 +201,32 @@ void Server::awaitConnection()
 				continue;
 			}
 			
-			if (!session)
+			currentSession = NULL;
+			
+			HASH_FIND_INT(_sessionHead, &i, currentSession);
+			
+			if (!currentSession)
 			{
-				session = new WebSocketSession(i);
-				session->init();
+				error("Couldn't find session.");
+				continue;
+			}
+			
+			if (!currentSession->session)
+			{
+				currentSession->session = new WebSocketSession(i);
+				currentSession->session->init();
 			} else {
-				session->newData();
+				currentSession->session->newData();
 			}
 			
 			// Any number of interactions could have caused the session to close
 			// so trap for all of them, even directly after init
-			if (!session->open())
+			if (!currentSession->session->open())
 			{
 				// Clean up session
-				delete session;
-				session = NULL;
+				HASH_DEL(_sessionHead, currentSession);
+				delete currentSession->session;
+				delete currentSession;
 				
 				// Clean up socket
 				close(i);
@@ -219,11 +237,22 @@ void Server::awaitConnection()
 	
 	info("Caught exit signal. Cleaning up.");
 	
+	currentSession = NULL;
+	
 	// Clean up
 	for (int i = 0; i <= largestFileDescriptor; i++)
 	{
 		close(i);
 		FD_CLR(i, &master_fds);
+		
+		HASH_FIND_INT(_sessionHead, &i, currentSession);
+		
+		if (!currentSession)
+			continue;
+		
+		HASH_DEL(_sessionHead, currentSession);
+		delete currentSession->session;
+		delete currentSession;
 	}
 }
 

@@ -9,7 +9,9 @@
 #ifndef __SpaceJunk__server__
 #define __SpaceJunk__server__
 
-struct sockaddr;
+#include "uthash.h"
+
+class WebSocketSession;
 
 class Server
 {
@@ -24,6 +26,13 @@ private:
 	
 	Server();
 	~Server();
+	
+	typedef struct
+	{
+		WebSocketSession* session;
+		int fileDescriptor;
+		UT_hash_handle hh;
+	} OpenSession;
 	
 	static Server _instance;
 	

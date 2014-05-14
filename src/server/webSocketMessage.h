@@ -38,22 +38,17 @@ private:
 		NON_CONTROL_RESERVED_2,
 		NON_CONTROL_RESERVED_3,
 		NON_CONTROL_RESERVED_4,
+		NON_CONTROL_RESERVED_5,
 		CONNECTION_CLOSED,
 		PING,
 		PONG,
 		CONTROL_RESERVED_1,
 		CONTROL_RESERVED_2,
 		CONTROL_RESERVED_3,
-		CONTROL_RESERVED_4
+		CONTROL_RESERVED_4,
+		CONTROL_RESERVED_5,
+		NUM_OP_CODES
 	} OpCodes;
-	
-	typedef struct
-	{
-		bool fin;
-		unsigned char opCode;
-		bool mask;
-		unsigned char payloadLength;
-	} WSHeader;
 	
 	int _fileDescriptor;
 	char* _message;
@@ -66,11 +61,8 @@ private:
 	
 	void addToMessage(const char* msg, size_t len);
 	
-	void sendPong(const char* msg);
+	void sendPong(const void* msg, size_t len);
 	void sendHandshake();
-	
-	bool isControlFrame(const WSHeader& header);
-	bool isDataFrame(const WSHeader& header);
 };
 
 #endif /* defined(__SpaceJunk__webSocketMessage__) */
