@@ -1,11 +1,28 @@
+theory
+===
+
+> Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.
+
+All-in-one game or simulation development toolsets violate the basic software engineering philosophical tenent of doing [one thing well](http://www.faqs.org/docs/artu/ch01s06.html). They are generally monolithic (for example, unity, autodesk, or matlab for simulation programming) and thereby end up causing their users pain on installation, configuration, and use by causing them to make sacrifices in how they interface with the core competency of the application. The fact that what these applications do is often done extremely well makes this situation all the more frustrating.
+
+This repository holds a 3D engine built using OpenGL3.2+ that is configured by executing JavaScript using the [V8 JavaScript engine](https://developers.google.com/v8/). It recieves JavaScript either by loading files off disk, or by recieving fragments over the [WebSocket](http://tools.ietf.org/html/rfc6455) protocol.
+
+In this way, this application does one thing well: run an easily configured 3D graphics simulation. That configuration is done via ASCII text streams.
+
+The ultimate goal of the project is to show that editors and tools can be decoupled from the engine they configure thereby increasing user freedom. Any editor may be used to edit the JavaScript that configures this simulation and  any program may construct asset bundles to be consumed by it.
+
+An example toolchain is [implemented as a web application](https://github.com/ixtli/space-junk-tools) to demonstrate how this decoupling can be achieved using modern web browsers without sacrificing any of the minutia one might find in a complex editor such as 3DSMax or Unreal. 
+
 setup
 ===
 
-## pull project
+## pull project and configure this repo
 + `git clone <URL_HERE> && cd space-junk`
++ `git submodule init && git submodule update`
+
 
 ## build v8
-1. `git submodule init && git submodule update && cd v8`
+1. `cd v8`
 2. `export CC=/path/to/clang`
 3. `export CXX=/path/to/clang++ -std=c++11 -stdlib=libc++`
 4. `export GYP_DEFINES="clang=1 mac_deployment_target=10.8"`
