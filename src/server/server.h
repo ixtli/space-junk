@@ -21,6 +21,7 @@ public:
 	
 	bool init();
 	bool run();
+	bool stop();
 	
 private:
 	

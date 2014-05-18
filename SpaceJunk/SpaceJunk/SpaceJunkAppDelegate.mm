@@ -8,6 +8,8 @@
 
 #include "environment.h"
 
+#include "server.h"
+
 #import "SpaceJunkAppDelegate.h"
 
 static const uint64_t gameUpdateInterval = 16ull * NSEC_PER_MSEC; // ~60fps
@@ -67,6 +69,7 @@ static const uint64_t gameUpdateLeeway = 2ull * NSEC_PER_MSEC; // 2ms ?
 {
 	[self stopGameUpdates];
 	[_view stopDrawing];
+	Server::getInstance()->stop();
 }
 
 @end

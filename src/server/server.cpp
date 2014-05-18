@@ -38,14 +38,16 @@ void* Server::get_in_addr(struct sockaddr *sa)
 
 Server Server::_instance;
 
-bool Server::_shouldTerminateThread;
+bool Server::_shouldTerminateThread = false;
+
+std::thread* serverThread = NULL;
 
 Server::Server()
 { }
 
 Server::~Server()
 {
-	_shouldTerminateThread = true;
+	stop();
 }
 
 void Server::awaitConnection()
@@ -260,29 +262,41 @@ bool Server::init()
 {
 	info("Socket server initialization.");
 	
-	_shouldTerminateThread = false;
-	
-	// Test Base64 encode:
-	const char* testMessage = "Hello, World.";
-	int testSize = (int)strlen(testMessage);
-	const char* testTarget = "SGVsbG8sIFdvcmxkLg==";
-	char scratch[64];
-	memset(scratch, 0, 64);
-	base64Encode((const unsigned char*)testMessage, testSize, scratch);
-	
-	if (strcmp(scratch, testTarget))
-	{
-		error("Failed to correctly generate b64 string.");
-		return false;
-	}
-	
 	return true;
 }
 
 bool Server::run()
 {
-	std::thread t(Server::awaitConnection);
-	t.detach();
+	if (serverThread) return false;
+	
+	_shouldTerminateThread = false;
+	serverThread = new std::thread(Server::awaitConnection);
+	serverThread->detach();
+	
+	info("Server thread dispatched.");
+	
+	return true;
+}
+
+bool Server::stop()
+{
+	if (!serverThread) return false;
+	
+	// Tell the thread to stop
+	_shouldTerminateThread = true;
+	
+	// Stop and clean up the server thread
+	
+	info("Waiting for server to clean up...");
+	if (serverThread->joinable())
+	{
+		serverThread->join();
+	}
+	info("Server thread joined.");
+	
+	// Clean up so run can be called again
+	delete serverThread;
+	serverThread = NULL;
 	
 	return true;
 }
