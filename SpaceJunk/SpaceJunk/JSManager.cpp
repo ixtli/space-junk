@@ -88,6 +88,11 @@ Local<ObjectTemplate> JSManager::newGlobalTemplate()
 	sj->Set(Local<String>::New(_isolate, _logFunctionName),
 					FunctionTemplate::New(_instance.isolate(), v8Log));
 	
+	sj->Set(Local<String>::New(_isolate, String::NewFromUtf8(_isolate, "port")),
+														 Int32::New(_isolate, 9999));
+	
+	
+	
 	// Add the spacejunk object 
 	global->Set(Local<String>::New(_isolate, _globalName), sj);
 	

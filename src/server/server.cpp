@@ -22,7 +22,7 @@
 #include "server.h"
 
 #pragma mark -
-#pragma mark Helper methods for
+#pragma mark Application agnostic helper methods for POSIX networking
 
 // get sockaddr, IPv4 or IPv6:
 void* Server::get_in_addr(struct sockaddr *sa)
@@ -34,8 +34,162 @@ void* Server::get_in_addr(struct sockaddr *sa)
 	return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
+int Server::acceptConnection(int acceptingSocket)
+{
+	struct sockaddr_storage addrStorage;
+	socklen_t len = sizeof(addrStorage);
+	struct sockaddr* address = (struct sockaddr*) &addrStorage;
+	
+	int ret = accept(acceptingSocket, address, &len);
+	
+	if (ret < 0)
+	{
+		error("accept() failed.");
+	} else {
+		static char remoteIP[INET6_ADDRSTRLEN];
+		const void* in_addr = get_in_addr(address);
+		info("New connection from %s on socket %d",
+				 inet_ntop(addrStorage.ss_family, in_addr, remoteIP, INET6_ADDRSTRLEN),
+				 ret);
+	}
+	
+	return ret;
+}
+
+int Server::openConnection(const char *host, unsigned int port)
+{
+	int fd = -1;
+	
+	// The easiest way to interrupt a call to select() is to give it some
+	// data. So we make a single request and ignore the outcome
+	struct addrinfo hints;
+	memset(&hints, 0, sizeof(hints));
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+	
+	char portName[6];
+	sprintf(portName, "%u", port);
+	struct addrinfo *serverInfo;
+	int errorCode = getaddrinfo("localhost", portName, &hints, &serverInfo);
+	if (errorCode)
+	{
+		error("Couldn't write closing packet: %s", gai_strerror(errorCode));
+		return fd;
+	}
+	
+	// Loop through all of the sockets until we find one we can use
+	struct addrinfo* p;
+	for(p = serverInfo; p != NULL; p = p->ai_next)
+	{
+		fd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		if (fd == -1)
+		{
+			error("socket()");
+			continue;
+		}
+		
+		if (connect(fd, p->ai_addr, p->ai_addrlen) < 0)
+		{
+			close(fd);
+			fd = -1;
+			error("connect()");
+			continue;
+		}
+		
+		break;
+	}
+	
+	// We never found anything
+	if (p == NULL)
+	{
+		return fd;
+	}
+	
+	// Get address data from newly found connection
+	char s[INET6_ADDRSTRLEN];
+	inet_ntop(p->ai_family, get_in_addr(p->ai_addr), s, sizeof(s));
+	
+	// Clean up!
+	freeaddrinfo(serverInfo);
+	
+	return fd;
+}
+
+int Server::listenForConnections(unsigned int port)
+{
+	char portName[6]; // 0xFF base 10 diget count + 1 for \0
+	sprintf(portName, "%u", port);
+	
+	// Get us a socket and bind it. Start by clearing hints struct
+	struct addrinfo hints;
+	memset(&hints, 0, sizeof(hints));
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_flags = AI_PASSIVE;
+	
+	// Get info for this portname
+	struct addrinfo* ai;
+	int rv = getaddrinfo(NULL, portName, &hints, &ai);
+	
+	// Check errors to make sure we're ok so far
+	if (rv)
+	{
+		error("getaddrinfo error: %s", gai_strerror(rv));
+		return -1;
+	}
+	
+	// Bind to socket
+	int listeningSocket = -1;
+	struct addrinfo* p;
+	for (p = ai; p != NULL; p = p->ai_next)
+	{
+		listeningSocket = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		if (listeningSocket < 0)
+		{
+			continue;
+		}
+		
+		// skip the "address already in use" warnings
+		// Needs to be passed as a param below
+		const int yes = 1;
+		setsockopt(listeningSocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
+		
+		// Call bind() to associate this process with the socket
+		if (bind(listeningSocket, p->ai_addr, p->ai_addrlen) < 0)
+		{
+			close(listeningSocket);
+			continue;
+		}
+		
+		// Found a good one
+		break;
+	}
+	
+	// If p still unbound, means we were never able to bind
+	if (p == NULL)
+	{
+		error("Failed to bind to port %s", portName);
+		return -1;
+	}
+	
+	// No longer need ai struct pointer
+	freeaddrinfo(ai);
+	
+	// Listen on port newly bound to our process
+	int connectionBacklogSize = 10;
+	if (listen(listeningSocket, connectionBacklogSize) == -1)
+	{
+		error("Listen failed.");
+		return -1;
+	}
+	
+	info("Listening on port: %s", portName);
+	
+	return listeningSocket;
+}
+
 #pragma mark -
-#pragma mark Implementation of basic POSIX socket server
+#pragma mark Simple POSIX select() server
 
 Server Server::_instance;
 
@@ -43,7 +197,10 @@ bool Server::_shouldTerminateThread = false;
 
 std::thread* serverThread = NULL;
 
-Server::Server()
+Server::Server() :
+
+_listeningPort(0)
+
 { }
 
 Server::~Server()
@@ -56,7 +213,6 @@ void Server::awaitConnection(int listeningSocket)
 	// Initialize sets
 	fd_set master_fds;
 	fd_set read_fds;
-	
 	FD_ZERO(&master_fds);
 	FD_ZERO(&read_fds);
 	
@@ -66,12 +222,7 @@ void Server::awaitConnection(int listeningSocket)
 	// Keep track of the biggest file descriptor
 	int largestFileDescriptor = listeningSocket;
 	
-	// Connecting client structures. Referred to in the following loop
-	struct sockaddr_storage remoteAddress;
-	socklen_t addressLength;
-	int newFileDescriptor;
-	char remoteIP[INET6_ADDRSTRLEN];
-	
+	// We keep a hash of open websocket sessions. These pointers facilitate that
 	OpenSession* currentSession = NULL;
 	OpenSession* _sessionHead = NULL;
 	
@@ -100,16 +251,11 @@ void Server::awaitConnection(int listeningSocket)
 			// We got a connection!
 			if (i == listeningSocket)
 			{
-				// Handle a new connection
-				addressLength = sizeof(remoteAddress);
-				newFileDescriptor = accept(listeningSocket,
-																	 (struct sockaddr*) &remoteAddress,
-																	 &addressLength);
+				int newFileDescriptor = acceptConnection(listeningSocket);
 				
 				// Error checking
 				if (newFileDescriptor == -1)
 				{
-					error("accept() failed.");
 					continue;
 				}
 				
@@ -120,24 +266,19 @@ void Server::awaitConnection(int listeningSocket)
 					largestFileDescriptor = newFileDescriptor;
 				}
 				
+				// Configure the open session structure and save the new file descriptor
 				OpenSession* n = new OpenSession();
 				n->session = NULL;
 				n->fileDescriptor = newFileDescriptor;
 				
+				// Add to the hash of open sessions
 				HASH_ADD_INT(_sessionHead, fileDescriptor, n);
-				
-				info("New connection from %s on socket %d",
-						 inet_ntop(remoteAddress.ss_family,
-											 get_in_addr(((struct sockaddr*)&remoteAddress)),
-											 remoteIP,
-											 INET6_ADDRSTRLEN),
-						 newFileDescriptor);
 				
 				continue;
 			}
 			
+			// Find the one that sent us a message
 			currentSession = NULL;
-			
 			HASH_FIND_INT(_sessionHead, &i, currentSession);
 			
 			if (!currentSession)
@@ -146,11 +287,13 @@ void Server::awaitConnection(int listeningSocket)
 				continue;
 			}
 			
+			// If we've never gotten a message from this endpoint before, init session
 			if (!currentSession->session)
 			{
 				currentSession->session = new WebSocketSession(i);
 				currentSession->session->init();
 			} else {
+				// Otherwise read new data
 				currentSession->session->newData();
 			}
 			
@@ -172,23 +315,30 @@ void Server::awaitConnection(int listeningSocket)
 	
 	info("Caught exit signal. Cleaning up.");
 	
-	currentSession = NULL;
-	
 	// Clean up
 	for (int i = 0; i <= largestFileDescriptor; i++)
 	{
-		close(i);
-		FD_CLR(i, &master_fds);
+		if (FD_ISSET(i, &master_fds))
+		{
+			close(i);
+			FD_CLR(i, &master_fds);
+		}
 		
+		// Check to see if we've registered a session for this file descriptor
+		currentSession = NULL;
 		HASH_FIND_INT(_sessionHead, &i, currentSession);
 		
 		if (!currentSession)
 			continue;
 		
+		// If so, deallocate all memory associated with it
 		HASH_DEL(_sessionHead, currentSession);
 		delete currentSession->session;
 		delete currentSession;
 	}
+	
+	// Make sure everything is deallocated
+	HASH_CLEAR(hh, _sessionHead);
 }
 
 bool Server::init()
@@ -200,101 +350,53 @@ bool Server::init()
 
 bool Server::run(unsigned int port)
 {
-	if (serverThread) return false;
+	if (isRunning())
+		return false;
 	
-	char portName[10];
-	sprintf(portName, "%u", port);
+	int listeningSocket = listenForConnections(port);
 	
-	// Get us a socket and bind it. Start by clearing hints struct
-	struct addrinfo hints;
-	memset(&hints, 0, sizeof(hints));
-	hints.ai_family = AF_UNSPEC;
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_PASSIVE;
-	
-	// Get info for this portname
-	struct addrinfo* ai;
-	int rv = getaddrinfo(NULL, portName, &hints, &ai);
-	
-	// Check errors to make sure we're ok so far
-	if (rv)
+	if (listeningSocket < 0)
 	{
-		error("getaddrinfo error: %s", gai_strerror(rv));
 		return false;
 	}
 	
-	// Bind to socket
-	int listeningSocket = -1;
-	struct addrinfo* p;
-	for (p = ai; p != NULL; p = p->ai_next)
-	{
-		listeningSocket = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
-		if (listeningSocket < 0)
-		{
-			continue;
-		}
-		
-		// skip the "address already in use" warnings
-		// Needs to be passed as a param below
-		const int yes = 1;
-		setsockopt(listeningSocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
-		
-		int bindResult = bind(listeningSocket, p->ai_addr, p->ai_addrlen);
-		if (bindResult < 0)
-		{
-			close(listeningSocket);
-			continue;
-		}
-		
-		// Found a good one
-		break;
-	}
-	
-	// If p still unbound, means we were never able to bind
-	if (p == NULL)
-	{
-		error("Failed to bind to port %s", portName);
-		return false;
-	}
-	
-	// No longer need ai struct pointer
-	freeaddrinfo(ai);
-	
-	// Listen on port newly bound to our process
-	int connectionBacklogSize = 10;
-	if (listen(listeningSocket, connectionBacklogSize) == -1)
-	{
-		error("Listen failed.");
-		return false;
-	}
-	
-	info("Listening on port: %s", portName);
-	
+	_listeningPort = port;
 	_shouldTerminateThread = false;
+	
+	// Thread dispatch in 21st century C++
 	auto fxn = std::bind(Server::awaitConnection, listeningSocket);
 	serverThread = new std::thread(fxn);
-	serverThread->detach();
-	
-	info("Server thread dispatched.");
 	
 	return true;
 }
 
 bool Server::stop()
 {
-	if (!serverThread) return false;
+	if (!isRunning())
+		return false;
 	
-	// Tell the thread to stop
+	// Tell the thread to stop once select() returns
 	_shouldTerminateThread = true;
 	
-	// Stop and clean up the server thread
+	// select() sleeps until new data, so we have to handshake with it to wake it
+	int fd = openConnection("localhost", _listeningPort);
+	if (fd < 0)
+	{
+		error("Failed to connect to self in order to close server.");
+		return false;
+	}
 	
-	info("Waiting for server to clean up...");
+	// The handshake is enough to wake select()
+	close(fd);
+	
+	// It's possible that the thread ended faster than close() took, so check
+	// to see if it's joinable.
 	if (serverThread->joinable())
 	{
+		info("Waiting for server to clean up...");
 		serverThread->join();
+		info("Server thread joined.");
 	}
-	info("Server thread joined.");
 	
 	// Clean up so run can be called again
 	delete serverThread;

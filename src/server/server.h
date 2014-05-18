@@ -37,11 +37,16 @@ private:
 		UT_hash_handle hh;
 	} OpenSession;
 	
-	static Server _instance;
+	unsigned int _listeningPort;
 	
+	static Server _instance;
 	static bool _shouldTerminateThread;
+	
 	static void* get_in_addr(struct sockaddr* sa);
+	static int listenForConnections(unsigned int port);
 	static void awaitConnection(int listeningSocket);
+	static int acceptConnection(int acceptingSocket);
+	static int openConnection(const char* host, unsigned int port);
 	
 };
 
