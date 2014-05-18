@@ -20,8 +20,10 @@ public:
 	inline static Server* getInstance() { return &_instance; };
 	
 	bool init();
-	bool run();
+	bool run(unsigned int port);
 	bool stop();
+	
+	bool isRunning() const;
 	
 private:
 	
@@ -39,7 +41,7 @@ private:
 	
 	static bool _shouldTerminateThread;
 	static void* get_in_addr(struct sockaddr* sa);
-	static void awaitConnection();
+	static void awaitConnection(int listeningSocket);
 	
 };
 

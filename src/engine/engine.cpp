@@ -41,7 +41,7 @@ bool Engine::init()
 	initComponents();
 	
 	// Start the server
-	Server::getInstance()->run();
+	Server::getInstance()->run(Configuration::getInstance()->_serverPort);
 	
 	// Do this last so the gap isn't too great
 	_lastUpdate = Environment::currentTime();

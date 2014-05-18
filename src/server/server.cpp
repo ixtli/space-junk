@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 ixtli. All rights reserved.
 //
 
+#include <functional>
 #include <thread>
 
 #include <unistd.h>
@@ -50,82 +51,14 @@ Server::~Server()
 	stop();
 }
 
-void Server::awaitConnection()
+void Server::awaitConnection(int listeningSocket)
 {
-	// @TODO: load this
-	const char* kPortName = "9038";
-	
 	// Initialize sets
 	fd_set master_fds;
 	fd_set read_fds;
 	
 	FD_ZERO(&master_fds);
 	FD_ZERO(&read_fds);
-	
-	// Get us a socket and bind it. Start by clearing hints struct
-	struct addrinfo hints;
-	memset(&hints, 0, sizeof(hints));
-	hints.ai_family = AF_UNSPEC;
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_PASSIVE;
-	
-	// Get info for this portname
-	struct addrinfo* ai;
-	int rv = getaddrinfo(NULL, kPortName, &hints, &ai);
-	
-	// Check errors to make sure we're ok so far
-	if (rv)
-	{
-		error("getaddrinfo error: %s", gai_strerror(rv));
-		return;
-	}
-	
-	// Bind to socket
-	int listeningSocket = -1;
-	struct addrinfo* p;
-	for (p = ai; p != NULL; p = p->ai_next)
-	{
-		listeningSocket = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
-		if (listeningSocket < 0)
-		{
-			continue;
-		}
-		
-		// skip the "address already in use" warnings
-		// Needs to be passed as a param below
-		const int yes = 1;
-		setsockopt(listeningSocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
-		
-		int bindResult = bind(listeningSocket, p->ai_addr, p->ai_addrlen);
-		if (bindResult < 0)
-		{
-			close(listeningSocket);
-			continue;
-		}
-		
-		// Found a good one
-		break;
-	}
-	
-	// If p still unbound, means we were never able to bind
-	if (p == NULL)
-	{
-		error("Failed to bind to port %s", kPortName);
-		return;
-	}
-	
-	// No longer need ai struct pointer
-	freeaddrinfo(ai);
-	
-	// Listen on port newly bound to our process
-	int connectionBacklogSize = 10;
-	if (listen(listeningSocket, connectionBacklogSize) == -1)
-	{
-		error("Listen failed.");
-		return;
-	}
-	
-	info("Listening on port: %s", kPortName);
 	
 	// Add the listener to the master set
 	FD_SET(listeningSocket, &master_fds);
@@ -265,12 +198,81 @@ bool Server::init()
 	return true;
 }
 
-bool Server::run()
+bool Server::run(unsigned int port)
 {
 	if (serverThread) return false;
 	
+	char portName[10];
+	sprintf(portName, "%u", port);
+	
+	// Get us a socket and bind it. Start by clearing hints struct
+	struct addrinfo hints;
+	memset(&hints, 0, sizeof(hints));
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_flags = AI_PASSIVE;
+	
+	// Get info for this portname
+	struct addrinfo* ai;
+	int rv = getaddrinfo(NULL, portName, &hints, &ai);
+	
+	// Check errors to make sure we're ok so far
+	if (rv)
+	{
+		error("getaddrinfo error: %s", gai_strerror(rv));
+		return false;
+	}
+	
+	// Bind to socket
+	int listeningSocket = -1;
+	struct addrinfo* p;
+	for (p = ai; p != NULL; p = p->ai_next)
+	{
+		listeningSocket = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		if (listeningSocket < 0)
+		{
+			continue;
+		}
+		
+		// skip the "address already in use" warnings
+		// Needs to be passed as a param below
+		const int yes = 1;
+		setsockopt(listeningSocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
+		
+		int bindResult = bind(listeningSocket, p->ai_addr, p->ai_addrlen);
+		if (bindResult < 0)
+		{
+			close(listeningSocket);
+			continue;
+		}
+		
+		// Found a good one
+		break;
+	}
+	
+	// If p still unbound, means we were never able to bind
+	if (p == NULL)
+	{
+		error("Failed to bind to port %s", portName);
+		return false;
+	}
+	
+	// No longer need ai struct pointer
+	freeaddrinfo(ai);
+	
+	// Listen on port newly bound to our process
+	int connectionBacklogSize = 10;
+	if (listen(listeningSocket, connectionBacklogSize) == -1)
+	{
+		error("Listen failed.");
+		return false;
+	}
+	
+	info("Listening on port: %s", portName);
+	
 	_shouldTerminateThread = false;
-	serverThread = new std::thread(Server::awaitConnection);
+	auto fxn = std::bind(Server::awaitConnection, listeningSocket);
+	serverThread = new std::thread(fxn);
 	serverThread->detach();
 	
 	info("Server thread dispatched.");
@@ -300,3 +302,9 @@ bool Server::stop()
 	
 	return true;
 }
+
+bool Server::isRunning() const
+{
+	return (serverThread != NULL);
+}
+
