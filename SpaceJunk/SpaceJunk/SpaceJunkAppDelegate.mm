@@ -65,6 +65,11 @@ static const uint64_t gameUpdateLeeway = 2ull * NSEC_PER_MSEC; // 2ms ?
 	[self resumeGameUpdates];
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+	return YES;
+}
+
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
 	[self stopGameUpdates];
