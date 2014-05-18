@@ -9,6 +9,7 @@
 #include "environment.h"
 
 #include "server.h"
+#include "JSManager.h"
 
 #import "SpaceJunkAppDelegate.h"
 
@@ -75,6 +76,7 @@ static const uint64_t gameUpdateLeeway = 2ull * NSEC_PER_MSEC; // 2ms ?
 	[self stopGameUpdates];
 	[_view stopDrawing];
 	Server::getInstance()->stop();
+	JSManager::getInstance()->destroy();
 }
 
 @end

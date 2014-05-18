@@ -20,8 +20,7 @@ public:
 	/** @return the singleton instance */
 	static inline JSManager* getInstance() { return &_instance; };
 	
-	/** @return the current isolate */
-	static inline Isolate * isolate() { return _instance._isolate; };
+	static inline Isolate* getIsolate() { return _instance._isolate; };
 	
 	/** Run a script by name in a given context */
 	static Local<Value> runScript(const char* name);
@@ -32,8 +31,9 @@ public:
 	/** Retrieve the global object from a context */
 	Local<Object> getGlobalObject(Handle<Context> context);
 	
-	// IComponent implementation
 	bool init();
+	
+	void destroy();
 	
 private:
 	
@@ -43,9 +43,9 @@ private:
 	JSManager();
 	~JSManager();
 	
-	void initIsolateGlobals();
+	Isolate* _isolate;
 	
-	v8::Isolate* _isolate;
+	void initIsolateGlobals();
 	
 	v8::Persistent<v8::String> _globalName;
 	v8::Persistent<v8::String> _logFunctionName;

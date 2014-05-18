@@ -63,6 +63,12 @@ bool WebSocketMessage::init()
 	return true;
 }
 
+void WebSocketMessage::close()
+{
+	_closeStatusCode = 1000;
+	sendClose();
+}
+
 void WebSocketMessage::sendPong(const void* msg, size_t len)
 {
 	/*

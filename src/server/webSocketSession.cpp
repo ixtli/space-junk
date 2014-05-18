@@ -28,7 +28,7 @@ _handshakeHeaders()
 
 WebSocketSession::~WebSocketSession()
 {
-	
+	_message.close();
 }
 
 bool WebSocketSession::init()
@@ -130,7 +130,7 @@ void WebSocketSession::sendHandshake()
 	}
 	
 	// The encoded message goes in this buffer
-	char encodedMessage[256];
+	char encodedMessage[128];
 	
 	/*
 	 the server has to take [..] the header field [Sec-WebSocket-Key] minus
@@ -149,7 +149,7 @@ void WebSocketSession::sendHandshake()
    [RFC4648]), of this concatenation is then returned in the server's
    handshake.
 	 */
-	const size_t kSHA1OutputBytes = 20;
+	const size_t kSHA1OutputBytes = 160 / 8;
 	unsigned char sha1[kSHA1OutputBytes];
 	if (!SHA1String((unsigned char*)encodedMessage, charCount, sha1))
 	{
@@ -160,7 +160,7 @@ void WebSocketSession::sendHandshake()
 	// Encode the whole thing in Base64
 	base64Encode(sha1, kSHA1OutputBytes, encodedMessage);
 	
-	char response[512];
+	char response[256];
 	
 	sprintf(response,
 					"HTTP/1.1 101 Switching Protocols\r\n"

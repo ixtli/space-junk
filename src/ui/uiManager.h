@@ -24,9 +24,8 @@ public:
 	/** @return the singleton instance of the class */
 	static UIManager* getInstance() { return &_instance; };
 	
-	// IComponent functionality
-	virtual bool init();
-	virtual void update(sjtime_t dt);
+	bool init();
+	void update(sjtime_t dt);
 	
 	void viewDidResize(const Size2I &bounds);
 	bool addLayer(UILayer* layer);
@@ -37,7 +36,7 @@ public:
 private:
 	
 	UIManager();
-	virtual ~UIManager();
+	~UIManager();
 	
 	SimpleVector<UILayer*, true> _layers;
 	

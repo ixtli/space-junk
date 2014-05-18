@@ -33,9 +33,8 @@ void JSConfigLoader::installConfiguration(Persistent<Context> context)
 
 void JSConfigLoader::processConfigObject()
 {
-	Isolate* isolate = JSManager::getInstance()->isolate();
+	V8_NEW_SHARED_SCOPE();
 	
-	// Get the instantiation of the global object
 	Local<Context> ctx = Local<Context>::New(isolate, _context);
 	Local<Object> globalInstance = JSManager::getInstance()->getGlobalObject(ctx);
 	
@@ -48,12 +47,12 @@ void JSConfigLoader::processConfigObject()
 	
 	Local<Value> blah = V8GETVAL(isolate, globalInstance, "blah");
 	String::Utf8Value example(blah);
+	info("Blah: %s", V8StrToCStr(example));
 }
 
 bool JSConfigLoader::init()
 {
-	Isolate* isolate = JSManager::getInstance()->isolate();
-	HandleScope handle_scope(isolate);
+	V8_NEW_SHARED_SCOPE();
 	
 	// Get a new object template for the global object
 	Local<ObjectTemplate> global = JSManager::getInstance()->newGlobalTemplate();

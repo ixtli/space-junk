@@ -18,6 +18,7 @@ public:
 	
 	bool init();
 	bool read();
+	void close();
 	
 	inline size_t messageLength() const { return _messageLength; };
 	inline const char* const message() const { return _message; };

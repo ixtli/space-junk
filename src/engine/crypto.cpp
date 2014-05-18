@@ -19,18 +19,6 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 bool SHA1String(const unsigned char* input, size_t len, unsigned char* output)
 {
-//	// SHA-1 is a cryptographic hash function with a 160 bit output.
-//	SHA_CTX context;
-//	
-//	if (!SHA_Init(&context))
-//		return false;
-//	
-//	if (!SHA_Update(&context, input, length))
-//		return false;
-//	
-//	if (!SHA_Final(output, &context))
-//		return false;
-	
 	SHA1(input, len, output);
 	
 	return true;
