@@ -29,8 +29,8 @@ public:
 	
 	bool init();
 	
-	// Queue mutators. Remember that this implementation is single-producer, single-
-	// consumer. So don't use either from more than one thread.
+	// Queue mutators. Remember that this implementation is single-producer,
+	// single-consumer. So don't use either from more than one thread.
 	bool push(const T& item);
 	bool pop(T& item);
 	
@@ -83,6 +83,7 @@ bool RingBuffer<T, Q_SIZE>::pop(T& item)
 {
 	const size_t currentHead = _head.load(std::memory_order_relaxed);
 	
+	// Are we empty?
 	if (currentHead == _tail.load(std::memory_order_acquire))
 		return false;
 	

@@ -132,7 +132,7 @@ void CubeManager::draw()
 }
 
 // Engine update function
-void CubeManager::update(sjtime_t dt)
+void CubeManager::update(sj_time_t dt)
 {
 	_camera.update(dt);
 }

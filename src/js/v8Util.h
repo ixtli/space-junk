@@ -14,12 +14,21 @@
 #include "v8.h"
 #pragma clang diagnostic pop
 
-#define V8GETVAL(ISOLATE, OBJECT, NAME) \
-	OBJECT->Get(v8::String::NewFromUtf8(ISOLATE, NAME))
+#define V8_NEW_STRING(STRING) \
+	v8::String::NewFromUtf8(isolate, STRING)
 
-#define V8_NEW_SHARED_SCOPE() \
+#define V8GETVAL(ISOLATE, OBJECT, NAME) \
+	OBJECT->Get(V8_NEW_STRING(NAME))
+
+#define V8_OPEN_CUSTOM_SCOPE(ISOLATE, HANDLE) \
+	v8::Isolate* ISOLATE = JSManager::getIsolate(); \
+	v8::HandleScope HANDLE(ISOLATE)
+
+#define V8_OPEN_SCOPE() V8_OPEN_CUSTOM_SCOPE(isolate, handleScope)
+
+#define V8_OPEN_ESCAPABLE_SCOPE() \
 	v8::Isolate* isolate = JSManager::getIsolate(); \
-	v8::HandleScope scope(isolate)
+	v8::EscapableHandleScope handleScope(isolate)
 
 inline const char * V8StrToCStr(const v8::String::Utf8Value& val)
 {

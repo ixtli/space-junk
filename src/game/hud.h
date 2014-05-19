@@ -22,7 +22,7 @@ public:
 	
 	bool init();
 	
-	void update(sjtime_t dt);
+	void update(sj_time_t dt);
 	
 private:
 	

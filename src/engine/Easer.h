@@ -9,6 +9,7 @@
 #ifndef __SpaceJunk__Easer__
 #define __SpaceJunk__Easer__
 
+#include "chronoUtil.h"
 #include "easing.h"
 
 template <class T>
@@ -60,7 +61,7 @@ public:
 	 @param dt milliseconds since last update call
 	 @return a delta by which the value being eased should be incrimented
 	 */
-	inline int update(sjtime_t dt)
+	inline int update(sj_time_t dt)
 	{
 		if (_complete) return 0;
 		
@@ -82,7 +83,7 @@ public:
 	 Set the duration of the animation
 	 @param duration the time in milliseconds
 	 */
-	inline void setDuration(sjtime_t duration) { _totalDuration = duration; };
+	inline void setDuration(sj_time_t duration) { _totalDuration = duration; };
 	
 	/**
 	 Set the start location of the animation
@@ -112,10 +113,10 @@ public:
 private:
 	
 	/** The total amount of time the ease should take. */
-	sjtime_t _totalDuration;
+	sj_time_t _totalDuration;
 	
 	/** Amount of time that has passed since the start */
-	sjtime_t _timeAccumulator;
+	sj_time_t _timeAccumulator;
 	
 	/** The distance from start to end */
 	T _distance;

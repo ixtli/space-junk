@@ -9,6 +9,8 @@
 #ifndef __Space_Junk__engine__
 #define __Space_Junk__engine__
 
+#include "chronoUtil.h"
+
 class Engine
 {
 public:
@@ -18,7 +20,9 @@ public:
 	
 	// IComponent functionality
 	bool init();
-	void update(sjtime_t now);
+	void destroy();
+	void update(sj_time_t dt);
+	bool isRunning() const;
 	
 private:
 	
@@ -28,8 +32,8 @@ private:
 	static Engine _instance;
 	
 	bool initComponents();
-	
-	sjtime_t _lastUpdate;
+	void threadMain();
+	static bool _shouldTerminate;
 };
 
 #endif /* defined(__Space_Junk__engine__) */

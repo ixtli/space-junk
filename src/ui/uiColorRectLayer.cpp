@@ -46,7 +46,7 @@ void UIColorRectLayer::randomRect()
 	
 }
 
-void UIColorRectLayer::update(sjtime_t dt)
+void UIColorRectLayer::update(sj_time_t dt)
 {
 	GLuint count = _layer.used();
 	

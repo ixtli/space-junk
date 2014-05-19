@@ -33,7 +33,7 @@ void JSConfigLoader::installConfiguration(Persistent<Context> context)
 
 void JSConfigLoader::processConfigObject()
 {
-	V8_NEW_SHARED_SCOPE();
+	V8_OPEN_SCOPE();
 	
 	Local<Context> ctx = Local<Context>::New(isolate, _context);
 	Local<Object> globalInstance = JSManager::getInstance()->getGlobalObject(ctx);
@@ -52,7 +52,7 @@ void JSConfigLoader::processConfigObject()
 
 bool JSConfigLoader::init()
 {
-	V8_NEW_SHARED_SCOPE();
+	V8_OPEN_SCOPE();
 	
 	// Get a new object template for the global object
 	Local<ObjectTemplate> global = JSManager::getInstance()->newGlobalTemplate();
@@ -67,14 +67,17 @@ bool JSConfigLoader::init()
 	Context::Scope context_scope(context);
 	
 	// Run the script itself by name
-	Local<Value> ret = JSManager::runScript(CONFIG_NAME);
+	Local<Value> ret = JSManager::runScriptFile(CONFIG_NAME);
 	
 	bool result = false;
 	if (!V8_V_TO_BOOL(*ret, result))
 	{
 		error("Configuration did not return a boolean.");
 		return false;
-	} else if (!result) {
+	}
+	
+	if (!result)
+	{
 		error("Configuration did not return true.");
 		return false;
 	}

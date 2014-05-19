@@ -24,7 +24,7 @@ public:
 	
 	virtual void draw() const { _layer.draw(); };
 	virtual void depth(uint32_t d) { _depth = d; };
-	virtual void update(sjtime_t dt);
+	virtual void update(sj_time_t dt);
 	
 	UIColorRectElement* newElement();
 	void removeElement(UIColorRectElement* e);

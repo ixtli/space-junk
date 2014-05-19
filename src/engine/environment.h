@@ -11,17 +11,18 @@
 
 #include <stdlib.h>
 
+#include "chronoUtil.h"
+
 class Environment
 {
 public:
 	
 	bool init();
+	void destroy();
 	
 	// Static functionality
 	inline static Environment* getInstance() { return &_instance; };
 	static char* newPathForFile(const char* name, const char* type);
-	static sjtime_t currentTime();
-	static void updateGameEvent(void* ctx);
 	
 	static void updateRenderables();
 	static void render();

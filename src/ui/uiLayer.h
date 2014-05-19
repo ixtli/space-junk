@@ -21,7 +21,7 @@ public:
 	
 	virtual bool init(uint32_t initialCount) = 0;
 	virtual void draw() const = 0;
-	virtual void update(sjtime_t dt) = 0;
+	virtual void update(sj_time_t dt) = 0;
 	virtual void depth(uint32_t d) = 0;
 	
 	inline uint32_t depth() const { return _depth; };

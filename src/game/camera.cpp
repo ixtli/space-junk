@@ -45,7 +45,7 @@ void Camera::updateScreenBounds(const Size2I &bounds)
 	updateMatrix();
 }
 
-void Camera::rotate(GLfloat angle, sjtime_t duration)
+void Camera::rotate(GLfloat angle, sj_time_t duration)
 {
 	_rotationDuration = duration;
 	_rotationTimeAccumulator = 0;
@@ -71,7 +71,7 @@ void Camera::updateMatrix()
 	_matrix = _projection * _view * _rotation;
 }
 
-void Camera::update(sjtime_t dt)
+void Camera::update(sj_time_t dt)
 {
 	if (_rotationDuration > _rotationTimeAccumulator)
 	{

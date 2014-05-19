@@ -49,7 +49,7 @@ void UIManager::draw()
  Update the UI based on time since the last tick
  @param dt the fraction of a second since the last update
  */
-void UIManager::update(sjtime_t dt)
+void UIManager::update(sj_time_t dt)
 {
 	size_t size = _layers.size();
 	for (size_t i = 0; i < size; i++)

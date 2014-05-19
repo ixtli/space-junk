@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include "chronoUtil.h"
+
 #include "environment.h"
 #include "shaderManager.h"
 #include "uiManager.h"
@@ -29,7 +31,7 @@ _lastUpdate(0)
 
 Renderer::~Renderer()
 {
-	
+	destroy();
 }
 
 bool Renderer::init()
@@ -53,9 +55,14 @@ bool Renderer::init()
 	if (!initComponents())
 		return false;
 	
-	_lastUpdate = Environment::currentTime();
+	_lastUpdate = TIME_SINCE_EPOCH();
 	
 	return true;
+}
+
+void Renderer::destroy()
+{
+	
 }
 
 bool Renderer::initComponents()
@@ -106,9 +113,9 @@ void Renderer::resetGL()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Renderer::update(sjtime_t currentTime)
+void Renderer::update(sj_time_t currentTime)
 {
-	sjtime_t dt = currentTime - _lastUpdate;
+	sj_time_t dt = currentTime - _lastUpdate;
 	
 	UIManager::getInstance()->update(dt);
 	CubeManager::getInstance()->update(dt);

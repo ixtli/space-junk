@@ -192,6 +192,7 @@
 		A3E46B2B191DB922005A6738 /* stringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stringUtil.h; path = ../../src/util/stringUtil.h; sourceTree = "<group>"; };
 		A3E46B2D191F408E005A6738 /* webSocketSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = webSocketSession.cpp; path = ../../src/server/webSocketSession.cpp; sourceTree = "<group>"; };
 		A3E46B2E191F408E005A6738 /* webSocketSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = webSocketSession.h; path = ../../src/server/webSocketSession.h; sourceTree = "<group>"; };
+		A3E66A43192995B100413F0F /* chronoUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = chronoUtil.h; path = ../../src/util/chronoUtil.h; sourceTree = "<group>"; };
 		A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_base.x64.a; path = "../v8-build/native/libv8_base.x64.a"; sourceTree = "<group>"; };
 		A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_snapshot.a; path = "../v8-build/native/libv8_snapshot.a"; sourceTree = "<group>"; };
 		A3EA781C1826ED830052CFC9 /* libicui18n.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicui18n.a; path = "../v8-build/native/libicui18n.a"; sourceTree = "<group>"; };
@@ -389,6 +390,7 @@
 				A3A86D6217B2127700426EEC /* log.c */,
 				A3A86D6317B2127700426EEC /* log.h */,
 				A397FCBB183AFCB700572122 /* ringBuffer.h */,
+				A3E66A43192995B100413F0F /* chronoUtil.h */,
 				A37D709C18617D5F001652B0 /* randUtil.h */,
 				A37D709E18650F7A001652B0 /* simpleVector.h */,
 				A3E46B2A191DB922005A6738 /* stringUtil.cpp */,

@@ -18,7 +18,8 @@ JSManager JSManager::_instance;
 
 JSManager::JSManager() :
 
-_isolate(NULL)
+_isolate(NULL),
+_serverWorkQueue()
 
 {}
 
@@ -59,47 +60,96 @@ void JSManager::destroy()
 	_isolate = NULL;
 }
 
+bool JSManager::pushScript(const char *script, size_t length)
+{
+	// We need to save the work for later
+	char* newWork = new char[length + 1];
+	memcpy(newWork, script, length + 1);
+	
+	// Push it to the stack
+	bool ret = _serverWorkQueue.push(newWork);
+	
+	if (!ret)
+	{
+		delete [] newWork;
+	}
+	
+	return ret;
+}
+
+bool JSManager::processScriptQueue()
+{
+	V8_OPEN_SCOPE();
+	
+	// Get a new object template for the global object
+	Local<ObjectTemplate> global = JSManager::getInstance()->newGlobalTemplate();
+	
+	unsigned int scriptsRun = 0;
+	char* text = NULL;
+	
+	while (_serverWorkQueue.pop(text))
+	{
+		HandleScope secondScope(isolate);
+		
+		// Create the context in which to run the script
+		Local<Context> context = Context::New(isolate, NULL, global);
+		
+		// Enter the context so operations happen in it
+		Context::Scope context_scope(context);
+		
+		Local<String> source = V8_NEW_STRING(text);
+		Local<Script> script = Script::Compile(source);
+		Local<Value> ret = script->Run();
+		
+		info("Script result: %s", V8StrToCStr(String::Utf8Value(ret)));
+		
+		delete [] text;
+		scriptsRun++;
+	}
+	
+	return (scriptsRun > 0);
+}
+
 void JSManager::initIsolateGlobals()
 {
-	Isolate* isolate = getIsolate();
-	HandleScope handle_scope(isolate);
+	V8_OPEN_SCOPE();
 	
 	// Create persistent handles to strings that we're going to use but never
 	// expose directly to the user as modifable values
-	_globalName.Reset(isolate, String::NewFromUtf8(isolate, "spacejunk"));
-	_logFunctionName.Reset(isolate, String::NewFromUtf8(isolate, "log"));
+	_globalName.Reset(isolate, V8_NEW_STRING("spacejunk"));
+	_logFunctionName.Reset(isolate, V8_NEW_STRING("log"));
 }
 
-Local<Value> JSManager::runScript(const char *name)
+Local<Value> JSManager::runScriptFile(const char *name)
 {
-	Isolate* isolate = getIsolate();
-	EscapableHandleScope scope(isolate);
+	V8_OPEN_ESCAPABLE_SCOPE();
 	
-	// Run our loaded config script in the contents
+	Local<Value> ret;
 	File f;
+	
 	if (!f.init(name, JSManager::JS_EXTENSION))
 	{
-		return Boolean::New(isolate, false);
+		ret = Local<Boolean>::New(isolate, Boolean::New(isolate, false));
+	} else {
+		Local<String> source = V8_NEW_STRING(f.contents());
+		Local<Script> script = Script::Compile(source);
+		ret = script->Run();
 	}
 	
-	Local<String> source = String::NewFromUtf8(isolate, f.contents());
-	Local<Script> script = Script::Compile(source);
-	
-	return scope.Escape(script->Run());
+	return handleScope.Escape(ret);
 }
 
-Local<Object> JSManager::getGlobalObject(Handle<Context> context)
+Local<Object> JSManager::getGlobalObject(Handle<Context>& context)
 {
-	Isolate* isolate = getIsolate();
-	EscapableHandleScope scope(isolate);
+	V8_OPEN_ESCAPABLE_SCOPE();
+	
 	Local<String> str = Local<String>::New(isolate, _globalName);
-	return scope.Escape(context->Global()->Get(str)->ToObject());
+	return handleScope.Escape(context->Global()->Get(str)->ToObject());
 }
 
 Local<ObjectTemplate> JSManager::newGlobalTemplate()
 {
-	Isolate* isolate = Isolate::GetCurrent();
-	EscapableHandleScope scope(isolate);
+	V8_OPEN_ESCAPABLE_SCOPE();
 	
 	Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
 	Local<ObjectTemplate> sj = ObjectTemplate::New(isolate);
@@ -110,5 +160,5 @@ Local<ObjectTemplate> JSManager::newGlobalTemplate()
 	// Add the spacejunk object 
 	global->Set(Local<String>::New(isolate, _globalName), sj);
 	
-	return scope.Escape(global);
+	return handleScope.Escape(global);
 }

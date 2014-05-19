@@ -41,7 +41,7 @@ bool HUD::init()
 	return true;
 }
 
-void HUD::update(sjtime_t dt)
+void HUD::update(sj_time_t dt)
 {
 	if (_easer.isComplete()) return;
 	

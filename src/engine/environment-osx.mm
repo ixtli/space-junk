@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include <sys/time.h>
 #include <sys/utsname.h>
 
 #include "renderer.h"
@@ -21,7 +20,7 @@ Environment::Environment()
 
 Environment::~Environment()
 {
-	
+	destroy();
 }
 
 bool Environment::init()
@@ -45,6 +44,12 @@ bool Environment::init()
 		return false;
 	
 	return true;
+}
+
+void Environment::destroy()
+{
+	Renderer::getInstance()->destroy();
+	Engine::getInstance()->destroy();
 }
 
 /**
@@ -77,34 +82,15 @@ char* Environment::newPathForFile(const char *name, const char *type)
 	return ret;
 }
 
-/**
- @return the current time in milliseconds
- */
-sjtime_t Environment::currentTime()
-{
-	timeval ct;
-	gettimeofday(&ct, NULL);
-	
-	// Remember: there are 1000 milliseconds in a second
-	// 1000 microseconds in a millisecond
-	// so 1,000,000 microseconds in a second
-	return (ct.tv_sec * 1000) + ((sjtime_t)round(ct.tv_usec * 0.001));
-}
-
 unsigned int Environment::defaultFBO()
 {
 	// Use zero for the default FBO. N.B.: Not appropriate for iOS
 	return 0;
 }
 
-void Environment::updateGameEvent(void* ctx)
-{
-	Engine::getInstance()->update(currentTime());
-}
-
 void Environment::updateRenderables()
 {
-	Renderer::getInstance()->update(currentTime());
+	Renderer::getInstance()->update(TIME_SINCE_EPOCH());
 }
 
 void Environment::render()

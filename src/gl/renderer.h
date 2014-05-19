@@ -9,6 +9,7 @@
 #ifndef __SpaceJunk__renderer__
 #define __SpaceJunk__renderer__
 
+#include "chronoUtil.h"
 #include "geometry.h"
 #include "glutil.h"
 
@@ -21,8 +22,9 @@ public:
 	
 	inline static Renderer* getInstance() { return &_instance; };
 	
-	virtual bool init();
-	virtual void update(sjtime_t now);
+	bool init();
+	void destroy();
+	void update(sj_time_t now);
 	
 	void resize(const Size2I& newBounds);
 	void render();
@@ -63,7 +65,7 @@ private:
 	
 	Size2I _bounds;
 	GLuint _defaultFBOName;
-	sjtime_t _lastUpdate;
+	sj_time_t _lastUpdate;
 	
 	// startup helpers
 	void resetGL();

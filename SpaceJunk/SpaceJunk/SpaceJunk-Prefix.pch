@@ -8,9 +8,4 @@
 	#import <Cocoa/Cocoa.h>
 #endif
 
-#include <time.h>
-
 #include "log.h"
-
-typedef __uint64_t sjtime_t;
-

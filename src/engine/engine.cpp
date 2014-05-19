@@ -6,6 +6,10 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
+#include <thread>
+#include <chrono>
+#include <functional>
+
 #include "JSManager.h"
 #include "server.h"
 #include "environment.h"
@@ -14,26 +18,24 @@
 
 #include "engine.h"
 
+std::thread* engineThread = NULL;
+
 Engine Engine::_instance;
 
-/** Construct the engine wrapper */
-Engine::Engine() :
+bool Engine::_shouldTerminate = true;
 
-_lastUpdate(0)
+/** Construct the engine wrapper */
+Engine::Engine()
 
 { }
 
 /** Destroy the engine. */
 Engine::~Engine()
 {
-	
+	destroy();
 }
 
-/**
- Initialize the engine
- @return true if successful
- */
-bool Engine::init()
+void Engine::threadMain()
 {
 	info("%s v%u.%u", V_DISPLAY_NAME, V_MAJOR, V_MINOR);
 	
@@ -43,10 +45,70 @@ bool Engine::init()
 	// Start the server
 	Server::getInstance()->run(Configuration::getInstance()->_serverPort);
 	
-	// Do this last so the gap isn't too great
-	_lastUpdate = Environment::currentTime();
+	// @TODO: Calculate this from target FPS
+	const kSJTimeUnit sleepDuration(16);
+	const std::chrono::nanoseconds sdns = std::chrono::duration_cast<std::chrono::nanoseconds>(sleepDuration);
+	
+	kSJTimePoint lastUpdate = kSJClock::now();
+	kSJTimePoint now, updateTime;
+	
+	std::chrono::nanoseconds sleepFor;
+	
+	while (!_shouldTerminate)
+	{
+		// Calculate the diff between last entry into this loop and now
+		now = kSJClock::now();
+		auto dt = now - lastUpdate;
+		sj_time_t diff = (sj_time_t)dt.count();
+		lastUpdate = now;
+		
+		// Do the update
+		update(diff);
+		
+		// How long did it take?
+		updateTime = kSJClock::now();
+		
+		// What was the delta between update start and update end?
+		sleepFor = std::chrono::duration_cast<std::chrono::nanoseconds>(now - lastUpdate);
+		
+		// Sleep until the next interval
+		std::this_thread::sleep_for(sdns - sleepFor);
+	}
+}
+
+/**
+ Initialize the engine
+ @return true if successful
+ */
+bool Engine::init()
+{
+	if (isRunning())
+		return false;
+	
+	_shouldTerminate = false;
+	engineThread = new std::thread(&Engine::threadMain, this);
 	
 	return true;
+}
+
+void Engine::destroy()
+{
+	if (!isRunning())
+		return;
+	
+	_shouldTerminate = true;
+	
+	if (engineThread->joinable())
+	{
+		engineThread->join();
+	}
+	
+	delete engineThread;
+	engineThread = NULL;
+	
+	// Clean up and exit
+	Server::getInstance()->stop();
+	JSManager::getInstance()->destroy();
 }
 
 /** Initialize managers that implement IComponent */
@@ -62,10 +124,14 @@ bool Engine::initComponents()
 }
 
 /** Update game components */
-void Engine::update(sjtime_t now)
+void Engine::update(sj_time_t dt)
 {
-	_lastUpdate = now - _lastUpdate;
-	
-	
-	_lastUpdate = now;
+	// Tell the JSManager to execute all scripts delivered to it by other threads
+	JSManager::getInstance()->processScriptQueue();
 }
+
+bool Engine::isRunning() const
+{
+	return (engineThread != NULL);
+}
+

@@ -10,6 +10,7 @@
 #include <stdio.h>
 
 #include "webSocketSession.h"
+#include "JSManager.h"
 
 #include "crypto.h"
 
@@ -114,7 +115,9 @@ void WebSocketSession::newData()
 	
 	if (_message.complete())
 	{
-		info("Message: %s", _message.message());
+		JSManager::getInstance()->pushScript(_message.message(),
+																				 _message.messageLength());
+		
 		_message.clearMessage();
 	}
 }

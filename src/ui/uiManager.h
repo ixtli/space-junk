@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__uiManager__
 #define __SpaceJunk__uiManager__
 
+#include "chronoUtil.h"
+
 #include "simpleVector.h"
 #include "geometry.h"
 
@@ -25,7 +27,7 @@ public:
 	static UIManager* getInstance() { return &_instance; };
 	
 	bool init();
-	void update(sjtime_t dt);
+	void update(sj_time_t dt);
 	
 	void viewDidResize(const Size2I &bounds);
 	bool addLayer(UILayer* layer);
