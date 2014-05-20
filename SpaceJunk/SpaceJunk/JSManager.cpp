@@ -107,7 +107,8 @@ bool JSManager::processScriptQueue()
 		Local<Script> script = Script::Compile(source);
 		Local<Value> ret = script->Run();
 		
-		info("Script result: %s", V8StrToCStr(String::Utf8Value(ret)));
+		String::Utf8Value toString(ret);
+		info("Script result: %s", *toString);
 		
 		delete [] text;
 		scriptsRun++;

@@ -39,6 +39,8 @@ private:
 	
 	char* _startLine;
 	HeaderField* _hashHead;
+	size_t _count;
+	HeaderField** _list;
 };
 
 #endif /* defined(__SpaceJunk__httpRequestHeaders__) */
