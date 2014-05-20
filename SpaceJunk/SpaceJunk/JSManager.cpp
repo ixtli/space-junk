@@ -62,6 +62,9 @@ void JSManager::destroy()
 
 bool JSManager::pushScript(const char *script, size_t length)
 {
+	if (!length || !script)
+		return false;
+	
 	// We need to save the work for later
 	char* newWork = new char[length + 1];
 	memcpy(newWork, script, length + 1);
@@ -81,8 +84,11 @@ bool JSManager::processScriptQueue()
 {
 	V8_OPEN_SCOPE();
 	
-	// Get a new object template for the global object
-	Local<ObjectTemplate> global = JSManager::getInstance()->newGlobalTemplate();
+	// Make a new object template for global
+	Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
+	Local<ObjectTemplate> sj = ObjectTemplate::New(isolate);
+	sj->Set(V8_NEW_STRING("log"), FunctionTemplate::New(isolate, v8Log));
+	global->Set(V8_NEW_STRING("spacejunk"), sj);
 	
 	unsigned int scriptsRun = 0;
 	char* text = NULL;
@@ -154,11 +160,8 @@ Local<ObjectTemplate> JSManager::newGlobalTemplate()
 	Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
 	Local<ObjectTemplate> sj = ObjectTemplate::New(isolate);
 	
-	sj->Set(Local<String>::New(isolate, _logFunctionName),
-					FunctionTemplate::New(isolate, v8Log));
-	
-	// Add the spacejunk object 
-	global->Set(Local<String>::New(isolate, _globalName), sj);
+	sj->Set(V8_NEW_STRING("log"), FunctionTemplate::New(isolate, v8Log));
+	global->Set(V8_NEW_STRING("spacejunk"), sj);
 	
 	return handleScope.Escape(global);
 }

@@ -74,6 +74,9 @@ void Engine::threadMain()
 		// Sleep until the next interval
 		std::this_thread::sleep_for(sdns - sleepFor);
 	}
+	
+	// Clean up anything we started at the beginning of thread execution
+	Server::getInstance()->stop();
 }
 
 /**
@@ -107,7 +110,6 @@ void Engine::destroy()
 	engineThread = NULL;
 	
 	// Clean up and exit
-	Server::getInstance()->stop();
 	JSManager::getInstance()->destroy();
 }
 

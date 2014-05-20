@@ -62,6 +62,7 @@
 		A3D7806D17B8A15600C173D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A315CD8717B2041B00DEA6D2 /* MainMenu.xib */; };
 		A3E46B2C191DB922005A6738 /* stringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E46B2A191DB922005A6738 /* stringUtil.cpp */; };
 		A3E46B2F191F408E005A6738 /* webSocketSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E46B2D191F408E005A6738 /* webSocketSession.cpp */; };
+		A3E66A46192AF0AA00413F0F /* jsContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E66A44192AF0AA00413F0F /* jsContext.cpp */; };
 		A3EA781A1826ED5F0052CFC9 /* libv8_base.x64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */; };
 		A3EA781B1826ED5F0052CFC9 /* libv8_snapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */; };
 		A3EA781D1826ED830052CFC9 /* libicui18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA781C1826ED830052CFC9 /* libicui18n.a */; };
@@ -193,6 +194,8 @@
 		A3E46B2D191F408E005A6738 /* webSocketSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = webSocketSession.cpp; path = ../../src/server/webSocketSession.cpp; sourceTree = "<group>"; };
 		A3E46B2E191F408E005A6738 /* webSocketSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = webSocketSession.h; path = ../../src/server/webSocketSession.h; sourceTree = "<group>"; };
 		A3E66A43192995B100413F0F /* chronoUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = chronoUtil.h; path = ../../src/util/chronoUtil.h; sourceTree = "<group>"; };
+		A3E66A44192AF0AA00413F0F /* jsContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jsContext.cpp; path = ../../src/js/jsContext.cpp; sourceTree = "<group>"; };
+		A3E66A45192AF0AA00413F0F /* jsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jsContext.h; path = ../../src/js/jsContext.h; sourceTree = "<group>"; };
 		A3EA78181826ED5F0052CFC9 /* libv8_base.x64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_base.x64.a; path = "../v8-build/native/libv8_base.x64.a"; sourceTree = "<group>"; };
 		A3EA78191826ED5F0052CFC9 /* libv8_snapshot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8_snapshot.a; path = "../v8-build/native/libv8_snapshot.a"; sourceTree = "<group>"; };
 		A3EA781C1826ED830052CFC9 /* libicui18n.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicui18n.a; path = "../v8-build/native/libicui18n.a"; sourceTree = "<group>"; };
@@ -509,6 +512,8 @@
 			children = (
 				A3EA787A1827557A0052CFC9 /* JSManager.cpp */,
 				A3EA787B1827557A0052CFC9 /* JSManager.h */,
+				A3E66A44192AF0AA00413F0F /* jsContext.cpp */,
+				A3E66A45192AF0AA00413F0F /* jsContext.h */,
 				A3B16AE3186DF0190093EBD5 /* v8Util.h */,
 				A3B16AE4186DF32B0093EBD5 /* jsConfigLoader.cpp */,
 				A3B16AE5186DF32B0093EBD5 /* jsConfigLoader.h */,
@@ -650,6 +655,7 @@
 				A3A86DA417B2144F00426EEC /* uiColorRectElement.cpp in Sources */,
 				A30F4EAD191C5DF900C8E742 /* crypto.cpp in Sources */,
 				A3A86DA517B2144F00426EEC /* uiElement.cpp in Sources */,
+				A3E66A46192AF0AA00413F0F /* jsContext.cpp in Sources */,
 				A3A86DA617B2144F00426EEC /* uiLayer.cpp in Sources */,
 				A3EA787C1827557A0052CFC9 /* JSManager.cpp in Sources */,
 				A3A86DA717B2144F00426EEC /* uiManager.cpp in Sources */,

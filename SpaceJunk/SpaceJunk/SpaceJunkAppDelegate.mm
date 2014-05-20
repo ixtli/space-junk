@@ -12,14 +12,6 @@
 
 @implementation SpaceJunkAppDelegate
 
-- (void)resumeGameUpdates
-{
-}
-
-- (void)stopGameUpdates
-{
-}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
 	// Init the game environment
@@ -27,7 +19,6 @@
 	
 	// Start drawing and firing updates
 	[_view resumeDrawing];
-	[self resumeGameUpdates];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
@@ -37,7 +28,6 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-	[self stopGameUpdates];
 	[_view stopDrawing];
 	Environment::getInstance()->destroy();
 }

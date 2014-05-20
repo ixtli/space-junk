@@ -46,11 +46,12 @@ int Server::acceptConnection(int acceptingSocket)
 	{
 		error("accept() failed.");
 	} else {
-		static char remoteIP[INET6_ADDRSTRLEN];
-		const void* in_addr = get_in_addr(address);
-		info("New connection from %s on socket %d",
-				 inet_ntop(addrStorage.ss_family, in_addr, remoteIP, INET6_ADDRSTRLEN),
-				 ret);
+		char remoteIP[INET6_ADDRSTRLEN + 1];
+		inet_ntop(addrStorage.ss_family,
+							get_in_addr(address),
+							remoteIP,
+							INET6_ADDRSTRLEN);
+		info("New connection from %s on socket %d", remoteIP, ret);
 	}
 	
 	return ret;
@@ -307,8 +308,11 @@ void Server::awaitConnection(int listeningSocket)
 				delete currentSession;
 				
 				// Clean up socket
-				close(i);
-				FD_CLR(i, &master_fds);
+				if (FD_ISSET(i, &master_fds))
+				{
+					close(i);
+					FD_CLR(i, &master_fds);
+				}
 			}
 		}
 	}
@@ -318,23 +322,23 @@ void Server::awaitConnection(int listeningSocket)
 	// Clean up
 	for (int i = 0; i <= largestFileDescriptor; i++)
 	{
+		// Check to see if we've registered a session for this file descriptor
+		currentSession = NULL;
+		HASH_FIND_INT(_sessionHead, &i, currentSession);
+		
+		if (currentSession)
+		{
+			// If so, deallocate all memory associated with it
+			HASH_DEL(_sessionHead, currentSession);
+			delete currentSession->session;
+			delete currentSession;
+		}
+
 		if (FD_ISSET(i, &master_fds))
 		{
 			close(i);
 			FD_CLR(i, &master_fds);
 		}
-		
-		// Check to see if we've registered a session for this file descriptor
-		currentSession = NULL;
-		HASH_FIND_INT(_sessionHead, &i, currentSession);
-		
-		if (!currentSession)
-			continue;
-		
-		// If so, deallocate all memory associated with it
-		HASH_DEL(_sessionHead, currentSession);
-		delete currentSession->session;
-		delete currentSession;
 	}
 	
 	// Make sure everything is deallocated

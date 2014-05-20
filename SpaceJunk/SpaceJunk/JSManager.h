@@ -12,6 +12,8 @@
 #include "v8Util.h"
 #include "ringBuffer.h"
 
+#include "jsContext.h"
+
 using namespace v8;
 
 class JSManager

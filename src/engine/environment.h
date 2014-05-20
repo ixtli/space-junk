@@ -29,8 +29,6 @@ public:
 	static void viewResize(unsigned w, unsigned h);
 	static unsigned int defaultFBO();
 	
-	static unsigned getRandomUnsignedBetween(unsigned min, unsigned max);
-	
 private:
 	
 	Environment();
