@@ -20,7 +20,6 @@ public:
 	
 	bool init(char* request);
 	const char* header(const char* name) const;
-	inline size_t headerCount() const { return _headerCount; };
 	const char* startLine() const { return _startLine; };
 	
 private:
@@ -39,10 +38,7 @@ private:
 	} HeaderField;
 	
 	char* _startLine;
-	
-	size_t _headerCount;
 	HeaderField* _hashHead;
-	HeaderField** _headerList;
 };
 
 #endif /* defined(__SpaceJunk__httpRequestHeaders__) */

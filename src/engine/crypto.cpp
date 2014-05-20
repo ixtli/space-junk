@@ -32,22 +32,24 @@ size_t SHA1DigestLength()
 
 void base64Encode(const unsigned char* input, int len, char* outBuffer)
 {
-	BIO *bio, *b64;
 	
-	b64 = BIO_new(BIO_f_base64());
-	bio = BIO_new(BIO_s_mem());
-	bio = BIO_push(b64, bio);
+	BIO *b64 = BIO_new(BIO_f_base64());
 	
 	// Strips out newlines from the ouput.
-	BIO_set_flags(bio, BIO_FLAGS_BASE64_NO_NL);
-	BIO_write(bio, input, len);
-	BIO_flush(bio);
+	BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL);
 	
+	BIO *bmem = BIO_new(BIO_s_mem());
+	b64 = BIO_push(b64, bmem);
+	
+	// Do the b64 encode
+	BIO_write(b64, input, len);
+	BIO_flush(b64);
+	
+	// Make a pointer to mem and copy the string out
 	BUF_MEM* bufferPtr;
-	BIO_get_mem_ptr(bio, &bufferPtr);
+	BIO_get_mem_ptr(b64, &bufferPtr);
 	memcpy(outBuffer, bufferPtr->data, bufferPtr->length);
 	outBuffer[bufferPtr->length] = '\0';
 
-	BIO_set_close(bio, BIO_CLOSE);
-	BIO_free_all(bio);
+	BIO_free_all(b64);
 }

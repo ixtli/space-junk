@@ -15,29 +15,25 @@
 HTTPRequestHeaders::HTTPRequestHeaders() :
 
 _hashHead(NULL),
-_headerList(NULL),
-_headerCount(0),
 _startLine(NULL)
 
 { }
 
 HTTPRequestHeaders::~HTTPRequestHeaders()
 {
-	HASH_CLEAR(hh, _hashHead);
-	_hashHead = NULL;
+	if (!_hashHead)
+		return;
 	
-	if (_headerList)
+	HeaderField* el, *tmp;
+	HASH_ITER(hh, _hashHead, el, tmp)
 	{
-		for (size_t i = 0; i < _headerCount; i++)
-		{
-			if (_headerList[i])
-				delete _headerList[i];
-		}
-		
-		delete [] _headerList;
-		_headerList = NULL;
-		_headerCount = 0;
+		if (el == _hashHead) continue;
+		if (el) delete el;
 	}
+	
+	HASH_CLEAR(hh, _hashHead);
+	delete _hashHead;
+	_hashHead = NULL;
 	
 	if (_startLine)
 	{
@@ -112,16 +108,6 @@ bool HTTPRequestHeaders::init(char* request)
 		
 		// Add it to the hash for quick lookup
 		HASH_ADD_KEYPTR(hh, _hashHead, n->fieldName, strlen(n->fieldName), n);
-		_headerCount++;
-	}
-	
-	// Make an array of the new headers for even easier access and deletion
-	_headerList = new HeaderField*[_headerCount];
-	HeaderField* el = NULL, *tmp = NULL;
-	size_t i = 0;
-	HASH_ITER(hh, _hashHead, el, tmp)
-	{
-		_headerList[i++] = el ? el : NULL;
 	}
 	
 	return true;

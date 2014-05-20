@@ -112,7 +112,7 @@ void WebSocketMessage::sendClose()
 	
 	message[0] = 0x88; // fin, opcode = close
 	message[1] = 0x2; // not masked, 2 bytes in length (status code)
-	*((unsigned int*)(&message[2])) = HTONS(_closeStatusCode);
+	*((uint_fast16_t*)(&message[2])) = HTONS(_closeStatusCode);
 	
 	if (send(_fileDescriptor, message, 4, 0) == -1)
 	{
@@ -326,6 +326,9 @@ bool WebSocketMessage::read()
 
 void WebSocketMessage::addToMessage(const char *msg, size_t len)
 {
+	if (!msg || !len)
+		return;
+	
 	size_t newLength = _messageLength + len;
 	char* newMessage = new char[newLength + 1];
 	

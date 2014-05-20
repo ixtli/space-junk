@@ -102,7 +102,7 @@ bool JSManager::processScriptQueue()
 		
 		// Enter the context so operations happen in it
 		Context::Scope context_scope(context);
-		
+
 		Local<String> source = V8_NEW_STRING(text);
 		Local<Script> script = Script::Compile(source);
 		Local<Value> ret = script->Run();
@@ -112,6 +112,8 @@ bool JSManager::processScriptQueue()
 		delete [] text;
 		scriptsRun++;
 	}
+	
+//	V8::ContextDisposedNotification();
 	
 	return (scriptsRun > 0);
 }
