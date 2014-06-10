@@ -54,11 +54,8 @@ bool JSConfigLoader::init()
 {
 	V8_OPEN_SCOPE();
 	
-	// Get a new object template for the global object
-	Local<ObjectTemplate> global = JSManager::getInstance()->newGlobalTemplate();
-	
 	// Create the context in which to run the script
-	Local<Context> context = Context::New(isolate, NULL, global);
+	Local<Context> context = JSManager::getInstance()->newContext();
 	
 	// Save the context so we can operate on it later
 	_context.Reset(isolate, context);

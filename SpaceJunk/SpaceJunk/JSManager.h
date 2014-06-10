@@ -29,10 +29,13 @@ public:
 	/** Run a script by name in a given context */
 	static Local<Value> runScriptFile(const char* name);
 	
-	/** Install the global object in a given context */
-	Local<ObjectTemplate> newGlobalTemplate();
-	
 	/** Retrieve the global object from a context */
+	Persistent<ObjectTemplate>& globalObjectTemplate() {return _globalTemplate;};
+	
+	/** Make a new context in your current handle scope. */
+	Local<Context> newContext();
+	
+	/** Get a reference to the global object from a given context */
 	Local<Object> getGlobalObject(Handle<Context>& context);
 	
 	bool init();
@@ -60,8 +63,7 @@ private:
 	void initIsolateGlobals();
 	
 	// Store some UTF8 strings globally so that we dont recreate them needlessly
-	v8::Persistent<v8::String> _globalName;
-	v8::Persistent<v8::String> _logFunctionName;
+	Persistent<ObjectTemplate> _globalTemplate;
 	
 	/** The singleton instance */
 	static JSManager _instance;

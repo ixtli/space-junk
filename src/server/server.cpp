@@ -9,6 +9,8 @@
 #include <functional>
 #include <thread>
 
+#include <signal.h>
+#include <errno.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -91,9 +93,10 @@ int Server::openConnection(const char *host, unsigned int port)
 		
 		if (connect(fd, p->ai_addr, p->ai_addrlen) < 0)
 		{
+			int errsv = errno;
 			close(fd);
 			fd = -1;
-			error("connect()");
+			error("connect(): %i", errsv);
 			continue;
 		}
 		
@@ -226,6 +229,9 @@ void Server::awaitConnection(int listeningSocket)
 	// We keep a hash of open websocket sessions. These pointers facilitate that
 	OpenSession* currentSession = NULL;
 	OpenSession* _sessionHead = NULL;
+	
+	// Ignore SIG_PIPE on this thread.
+	signal(SIGPIPE, SIG_IGN);
 	
 	// When the application begins to shut down, this bit will get flipped
 	// and the thread will terminate

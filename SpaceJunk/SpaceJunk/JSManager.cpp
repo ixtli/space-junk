@@ -53,8 +53,7 @@ void JSManager::destroy()
 	if (!_isolate) return;
 	
 	// Clear all persistent handles
-	_globalName.Reset();
-	_logFunctionName.Reset();
+	_globalTemplate.Reset();
 	
 	_isolate->Exit();
 	_isolate = NULL;
@@ -83,13 +82,7 @@ bool JSManager::pushScript(const char *script, size_t length)
 bool JSManager::processScriptQueue()
 {
 	V8_OPEN_SCOPE();
-	
-	// Make a new object template for global
-	Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
-	Local<ObjectTemplate> sj = ObjectTemplate::New(isolate);
-	sj->Set(V8_NEW_STRING("log"), FunctionTemplate::New(isolate, v8Log));
-	global->Set(V8_NEW_STRING("spacejunk"), sj);
-	
+
 	unsigned int scriptsRun = 0;
 	char* text = NULL;
 	
@@ -98,23 +91,20 @@ bool JSManager::processScriptQueue()
 		HandleScope secondScope(isolate);
 		
 		// Create the context in which to run the script
-		Local<Context> context = Context::New(isolate, NULL, global);
+		Local<Context> context = newContext();
 		
 		// Enter the context so operations happen in it
 		Context::Scope context_scope(context);
 
 		Local<String> source = V8_NEW_STRING(text);
 		Local<Script> script = Script::Compile(source);
-		Local<Value> ret = script->Run();
-		
-		String::Utf8Value toString(ret);
-		info("Script result: %s", *toString);
+		script->Run();
 		
 		delete [] text;
 		scriptsRun++;
 	}
 	
-//	V8::ContextDisposedNotification();
+	V8::ContextDisposedNotification();
 	
 	return (scriptsRun > 0);
 }
@@ -123,10 +113,13 @@ void JSManager::initIsolateGlobals()
 {
 	V8_OPEN_SCOPE();
 	
-	// Create persistent handles to strings that we're going to use but never
-	// expose directly to the user as modifable values
-	_globalName.Reset(isolate, V8_NEW_STRING("spacejunk"));
-	_logFunctionName.Reset(isolate, V8_NEW_STRING("log"));
+	// Make a new object template for global
+	Handle<ObjectTemplate> global = ObjectTemplate::New(isolate);
+	Local<ObjectTemplate> sj = ObjectTemplate::New(isolate);
+	sj->Set(V8_NEW_STRING("log"), FunctionTemplate::New(isolate, v8Log));
+	global->Set(V8_NEW_STRING("spacejunk"), sj);
+	
+	_globalTemplate.Reset(isolate, global);
 }
 
 Local<Value> JSManager::runScriptFile(const char *name)
@@ -148,23 +141,24 @@ Local<Value> JSManager::runScriptFile(const char *name)
 	return handleScope.Escape(ret);
 }
 
+Local<Context> JSManager::newContext()
+{
+	V8_OPEN_ESCAPABLE_SCOPE();
+	
+	// You have to make a scoped reference from the persistent one
+	Handle<ObjectTemplate> global =
+		Local<ObjectTemplate>::New(isolate, _globalTemplate);
+	
+	Local<Context> ctx = Context::New(isolate, NULL, global);
+	
+	return handleScope.Escape(ctx);
+}
+
 Local<Object> JSManager::getGlobalObject(Handle<Context>& context)
 {
 	V8_OPEN_ESCAPABLE_SCOPE();
-	
-	Local<String> str = Local<String>::New(isolate, _globalName);
+	Local<String> str = Local<String>::New(isolate, V8_NEW_STRING("spacejunk"));
 	return handleScope.Escape(context->Global()->Get(str)->ToObject());
 }
 
-Local<ObjectTemplate> JSManager::newGlobalTemplate()
-{
-	V8_OPEN_ESCAPABLE_SCOPE();
-	
-	Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
-	Local<ObjectTemplate> sj = ObjectTemplate::New(isolate);
-	
-	sj->Set(V8_NEW_STRING("log"), FunctionTemplate::New(isolate, v8Log));
-	global->Set(V8_NEW_STRING("spacejunk"), sj);
-	
-	return handleScope.Escape(global);
-}
+
