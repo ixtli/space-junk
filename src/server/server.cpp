@@ -230,9 +230,6 @@ void Server::awaitConnection(int listeningSocket)
 	OpenSession* currentSession = NULL;
 	OpenSession* _sessionHead = NULL;
 	
-	// Ignore SIG_PIPE on this thread.
-	signal(SIGPIPE, SIG_IGN);
-	
 	// When the application begins to shut down, this bit will get flipped
 	// and the thread will terminate
 	while (!_shouldTerminateThread)
@@ -354,6 +351,19 @@ void Server::awaitConnection(int listeningSocket)
 bool Server::init()
 {
 	info("Socket server initialization.");
+	
+	// Ignore SIG_PIPE on this thread.
+	signal(SIGPIPE, SIG_IGN);
+	
+	struct sigaction sa;
+	memset(&sa, 0, sizeof(sa));
+	
+	sa.sa_handler = SIG_IGN;
+	
+	if (-1 == sigaction(SIGPIPE, &sa, NULL))
+	{
+		perror("sigaction() failed");
+	}
 	
 	return true;
 }
