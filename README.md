@@ -25,6 +25,7 @@ setup
 1. `cd v8`
 2. `export CC=/path/to/clang`
 3. `export CXX=/path/to/clang++ -std=c++11 -stdlib=libc++`
+4. `export LINK="`which clang++` -std=c++11 -stdlib=libc++"`
 4. `export GYP_DEFINES="clang=1 mac_deployment_target=10.8"`
 5. `make dependencies && make native -j8 OUTDIR=../v8-build`
 
