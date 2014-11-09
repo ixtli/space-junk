@@ -115,8 +115,11 @@ void WebSocketSession::newData()
 	
 	if (_message.complete())
 	{
-		JSManager::getInstance()->pushScript(_message.message(),
-																				 _message.messageLength());
+		JSManager::getInstance()->pushScriptFromServer(_message.message(),
+																									 _message.messageLength(),
+																									 _fileDescriptor);
+		const char msg[] = "Got your work.";
+		_message.sendMessage(msg, 15);
 		
 		_message.clearMessage();
 	}

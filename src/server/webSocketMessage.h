@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__webSocketMessage__
 #define __SpaceJunk__webSocketMessage__
 
+#include <cstdint>
+
 class WebSocketMessage
 {
 public:
@@ -25,6 +27,8 @@ public:
 	inline bool complete() const { return _complete; };
 	
 	void clearMessage();
+	
+	bool sendMessage(const char *msg, size_t length) const;
 	
 private:
 	
@@ -53,13 +57,17 @@ private:
 	char* _message;
 	size_t _messageLength;
 	bool _complete;
-	unsigned int _closeStatusCode;
+	uint_fast16_t _closeStatusCode;
 	
 	ssize_t readBytes(size_t count, void* loc);
 	
 	void addToMessage(const char* msg, size_t len);
-	void sendClose();
-	void sendPong(const void* msg, size_t len);
+	bool sendClose();
+	bool sendPong(const void* msg, size_t len) const;
+	
+	static uint_fast16_t makePreamble(bool fin,
+																		bool mask, OpCodes op,
+																		uint_fast8_t size);
 };
 
 #endif /* defined(__SpaceJunk__webSocketMessage__) */

@@ -8,9 +8,10 @@
 
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <cstdint>
 
 #include "webSocketMessage.h"
+
+#include "randUtil.h"
 
 const char* const kOpCodeNames[] = {
 	"Continuation",
@@ -69,7 +70,7 @@ void WebSocketMessage::close()
 	sendClose();
 }
 
-void WebSocketMessage::sendPong(const void* msg, size_t len)
+bool WebSocketMessage::sendPong(const void* msg, size_t len) const
 {
 	/*
 	 A Pong frame sent in response to a Ping frame must have identical
@@ -85,7 +86,7 @@ void WebSocketMessage::sendPong(const void* msg, size_t len)
 	if (len > 125)
 	{
 		error("Can not send control frame > 125b");
-		return;
+		return false;
 	}
 	
 	uint_fast8_t message[2 + len];
@@ -100,24 +101,36 @@ void WebSocketMessage::sendPong(const void* msg, size_t len)
 	if (send(_fileDescriptor, message, 2 + len, 0) == -1)
 	{
 		error("send()");
+		return false;
 	}
+	
+	return true;
 }
 
-void WebSocketMessage::sendClose()
+bool WebSocketMessage::sendClose()
 {
 	/* (When sending a Close frame in response, the endpoint typically echos the
    status code it received.) */
 	
-	uint_fast8_t message[4];
+	uint_fast16_t message[2];
 	
-	message[0] = 0x88; // fin, opcode = close
-	message[1] = 0x2; // not masked, 2 bytes in length (status code)
-	*((uint_fast16_t*)(&message[2])) = HTONS(_closeStatusCode);
+	// Create the preamble (2 byte short)
+	message[0] = makePreamble(true, false, CONNECTION_CLOSED, 2);
 	
+	// Write the close status as a network byte order short
+	message[1] = _closeStatusCode;
+	
+	// Big endian
+	HTONS(message[1]);
+	
+	// Total is four bytes
 	if (send(_fileDescriptor, message, 4, 0) == -1)
 	{
 		error("send()");
+		return true;
 	}
+	
+	return false;
 }
 
 ssize_t WebSocketMessage::readBytes(size_t count, void *loc)
@@ -144,6 +157,8 @@ bool WebSocketMessage::read()
 	 Protocol frame map:
 	 http://tools.ietf.org/html/rfc6455#page-22
 	 
+	 "When encoded on the wire, the most significant bit is the leftmost"
+	 
 	  0                   1                   2                   3
 	  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 	 +-+-+-+-+-------+-+-------------+-------------------------------+
@@ -169,14 +184,27 @@ bool WebSocketMessage::read()
 	uint_fast16_t rawPreamble = 0;
 	if (!readBytes(2, &rawPreamble))
 		return false;
-
-	rawPreamble = HTONS(rawPreamble);
 	
-	unsigned int payloadLength = rawPreamble & 0x007F;
+	// In the above figure, the MOST SIGNIFICANT BIT is on the left. This means
+	// that 'fin' is supposed to be the 16th bit. To make sure this happens we
+	// need to make sure we're converting from network byte order (big) to host
+	// which, in the case of little-endian, will result in flipping the bytes.
+	NTOHS(rawPreamble);
+	
+	// Select the lower 7 bits of the message for payload length
+	uint_fast8_t payloadLength = rawPreamble & 0x007F;
+	
+	// Whether or not the message is masked (it should be) is determined by the
+	// bit in the 8th position.
 	bool masked = rawPreamble & 0x0080;
+	
+	// If this is to be the last message for this operation, the MSB will be on
 	_complete = rawPreamble & 0x8000;
+	
+	// The operation code is second most significant nybble.
 	unsigned int opCode = (rawPreamble >> 8) & 0x000F;
 	
+	// Might be useful information
 	info("%s frame", kOpCodeNames[opCode]);
 	
 	// Will eventually contain the total byte size of message payload
@@ -185,8 +213,8 @@ bool WebSocketMessage::read()
 	// preamble some magic to be done when determining the size of the message
 	if (payloadLength <= 125)
 	{
+		// "if 0-125 [bytes], that is the payload length"
 		totalPayloadLength = payloadLength;
-		
 	} else if (payloadLength == 126) {
 		
 		// the following 2 bytes interpreted as a	16-bit unsigned integer are the
@@ -198,7 +226,7 @@ bool WebSocketMessage::read()
 		
 		/* Multibyte length quantities are expressed in network byte order. */
 		totalPayloadLength = NTOHS(extraLen);
-		
+	
 	} else {
 		
 		// the following 8 bytes interpreted as a 64-bit unsigned integer (the
@@ -242,7 +270,7 @@ bool WebSocketMessage::read()
 			 */
 			uint_fast16_t closeStatusCode = 0;
 			readBytes(2, &closeStatusCode);
-			closeStatusCode = NTOHS(closeStatusCode);
+			NTOHS(closeStatusCode);
 			totalPayloadLength -= 2;
 		} else {
 			/* Status codes in the range 0-999 are not used. */
@@ -345,4 +373,101 @@ void WebSocketMessage::addToMessage(const char *msg, size_t len)
 	_messageLength = newLength;
 	_message = newMessage;
 }
+
+bool WebSocketMessage::sendMessage(const char *msg, size_t length) const
+{
+	// 2 byte header
+	size_t headerSize = 2;
+	
+	// The top 7 bytes of the preamble
+	uint_fast8_t payloadLength = 0;
+	
+	if (length < 126)
+	{
+		payloadLength = (uint_fast8_t)length;
+	} else if (length <= UINT_FAST16_MAX) {
+		// 126 is code for size described as a 16bit uint
+		payloadLength = 126;
+		headerSize += 2;
+	} else {
+		// 127 is code for size described as a 64bit uint
+		payloadLength = 127;
+		headerSize += 8;
+	}
+	
+	// The message itself
+	size_t totalMessageSize = headerSize + length;
+	char message[totalMessageSize];
+
+	// frame is 'finished' and unmasked
+	uint_fast16_t preamble = makePreamble(true, false, TEXT, payloadLength);
+	
+	// The first two bytes are the websocket preamble
+	*((uint_fast16_t*)&message) = preamble;
+	
+	// Set the size information after the header if necessary
+	if (length > 125 && length <= UINT_FAST16_MAX)
+	{
+		// Otherwise the already complex next line looks even worse
+		uint_fast16_t shortLength = (uint_fast16_t)length;
+		
+		// The SECOND 16 bits into the message is the size as a uint
+		uint_fast16_t* extendedSize = (uint_fast16_t*) &message[2];
+		*extendedSize = HTONS(shortLength);
+	} else if (length > UINT_FAST16_MAX) {
+		
+		// In this case, the 64 bits following the payload are a long uint
+		// that describe the payload length
+		uint_fast64_t* extendedSize = (uint_fast64_t*) &message[2];
+		*extendedSize = length;
+		
+		HTONLL(*extendedSize);
+	}
+
+	// Copy the message
+	memcpy(&message[headerSize], msg, length);
+	
+	// Send the actual message
+	if (send(_fileDescriptor, message, totalMessageSize, 0) == -1)
+	{
+		error("send()");
+		return false;
+	}
+	
+	return true;
+}
+
+uint_fast16_t WebSocketMessage::makePreamble(bool fin, bool mask, OpCodes op,
+																						 uint_fast8_t size)
+{
+	/*
+	 Remember that this diagram is big endian
+	 
+	  0                   1
+	  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
+	 +-+-+-+-+-------+-+-------------+
+	 |F|R|R|R| opcode|M| Payload len |
+	 |I|S|S|S|  (4)  |A|     (7)     |
+	 |N|V|V|V|       |S|             |
+	 | |1|2|3|       |K|             |
+	 +-+-+-+-+-------+-+-------------+
+	 
+	 */
+	
+	// Remember that the size can't have a bit flipped in the 128 place
+	uint_fast16_t ret = size > 127 ? 127 : size;
+
+	// Is this the last frame in this operation?
+	if (fin) ret |= 1 << 15;
+	
+	// Is the payload data masked? (server should not mask data being sent
+	// to the client.)
+	if (mask) ret |= 1 << 7;
+	
+	// Opcode
+	ret |= op << 8;
+	
+	return HTONS(ret);
+}
+
 

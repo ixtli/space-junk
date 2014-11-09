@@ -40,8 +40,8 @@ public:
 	
 	bool init();
 	void destroy();
-	bool pushScript(const char* script, size_t length);
-	bool processScriptQueue();
+	bool pushScriptFromServer(const char* script, size_t length, int fd);
+	unsigned int processScriptQueue();
 	
 private:
 	
@@ -56,8 +56,26 @@ private:
 	
 	Isolate* _isolate;
 	
+	typedef struct ServerWork
+	{
+		ServerWork(const char* s, size_t len, int f)
+		{
+			script = new char[len + 1];
+			memcpy(script, s, len);
+			fd = f;
+		}
+		
+		~ServerWork()
+		{
+			if (script) delete [] script;
+		}
+		
+		char* script;
+		int fd;
+	} ServerWork;
+	
 	/** The HTTP server thread pushes work here and we dequeue it */
-	RingBuffer<char*, WORK_QUEUE_SIZE> _serverWorkQueue;
+	RingBuffer<ServerWork*, WORK_QUEUE_SIZE> _serverWorkQueue;
 	
 	// Create objects that will be presented to every running script
 	void initIsolateGlobals();

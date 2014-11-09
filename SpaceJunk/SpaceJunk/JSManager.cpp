@@ -59,34 +59,33 @@ void JSManager::destroy()
 	_isolate = NULL;
 }
 
-bool JSManager::pushScript(const char *script, size_t length)
+bool JSManager::pushScriptFromServer(const char *script, size_t length, int fd)
 {
 	if (!length || !script)
 		return false;
 	
 	// We need to save the work for later
-	char* newWork = new char[length + 1];
-	memcpy(newWork, script, length + 1);
+	ServerWork* unit = new ServerWork(script, length, fd);
 	
 	// Push it to the stack
-	bool ret = _serverWorkQueue.push(newWork);
+	bool ret = _serverWorkQueue.push(unit);
 	
 	if (!ret)
 	{
-		delete [] newWork;
+		delete unit;
 	}
 	
 	return ret;
 }
 
-bool JSManager::processScriptQueue()
+unsigned int JSManager::processScriptQueue()
 {
 	V8_OPEN_SCOPE();
 
 	unsigned int scriptsRun = 0;
-	char* text = NULL;
+	ServerWork* unit = NULL;
 	
-	while (_serverWorkQueue.pop(text))
+	while (_serverWorkQueue.pop(unit))
 	{
 		HandleScope secondScope(isolate);
 		
@@ -96,17 +95,19 @@ bool JSManager::processScriptQueue()
 		// Enter the context so operations happen in it
 		Context::Scope context_scope(context);
 
-		Local<String> source = V8_NEW_STRING(text);
+		Local<String> source = V8_NEW_STRING(unit->script);
 		Local<Script> script = Script::Compile(source);
 		script->Run();
 		
-		delete [] text;
+		delete unit;
+		unit = NULL;
+		
 		scriptsRun++;
 	}
 	
 	V8::ContextDisposedNotification();
 	
-	return (scriptsRun > 0);
+	return scriptsRun;
 }
 
 void JSManager::initIsolateGlobals()
