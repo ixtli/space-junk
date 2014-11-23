@@ -12,6 +12,8 @@
 
 #include <locale>
 
+#include "uiManager.h"
+
 using namespace v8;
 
 JSManager JSManager::_instance;
@@ -70,6 +72,8 @@ bool JSManager::pushScriptFromServer(const char *script, size_t length, int fd)
 	// Push it to the stack
 	bool ret = _serverWorkQueue.push(unit);
 	
+	// If the queue is full it has not been added. The naive solution is to simply
+	// ignore this work unit by deleting it.
 	if (!ret)
 	{
 		delete unit;
@@ -110,6 +114,11 @@ unsigned int JSManager::processScriptQueue()
 	return scriptsRun;
 }
 
+inline void makeRandomThing(const v8::FunctionCallbackInfo<v8::Value> &args)
+{
+	UIManager::getInstance()->makeRandomRect();
+}
+
 void JSManager::initIsolateGlobals()
 {
 	V8_OPEN_SCOPE();
@@ -117,7 +126,10 @@ void JSManager::initIsolateGlobals()
 	// Make a new object template for global
 	Handle<ObjectTemplate> global = ObjectTemplate::New(isolate);
 	Local<ObjectTemplate> sj = ObjectTemplate::New(isolate);
+	
 	sj->Set(V8_NEW_STRING("log"), FunctionTemplate::New(isolate, v8Log));
+	sj->Set(V8_NEW_STRING("makeRect"), FunctionTemplate::New(isolate, makeRandomThing));
+	
 	global->Set(V8_NEW_STRING("spacejunk"), sj);
 	
 	_globalTemplate.Reset(isolate, global);

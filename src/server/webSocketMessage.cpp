@@ -13,31 +13,34 @@
 
 #include "randUtil.h"
 
-const char* const kOpCodeNames[] = {
-	"Continuation",
-	"Text",
-	"Binary",
-	"Non-control reserved 1",
-	"Non-control reserved 2",
-	"Non-control reserved 3",
-	"Non-control reserved 4",
-	"Non-control reserved 5",
-	"Close",
-	"Ping",
-	"Pong",
-	"Control reserved 1",
-	"Control reserved 2",
-	"Control reserved 3",
-	"Control reserved 4",
-	"Control reserved 5"
-};
+// This may be useful for debugging.
+
+//const char* const kOpCodeNames[] = {
+//	"Continuation",
+//	"Text",
+//	"Binary",
+//	"Non-control reserved 1",
+//	"Non-control reserved 2",
+//	"Non-control reserved 3",
+//	"Non-control reserved 4",
+//	"Non-control reserved 5",
+//	"Close",
+//	"Ping",
+//	"Pong",
+//	"Control reserved 1",
+//	"Control reserved 2",
+//	"Control reserved 3",
+//	"Control reserved 4",
+//	"Control reserved 5"
+//};
 
 WebSocketMessage::WebSocketMessage(int fileDescriptor) :
 
 _fileDescriptor(fileDescriptor),
 _message(NULL),
 _messageLength(0),
-_complete(false)
+_complete(false),
+_closeStatusCode(0)
 
 {}
 
@@ -234,10 +237,6 @@ bool WebSocketMessage::read()
 		/* Multibyte length quantities are expressed in network byte order. */
 		totalPayloadLength = NTOHL(extraLen);
 	}
-	
-	// Might be useful information
-	info("Recieved message %s frame of size %zub", kOpCodeNames[opCode],
-			 totalPayloadLength);
 	
 	// Enforce the standard. (Control frames are those with MSB = 1)
 	if (opCode >= 8)

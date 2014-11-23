@@ -26,12 +26,13 @@ public:
 	virtual void depth(uint32_t d) { _depth = d; };
 	virtual void update(sj_time_t dt);
 	
+	// Fun for debugging
+	void randomRect();
+	
 	UIColorRectElement* newElement();
 	void removeElement(UIColorRectElement* e);
 	
 private:
-	
-	void randomRect();
 	
 	RectLayer<UIColorRectElement, ColorVertex> _layer;
 	

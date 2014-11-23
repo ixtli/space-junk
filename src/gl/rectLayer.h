@@ -85,7 +85,7 @@ public:
 	{
 		if (_usedRects >= _maxRects)
 		{
-			warn("Pool is out of rects.");
+			warn("Pool is out of rects. Did you forget to initialize something?");
 			return NULL;
 		}
 		

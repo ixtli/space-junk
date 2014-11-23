@@ -36,6 +36,9 @@ void UIColorRectLayer::randomRect()
 {
 	UIColorRectElement* _r = _layer.newRect();
 	
+	// This can happen for any number of reasons
+	if (!_r) return;
+	
 	const Size2I bounds = Renderer::getInstance()->bounds();
 	
 	_r->width(RAND_UINT(50, 200));

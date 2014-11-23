@@ -16,6 +16,8 @@
 
 class UILayer;
 
+class UIColorRectLayer;
+
 /**
  Manages the user interface layer which is drawn on top of the scene
  */
@@ -33,6 +35,8 @@ public:
 	bool addLayer(UILayer* layer);
 	bool removeLayer(UILayer* const layer);
 	
+	void makeRandomRect();
+	
 	static void draw();
 	
 private:
@@ -41,6 +45,8 @@ private:
 	~UIManager();
 	
 	SimpleVector<UILayer*, true> _layers;
+	
+	UIColorRectLayer* _randomRectLayer;
 	
 	/** Singleton instance */
 	static UIManager _instance;

@@ -23,7 +23,8 @@
 // Use a custom namespace to obscure globals
 namespace SJRandomEngine
 {
-	static std::default_random_engine defaultRandomEngine(std::random_device{}());
+	static std::random_device rd;
+	static std::default_random_engine defaultRandomEngine(rd());
 	
 	template<typename T>
 	T getRandomBetween(T min, T max)

@@ -12,11 +12,14 @@
 
 #include "uiManager.h"
 
+#include "uiColorRectLayer.h"
+
 UIManager UIManager::_instance;
 
 UIManager::UIManager() :
 
-_layers()
+_layers(),
+_randomRectLayer(NULL)
 
 {}
 
@@ -34,7 +37,16 @@ bool UIManager::init()
 {
 	info("Initializing.");
 	
+	_randomRectLayer = new UIColorRectLayer();
+	_randomRectLayer->init(5);
+	addLayer(_randomRectLayer);
+	
 	return true;
+}
+
+void UIManager::makeRandomRect()
+{
+	_randomRectLayer->randomRect();
 }
 
 /** Render UI using OpenGL */

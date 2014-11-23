@@ -28,6 +28,8 @@ public:
 	// Inline render functions
 	inline void draw() const
 	{
+		if (!usedQuads()) return;
+		
 		ShaderManager::use(_shaderFormat);
 		_buffer.draw();
 		GetGLError();

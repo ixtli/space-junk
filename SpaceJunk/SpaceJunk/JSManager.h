@@ -56,12 +56,15 @@ private:
 	
 	Isolate* _isolate;
 	
-	typedef struct ServerWork
+	class ServerWork
 	{
+	public:
+		
 		ServerWork(const char* s, size_t len, int f)
 		{
 			script = new char[len + 1];
 			memcpy(script, s, len);
+			script[len] = '\0';
 			fd = f;
 		}
 		
@@ -71,8 +74,9 @@ private:
 		}
 		
 		char* script;
+		
 		int fd;
-	} ServerWork;
+	};
 	
 	/** The HTTP server thread pushes work here and we dequeue it */
 	RingBuffer<ServerWork*, WORK_QUEUE_SIZE> _serverWorkQueue;
