@@ -63,11 +63,10 @@ private:
 	
 	void addToMessage(const char* msg, size_t len);
 	bool sendClose();
-	bool sendPong(const void* msg, size_t len) const;
+	bool sendPong(const void* msg, uint_fast8_t len) const;
 	
-	static uint_fast16_t makePreamble(bool fin,
-																		bool mask, OpCodes op,
-																		uint_fast8_t size);
+	static void makePreamble(unsigned char *buffer,
+													 bool fin, bool mask, OpCodes op, uint_fast8_t size);
 };
 
 #endif /* defined(__SpaceJunk__webSocketMessage__) */

@@ -70,7 +70,7 @@ void WebSocketMessage::close()
 	sendClose();
 }
 
-bool WebSocketMessage::sendPong(const void* msg, size_t len) const
+bool WebSocketMessage::sendPong(const void* msg, uint_fast8_t len) const
 {
 	/*
 	 A Pong frame sent in response to a Ping frame must have identical
@@ -89,10 +89,9 @@ bool WebSocketMessage::sendPong(const void* msg, size_t len) const
 		return false;
 	}
 	
-	uint_fast8_t message[2 + len];
+	unsigned char message[2 + len];
 	
-	message[0] = 0x89; // fin, opcode = pong
-	message[1] = (len & 0x7F); // size of payload AND that it is NOT masked
+	makePreamble(message, true, false, PONG, len);
 	
 	// Copy the message
 	memcpy(message + 2, msg, len);
@@ -112,13 +111,12 @@ bool WebSocketMessage::sendClose()
 	/* (When sending a Close frame in response, the endpoint typically echos the
    status code it received.) */
 	
-	uint_fast16_t message[2];
+	unsigned char message[4];
 	
-	// Create the preamble (2 byte short)
-	message[0] = makePreamble(true, false, CONNECTION_CLOSED, 2);
+	makePreamble(message, true, false, CONNECTION_CLOSED, 2);
 	
 	// Write the close status as a network byte order short
-	message[1] = _closeStatusCode;
+	*((uint_fast16_t*)&message[2]) = _closeStatusCode;
 	
 	// Big endian
 	HTONS(message[1]);
@@ -204,9 +202,6 @@ bool WebSocketMessage::read()
 	// The operation code is second most significant nybble.
 	unsigned int opCode = (rawPreamble >> 8) & 0x000F;
 	
-	// Might be useful information
-	info("%s frame", kOpCodeNames[opCode]);
-	
 	// Will eventually contain the total byte size of message payload
 	size_t totalPayloadLength = 0;
 	
@@ -239,6 +234,10 @@ bool WebSocketMessage::read()
 		/* Multibyte length quantities are expressed in network byte order. */
 		totalPayloadLength = NTOHL(extraLen);
 	}
+	
+	// Might be useful information
+	info("Recieved message %s frame of size %zub", kOpCodeNames[opCode],
+			 totalPayloadLength);
 	
 	// Enforce the standard. (Control frames are those with MSB = 1)
 	if (opCode >= 8)
@@ -286,10 +285,6 @@ bool WebSocketMessage::read()
 				sendPong(NULL, 0);
 				break;
 				
-			case CONNECTION_CLOSED:
-				sendClose();
-				return false;
-				
 			default:
 				break;
 		}
@@ -312,9 +307,14 @@ bool WebSocketMessage::read()
 	
 	if (opCode == PING)
 	{
-		// We pass it pre-decode because the spec says that the Pong must have
-		// the exact application data it received in the ping
-		sendPong((char*)msg, totalPayloadLength);
+		if (totalPayloadLength >= 127)
+		{
+			warn("Attempt to send control frame with len > 126");
+		} else {
+			// We pass it pre-decode because the spec says that the Pong must have
+			// the exact application data it received in the ping
+			sendPong((char*)msg, (uint_fast8_t)totalPayloadLength);
+		}
 	}
 	
 	// Only try to unmask the data if the field is marked
@@ -397,13 +397,10 @@ bool WebSocketMessage::sendMessage(const char *msg, size_t length) const
 	
 	// The message itself
 	size_t totalMessageSize = headerSize + length;
-	char message[totalMessageSize];
+	unsigned char message[64];
 
 	// frame is 'finished' and unmasked
-	uint_fast16_t preamble = makePreamble(true, false, TEXT, payloadLength);
-	
-	// The first two bytes are the websocket preamble
-	*((uint_fast16_t*)&message) = preamble;
+	makePreamble(message, true, false, TEXT, payloadLength);
 	
 	// Set the size information after the header if necessary
 	if (length > 125 && length <= UINT_FAST16_MAX)
@@ -437,8 +434,9 @@ bool WebSocketMessage::sendMessage(const char *msg, size_t length) const
 	return true;
 }
 
-uint_fast16_t WebSocketMessage::makePreamble(bool fin, bool mask, OpCodes op,
-																						 uint_fast8_t size)
+void WebSocketMessage::makePreamble(unsigned char *buffer,
+																		bool fin, bool mask, OpCodes op,
+																		uint_fast8_t size)
 {
 	/*
 	 Remember that this diagram is big endian
@@ -454,20 +452,18 @@ uint_fast16_t WebSocketMessage::makePreamble(bool fin, bool mask, OpCodes op,
 	 
 	 */
 	
-	// Remember that the size can't have a bit flipped in the 128 place
-	uint_fast16_t ret = size > 127 ? 127 : size;
-
+	// Opcode
+	buffer[0] = op;
+	
 	// Is this the last frame in this operation?
-	if (fin) ret |= 1 << 15;
+	if (fin) buffer[0] |= 1 << 7;
+	
+	// Remember that the size can't have a bit flipped in the 128 place
+	buffer[1] = size > 127 ? 127 : size;
 	
 	// Is the payload data masked? (server should not mask data being sent
 	// to the client.)
-	if (mask) ret |= 1 << 7;
-	
-	// Opcode
-	ret |= op << 8;
-	
-	return HTONS(ret);
+	if (mask) buffer[1] |= 1 << 7;
 }
 
 

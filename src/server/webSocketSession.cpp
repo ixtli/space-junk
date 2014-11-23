@@ -177,7 +177,7 @@ void WebSocketSession::sendHandshake()
 	
 	size_t responseLength = strlen(response);
 	
-	if (send(_fileDescriptor, response, responseLength + 1, 0) == -1)
+	if (send(_fileDescriptor, response, responseLength, 0) == -1)
 	{
 		error("send().");
 	}
