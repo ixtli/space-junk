@@ -13,6 +13,8 @@
 
 #include "chronoUtil.h"
 
+class ImageData;
+
 class Environment
 {
 public:
@@ -28,6 +30,8 @@ public:
 	static void render();
 	static void viewResize(unsigned w, unsigned h);
 	static unsigned int defaultFBO();
+	
+	static ImageData* newImageDataForFile(const char* name);
 	
 private:
 	

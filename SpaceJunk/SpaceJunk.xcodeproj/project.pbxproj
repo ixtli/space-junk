@@ -29,6 +29,7 @@
 		A317B53017B82B9A00416550 /* cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52E17B82B9A00416550 /* cube.cpp */; };
 		A33EA91C18690B01008D1334 /* config.js in Resources */ = {isa = PBXBuildFile; fileRef = A33EA91A18690A8B008D1334 /* config.js */; };
 		A33EA92218690CAA008D1334 /* configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A33EA92018690CAA008D1334 /* configuration.cpp */; };
+		A34104071A22B28700F5ABC4 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A34104051A22B28700F5ABC4 /* texture.cpp */; };
 		A37E6E6819133E370011096E /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A37E6E6619133E370011096E /* server.cpp */; };
 		A3A356EF183895EF00F87091 /* Easer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A356ED183895EF00F87091 /* Easer.cpp */; };
 		A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */; };
@@ -69,6 +70,7 @@
 		A3EA78301826EDB50052CFC9 /* libicudata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA782E1826EDB50052CFC9 /* libicudata.a */; };
 		A3EA78311826EDB50052CFC9 /* libicuuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA782F1826EDB50052CFC9 /* libicuuc.a */; };
 		A3EA787C1827557A0052CFC9 /* JSManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3EA787A1827557A0052CFC9 /* JSManager.cpp */; };
+		A3F1E3A91A22DA750016F352 /* imageData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3F1E3A71A22DA750016F352 /* imageData.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,8 @@
 		A33EA91A18690A8B008D1334 /* config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = config.js; path = ../../script/config.js; sourceTree = "<group>"; };
 		A33EA92018690CAA008D1334 /* configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = configuration.cpp; sourceTree = "<group>"; };
 		A33EA92118690CAA008D1334 /* configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
+		A34104051A22B28700F5ABC4 /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
+		A34104061A22B28700F5ABC4 /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
 		A37D709C18617D5F001652B0 /* randUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = randUtil.h; path = ../../src/engine/randUtil.h; sourceTree = "<group>"; };
 		A37D709E18650F7A001652B0 /* simpleVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = simpleVector.h; sourceTree = "<group>"; };
 		A37E6E6619133E370011096E /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server.cpp; path = ../../src/server/server.cpp; sourceTree = "<group>"; };
@@ -203,6 +207,8 @@
 		A3EA782F1826EDB50052CFC9 /* libicuuc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicuuc.a; path = "../v8-build/native/libicuuc.a"; sourceTree = "<group>"; };
 		A3EA787A1827557A0052CFC9 /* JSManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSManager.cpp; sourceTree = "<group>"; };
 		A3EA787B1827557A0052CFC9 /* JSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSManager.h; sourceTree = "<group>"; };
+		A3F1E3A71A22DA750016F352 /* imageData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imageData.cpp; sourceTree = "<group>"; };
+		A3F1E3A81A22DA750016F352 /* imageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageData.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,6 +429,8 @@
 				A3A86D5C17B2127700426EEC /* engine.cpp */,
 				A3A86D5D17B2127700426EEC /* engine.h */,
 				A3A86D5E17B2127700426EEC /* environment.h */,
+				A3F1E3A71A22DA750016F352 /* imageData.cpp */,
+				A3F1E3A81A22DA750016F352 /* imageData.h */,
 				A3A86D5F17B2127700426EEC /* environment-osx.mm */,
 				A3A86D6417B2127700426EEC /* version.h */,
 				A30F4EAB191C5DF900C8E742 /* crypto.cpp */,
@@ -474,6 +482,8 @@
 				A3A86D7E17B2127700426EEC /* triangleBuffer.h */,
 				A3A86D7F17B2127700426EEC /* vertexFormats.cpp */,
 				A3A86D8017B2127700426EEC /* vertexFormats.h */,
+				A34104051A22B28700F5ABC4 /* texture.cpp */,
+				A34104061A22B28700F5ABC4 /* texture.h */,
 			);
 			name = gl;
 			path = ../../src/gl;
@@ -628,6 +638,8 @@
 				A3D6DD1B1916BE4E00FC106E /* webSocketMessage.cpp in Sources */,
 				A3A356EF183895EF00F87091 /* Easer.cpp in Sources */,
 				A3C3BC4F17BC62C800FBF633 /* camera.cpp in Sources */,
+				A3F1E3A91A22DA750016F352 /* imageData.cpp in Sources */,
+				A34104071A22B28700F5ABC4 /* texture.cpp in Sources */,
 				A33EA92218690CAA008D1334 /* configuration.cpp in Sources */,
 				A30F4EB4191DA5F400C8E742 /* httpRequestHeaders.cpp in Sources */,
 				A317B52D17B8288B00416550 /* cubeManager.cpp in Sources */,
