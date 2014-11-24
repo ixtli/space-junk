@@ -27,6 +27,7 @@
 		A317B52117B2237000416550 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51F17B2235E00416550 /* solidQuad.vsh */; };
 		A317B52D17B8288B00416550 /* cubeManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52B17B8286F00416550 /* cubeManager.cpp */; };
 		A317B53017B82B9A00416550 /* cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52E17B82B9A00416550 /* cube.cpp */; };
+		A33218091A22F24C007210AE /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A33218081A22F24C007210AE /* libpng16.a */; };
 		A33EA91C18690B01008D1334 /* config.js in Resources */ = {isa = PBXBuildFile; fileRef = A33EA91A18690A8B008D1334 /* config.js */; };
 		A33EA92218690CAA008D1334 /* configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A33EA92018690CAA008D1334 /* configuration.cpp */; };
 		A34104071A22B28700F5ABC4 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A34104051A22B28700F5ABC4 /* texture.cpp */; };
@@ -119,6 +120,7 @@
 		A317B52C17B8286F00416550 /* cubeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cubeManager.h; path = ../../src/cubes/cubeManager.h; sourceTree = "<group>"; };
 		A317B52E17B82B9A00416550 /* cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cube.cpp; path = ../../src/cubes/cube.cpp; sourceTree = "<group>"; };
 		A317B52F17B82B9A00416550 /* cube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cube.h; path = ../../src/cubes/cube.h; sourceTree = "<group>"; };
+		A33218081A22F24C007210AE /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = "../libpng-build/lib/libpng16.a"; sourceTree = "<group>"; };
 		A33EA91A18690A8B008D1334 /* config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = config.js; path = ../../script/config.js; sourceTree = "<group>"; };
 		A33EA92018690CAA008D1334 /* configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = configuration.cpp; sourceTree = "<group>"; };
 		A33EA92118690CAA008D1334 /* configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A33218091A22F24C007210AE /* libpng16.a in Frameworks */,
 				A30F4EB1191C621E00C8E742 /* libcrypto.dylib in Frameworks */,
 				A30F4EAF191C621800C8E742 /* libssl.dylib in Frameworks */,
 				A3A86DAB17B214F400426EEC /* libpthread.dylib in Frameworks */,
@@ -278,6 +281,7 @@
 		A315CD7117B2041B00DEA6D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A33218081A22F24C007210AE /* libpng16.a */,
 				A30F4EB0191C621E00C8E742 /* libcrypto.dylib */,
 				A30F4EAE191C621700C8E742 /* libssl.dylib */,
 				A3EA782E1826EDB50052CFC9 /* libicudata.a */,
@@ -830,7 +834,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../v8-build/native",
-					"/Users/ixtli/Public/project/cpp/space-junk/v8-build/native",
+					"$(SRCROOT)/../libpng-build/lib"
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -866,7 +870,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../v8-build/native",
-					"/Users/ixtli/Public/project/cpp/space-junk/v8-build/native",
+					"$(SRCROOT)/../libpng-build/lib"
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";
