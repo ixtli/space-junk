@@ -31,8 +31,6 @@ public:
 	static void viewResize(unsigned w, unsigned h);
 	static unsigned int defaultFBO();
 	
-	static ImageData* newImageDataForFile(const char* name);
-	
 private:
 	
 	Environment();

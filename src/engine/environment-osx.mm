@@ -13,6 +13,8 @@
 #include "imageData.h"
 #include "environment.h"
 
+#include "png.h"
+
 Environment Environment::_instance;
 
 Environment::Environment()
@@ -80,18 +82,6 @@ char* Environment::newPathForFile(const char *name, const char *type)
 	if (!ret) return NULL;
 	strcpy(ret, [p cStringUsingEncoding:NSASCIIStringEncoding]);
 	return ret;
-}
-
-ImageData* Environment::newImageDataForFile(const char *name)
-{
-	NSString* n = [[NSString alloc] initWithCString:name
-																				 encoding:NSASCIIStringEncoding];
-	
-	NSString* p = [[NSBundle mainBundle] pathForResource:n ofType:@"png"];
-	
-	NSImage *img = [[NSImage alloc] initWithContentsOfFile:p];
-
-	return NULL;
 }
 
 unsigned int Environment::defaultFBO()
