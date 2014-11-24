@@ -9,8 +9,8 @@
 #ifndef __SpaceJunk__pngUtil__
 #define __SpaceJunk__pngUtil__
 
-#include <stdio.h>
-
 void logPNGVersionInfo();
+
+void readPNGInit(const char* fileName);
 
 #endif /* defined(__SpaceJunk__pngUtil__) */

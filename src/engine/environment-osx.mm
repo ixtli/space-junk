@@ -13,8 +13,6 @@
 #include "imageData.h"
 #include "environment.h"
 
-#include "png.h"
-
 Environment Environment::_instance;
 
 Environment::Environment()

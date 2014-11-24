@@ -42,6 +42,7 @@ void Engine::threadMain()
 	info("%s v%u.%u", V_DISPLAY_NAME, V_MAJOR, V_MINOR);
 	
 	logPNGVersionInfo();
+	readPNGInit("grass");
 	
 	// Start components
 	initComponents();

@@ -6,3 +6,5 @@ echo "Building libpng with target $TARGET"
 ./configure --prefix=$TARGET
 make check
 make install
+
+#to uninstall, make clean && make uninstall
