@@ -12,5 +12,5 @@
 
 void logPNGVersionInfo()
 {
-	info("libpng %s, using  %s.", PNG_LIBPNG_VER_STRING, png_libpng_ver);
+	info("libpng %s, using %s.", PNG_LIBPNG_VER_STRING, png_libpng_ver);
 }

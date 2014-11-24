@@ -27,10 +27,11 @@
 		A317B52117B2237000416550 /* solidQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A317B51F17B2235E00416550 /* solidQuad.vsh */; };
 		A317B52D17B8288B00416550 /* cubeManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52B17B8286F00416550 /* cubeManager.cpp */; };
 		A317B53017B82B9A00416550 /* cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A317B52E17B82B9A00416550 /* cube.cpp */; };
-		A33218091A22F24C007210AE /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A33218081A22F24C007210AE /* libpng16.a */; };
 		A33EA91C18690B01008D1334 /* config.js in Resources */ = {isa = PBXBuildFile; fileRef = A33EA91A18690A8B008D1334 /* config.js */; };
 		A33EA92218690CAA008D1334 /* configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A33EA92018690CAA008D1334 /* configuration.cpp */; };
 		A34104071A22B28700F5ABC4 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A34104051A22B28700F5ABC4 /* texture.cpp */; };
+		A37B735D1A22F92C0043E37F /* pngUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A37B735B1A22F92C0043E37F /* pngUtil.cpp */; };
+		A37B735E1A22F96D0043E37F /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A33218081A22F24C007210AE /* libpng16.a */; };
 		A37E6E6819133E370011096E /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A37E6E6619133E370011096E /* server.cpp */; };
 		A3A356EF183895EF00F87091 /* Easer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A356ED183895EF00F87091 /* Easer.cpp */; };
 		A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D4C17B210C300426EEC /* SpaceJunkGLView.mm */; };
@@ -126,6 +127,12 @@
 		A33EA92118690CAA008D1334 /* configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
 		A34104051A22B28700F5ABC4 /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
 		A34104061A22B28700F5ABC4 /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
+		A37B73551A22F8ED0043E37F /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = "../libpng-build/lib/libpng16.16.dylib"; sourceTree = "<group>"; };
+		A37B73581A22F9080043E37F /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = png.h; path = "../libpng-build/include/libpng16/png.h"; sourceTree = "<group>"; };
+		A37B73591A22F9080043E37F /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngconf.h; path = "../libpng-build/include/libpng16/pngconf.h"; sourceTree = "<group>"; };
+		A37B735A1A22F9080043E37F /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pnglibconf.h; path = "../libpng-build/include/libpng16/pnglibconf.h"; sourceTree = "<group>"; };
+		A37B735B1A22F92C0043E37F /* pngUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pngUtil.cpp; path = ../../src/util/pngUtil.cpp; sourceTree = "<group>"; };
+		A37B735C1A22F92C0043E37F /* pngUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngUtil.h; path = ../../src/util/pngUtil.h; sourceTree = "<group>"; };
 		A37D709C18617D5F001652B0 /* randUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = randUtil.h; path = ../../src/engine/randUtil.h; sourceTree = "<group>"; };
 		A37D709E18650F7A001652B0 /* simpleVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = simpleVector.h; sourceTree = "<group>"; };
 		A37E6E6619133E370011096E /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server.cpp; path = ../../src/server/server.cpp; sourceTree = "<group>"; };
@@ -218,7 +225,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A33218091A22F24C007210AE /* libpng16.a in Frameworks */,
+				A37B735E1A22F96D0043E37F /* libpng16.a in Frameworks */,
 				A30F4EB1191C621E00C8E742 /* libcrypto.dylib in Frameworks */,
 				A30F4EAF191C621800C8E742 /* libssl.dylib in Frameworks */,
 				A3A86DAB17B214F400426EEC /* libpthread.dylib in Frameworks */,
@@ -260,6 +267,7 @@
 		A315CD6617B2041B00DEA6D2 = {
 			isa = PBXGroup;
 			children = (
+				A37B73571A22F8FC0043E37F /* libpng */,
 				A30F4EA6191B05CE00C8E742 /* src */,
 				A3D7802917B86EB600C173D4 /* glm */,
 				A315CD7817B2041B00DEA6D2 /* SpaceJunk */,
@@ -281,6 +289,7 @@
 		A315CD7117B2041B00DEA6D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A37B73551A22F8ED0043E37F /* libpng16.16.dylib */,
 				A33218081A22F24C007210AE /* libpng16.a */,
 				A30F4EB0191C621E00C8E742 /* libcrypto.dylib */,
 				A30F4EAE191C621700C8E742 /* libssl.dylib */,
@@ -395,9 +404,21 @@
 			name = script;
 			sourceTree = "<group>";
 		};
+		A37B73571A22F8FC0043E37F /* libpng */ = {
+			isa = PBXGroup;
+			children = (
+				A37B73581A22F9080043E37F /* png.h */,
+				A37B73591A22F9080043E37F /* pngconf.h */,
+				A37B735A1A22F9080043E37F /* pnglibconf.h */,
+			);
+			name = libpng;
+			sourceTree = "<group>";
+		};
 		A37D709D18650F20001652B0 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				A37B735B1A22F92C0043E37F /* pngUtil.cpp */,
+				A37B735C1A22F92C0043E37F /* pngUtil.h */,
 				A3A86D6017B2127700426EEC /* file.cpp */,
 				A3A86D6117B2127700426EEC /* file.h */,
 				A3A86D6217B2127700426EEC /* log.c */,
@@ -640,6 +661,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3D6DD1B1916BE4E00FC106E /* webSocketMessage.cpp in Sources */,
+				A37B735D1A22F92C0043E37F /* pngUtil.cpp in Sources */,
 				A3A356EF183895EF00F87091 /* Easer.cpp in Sources */,
 				A3C3BC4F17BC62C800FBF633 /* camera.cpp in Sources */,
 				A3F1E3A91A22DA750016F352 /* imageData.cpp in Sources */,
@@ -834,7 +856,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../v8-build/native",
-					"$(SRCROOT)/../libpng-build/lib"
+					"$(SRCROOT)/../libpng-build/lib",
+					"/Users/ixtli/Public/Project/cpp/space-junk/libpng-build/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -870,7 +893,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../v8-build/native",
-					"$(SRCROOT)/../libpng-build/lib"
+					"$(SRCROOT)/../libpng-build/lib",
+					"/Users/ixtli/Public/Project/cpp/space-junk/libpng-build/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";

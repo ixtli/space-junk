@@ -16,6 +16,8 @@
 #include "version.h"
 #include "configuration.h"
 
+#include "pngUtil.h"
+
 #include "engine.h"
 
 std::thread* engineThread = NULL;
@@ -38,6 +40,8 @@ Engine::~Engine()
 void Engine::threadMain()
 {
 	info("%s v%u.%u", V_DISPLAY_NAME, V_MAJOR, V_MINOR);
+	
+	logPNGVersionInfo();
 	
 	// Start components
 	initComponents();

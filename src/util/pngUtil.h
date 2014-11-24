@@ -11,6 +11,6 @@
 
 #include <stdio.h>
 
-static void logPNGVersionInfo();
+void logPNGVersionInfo();
 
 #endif /* defined(__SpaceJunk__pngUtil__) */
