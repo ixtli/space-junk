@@ -21,6 +21,13 @@ setup
 + `git submodule init && git submodule update`
 
 
+## build libpng
+1. Download libPNG 1.6.15 [from SourceForge](http://sourceforge.net/projects/libpng/files/libpng16/1.6.15/libpng-1.6.15.tar.xz/download)
+2. Decompress the .tar.xz and move the resulting directory (it should be called libpng-1.6.15) to the root level of this repo.
+3. `mkdir -p libpng-build && cd libpng-1.6.15`
+4. `./configure --prefix=$(pwd)"/../libpng-build/" && make check && make install`
+
+
 ## build v8
 1. `cd v8`
 2. `export CC=/path/to/clang`
