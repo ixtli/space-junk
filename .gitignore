@@ -11,5 +11,5 @@
 tags
 *.swp
 
-/libpng-build
+/libpng*
 /v8-build
