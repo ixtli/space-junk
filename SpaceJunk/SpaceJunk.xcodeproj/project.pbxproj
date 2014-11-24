@@ -857,7 +857,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../v8-build/native",
 					"$(SRCROOT)/../libpng-build/lib",
-					"/Users/ixtli/Public/Project/cpp/space-junk/libpng-build/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -894,7 +893,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../v8-build/native",
 					"$(SRCROOT)/../libpng-build/lib",
-					"/Users/ixtli/Public/Project/cpp/space-junk/libpng-build/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";
