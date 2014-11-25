@@ -31,12 +31,16 @@ public:
 	static void viewResize(unsigned w, unsigned h);
 	static unsigned int defaultFBO();
 	
+	float gamma();
+	
 private:
 	
 	Environment();
 	~Environment();
 	
 	static Environment _instance;
+	
+	double _currentGamma;
 	
 };
 

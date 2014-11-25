@@ -36,6 +36,16 @@ bool Environment::init()
 	info("%s v%s %s @%s", name.sysname, name.release, name.machine, name.nodename);
 	info("%s", name.version);
 	
+	char *p = NULL;
+	if ((p = getenv("SCREEN_GAMMA")) != NULL)
+	{
+		_currentGamma = atof(p);
+	} else {
+		_currentGamma = 2.2;
+	}
+	
+	info("Gamma: %f", _currentGamma);
+	
 	if (!Renderer::getInstance()->init())
 		return false;
 	
