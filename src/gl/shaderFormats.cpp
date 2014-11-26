@@ -21,5 +21,11 @@ const ShaderMetadata ShaderFormats::definitions[NUM_SHADER_TYPES] =
 		.attrCount = 2,
 		.attrs = VertexFormats::solidQuadList,
 		.projection = ISOMETRIC_PROJECTION
+	},
+	{
+		.name = "texturedQuad",
+		.attrCount = 2,
+		.attrs = VertexFormats::texturedQuadList,
+		.projection = ORTHOGRAPHIC_PROJECTION
 	}
 };

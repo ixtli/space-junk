@@ -29,6 +29,7 @@ _colorType(0),
 _interlaceMethod(0),
 _compressionMethod(0),
 _filterMethod(0),
+_channels(0),
 _data(NULL)
 
 {}
@@ -107,25 +108,17 @@ bool PNGWrapper::init(const char *fileName)
 	{
 		goto CLEANUP;
 	}
-	
-	info("Image metrics: %u x %u , depth: %i", _width, _height, _bitDepth);
 
+	// Apparntly the PNG file format has the ability to specify a background
 	if (!readBackground(png_ptr, info_ptr))
 	{
 		goto CLEANUP;
-	}
-	
-	if (_hasBackground)
-	{
-		info("background = (%u, %u, %u)", _bgRed, _bgGreen, _bgBlue);
 	}
 	
 	if (!readData(current, png_ptr, info_ptr))
 	{
 		goto CLEANUP;
 	}
-	
-	info("Read data.");
 	
 	success = true;
 	
@@ -186,9 +179,56 @@ bool PNGWrapper::readData(FILE *f, png_structp png_ptr, png_infop info_ptr)
 		return false;
 	}
 	
+	// Handle multiple types of color
+	if (_colorType == PNG_COLOR_TYPE_PALETTE)
+		png_set_palette_to_rgb(png_ptr);
+	if (_colorType == PNG_COLOR_TYPE_GRAY && _bitDepth < 8)
+		png_set_expand_gray_1_2_4_to_8(png_ptr);
+	if (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
+		png_set_tRNS_to_alpha(png_ptr);
+
+	// It's possible to provide 16 and 24-bit rgb, but we want to ignore these
+	// possibilities, and the library give us a way to do that.
+	if (_bitDepth == 16)
+		png_set_strip_16(png_ptr);
+	if (_colorType == PNG_COLOR_TYPE_GRAY ||
+			_colorType == PNG_COLOR_TYPE_GRAY_ALPHA)
+		png_set_gray_to_rgb(png_ptr);
 	
-	// TODO
+	// Retrieve system gamma
+	double screen_gamma = Environment::getInstance()->gamma();
 	
+	// According to various tutorials, this is the least harmful way to
+	// potentially override the gamma and to be nice of the image tries to
+	// set its own gamma settings.
+	double gamma;
+	if (png_get_gAMA(png_ptr, info_ptr, &gamma))
+		png_set_gamma(png_ptr, screen_gamma, gamma);
+	
+	png_bytep row_pointers[_height];
+	
+	png_read_update_info(png_ptr, info_ptr);
+	
+	size_t rowbytes = png_get_rowbytes(png_ptr, info_ptr);
+	_channels = (unsigned int)png_get_channels(png_ptr, info_ptr);
+	
+	_data = new unsigned char[rowbytes * _height];
+	
+	if (!_data)
+	{
+		error("Couldn't allocate memory.");
+		return false;
+	}
+	
+	// The file is read by pointers to rows of data which allows for some
+	// convenience, should you do things like interlacing or whatever. But for
+	// now, they're just pointers to our big contiguous chunk we just allocated
+	for (size_t i = 0; i < _height; i++)
+	{
+		row_pointers[i] = _data + i * rowbytes;
+	}
+	
+	png_read_image(png_ptr, row_pointers);
 	
 	png_read_end(png_ptr, NULL);
 	

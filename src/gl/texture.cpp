@@ -12,9 +12,7 @@ Texture::Texture() :
 
 _id(0)
 
-{
-	glGenTextures(1, &_id);
-}
+{ }
 
 
 Texture::~Texture()
@@ -28,12 +26,15 @@ Texture::~Texture()
 
 bool Texture::init(GLsizei width, GLsizei height, const void* data)
 {
+	glGenTextures(1, &_id);
+	
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, width);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	bind();
 	
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+							 GL_UNSIGNED_BYTE, data);
 	
 	GetGLError();
 	

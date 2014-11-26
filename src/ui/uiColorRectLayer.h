@@ -12,6 +12,7 @@
 #include "rectLayer.h"
 #include "uiLayer.h"
 #include "uiColorRectElement.h"
+#include "shaderManager.h"
 
 class UIColorRectLayer : public UILayer
 {
@@ -22,7 +23,12 @@ public:
 	
 	virtual bool init(uint32_t initialCount);
 	
-	virtual void draw() const { _layer.draw(); };
+	virtual void draw() const
+	{
+		ShaderManager::use(kShader);
+		_layer.draw();
+	}
+
 	virtual void depth(uint32_t d) { _depth = d; };
 	virtual void update(sj_time_t dt);
 	
@@ -33,6 +39,8 @@ public:
 	void removeElement(UIColorRectElement* e);
 	
 private:
+	
+	const ShaderFormat kShader = SOLID_QUAD_SHADER;
 	
 	RectLayer<UIColorRectElement, ColorVertex> _layer;
 	

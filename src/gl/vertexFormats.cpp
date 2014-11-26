@@ -21,7 +21,7 @@ constexpr const VertexAttribute VertexFormats::attributes[NUM_VERTEX_ATTRIBUTES]
 	
 	// TEXTURED_ATTRIB
 	{
-		.size = 2,	// s, t
+		.size = 2,	// u, v
 		.type = GL_FLOAT,
 		.normalize = GL_FALSE,
 		.name = "v_texCoord",
@@ -42,4 +42,10 @@ constexpr const VertexAttribute* const VertexFormats::solidQuadList[] =
 {
 	&attributes[POSITION_ATTRIB],
 	&attributes[COLORED_ATTRIB]
+};
+
+constexpr const VertexAttribute* const VertexFormats::texturedQuadList[] =
+{
+	&attributes[POSITION_ATTRIB],
+	&attributes[TEXTURED_ATTRIB]
 };

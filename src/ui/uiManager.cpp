@@ -12,7 +12,7 @@
 
 #include "uiManager.h"
 
-#include "uiColorRectLayer.h"
+#include "uiTexturedRectLayer.h"
 
 UIManager UIManager::_instance;
 
@@ -37,7 +37,7 @@ bool UIManager::init()
 {
 	info("Initializing.");
 	
-	_randomRectLayer = new UIColorRectLayer();
+	_randomRectLayer = new UITexturedRectLayer();
 	_randomRectLayer->init(5);
 	addLayer(_randomRectLayer);
 	

@@ -50,6 +50,7 @@ public:
 	
 	static const VertexAttribute attributes[NUM_VERTEX_ATTRIBUTES];
 	static const VertexAttribute* const solidQuadList[];
+	static const VertexAttribute* const texturedQuadList[];
 	
 };
 

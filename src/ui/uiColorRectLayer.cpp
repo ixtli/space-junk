@@ -23,7 +23,7 @@ UIColorRectLayer::~UIColorRectLayer()
 
 bool UIColorRectLayer::init(uint32_t initialCount)
 {
-	if (!_layer.init(_depth, initialCount, SOLID_QUAD_SHADER))
+	if (!_layer.init(_depth, initialCount, kShader))
 	{
 		error("couldn't init layer.");
 		return false;

@@ -24,6 +24,12 @@ public:
 	
 	bool init(const char* fileName);
 	
+	inline uint_fast32_t width() const { return _width; };
+	inline uint_fast32_t height() const { return _height; };
+	inline unsigned int channels() const { return _channels; };
+	inline int bitDepth() const { return _bitDepth; };
+	inline const unsigned char* data() const { return _data; };
+	
 private:
 	
 	bool readMeta(FILE* f, png_structp png_ptr, png_infop info_ptr);
@@ -45,9 +51,10 @@ private:
 	int _compressionMethod;
 	int _filterMethod;
 	
+	unsigned int _channels;
+	
 	// Contents
 	unsigned char* _data;
-	
 };
 
 void readPNGInit(const char* fileName);

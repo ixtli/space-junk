@@ -58,6 +58,9 @@
 		A3A86DA617B2144F00426EEC /* uiLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8817B2127700426EEC /* uiLayer.cpp */; };
 		A3A86DA717B2144F00426EEC /* uiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A86D8A17B2127700426EEC /* uiManager.cpp */; };
 		A3A86DAB17B214F400426EEC /* libpthread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A86DAA17B214F400426EEC /* libpthread.dylib */; };
+		A3A9D95A1A2598D30051ED8E /* uiTexturedRectLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3A9D9581A2598D30051ED8E /* uiTexturedRectLayer.cpp */; };
+		A3A9D95D1A25A0760051ED8E /* texturedQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A3A9D95B1A25A0760051ED8E /* texturedQuad.fsh */; };
+		A3A9D95E1A25A0760051ED8E /* texturedQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A3A9D95C1A25A0760051ED8E /* texturedQuad.vsh */; };
 		A3B16AE6186DF32B0093EBD5 /* jsConfigLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3B16AE4186DF32B0093EBD5 /* jsConfigLoader.cpp */; };
 		A3C3BC4F17BC62C800FBF633 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3C3BC4D17BC62C800FBF633 /* camera.cpp */; };
 		A3D6DD1B1916BE4E00FC106E /* webSocketMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3D6DD191916BE4E00FC106E /* webSocketMessage.cpp */; };
@@ -73,6 +76,7 @@
 		A3EA78301826EDB50052CFC9 /* libicudata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA782E1826EDB50052CFC9 /* libicudata.a */; };
 		A3EA78311826EDB50052CFC9 /* libicuuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EA782F1826EDB50052CFC9 /* libicuuc.a */; };
 		A3EA787C1827557A0052CFC9 /* JSManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3EA787A1827557A0052CFC9 /* JSManager.cpp */; };
+		A3F177A81A25949700879641 /* uiTexturedRectElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3F177A61A25949700879641 /* uiTexturedRectElement.cpp */; };
 		A3F1E3A91A22DA750016F352 /* imageData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3F1E3A71A22DA750016F352 /* imageData.cpp */; };
 /* End PBXBuildFile section */
 
@@ -190,6 +194,10 @@
 		A3A86D9217B2139C00426EEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A3A86DAA17B214F400426EEC /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = usr/lib/libpthread.dylib; sourceTree = SDKROOT; };
 		A3A86DAC17B2152F00426EEC /* v8.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = v8.h; path = ../../v8/include/v8.h; sourceTree = "<group>"; };
+		A3A9D9581A2598D30051ED8E /* uiTexturedRectLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uiTexturedRectLayer.cpp; sourceTree = "<group>"; };
+		A3A9D9591A2598D30051ED8E /* uiTexturedRectLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uiTexturedRectLayer.h; sourceTree = "<group>"; };
+		A3A9D95B1A25A0760051ED8E /* texturedQuad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texturedQuad.fsh; sourceTree = "<group>"; };
+		A3A9D95C1A25A0760051ED8E /* texturedQuad.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texturedQuad.vsh; sourceTree = "<group>"; };
 		A3B16AE3186DF0190093EBD5 /* v8Util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = v8Util.h; path = ../../src/js/v8Util.h; sourceTree = "<group>"; };
 		A3B16AE4186DF32B0093EBD5 /* jsConfigLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jsConfigLoader.cpp; path = ../../src/js/jsConfigLoader.cpp; sourceTree = "<group>"; };
 		A3B16AE5186DF32B0093EBD5 /* jsConfigLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jsConfigLoader.h; path = ../../src/js/jsConfigLoader.h; sourceTree = "<group>"; };
@@ -217,6 +225,8 @@
 		A3EA782F1826EDB50052CFC9 /* libicuuc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicuuc.a; path = "../v8-build/native/libicuuc.a"; sourceTree = "<group>"; };
 		A3EA787A1827557A0052CFC9 /* JSManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSManager.cpp; sourceTree = "<group>"; };
 		A3EA787B1827557A0052CFC9 /* JSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSManager.h; sourceTree = "<group>"; };
+		A3F177A61A25949700879641 /* uiTexturedRectElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uiTexturedRectElement.cpp; sourceTree = "<group>"; };
+		A3F177A71A25949700879641 /* uiTexturedRectElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uiTexturedRectElement.h; sourceTree = "<group>"; };
 		A3F1E3A71A22DA750016F352 /* imageData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imageData.cpp; sourceTree = "<group>"; };
 		A3F1E3A81A22DA750016F352 /* imageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageData.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -387,6 +397,8 @@
 		A317B51D17B2235E00416550 /* shader */ = {
 			isa = PBXGroup;
 			children = (
+				A3A9D95B1A25A0760051ED8E /* texturedQuad.fsh */,
+				A3A9D95C1A25A0760051ED8E /* texturedQuad.vsh */,
 				A317B51E17B2235E00416550 /* solidQuad.fsh */,
 				A317B51F17B2235E00416550 /* solidQuad.vsh */,
 				A3D7802017B8679200C173D4 /* solidCube.fsh */,
@@ -537,6 +549,10 @@
 				A3A86D8917B2127700426EEC /* uiLayer.h */,
 				A3A86D8A17B2127700426EEC /* uiManager.cpp */,
 				A3A86D8B17B2127700426EEC /* uiManager.h */,
+				A3F177A61A25949700879641 /* uiTexturedRectElement.cpp */,
+				A3F177A71A25949700879641 /* uiTexturedRectElement.h */,
+				A3A9D9581A2598D30051ED8E /* uiTexturedRectLayer.cpp */,
+				A3A9D9591A2598D30051ED8E /* uiTexturedRectLayer.h */,
 			);
 			name = ui;
 			path = ../../src/ui;
@@ -646,7 +662,9 @@
 				A37B73621A22FDF40043E37F /* grass.png in Resources */,
 				A33EA91C18690B01008D1334 /* config.js in Resources */,
 				A3D7806D17B8A15600C173D4 /* MainMenu.xib in Resources */,
+				A3A9D95E1A25A0760051ED8E /* texturedQuad.vsh in Resources */,
 				A3D7802217B867CA00C173D4 /* solidCube.fsh in Resources */,
+				A3A9D95D1A25A0760051ED8E /* texturedQuad.fsh in Resources */,
 				A3D7802317B867CA00C173D4 /* solidCube.vsh in Resources */,
 				A317B52017B2237000416550 /* solidQuad.fsh in Resources */,
 				A317B52117B2237000416550 /* solidQuad.vsh in Resources */,
@@ -702,12 +720,14 @@
 				A3A86DA217B2144F00426EEC /* vertexFormats.cpp in Sources */,
 				A3A86DA317B2144F00426EEC /* uiColorRectLayer.cpp in Sources */,
 				A3A86DA417B2144F00426EEC /* uiColorRectElement.cpp in Sources */,
+				A3A9D95A1A2598D30051ED8E /* uiTexturedRectLayer.cpp in Sources */,
 				A30F4EAD191C5DF900C8E742 /* crypto.cpp in Sources */,
 				A3A86DA517B2144F00426EEC /* uiElement.cpp in Sources */,
 				A3E66A46192AF0AA00413F0F /* jsContext.cpp in Sources */,
 				A3A86DA617B2144F00426EEC /* uiLayer.cpp in Sources */,
 				A3EA787C1827557A0052CFC9 /* JSManager.cpp in Sources */,
 				A3A86DA717B2144F00426EEC /* uiManager.cpp in Sources */,
+				A3F177A81A25949700879641 /* uiTexturedRectElement.cpp in Sources */,
 				A3E46B2C191DB922005A6738 /* stringUtil.cpp in Sources */,
 				A3A86D4D17B2124800426EEC /* SpaceJunkGLView.mm in Sources */,
 				A315CD7F17B2041B00DEA6D2 /* main.m in Sources */,

@@ -16,7 +16,7 @@
 
 class UILayer;
 
-class UIColorRectLayer;
+class UITexturedRectLayer;
 
 /**
  Manages the user interface layer which is drawn on top of the scene
@@ -46,7 +46,7 @@ private:
 	
 	SimpleVector<UILayer*, true> _layers;
 	
-	UIColorRectLayer* _randomRectLayer;
+	UITexturedRectLayer* _randomRectLayer;
 	
 	/** Singleton instance */
 	static UIManager _instance;

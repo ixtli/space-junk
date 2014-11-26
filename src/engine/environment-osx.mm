@@ -98,6 +98,11 @@ unsigned int Environment::defaultFBO()
 	return 0;
 }
 
+double Environment::gamma()
+{
+	return _currentGamma;
+}
+
 void Environment::updateRenderables()
 {
 	Renderer::getInstance()->update(TIME_SINCE_EPOCH());

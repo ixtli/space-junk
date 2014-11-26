@@ -30,7 +30,6 @@ public:
 	{
 		if (!usedQuads()) return;
 		
-		ShaderManager::use(_shaderFormat);
 		_buffer.draw();
 		GetGLError();
 	};

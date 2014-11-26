@@ -17,6 +17,10 @@
 
 #include "CubeManager.h"
 
+#include "pngUtil.h"
+#include "texture.h"
+Texture t;
+
 CubeManager CubeManager::_instance;
 
 CubeManager::CubeManager() :
@@ -127,6 +131,9 @@ void CubeManager::draw()
 	ShaderManager::use(_instance._shaderFormat);
 	ShaderManager::getInstance()->setMVP(_instance._camera.getMatrix(),
 																			 _instance._shaderFormat);
+	
+	t.bind();
+
 	_instance._buffer.draw();
 	GetGLError();
 }

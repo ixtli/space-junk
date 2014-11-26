@@ -31,7 +31,7 @@ public:
 	static void viewResize(unsigned w, unsigned h);
 	static unsigned int defaultFBO();
 	
-	float gamma();
+	double gamma();
 	
 private:
 	
