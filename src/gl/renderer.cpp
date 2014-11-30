@@ -10,6 +10,7 @@
 
 #include "environment.h"
 #include "shaderManager.h"
+#include "textureManager.h"
 #include "uiManager.h"
 #include "cubeManager.h"
 
@@ -49,6 +50,10 @@ bool Renderer::init()
 	
 	// Initialize Shaders
 	if (!ShaderManager::getInstance()->init())
+		return false;
+	
+	// Initialize texture manager
+	if (!TextureManager::getInstance()->init())
 		return false;
 	
 	// Initialize renderable components

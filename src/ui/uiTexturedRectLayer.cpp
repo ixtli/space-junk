@@ -34,6 +34,9 @@ bool UITexturedRectLayer::init(uint32_t initialCount)
 	PNGWrapper png;
 	png.init("grass");
 	_texture.init(png.width(), png.height(), png.data());
+	ShaderManager::use(kShader);
+	GLint _unitLoc = ShaderManager::getUniformLocation("sampler");
+	glUniform1i(_unitLoc, _texture.textureUnit());
 	
 	return true;
 }
@@ -46,9 +49,8 @@ void UITexturedRectLayer::randomRect()
 	
 	const Size2I bounds = Renderer::getInstance()->bounds();
 	
-	_r->width(RAND_UINT(50, 200));
-	_r->width(RAND_UINT(50, 200));
-	_r->height(RAND_UINT(50, 200));
+	_r->width(32);
+	_r->height(32);
 	_r->top(RAND_UINT(0, bounds.height));
 	_r->left(RAND_UINT(0, bounds.width));
 	

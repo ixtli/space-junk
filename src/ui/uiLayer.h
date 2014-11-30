@@ -20,7 +20,7 @@ public:
 	virtual ~UILayer() {};
 	
 	virtual bool init(uint32_t initialCount) = 0;
-	virtual void draw() const = 0;
+	virtual void draw() = 0;
 	virtual void update(sj_time_t dt) = 0;
 	virtual void depth(uint32_t d) = 0;
 	

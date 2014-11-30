@@ -6,11 +6,14 @@
 //  Copyright (c) 2014 ixtli. All rights reserved.
 //
 
+#include "textureManager.h"
+
 #include "texture.h"
 
 Texture::Texture() :
 
-_id(0)
+_id(0),
+_textureUnit(-1)
 
 { }
 
@@ -31,7 +34,10 @@ bool Texture::init(GLsizei width, GLsizei height, const void* data)
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, width);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
-	bind();
+	if (!TextureManager::bind(this))
+	{
+		error("failed to bind texture on init.");
+	}
 	
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 							 GL_UNSIGNED_BYTE, data);

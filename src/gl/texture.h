@@ -20,11 +20,25 @@ public:
 	
 	bool init(GLsizei width, GLsizei height, const void* data);
 
-	inline void bind() const { glBindTexture(GL_TEXTURE_2D, _id); };
+	inline void bind(GLint location)
+	{
+		glActiveTexture(GL_TEXTURE0 + location);
+		glBindTexture(GL_TEXTURE_2D, _id);
+		_textureUnit = location;
+	};
+	
+	// Get the texture unit that this _id is bound to
+	inline GLint textureUnit() const { return _textureUnit; };
+	
+	// Signify that this texture is not bound to any texture unit
+	// N.B.: This may not be true, but is used in management of texture
+	// image units by the Texture Manager
+	inline void clear() { _textureUnit = -1; };
 	
 private:
 	
-	unsigned _id;
+	GLuint _id;
+	GLint _textureUnit;
 	
 };
 

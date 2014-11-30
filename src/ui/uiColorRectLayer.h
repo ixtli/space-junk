@@ -23,7 +23,7 @@ public:
 	
 	virtual bool init(uint32_t initialCount);
 	
-	virtual void draw() const
+	virtual void draw()
 	{
 		ShaderManager::use(kShader);
 		_layer.draw();

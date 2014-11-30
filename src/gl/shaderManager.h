@@ -23,12 +23,18 @@ public:
 		if (_currentProgramID == type) return;
 		glUseProgram(_instance._shaders[type].id());
 		_currentProgramID = type;
+		return;
 	};
 	
 	inline void setMVP(const glm::mat4 &mvp, ShaderFormat s)
 	{
 		use(s);
 		glUniformMatrix4fv(_shaders[s].mvpLoc(), 1, GL_FALSE, glm::value_ptr(mvp));
+	}
+	
+	inline static GLuint getUniformLocation(const char* name)
+	{
+		return _instance._shaders[_currentProgramID].getUniformLocation(name);
 	}
 	
 	void applyProjectionMVP(const glm::mat4 &mvp, ProjectionStyle style);

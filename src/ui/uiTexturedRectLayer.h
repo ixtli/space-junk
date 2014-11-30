@@ -14,7 +14,7 @@
 #include "uiTexturedRectElement.h"
 #include "shaderManager.h"
 
-#include "texture.h"
+#include "textureManager.h"
 
 class UITexturedRectLayer : public UILayer
 {
@@ -32,13 +32,18 @@ public:
 	UITexturedRectElement* newElement();
 	void removeElement(UITexturedRectElement* e);
 
-	virtual void draw() const {
+	virtual void draw()
+	{
+		if (!_layer.used()) return;
 		
 		ShaderManager::use(kShader);
 		
-		glActiveTexture(GL_TEXTURE0);
-		_texture.bind();
-		
+		if (TextureManager::bind(&_texture))
+		{
+			// Texture unit has changed, inform the shader
+			GLint _unitLoc = ShaderManager::getUniformLocation("sampler");
+			glUniform1i(_unitLoc, _texture.textureUnit());
+		}
 		
 		_layer.draw();
 	};
