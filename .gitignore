@@ -13,3 +13,4 @@ tags
 
 /libpng*
 /v8-build
+.ctags
