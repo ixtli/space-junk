@@ -39,7 +39,7 @@ bool Texture::init(GLsizei width, GLsizei height, const void* data)
 		error("failed to bind texture on init.");
 	}
 	
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
 							 GL_UNSIGNED_BYTE, data);
 	
 	GetGLError();

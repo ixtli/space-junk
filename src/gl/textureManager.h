@@ -61,6 +61,7 @@ private:
 	~TextureManager();
 	
 	GLint _textureUnits;
+	GLint _maxTextureSize;
 	GLint _unitsUsed;
 	size_t _evictions;
 	

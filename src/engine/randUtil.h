@@ -24,7 +24,7 @@
 namespace SJRandomEngine
 {
 	static std::random_device rd;
-	static std::default_random_engine defaultRandomEngine(rd());
+	static std::mt19937 defaultRandomEngine(rd());
 	
 	template<typename T>
 	T getRandomBetween(T min, T max)

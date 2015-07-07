@@ -132,7 +132,7 @@ void CubeManager::draw()
 	ShaderManager::getInstance()->setMVP(_instance._camera.getMatrix(),
 																			 _instance._shaderFormat);
 	
-	t.bind();
+	t.bind(0);
 
 	_instance._buffer.draw();
 	GetGLError();

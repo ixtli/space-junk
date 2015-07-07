@@ -10,11 +10,16 @@
 
 #include "uiTexturedRectLayer.h"
 
+#include "environment.h"
 #include "pngUtil.h"
 
 UITexturedRectLayer::UITexturedRectLayer() :
 
-_layer()
+_layer(),
+_texture(),
+_stringTexture(),
+_stringHeight(0),
+_samplerLocation(-1)
 
 {}
 
@@ -30,13 +35,23 @@ bool UITexturedRectLayer::init(uint32_t initialCount)
 		error("Couldn't init layer.");
 		return false;
 	}
-	
+
+	ShaderManager::use(kShader);
 	PNGWrapper png;
 	png.init("grass");
 	_texture.init(png.width(), png.height(), png.data());
-	ShaderManager::use(kShader);
-	GLint _unitLoc = ShaderManager::getUniformLocation("sampler");
-	glUniform1i(_unitLoc, _texture.textureUnit());
+	_samplerLocation = ShaderManager::getUniformLocation("sampler");
+	
+	// Init texture for string
+	const char* tmp = "This is a string that i'd like to use to test rendering.";
+	constexpr float width = 300.0f;
+	_stringHeight = Environment::getHeightOfStringWithWidth(tmp, width);
+	_stringHeight = ceilf(_stringHeight) + 20;
+	
+	unsigned char* buff = new unsigned char[(size_t)(width * _stringHeight) * 4];
+	Environment::renderString(tmp, buff, width, _stringHeight);
+	_stringTexture.init((GLsizei)width, (GLsizei)_stringHeight, buff);
+	delete [] buff;
 	
 	return true;
 }
@@ -54,9 +69,29 @@ void UITexturedRectLayer::randomRect()
 	_r->top(RAND_UINT(0, bounds.height));
 	_r->left(RAND_UINT(0, bounds.width));
 	
+	float texSize = 1.0f;
+	
 	_r->uv(0, 0);
-	_r->textureHeight(1.0f);
-	_r->textureWidth(1.0f);
+	_r->textureHeight(texSize);
+	_r->textureWidth(texSize);
+	
+	showText();
+}
+
+void UITexturedRectLayer::showText()
+{
+	UITexturedRectElement* _r = _layer.newRect();
+	
+	if (!_r) return;
+	
+	_r->height((GLint)_stringHeight);
+	_r->width(300);
+	_r->top(25);
+	_r->left(25);
+	_r->uv(0, 0);
+	constexpr float texSize = 1.0f;
+	_r->textureHeight(texSize);
+	_r->textureWidth(texSize);
 }
 
 void UITexturedRectLayer::update(sj_time_t dt)

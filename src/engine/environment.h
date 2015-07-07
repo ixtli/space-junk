@@ -31,6 +31,9 @@ public:
 	static void viewResize(unsigned w, unsigned h);
 	static unsigned int defaultFBO();
 	
+	static float getHeightOfStringWithWidth(const char* str, float width);
+	static void renderString(const char* str, unsigned char* buffer, float w, float h);
+	
 	double gamma();
 	
 private:

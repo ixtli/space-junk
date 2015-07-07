@@ -13,6 +13,7 @@ TextureManager TextureManager::_instance;
 TextureManager::TextureManager() :
 
 _textureUnits(0),
+_maxTextureSize(0),
 _unitsUsed(0),
 _evictions(0),
 _textureUnitQueue()
@@ -28,6 +29,6 @@ bool TextureManager::init()
 {
 	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &_textureUnits);
 	info("Texture units available: %i", _textureUnits);
-	
+
 	return true;
 }

@@ -28,6 +28,7 @@ public:
 	virtual void update(sj_time_t dt);
 	
 	void randomRect();
+	void showText();
 	
 	UITexturedRectElement* newElement();
 	void removeElement(UITexturedRectElement* e);
@@ -38,12 +39,10 @@ public:
 		
 		ShaderManager::use(kShader);
 		
-		if (TextureManager::bind(&_texture))
-		{
-			// Texture unit has changed, inform the shader
-			GLint _unitLoc = ShaderManager::getUniformLocation("sampler");
-			glUniform1i(_unitLoc, _texture.textureUnit());
-		}
+		TextureManager::bind(&_texture);
+		TextureManager::bind(&_stringTexture);
+		
+		glUniform1i(_samplerLocation, _stringTexture.textureUnit());
 		
 		_layer.draw();
 	};
@@ -56,6 +55,9 @@ private:
 	const ShaderFormat kShader = TEXTURED_QUAD_SHADER;
 	
 	Texture _texture;
+	Texture _stringTexture;
+	GLfloat _stringHeight;
+	GLint _samplerLocation;
 	
 };
 

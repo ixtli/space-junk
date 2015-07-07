@@ -92,6 +92,62 @@ char* Environment::newPathForFile(const char *name, const char *type)
 	return ret;
 }
 
+float Environment::getHeightOfStringWithWidth(const char* str, float width)
+{
+	NSFont *font = [NSFont fontWithName:@"Helvetica" size:18.0];
+	NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+												 font, NSFontAttributeName,
+												 [NSNumber numberWithFloat:1.0], NSBaselineOffsetAttributeName,
+												 [NSColor whiteColor], NSForegroundColorAttributeName,
+												 nil];
+	
+	NSString *s = [NSString stringWithUTF8String:str];
+	NSSize sz = NSMakeSize((CGFloat)width, CGFLOAT_MAX);
+	NSRect r = [s boundingRectWithSize:sz options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs];
+	
+	return (float)r.size.height;
+}
+
+void Environment::renderString(const char* str, unsigned char* buffer, float w,
+															 float h)
+{
+	NSFont *font = [NSFont fontWithName:@"Helvetica" size:18.0];
+	NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+												 font, NSFontAttributeName,
+												 [NSNumber numberWithFloat:1.0], NSBaselineOffsetAttributeName,
+												 [NSColor whiteColor], NSForegroundColorAttributeName,
+												 nil];
+	
+	NSRect rect = NSMakeRect(0, 0, w, h);
+	
+	NSInteger width = (NSInteger)w;
+	NSInteger height = (NSInteger)h;
+	
+	NSBitmapImageRep *r = [[NSBitmapImageRep alloc]
+												 initWithBitmapDataPlanes:&buffer
+												 pixelsWide:width
+												 pixelsHigh:height
+												 bitsPerSample:8
+												 samplesPerPixel:4
+												 hasAlpha:YES
+												 isPlanar:NO
+												 colorSpaceName:NSDeviceRGBColorSpace
+												 bitmapFormat:0
+												 bytesPerRow:width * 4
+												 bitsPerPixel:8 * 4];
+	
+	NSGraphicsContext *c = [NSGraphicsContext graphicsContextWithBitmapImageRep:r];
+	
+	[NSGraphicsContext saveGraphicsState];
+	[NSGraphicsContext setCurrentContext:c];
+	
+	NSString* s = [NSString stringWithUTF8String:str];
+	[s drawInRect:rect withAttributes:attrs];
+	
+	[NSGraphicsContext restoreGraphicsState];
+}
+
+
 unsigned int Environment::defaultFBO()
 {
 	// Use zero for the default FBO. N.B.: Not appropriate for iOS
