@@ -9,8 +9,8 @@
 #ifndef __SpaceJunk__Easer__
 #define __SpaceJunk__Easer__
 
-#include "chronoUtil.h"
-#include "easing.h"
+#include "../util/chronoUtil.h"
+#include "./easing.h"
 
 template <class T>
 class Easer

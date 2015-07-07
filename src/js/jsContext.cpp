@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 ixtli. All rights reserved.
 //
 
-#include "jsContext.h"
+#include "./jsContext.h"
 
 JSContext::JSContext() :
 

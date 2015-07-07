@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__file__
 #define __SpaceJunk__file__
 
+#include <stddef.h>
+
 class File
 {
 public:

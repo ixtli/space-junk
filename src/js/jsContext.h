@@ -9,7 +9,7 @@
 #ifndef __SpaceJunk__jsContext__
 #define __SpaceJunk__jsContext__
 
-#include "v8util.h"
+#include "./v8util.h"
 
 class JSContext
 {

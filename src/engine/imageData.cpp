@@ -12,7 +12,7 @@ ImageData::ImageData(unsigned w, unsigned h) :
 
 _width(w),
 _height(h),
-_data(NULL)
+_data(nullptr)
 
 {}
 
@@ -21,7 +21,7 @@ ImageData::~ImageData()
 	if (_data)
 	{
 		delete [] _data;
-		_data = NULL;
+		_data = nullptr;
 	}
 }
 
@@ -29,5 +29,5 @@ bool ImageData::init()
 {
 	_data = new unsigned char[_width * _height];
 	
-	return (_data != NULL);
+	return (_data != nullptr);
 }

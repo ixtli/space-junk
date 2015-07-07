@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "configuration.h"
+#include "./configuration.h"
 
 Configuration Configuration::_instance;
 

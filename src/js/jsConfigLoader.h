@@ -9,7 +9,7 @@
 #ifndef __SpaceJunk__jsConfigLoader__
 #define __SpaceJunk__jsConfigLoader__
 
-#include "v8Util.h"
+#include "./v8Util.h"
 
 class JSConfigLoader
 {

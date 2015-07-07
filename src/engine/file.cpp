@@ -9,8 +9,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "environment.h"
-#include "file.h"
+#include "./environment.h"
+#include "./file.h"
 
 File::File() : _path(NULL), _contents(NULL), _length(0), _loaded(false)
 {}

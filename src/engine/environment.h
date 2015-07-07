@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 
-#include "chronoUtil.h"
+#include "../util/chronoUtil.h"
 
 class ImageData;
 

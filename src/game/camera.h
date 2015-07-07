@@ -9,8 +9,8 @@
 #ifndef __SpaceJunk__camera__
 #define __SpaceJunk__camera__
 
-#include "chronoUtil.h"
-#include "geometry.h"
+#include "../util/chronoUtil.h"
+#include "../gl/geometry.h"
 
 class Camera
 {

@@ -9,6 +9,8 @@
 #ifndef __SpaceJunk__crypto__
 #define __SpaceJunk__crypto__
 
+#include <stddef.h>
+
 bool SHA1String(const unsigned char* input, size_t len, unsigned char* output);
 void base64Encode(const unsigned char* input, int len, char* outBuffer);
 

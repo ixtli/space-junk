@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 ixtli. All rights reserved.
 //
 
-#include "crypto.h"
+#include "./crypto.h"
 
 #include <math.h>
 #include <openssl/sha.h>

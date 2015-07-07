@@ -7,9 +7,9 @@
 //
 
 
-#include "easing.h"
-#include "renderer.h"
-#include "camera.h"
+#include "../engine/easing.h"
+#include "../gl/renderer.h"
+#include "./camera.h"
 
 Camera::Camera() :
 

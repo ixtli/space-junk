@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "JSManager.h"
-#include "file.h"
-#include "jsConfigLoader.h"
-
 #include <locale>
 
-#include "uiManager.h"
+#include "./JSManager.h"
+#include "../engine/file.h"
+#include "./jsConfigLoader.h"
+
+#include "../ui/uiManager.h"
 
 using namespace v8;
 

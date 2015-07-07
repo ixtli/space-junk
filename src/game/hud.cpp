@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "uiManager.h"
+#include "../ui/uiManager.h"
 
-#include "hud.h"
+#include "./hud.h"
 
 HUD::HUD()
 

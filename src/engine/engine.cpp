@@ -10,13 +10,14 @@
 #include <chrono>
 #include <functional>
 
-#include "JSManager.h"
-#include "server.h"
-#include "environment.h"
-#include "version.h"
-#include "configuration.h"
+#include "../js/JSManager.h"
+#include "../server/server.h"
+#include "./environment.h"
+#include "./version.h"
+#include "./configuration.h"
+#include "./log.h"
 
-#include "engine.h"
+#include "./engine.h"
 
 std::thread* engineThread = NULL;
 

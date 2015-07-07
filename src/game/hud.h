@@ -9,9 +9,9 @@
 #ifndef __SpaceJunk__hud__
 #define __SpaceJunk__hud__
 
-#include "uiColorRectLayer.h"
+#include "../ui/uiColorRectLayer.h"
 
-#include "Easer.h"
+#include "../engine/Easer.h"
 
 class HUD
 {

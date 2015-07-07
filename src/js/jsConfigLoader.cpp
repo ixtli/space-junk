@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 ixtli. All rights reserved.
 //
 
-#include "file.h"
-#include "configuration.h"
-#include "jsConfigLoader.h"
-#include "JSManager.h"
+#include "../engine/file.h"
+#include "../engine/configuration.h"
+#include "./jsConfigLoader.h"
+#include "./JSManager.h"
 
 #include <wchar.h>
 #include <locale>

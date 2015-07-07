@@ -8,10 +8,11 @@
 
 #include <sys/utsname.h>
 
-#include "renderer.h"
-#include "engine.h"
-#include "imageData.h"
-#include "environment.h"
+#include "../gl/renderer.h"
+#include "./engine.h"
+#include "./imageData.h"
+#include "./environment.h"
+#include "./log.h"
 
 Environment Environment::_instance;
 

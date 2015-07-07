@@ -9,10 +9,10 @@
 #ifndef __SpaceJunk__JSManager__
 #define __SpaceJunk__JSManager__
 
-#include "v8Util.h"
-#include "ringBuffer.h"
+#include "./v8Util.h"
+#include "../engine/ringBuffer.h"
 
-#include "jsContext.h"
+#include "./jsContext.h"
 
 using namespace v8;
 

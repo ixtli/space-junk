@@ -22,7 +22,7 @@ public:
 	// Denote capacity without actually using memory. Remember that our Full/Empty
 	// mode is to _always keep one slot open_! It simplifies a lot of the code so
 	// it's probably always best to keep T small.
-	enum { CAPACITY = Q_SIZE + 1 };
+	static const size_t CAPACITY = Q_SIZE + 1;
 	
 	RingBuffer() : _tail(0), _head(0) {};
 	~RingBuffer() {};
