@@ -13,4 +13,7 @@ tags
 
 /libpng*
 /v8-build
+/v8
+.gclient
+.gclient_entries
 .ctags
